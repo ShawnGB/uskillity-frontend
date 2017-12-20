@@ -13,10 +13,17 @@ class RegisterForm extends Component {
       error: {
         message: ''
       }
-    }
+    };
+    this.onChange = this.onChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  signUp() {
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  handleSubmit(e){
+    e.preventDefault();
     console.log('signup state', this.state);
   }
 
@@ -29,7 +36,7 @@ class RegisterForm extends Component {
             className='form-control'
             type='email'
             placeholder='email'
-            onChange={e => this.setState({email: e.target.value})}
+            onChange={this.onChange}
             style={{ margin: '5px'}}
           />
           <input
@@ -63,7 +70,7 @@ class RegisterForm extends Component {
           <button
             className='btn btn-primary'
             type='button'
-            onClick={() => this.signUp()}
+            onClick={this.handleSubmit}
           >
             Register
           </button>
