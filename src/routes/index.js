@@ -5,6 +5,7 @@ import Home from '../components/home/Home';
 import About from '../components/about/About';
 import Login from '../components/login/Login';
 import Register from '../components/register/Register';
+import Coursers from '../components/courses/Courses';
 
 export default () => (
   <Router>
