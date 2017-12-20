@@ -35,6 +35,7 @@ class RegisterForm extends Component {
           <input
             className='form-control'
             type='email'
+            name='email'
             placeholder='email'
             onChange={this.onChange}
             style={{ margin: '5px'}}
@@ -42,29 +43,33 @@ class RegisterForm extends Component {
           <input
             className='form-control'
             type='text'
+            name='name'
             placeholder='name'
-            onChange={e => this.setState({name: e.target.value})}
+            onChange={this.onChange}
             style={{ margin: '5px'}}
           />
           <input
             className='form-control'
             type='text'
+            name='surname'
             placeholder='surname'
-            onChange={e => this.setState({surname: e.target.value})}
+            onChange={this.onChange}
             style={{ margin: '5px'}}
           />
           <input
             className='form-control'
             type='date'
+            name='dateOfBirth'
             placeholder='surname'
-            onChange={e => this.setState({dateOfBirth: e.target.value})}
+            onChange={this.onChange}
             style={{ margin: '5px'}}
           />
           <input
             className='form-control'
             type='password'
+            name='password'
             placeholder='password'
-            onChange={e => this.setState({password: e.target.value})}
+            onChange={this.onChange}
             style={{ margin: '5px'}}
           />
           <button

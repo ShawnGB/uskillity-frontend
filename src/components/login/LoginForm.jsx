@@ -10,11 +10,18 @@ class LoginForm extends Component {
       error: {
         message: ''
       }
-    }
+    };
+    this.onChange = this.onChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  signIn() {
-    console.log('signin state', this.state);
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  handleSubmit(e){
+    e.preventDefault();
+    console.log('signin', this.state);
   }
 
   render() {
@@ -24,22 +31,24 @@ class LoginForm extends Component {
         <div className='form-group'>
           <input
             className='form-control'
-            type='text'
+            type='email'
+            name='email'
             placeholder='email'
-            onChange={e => this.setState({email: e.target.value})}
+            onChange={this.onChange}
             style={{ margin: '5px'}}
           />
           <input
             className='form-control'
+            name='password'
             type='password'
             placeholder='password'
-            onChange={e => this.setState({password: e.target.value})}
+            onChange={this.onChange}
             style={{ margin: '5px'}}
           />
           <button
             className='btn btn-primary'
             type='button'
-            onClick={() => this.signIn()}
+            onClick={this.handleSubmit}
           >
             Log in
           </button>
