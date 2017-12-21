@@ -8,6 +8,7 @@ import Register from '../components/register/Register';
 import Courses from '../components/courses/Courses';
 import Profile from '../components/dashboard/profile/Profile';
 import Workshop from '../components/workshop/Workshop';
+import ShareSkill from '../components/dashboard/ShareSkill';
 
 export default () => (
   <Router>
@@ -19,6 +20,7 @@ export default () => (
       <Route path='/courses' component={Courses} />
       <Route path='/profile' component={Profile} />
       <Route path='/workshop' component={Workshop} />
+      <Route path='/shareyourskill' component={ShareSkill} />
     </div>
   </Router>
 );
