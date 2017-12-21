@@ -7,6 +7,7 @@ import Login from '../components/login/Login';
 import Register from '../components/register/Register';
 import Courses from '../components/courses/Courses';
 import Profile from '../components/dashboard/profile/Profile';
+import Workshop from '../components/workshop/Workshop';
 
 export default () => (
   <Router>
@@ -17,6 +18,7 @@ export default () => (
       <Route path='/register' component={Register} />
       <Route path='/courses' component={Courses} />
       <Route path='/profile' component={Profile} />
+      <Route path='/workshop' component={Workshop} />
     </div>
   </Router>
 );
