@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+import ProfileContent from './ProfileContent';
+import ProfileCourses from './ProfileCourses';
 
-export default class Profile extends Component {
+class Profile extends Component {
   render(){
     return (
       <div>
-        <ProfileForm />
+        <ProfileContent />
+        <ProfileCourses />
       </div>
     );
   }
 }
+
+export default Profile;
