@@ -32,4 +32,4 @@ jobs:
           command: |
             sudo apt-get -y -qq install awscli
       - deploy:
-          command: aws s3 sync ~/build s3://uskillity-frontend-staging/ --delete
+          command: aws s3 sync ~/repo/build s3://uskillity-frontend-staging/ --delete
