@@ -26,6 +26,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: yarn test
+      - run: yarn build
       - run:
           name: Install dependencies
           working_directory: /
