@@ -1,11 +1,11 @@
 import React from 'react';
-import RegisterForm from './RegisterForm';
+import RegisterModal from './RegisterModal';
 
 class Register extends React.Component {
   render() {
     return (
       <div>
-        <RegisterForm />
+        <RegisterModal />
       </div>
     );
   }
