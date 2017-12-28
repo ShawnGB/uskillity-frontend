@@ -5,42 +5,34 @@ import RegisterForm from './RegisterForm'
 
 export default class RegisterModal extends Component {
 
-  getInitialState() {
-    return { showModal: false };
-  }
+constructor(props) {
+   super(props);
+       this.state = {
+           showModal: true,
+       };
+       this.closeModal = this.closeModal.bind(this);
+   }
 
-  close() {
+  closeModal() {
     this.setState({ showModal: false });
   }
 
-  open() {
+  openModal() {
     this.setState({ showModal: true });
   }
 
   render() {
-
     return (
       <div>
-        <p>Click to get the full Modal experience!</p>
-
-        <Button
-          bsStyle="primary"
-          bsSize="large"
-          onClick={this.open}
-        >
-          Launch demo modal
-        </Button>
-
-        <Modal show={this.getInitialState} onHide={this.close}>
+        <Modal show={this.state.showModal} onHide={this.closeModal}>
           <Modal.Header closeButton>
             <Modal.Title>Modal heading</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <RegisterForm />
-
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.close}>Close</Button>
+            <Button onClick={this.closeModal}>Close</Button>
           </Modal.Footer>
         </Modal>
       </div>
