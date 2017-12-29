@@ -1,8 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { RegisterModal } from '../register/RegisterModal';
 import './style.css';
 
 class Navbar extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {showRegisterModal: false}
+    }
+
+    closeRegisterModal() {
+        this.setState({showRegisterModal: false})
+    }
+
   render() {
     return (
       <div className='container'>
@@ -12,7 +22,7 @@ class Navbar extends React.Component {
               <img src='http://placehold.it/300x60?text=Logo' width='250' height='60' alt='' />
             </div>
             <ul className='nav navbar-nav navbar-center'>
-              <li className='menu-item'><Link to='/register'>Register now</Link></li>
+              <li className='menu-item'><Link to='#' onClick={() => this.setState({showRegisterModal:true}) }>Register now</Link></li>
               <li className='menu-item'><Link to='/login'>Log in</Link></li>
             </ul>
             <ul className='nav navbar-nav navbar-right'>
@@ -21,6 +31,7 @@ class Navbar extends React.Component {
             </ul>
           </div>
         </nav>
+        <RegisterModal showModal={this.state.showRegisterModal} closeModal={this.closeRegisterModal.bind(this)} />
       </div>
     );
   }
