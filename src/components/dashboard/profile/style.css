@@ -1,3 +1,7 @@
+.container-profile {
+  padding: 20px 0 20px 0;
+}
+
 .profile-name {
   font-size: 40px;
   font-weight: 600;
@@ -41,4 +45,65 @@
   letter-spacing: normal;
   text-align: left;
   color: #000000;
+}
+
+.skills-heading {
+  opacity: 0.72;
+  font-size: 30.2px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.skill-category {
+  opacity: 0.72;
+  font-size: 20.1px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.skill-title {
+  opacity: 0.72;
+  font-size: 20px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.skill-author {
+  opacity: 0.72;
+  font-size: 19.9px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.skill-price {
+  opacity: 0.72;
+  font-size: 19.7px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  float: right;
+  color: rgba(62, 62, 62, 0.72);
 }
