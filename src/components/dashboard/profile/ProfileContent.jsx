@@ -1,10 +1,14 @@
 import React from 'react';
+import ProfileCourses from './ProfileCourses';
 
 class ProfileContent extends React.Component {
   render() {
     return (
       <div>
-        Profile Content
+        <div class='container'>
+          Profile Content
+          <ProfileCourses />
+        </div>
       </div>
     );
   }

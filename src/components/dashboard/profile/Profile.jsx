@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import ProfileContent from './ProfileContent';
-import ProfileCourses from './ProfileCourses';
+import Navbar from '../../navigation/Nav';
 
 class Profile extends Component {
   render(){
     return (
       <div>
+        <Navbar />
         <ProfileContent />
-        <ProfileCourses />
       </div>
     );
   }
