@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Button, Modal} from 'react-bootstrap'
-import RegisterForm from './RegisterForm'
+import {Button, Modal} from 'react-bootstrap';
+import RegisterForm from './RegisterForm';
+import { Redirect } from 'react-router-dom';
 
 
 export default class RegisterModal extends Component {
@@ -9,12 +10,13 @@ constructor(props) {
    super(props);
        this.state = {
            showModal: true,
+           redirect: false,
        };
        this.closeModal = this.closeModal.bind(this);
    }
 
   closeModal() {
-    this.setState({ showModal: false });
+    this.setState({ showModal: false, redirect: true });
   }
 
   openModal() {
@@ -22,6 +24,11 @@ constructor(props) {
   }
 
   render() {
+    const { redirect } = this.state;
+
+     if (redirect) {
+       return <Redirect to='/'/>;
+     }
     return (
       <div>
         <Modal show={this.state.showModal} onHide={this.closeModal}>
