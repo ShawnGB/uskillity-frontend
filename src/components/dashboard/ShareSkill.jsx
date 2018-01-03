@@ -9,8 +9,14 @@ class ShareSkill extends Component {
       title: '',
       category: '',
       description: '',
-      requriements: '',
-      attendees: '',
+      requriements: {
+        age: {
+          from: '',
+          to: ''
+        },
+        level: '',
+        addRequirements: ''
+      },
       about: '',
       participants: '',
       dateAndTime: '',
