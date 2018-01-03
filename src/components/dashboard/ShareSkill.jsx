@@ -29,6 +29,10 @@ class ShareSkill extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  onSelect(e) {
+  this.setState({ category: e.target.value });
+}
+
   handleSubmit(e){
     e.preventDefault();
     console.log('signup state', this.state);
@@ -54,14 +58,14 @@ class ShareSkill extends Component {
                 style={{ margin: '5px'}}
               />
               <p className='skills-form-title'>Category</p>
-              <input
-                className='form-control'
-                type='text'
-                name='category'
-                placeholder='Choose from on the six categories'
-                onChange={this.onChange}
-                style={{ margin: '5px'}}
-              />
+                <select value={this.state.category} onChange={this.onSelect}>
+                  <option value="">-- Select category --</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
               <p className='skills-form-title'>Description</p>
               <input
                 className='form-control'
