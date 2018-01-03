@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, HashRouter } from 'react-router-dom';
 
 import Home from '../components/home/Home';
 import About from '../components/about/About';
@@ -11,7 +11,7 @@ import Workshop from '../components/workshop/Workshop';
 import ShareSkill from '../components/dashboard/ShareSkill';
 
 export default () => (
-  <Router>
+  <HashRouter>
     <div>
       <Route exact path='/' component={Home} />
       <Route path='/about' component={About} />
@@ -22,5 +22,5 @@ export default () => (
       <Route path='/workshop' component={Workshop} />
       <Route path='/shareyourskill' component={ShareSkill} />
     </div>
-  </Router>
+  </HashRouter>
 );
