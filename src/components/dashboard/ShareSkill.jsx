@@ -107,21 +107,12 @@ class ShareSkill extends Component {
                 onChange={this.onChange}
                 style={{ margin: '5px'}}
               />
-              <p className='skills-form-title'>Who can attend</p>
+              <p className='skills-form-title'>Location</p>
               <input
                 className='form-control'
                 type='text'
-                name='attendees'
-                placeholder='ex. anyone above the age of 18... only kids from 7 to 12'
-                onChange={this.onChange}
-                style={{ margin: '5px'}}
-              />
-              <p className='skills-form-title'>About the instructor</p>
-              <input
-                className='form-control'
-                type='text'
-                name='about'
-                placeholder='Tell us more about yourself'
+                name='location'
+                placeholder='Where you will be teaching your skill'
                 onChange={this.onChange}
                 style={{ margin: '5px'}}
               />
@@ -134,6 +125,15 @@ class ShareSkill extends Component {
                 onChange={this.onChange}
                 style={{ margin: '5px'}}
               />
+              <p className='skills-form-title'>Price</p>
+              <input
+                className='form-control'
+                type='number'
+                name='price'
+                placeholder='How much will it cost?'
+                onChange={this.onChange}
+                style={{ margin: '5px'}}
+              />
               <p className='skills-form-title'>Date and time</p>
               <input
                 className='form-control'
@@ -142,39 +142,12 @@ class ShareSkill extends Component {
                 onChange={this.onChange}
                 style={{ margin: '5px'}}
               />
-              <p className='skills-form-title'>Duration</p>
-              <input
-                className='form-control'
-                type='text'
-                name='duration'
-                placeholder='ex. Two days or 3 hours'
-                onChange={this.onChange}
-                style={{ margin: '5px'}}
-              />
-              <p className='skills-form-title'>Location</p>
-              <input
-                className='form-control'
-                type='text'
-                name='location'
-                placeholder='Where you will be teaching your skill'
-                onChange={this.onChange}
-                style={{ margin: '5px'}}
-              />
-              <p className='skills-form-title'>Price</p>
-              <input
-                className='form-control'
-                type='text'
-                name='price'
-                placeholder='How much will it cost?'
-                onChange={this.onChange}
-                style={{ margin: '5px'}}
-              />
               <button
                 className='btn btn-primary'
                 type='button'
                 onClick={this.handleSubmit}
               >
-                Save
+                Save Workshop
               </button>
             </div>
             <div>{this.state.error.message}</div>
