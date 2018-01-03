@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './style.css';
+import logo from '../../images/logo.png';
 
 class Navbar extends React.Component {
   render() {
@@ -9,7 +10,7 @@ class Navbar extends React.Component {
         <nav className='navbar fixed-top navbar-default'>
           <div className='container-fluid'>
             <div className='navbar-header'>
-              <img src='http://placehold.it/300x60?text=Logo' width='250' height='60' alt='' />
+              <img src={logo} width='138' height='50' alt='' />
             </div>
             <ul className='nav navbar-nav navbar-center'>
               <li className='menu-item'><Link to='/register'>Register now</Link></li>
