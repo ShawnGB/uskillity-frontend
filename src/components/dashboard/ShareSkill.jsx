@@ -98,6 +98,15 @@ class ShareSkill extends Component {
                 </select>
                 </div>
               </div>
+              Additional Requirements
+              <input
+                className='form-control'
+                type='text'
+                name='add-requirements'
+                placeholder='Ex. basic knowledge of ... only participants that can bring/have ...'
+                onChange={this.onChange}
+                style={{ margin: '5px'}}
+              />
               <p className='skills-form-title'>Who can attend</p>
               <input
                 className='form-control'
