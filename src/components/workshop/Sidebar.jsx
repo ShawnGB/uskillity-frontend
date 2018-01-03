@@ -6,7 +6,6 @@ class Sidebar extends React.Component {
   render() {
     return (
       <div>
-        Workshop Sidebar
         <Instructor />
         <Dates />
       </div>
