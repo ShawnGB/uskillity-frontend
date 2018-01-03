@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from '../navigation/Nav';
+import './style.css';
 
 class ShareSkill extends Component {
   constructor(props) {
@@ -39,10 +40,11 @@ class ShareSkill extends Component {
         <Navbar />
         <div className='container'>
           <div className='form' style={{ margin: '5%'}}>
-            <h1>Share your skill with us</h1>
-            <p>Share your skill text</p>
+            <p className='skills-form-header'>Share your skill with us</p>
+            <p className='skills-text-content'>We are so glad you want to share your skill with us. You are doing a great deed to the well-being of all of us!</p>
+            <p className='skills-text-content'>It might take up to two days for us to process your application. We do this only to escape vulgarities and inappropriate posts. We also give feedback towards the presentation of your skill, so you can have more success conducting it. </p>
             <div className='form-group'>
-              <h4>Title of skill</h4>
+              <p className='skills-form-title'>Title of skill</p>
               <input
                 className='form-control'
                 type='text'
@@ -51,7 +53,7 @@ class ShareSkill extends Component {
                 onChange={this.onChange}
                 style={{ margin: '5px'}}
               />
-              <h4>Category</h4>
+              <p className='skills-form-title'>Category</p>
               <input
                 className='form-control'
                 type='text'
@@ -60,7 +62,7 @@ class ShareSkill extends Component {
                 onChange={this.onChange}
                 style={{ margin: '5px'}}
               />
-              <h4>Description</h4>
+              <p className='skills-form-title'>Description</p>
               <input
                 className='form-control'
                 type='text'
@@ -69,7 +71,7 @@ class ShareSkill extends Component {
                 onChange={this.onChange}
                 style={{ margin: '5px'}}
               />
-              <h4>Requriements</h4>
+              <p className='skills-form-title'>Requriements</p>
               <input
                 className='form-control'
                 type='text'
@@ -78,7 +80,7 @@ class ShareSkill extends Component {
                 onChange={this.onChange}
                 style={{ margin: '5px'}}
               />
-              <h4>Who can attend</h4>
+              <p className='skills-form-title'>Who can attend</p>
               <input
                 className='form-control'
                 type='text'
@@ -87,7 +89,7 @@ class ShareSkill extends Component {
                 onChange={this.onChange}
                 style={{ margin: '5px'}}
               />
-              <h4>About the instructor</h4>
+              <p className='skills-form-title'>About the instructor</p>
               <input
                 className='form-control'
                 type='text'
@@ -96,7 +98,7 @@ class ShareSkill extends Component {
                 onChange={this.onChange}
                 style={{ margin: '5px'}}
               />
-              <h4>Number of participants</h4>
+              <p className='skills-form-title'>Number of participants</p>
               <input
                 className='form-control'
                 type='number'
@@ -105,7 +107,7 @@ class ShareSkill extends Component {
                 onChange={this.onChange}
                 style={{ margin: '5px'}}
               />
-              <h4>Date and time</h4>
+              <p className='skills-form-title'>Date and time</p>
               <input
                 className='form-control'
                 type='date'
@@ -113,7 +115,7 @@ class ShareSkill extends Component {
                 onChange={this.onChange}
                 style={{ margin: '5px'}}
               />
-              <h4>Duration</h4>
+              <p className='skills-form-title'>Duration</p>
               <input
                 className='form-control'
                 type='text'
@@ -122,7 +124,7 @@ class ShareSkill extends Component {
                 onChange={this.onChange}
                 style={{ margin: '5px'}}
               />
-              <h4>Location</h4>
+              <p className='skills-form-title'>Location</p>
               <input
                 className='form-control'
                 type='text'
@@ -131,7 +133,7 @@ class ShareSkill extends Component {
                 onChange={this.onChange}
                 style={{ margin: '5px'}}
               />
-              <h4>Price</h4>
+              <p className='skills-form-title'>Price</p>
               <input
                 className='form-control'
                 type='text'
