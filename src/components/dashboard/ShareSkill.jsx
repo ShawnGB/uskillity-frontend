@@ -76,14 +76,28 @@ class ShareSkill extends Component {
                 style={{ margin: '5px'}}
               />
               <p className='skills-form-title'>Requriements</p>
-              <input
-                className='form-control'
-                type='text'
-                name='requriements'
-                placeholder='ex. basic knowlegde of.. participants that bring/have'
-                onChange={this.onChange}
-                style={{ margin: '5px'}}
-              />
+              <p>Age Recommendation</p>
+              <div className='form-group row'>
+                <div className="col-xs-2">
+                <label for="ageFrom">Age From</label>
+                <input className="form-control" id="ageFrom" type="text"></input>
+                </div>
+                <div className="col-xs-2">
+                <label for="ageTo">Age To</label>
+                <input className="form-control" id="ageTo" type="text"></input>
+                </div>
+                <div className="col-xs-2">
+                <label for="level">Recommended level</label>
+                <select value=''>
+                  <option value="">-- Level --</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+                </div>
+              </div>
               <p className='skills-form-title'>Who can attend</p>
               <input
                 className='form-control'
