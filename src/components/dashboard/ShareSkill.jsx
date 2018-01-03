@@ -134,6 +134,13 @@ class ShareSkill extends Component {
                 onChange={this.onChange}
                 style={{ margin: '5px'}}
               />
+              <button
+                className='btn btn-primary'
+                type='button'
+                onClick={this.handleSubmit}
+              >
+                Save Workshop
+              </button>
               <p className='skills-form-title'>Date and time</p>
               <input
                 className='form-control'
@@ -142,13 +149,7 @@ class ShareSkill extends Component {
                 onChange={this.onChange}
                 style={{ margin: '5px'}}
               />
-              <button
-                className='btn btn-primary'
-                type='button'
-                onClick={this.handleSubmit}
-              >
-                Save Workshop
-              </button>
+
             </div>
             <div>{this.state.error.message}</div>
           </div>
