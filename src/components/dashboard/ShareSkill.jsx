@@ -9,14 +9,9 @@ class ShareSkill extends Component {
       title: '',
       category: '',
       description: '',
-      requriements: {
-        age: {
-          from: '',
-          to: ''
-        },
-        level: '',
-        addRequirements: ''
-      },
+      requriements: '',
+      ageTo: '',
+      ageFrom: '',
       about: '',
       participants: '',
       dateAndTime: '',
@@ -45,7 +40,7 @@ class ShareSkill extends Component {
         return levels.push(<option key={i.id} value={i.id}>{i.name}</option>);
       }))
       this.setState({ levels });
-    })
+    });
     fetch('https://bluecarbuncle-staging.herokuapp.com/categories.json')
     .then((resp) => resp.json())
     .then((data) => {
@@ -55,7 +50,7 @@ class ShareSkill extends Component {
         return categories.push(<option key={i.id} value={i.name}>{i.name}</option>);
       }))
       this.setState({ categories });
-    })
+    });
   }
 
   onChange(e) {
@@ -69,6 +64,13 @@ class ShareSkill extends Component {
   handleSubmit(e){
     e.preventDefault();
     console.log('signup state', this.state);
+    fetch('https://bluecarbuncle-staging.herokuapp.com/workshops.json', {
+     method: 'post',
+     headers: {'Content-Type':'application/json'},
+     body: JSON.stringify({
+       'category': this.state.category
+     })
+    });
   }
 
   render() {
