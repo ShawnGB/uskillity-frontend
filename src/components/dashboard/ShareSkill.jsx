@@ -36,12 +36,17 @@ class ShareSkill extends Component {
     fetch('https://bluecarbuncle-staging.herokuapp.com/levels.json')
     .then((resp) => resp.json())
     .then((data) => {
+      console.log('DATA', data);
       let levels = [];
       data.map((i => {
-        return levels.push(i.name);
+        return levels.push(<option key={i.id} value={i.name}>{i.name}</option>);
       }))
       this.setState({ levels });
     })
+  }
+
+  levelsSelect() {
+
   }
 
   onChange(e) {
@@ -109,12 +114,7 @@ class ShareSkill extends Component {
                 <div className="col-xs-2">
                 <label htmlFor="level">Recommended level</label>
                 <select value=''>
-                  <option value="">-- Level --</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
+                  {this.state.levels}
                 </select>
                 </div>
               </div>
