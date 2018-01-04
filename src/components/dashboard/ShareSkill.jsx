@@ -27,6 +27,7 @@ class ShareSkill extends Component {
         message: ''
       },
       levels: [],
+      level: '',
       categories: []
     };
     this.onChange = this.onChange.bind(this);
@@ -66,7 +67,7 @@ class ShareSkill extends Component {
   }
 
   onSelect(e) {
-    this.setState({ category: e.target.value });
+    this.setState({ [e.target.value]: e.target.value });
   }
 
   handleSubmit(e){
@@ -120,7 +121,7 @@ class ShareSkill extends Component {
                 </div>
                 <div className="col-xs-2">
                 <label htmlFor="level">Recommended level</label>
-                <select value=''>
+                <select value={this.state.level} onChange={this.onSelect}>
                   {this.state.levels}
                 </select>
                 </div>
