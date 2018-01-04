@@ -26,7 +26,8 @@ class ShareSkill extends Component {
       error: {
         message: ''
       },
-      levels: []
+      levels: [],
+      categories: []
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,6 +43,16 @@ class ShareSkill extends Component {
         return levels.push(<option key={i.id} value={i.name}>{i.name}</option>);
       }))
       this.setState({ levels });
+    })
+    fetch('https://bluecarbuncle-staging.herokuapp.com/categories.json')
+    .then((resp) => resp.json())
+    .then((data) => {
+      console.log('DATA', data);
+      let categories = [];
+      data.map((i => {
+        return categories.push(<option key={i.id} value={i.name}>{i.name}</option>);
+      }))
+      this.setState({ categories });
     })
   }
 
@@ -84,12 +95,7 @@ class ShareSkill extends Component {
               />
               <p className='skills-form-title'>Category</p>
                 <select value={this.state.category} onChange={this.onSelect}>
-                  <option value="">-- Select category --</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
+                  {this.state.categories}
                 </select>
               <p className='skills-form-title'>Description</p>
               <input
