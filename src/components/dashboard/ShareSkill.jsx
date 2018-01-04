@@ -30,6 +30,7 @@ class ShareSkill extends Component {
       categories: []
     };
     this.onChange = this.onChange.bind(this);
+    this.onSelect = this.onSelect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -65,8 +66,8 @@ class ShareSkill extends Component {
   }
 
   onSelect(e) {
-  this.setState({ category: e.target.value });
-}
+    this.setState({ category: e.target.value });
+  }
 
   handleSubmit(e){
     e.preventDefault();
