@@ -25,7 +25,8 @@ class ShareSkill extends Component {
       price: '',
       error: {
         message: ''
-      }
+      },
+      levels: []
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,7 +40,7 @@ class ShareSkill extends Component {
       data.map((i => {
         return levels.push(i.name);
       }))
-      console.log(levels);
+      this.setState({ levels });
     })
   }
 
@@ -57,6 +58,7 @@ class ShareSkill extends Component {
   }
 
   render() {
+    console.log('THIS STATE: ', this.state);
     return(
       <div>
         <Navbar />
