@@ -31,6 +31,18 @@ class ShareSkill extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    fetch('https://bluecarbuncle-staging.herokuapp.com/levels.json')
+    .then((resp) => resp.json())
+    .then((data) => {
+      let levels = [];
+      data.map((i => {
+        return levels.push(i.name);
+      }))
+      console.log(levels);
+    })
+  }
+
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -85,15 +97,15 @@ class ShareSkill extends Component {
               <p>Age Recommendation</p>
               <div className='form-group row'>
                 <div className="col-xs-2">
-                <label for="ageFrom">Age From</label>
+                <label htmlFor="ageFrom">Age From</label>
                 <input className="form-control" id="ageFrom" type="text"></input>
                 </div>
                 <div className="col-xs-2">
-                <label for="ageTo">Age To</label>
+                <label htmlFor="ageTo">Age To</label>
                 <input className="form-control" id="ageTo" type="text"></input>
                 </div>
                 <div className="col-xs-2">
-                <label for="level">Recommended level</label>
+                <label htmlFor="level">Recommended level</label>
                 <select value=''>
                   <option value="">-- Level --</option>
                   <option value="1">1</option>
