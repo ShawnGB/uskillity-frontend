@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { service } from '../../services/service'
 
 class LoginForm extends Component {
   constructor(props) {
@@ -16,11 +17,16 @@ class LoginForm extends Component {
   }
 
   onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
   }
 
   handleSubmit(e){
     e.preventDefault();
+    const { email, password } = this.state;
+    if (email && password) {
+      service.login(email,password);
+    }
     console.log('signin', this.state);
   }
 
