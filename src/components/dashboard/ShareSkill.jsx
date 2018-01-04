@@ -27,7 +27,7 @@ class ShareSkill extends Component {
         message: ''
       },
       levels: [],
-      level: '',
+      level_id: '',
       categories: []
     };
     this.onChange = this.onChange.bind(this);
@@ -42,7 +42,7 @@ class ShareSkill extends Component {
       console.log('DATA', data);
       let levels = [];
       data.map((i => {
-        return levels.push(<option key={i.id} value={i.name}>{i.name}</option>);
+        return levels.push(<option key={i.id} value={i.id}>{i.name}</option>);
       }))
       this.setState({ levels });
     })
