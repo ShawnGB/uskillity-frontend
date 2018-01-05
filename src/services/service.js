@@ -13,16 +13,22 @@ function login(email, password) {
       password
     })
   };
-  return fetch('https://bluecarbuncle-staging.herokuapp.com/auth/sign_in', requestParams).then(handleResponse);
+  console.log('requestParams', requestParams);
+  return fetch('https://bluecarbuncle-staging.herokuapp.com/auth/sign_in', requestParams)
+    .then(handleResponse);
 }
 
-
 function handleResponse(response) {
+
   if (!response.ok) {
-    //TODO remove the log message later
-    console.log('Response', response);
     return Promise.reject(response.statusText);
   }
-  console.log('Response', response);
+  const authParams = {
+    auth_token: response.headers.get("Access-Token"),
+    client: response.headers.get("Client"),
+    uid: response.headers.get("Uid")
+  }
+
+  sessionStorage.setItem('authParams', JSON.stringify(authParams));
   return response.json();
 }
