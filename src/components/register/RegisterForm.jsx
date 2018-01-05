@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { service } from '../../services/service'
 
 class RegisterForm extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
-      name: '',
-      surname: '',
-      dateOfBirth: '',
+      user: {
+        email: '',
+        password: '',
+        password_confirmation:'',
+        name: '',
+        surname: '',
+        dateOfBirth: '',
+      },
       error: {
         message: ''
       }
@@ -19,11 +23,18 @@ class RegisterForm extends Component{
   }
 
   onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    const input = e.target.name;
+    const user = this.state.user;
+    user[input] = e.target.value;
+    this.setState({ user });
   }
 
   handleSubmit(e){
     e.preventDefault();
+    const user = this.state.user;
+    if (user) {
+      service.register(user);
+    }
     console.log('signup state', this.state);
   }
 
@@ -60,7 +71,7 @@ class RegisterForm extends Component{
             className='form-control'
             type='date'
             name='dateOfBirth'
-            placeholder='surname'
+            placeholder='dob'
             onChange={this.onChange}
             style={{ margin: '5px'}}
           />
@@ -69,6 +80,14 @@ class RegisterForm extends Component{
             type='password'
             name='password'
             placeholder='password'
+            onChange={this.onChange}
+            style={{ margin: '5px'}}
+          />
+          <input
+            className='form-control'
+            type='password'
+            name='password_confirmation'
+            placeholder='confirm password'
             onChange={this.onChange}
             style={{ margin: '5px'}}
           />
