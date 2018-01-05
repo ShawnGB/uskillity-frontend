@@ -1,1 +1,43 @@
 /* FOOTER CSS */
+
+.copyright {
+  margin: 10px;
+  opacity: 0.72;
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.footer-title {
+  opacity: 0.72;
+  font-size: 20px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.footer-item {
+  opacity: 0.72;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.border {
+  border-bottom: 1px solid grey;
+  margin: 20px 0 20px 0;
+}
