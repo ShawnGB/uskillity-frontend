@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Navbar from '../../navigation/Nav';
+import Footer from '../../footer/Footer';
 
 class ProfileEdit extends Component {
   constructor(props) {
@@ -76,6 +77,7 @@ class ProfileEdit extends Component {
           </div>
           <div className=''>
           </div>
+          <Footer />
         </div>
       </div>
     );

@@ -4,7 +4,7 @@ export default class Footer extends Component {
   render(){
     return (
       <div>
-        <FooterForm />
+        Hello from footer
       </div>
     );
   }
