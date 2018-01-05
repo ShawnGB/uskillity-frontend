@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from '../navigation/Nav';
+import Footer from '../../components/footer/Footer';
 import './style.css';
 
 class ShareSkill extends Component {
@@ -179,6 +180,7 @@ class ShareSkill extends Component {
             </div>
             <div>{this.state.error.message}</div>
           </div>
+          <Footer />
         </div>
       </div>
     )
