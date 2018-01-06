@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Modal} from 'react-bootstrap'
+import {Modal} from 'react-bootstrap'
 import RegisterForm from './RegisterForm'
 
 export const RegisterModal = props => (
@@ -12,7 +12,6 @@ export const RegisterModal = props => (
          <RegisterForm />
        </Modal.Body>
        <Modal.Footer>
-         <Button onClick={props.closeModal}>Close</Button>
        </Modal.Footer>
      </Modal>
    </div>

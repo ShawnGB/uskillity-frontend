@@ -1,0 +1,17 @@
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus {
+    background-color: #ff433a !important;
+    border-color: #ff433a !important;
+}
+.btn-facebook,
+.btn-facebook:hover,
+.btn-facebook:active,
+.btn-facebook:visited,
+.btn-facebook:focus {
+    background-color: #3b5998;
+    border-color: #3b5998;
+    color: #fff;
+}

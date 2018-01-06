@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { service } from '../../services/service'
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import {service} from '../../services/service'
+import './style.css';
 
-class RegisterForm extends Component{
+class RegisterForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       user: {
         email: '',
         password: '',
-        password_confirmation:'',
+        password_confirmation: '',
         name: '',
-        surname: '',
-        dateOfBirth: '',
+        surname: ''
       },
       error: {
         message: ''
@@ -26,10 +26,10 @@ class RegisterForm extends Component{
     const input = e.target.name;
     const user = this.state.user;
     user[input] = e.target.value;
-    this.setState({ user });
+    this.setState({user});
   }
 
-  handleSubmit(e){
+  handleSubmit(e) {
     e.preventDefault();
     const user = this.state.user;
     if (user) {
@@ -39,70 +39,45 @@ class RegisterForm extends Component{
   }
 
   render() {
-    return(
-      <div className='form-inline' style={{ margin: '5%'}}>
-        <h1>Sign-up</h1>
-        <div className='form-group'>
-          <input
-            className='form-control'
-            type='email'
-            name='email'
-            placeholder='email'
-            onChange={this.onChange}
-            style={{ margin: '5px'}}
-          />
-          <input
-            className='form-control'
-            type='text'
-            name='name'
-            placeholder='name'
-            onChange={this.onChange}
-            style={{ margin: '5px'}}
-          />
-          <input
-            className='form-control'
-            type='text'
-            name='surname'
-            placeholder='surname'
-            onChange={this.onChange}
-            style={{ margin: '5px'}}
-          />
-          <input
-            className='form-control'
-            type='date'
-            name='dateOfBirth'
-            placeholder='dob'
-            onChange={this.onChange}
-            style={{ margin: '5px'}}
-          />
-          <input
-            className='form-control'
-            type='password'
-            name='password'
-            placeholder='password'
-            onChange={this.onChange}
-            style={{ margin: '5px'}}
-          />
-          <input
-            className='form-control'
-            type='password'
-            name='password_confirmation'
-            placeholder='confirm password'
-            onChange={this.onChange}
-            style={{ margin: '5px'}}
-          />
-          <button
-            className='btn btn-primary'
-            type='button'
-            onClick={this.handleSubmit}
-          >
-            Register
-          </button>
+    return (<div className="container">
+      <div className="row">
+        <div className="col-md-4 col-md-offset-1">
+
+          <div className="panel-body">
+            <form>
+              <fieldset>
+                <div className="form-group">
+                  <input className="form-control" placeholder="Email" name="email" type="text" onChange={this.onChange}></input>
+                </div>
+                <div className="form-group">
+                  <input className="form-control" placeholder="Name" name="name" type="text" value="" onChange={this.onChange}></input>
+                </div>
+                <div className="form-group">
+                  <input className="form-control" placeholder="Surname" name="surname" type="text" value="" onChange={this.onChange}></input>
+                </div>
+                <div className="form-group">
+                  <input className="form-control" placeholder="Password" name="password" type="password" value="" onChange={this.onChange}></input>
+                </div>
+                <div className="form-group">
+                  <input className="form-control" placeholder="Confirm Password" name="password_confirmation" type="password" value="" onChange={this.onChange}></input>
+                </div>
+                <button className='btn btn-lg btn-primary btn-block' type='button' onClick={this.handleSubmit}>
+                  Register
+                </button>
+                <button className='btn btn-lg btn-facebook btn-block' type='button'>
+                  Register with Facebook
+                </button>
+              </fieldset>
+            </form>
+          </div>
+          <div>{this.state.error.message}</div>
+          <div>
+            <Link to={'/login'}>Already a user? Sign in.</Link>
+          </div>
+
         </div>
-        <div>{this.state.error.message}</div>
-        <div><Link to={'/login'}>Already a user? Sign in.</Link></div>
       </div>
-    )
+    </div>)
   }
 }
 
