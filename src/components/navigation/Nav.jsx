@@ -44,6 +44,13 @@ class Navbar extends React.Component {
                   </Link>
                 </li>
               </ul>
+              <ul className='nav navbar-nav navbar-left'>
+                <li className='menu-item'>
+                  <Link to='/about'>
+                    u/about
+                  </Link>
+                </li>
+              </ul>
               <ul className='nav navbar-nav navbar-right'>
                 <li className='menu-item'>
                   <Link to='/shareyourskill'>

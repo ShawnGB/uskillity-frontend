@@ -39,13 +39,17 @@ class LoginForm extends Component {
               <form>
                 <fieldset>
                   <div className="form-group">
+                    <button className='btn btn-lg btn-facebook btn-block' type='button'>
+                      Log in with Facebook
+                    </button>
+                    <label style={{ margin: '5% 0 5% 50%'}}> or </label>
                     <input className="form-control" placeholder="Email" name="email" type="text" onChange={this.onChange}></input>
                   </div>
                   <div className="form-group">
                     <input className="form-control" placeholder="Password" name="password" type="password" value="" onChange={this.onChange}></input>
                   </div>
                   <button className='btn btn-lg btn-primary btn-block' type='button' onClick={this.handleSubmit}>
-                    Sign in
+                    Log in
                   </button>
                 </fieldset>
               </form>
