@@ -32,35 +32,30 @@ class LoginForm extends Component {
 
   render() {
     return(
-      <div className='form-inline' style={{ margin: '5%'}}>
-        <h1>Sign-in</h1>
-        <div className='form-group'>
-          <input
-            className='form-control'
-            type='email'
-            name='email'
-            placeholder='email'
-            onChange={this.onChange}
-            style={{ margin: '5px'}}
-          />
-          <input
-            className='form-control'
-            name='password'
-            type='password'
-            placeholder='password'
-            onChange={this.onChange}
-            style={{ margin: '5px'}}
-          />
-          <button
-            className='btn btn-primary'
-            type='button'
-            onClick={this.handleSubmit}
-          >
-            Log in
-          </button>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-4 col-md-offset-1">
+            <div className="panel-body">
+              <form>
+                <fieldset>
+                  <div className="form-group">
+                    <input className="form-control" placeholder="Email" name="email" type="text" onChange={this.onChange}></input>
+                  </div>
+                  <div className="form-group">
+                    <input className="form-control" placeholder="Password" name="password" type="password" value="" onChange={this.onChange}></input>
+                  </div>
+                  <button className='btn btn-lg btn-primary btn-block' type='button' onClick={this.handleSubmit}>
+                    Sign in
+                  </button>
+                </fieldset>
+              </form>
+            </div>
+            <div>{this.state.error.message}</div>
+            <div>
+              <Link style={{ margin: '30%'}} to={'#'}>Not a user? Sign up.</Link>
+            </div>
+          </div>
         </div>
-        <div>{this.state.error.message}</div>
-        <div><Link to={'/register'}>Not a user? Sign up.</Link></div>
       </div>
     )
   }
