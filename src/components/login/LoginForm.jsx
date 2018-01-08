@@ -46,7 +46,7 @@ class LoginForm extends Component {
                     <input className="form-control" placeholder="Email" name="email" type="text" onChange={this.onChange}></input>
                   </div>
                   <div className="form-group">
-                    <input className="form-control" placeholder="Password" name="password" type="password" value="" onChange={this.onChange}></input>
+                    <input className="form-control" placeholder="Password" name="password" type="password" onChange={this.onChange}></input>
                   </div>
                   <button className='btn btn-lg btn-primary btn-block' type='button' onClick={this.handleSubmit}>
                     Log in

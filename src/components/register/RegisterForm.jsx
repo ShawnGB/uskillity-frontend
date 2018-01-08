@@ -50,16 +50,16 @@ class RegisterForm extends Component {
                   <input className="form-control" placeholder="Email" name="email" type="text" onChange={this.onChange}></input>
                 </div>
                 <div className="form-group">
-                  <input className="form-control" placeholder="Name" name="name" type="text" value="" onChange={this.onChange}></input>
+                  <input className="form-control" placeholder="Name" name="name" type="text"  onChange={this.onChange}></input>
                 </div>
                 <div className="form-group">
-                  <input className="form-control" placeholder="Surname" name="surname" type="text" value="" onChange={this.onChange}></input>
+                  <input className="form-control" placeholder="Surname" name="surname" type="text"  onChange={this.onChange}></input>
                 </div>
                 <div className="form-group">
-                  <input className="form-control" placeholder="Password" name="password" type="password" value="" onChange={this.onChange}></input>
+                  <input className="form-control" placeholder="Password" name="password" type="password"  onChange={this.onChange}></input>
                 </div>
                 <div className="form-group">
-                  <input className="form-control" placeholder="Confirm Password" name="password_confirmation" type="password" value="" onChange={this.onChange}></input>
+                  <input className="form-control" placeholder="Confirm Password" name="password_confirmation" type="password"  onChange={this.onChange}></input>
                 </div>
                 <button className='btn btn-lg btn-primary btn-block' type='button' onClick={this.handleSubmit}>
                   Register
