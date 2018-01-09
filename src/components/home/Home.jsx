@@ -3,6 +3,37 @@ import Navbar from '../navigation/Nav';
 import Footer from '../footer/Footer';
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      categories: [],
+      workshops: []
+    };
+  }
+
+  componentDidMount() {
+    fetch('https://bluecarbuncle-staging.herokuapp.com/workshops/random.json')
+    .then((resp) => resp.json())
+    .then((data) => {
+      console.log('DATA', data);
+      let workshops = [];
+      data.map((i => {
+        console.log('workshops', i);
+      }))
+      this.setState({ workshops });
+    });
+    fetch('https://bluecarbuncle-staging.herokuapp.com/categories.json')
+    .then((resp) => resp.json())
+    .then((data) => {
+      console.log('DATA', data);
+      let categories = [];
+      data.map((i => {
+        console.log('categories', i);
+      }))
+      this.setState({ categories });
+    });
+  }
+
   render() {
     return (
       <div>
