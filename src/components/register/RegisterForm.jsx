@@ -12,7 +12,7 @@ class RegisterForm extends Component {
         password: '',
         password_confirmation: '',
         name: '',
-        surname: ''
+        first_name: ''
       },
       error: {
         message: ''
@@ -53,7 +53,7 @@ class RegisterForm extends Component {
                   <input className="form-control" placeholder="Name" name="name" type="text"  onChange={this.onChange}></input>
                 </div>
                 <div className="form-group">
-                  <input className="form-control" placeholder="Surname" name="surname" type="text"  onChange={this.onChange}></input>
+                  <input className="form-control" placeholder="first_name" name="first_name" type="text"  onChange={this.onChange}></input>
                 </div>
                 <div className="form-group">
                   <input className="form-control" placeholder="Password" name="password" type="password"  onChange={this.onChange}></input>
