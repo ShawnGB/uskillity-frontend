@@ -18,7 +18,7 @@ class Home extends React.Component {
       console.log('DATA', data);
       let workshops = [];
       data.map((i => {
-        console.log('workshops', i);
+        return console.log('workshops', i);
       }))
       this.setState({ workshops });
     });
@@ -28,7 +28,7 @@ class Home extends React.Component {
       console.log('DATA', data);
       let categories = [];
       data.map((i => {
-        console.log('categories', i);
+        return console.log('categories', i);
       }))
       this.setState({ categories });
     });
