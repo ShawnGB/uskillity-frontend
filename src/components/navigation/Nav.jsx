@@ -58,7 +58,7 @@ class Navbar extends React.Component {
                   </Link>
                 </li>
                 <li className='menu-item'>
-                  <Link to='/'>
+                  <Link to='/learnskill'>
                     Learn a Skill
                   </Link>
                 </li>

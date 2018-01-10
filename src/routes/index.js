@@ -13,6 +13,7 @@ import Profile from "../components/dashboard/profile/Profile";
 import ProfileEdit from "../components/dashboard/profile/ProfileEdit";
 import Workshop from "../components/workshop/Workshop";
 import ShareSkill from "../components/dashboard/ShareSkill";
+import LearnSkill from "../components/dashboard/LearnSkill"
 
 export default () => (
   <Router>
@@ -29,6 +30,7 @@ export default () => (
       <Route exact path="/profile" component={Profile} />
       <Route path="/workshop" component={Workshop} />
       <Route path="/shareyourskill" component={ShareSkill} />
+      <Route path="/learnskill" component={LearnSkill} />
     </div>
   </Router>
 );
