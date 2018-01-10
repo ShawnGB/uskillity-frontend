@@ -6,6 +6,8 @@ import About from "../components/about/About";
 import Vision from "../components/about/Vision";
 import Team from "../components/about/Team";
 import Contact from "../components/about/Contact";
+import Help from "../components/about/Help";
+import Press from "../components/about/Press";
 import Courses from "../components/courses/Courses";
 import Profile from "../components/dashboard/profile/Profile";
 import ProfileEdit from "../components/dashboard/profile/ProfileEdit";
@@ -21,6 +23,8 @@ export default () => (
       <Route path="/team" component={Team} />
       <Route path="/courses" component={Courses} />
       <Route path="/contact" component={Contact} />
+      <Route path="/help" component={Help} />
+      <Route path="/press" component={Press} />
       <Route exact path="/profile/edit" component={ProfileEdit} />
       <Route exact path="/profile" component={Profile} />
       <Route path="/workshop" component={Workshop} />
