@@ -1,25 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { RegisterModal } from '../register/RegisterModal';
-import LoginModal from '../login/LoginModal';
 import './style.css';
 import logo from '../../images/logo.png';
+import Auth from '../authModal/Auth'
 
 class Navbar extends React.Component {
-  //TODO find a better place for this piece of code.
   constructor(props) {
     super(props)
-    this.state = {showRegisterModal: false}
-    this.state = {showLoginModal: false}
+    this.state = {
+      modalType: '',
+      showModal: false
+    }
+    this.clickedModal = this.clickedModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
-  closeRegisterModal() {
-    this.setState({showRegisterModal: false})}
+  clickedModal(modalType,showModal){
+    this.setState({
+      modalType,
+      showModal
+    });
+  }
 
-    closeLoginModal() {
-      this.setState({showLoginModal: false})
-    }
-
+  closeModal() {
+     this.setState({showModal: false})
+}
     render() {
       return (
         <div className='container'>
@@ -32,14 +37,14 @@ class Navbar extends React.Component {
                 <li className='menu-item'>
                   <Link
                     to='#'
-                    onClick={() => this.setState({showRegisterModal:true}) }>
+                    onClick={() => this.clickedModal("register",true)}>
                     Register now
                   </Link>
                 </li>
                 <li className='menu-item'>
                   <Link
                     to='#'
-                    onClick={() => this.setState({showLoginModal:true}) }>
+                    onClick={() => this.clickedModal("login",true)}>
                     Log in
                   </Link>
                 </li>
@@ -65,12 +70,10 @@ class Navbar extends React.Component {
               </ul>
             </div>
           </nav>
-          <RegisterModal
-            showModal={this.state.showRegisterModal}
-            closeModal={this.closeRegisterModal.bind(this)} />
-          <LoginModal
-            showModal={this.state.showLoginModal}
-            closeModal={this.closeLoginModal.bind(this)} />
+          <Auth
+            modalType = {this.state.modalType}
+            showModal = {this.state.showModal}
+            closeModal = {this.closeModal} />
         </div>
       );
     }

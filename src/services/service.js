@@ -1,6 +1,7 @@
 export const service = {
   login,
-  register
+  register,
+  alreadyRegistered,
 };
 
 function login(email, password) {
@@ -46,6 +47,10 @@ function register(user) {
       }
       return response.json();
     });
+}
+
+function alreadyRegistered (){
+
 }
 
 function handleResponse(response) {
