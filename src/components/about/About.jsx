@@ -1,6 +1,7 @@
 import React from 'react';
 import Guidelines from './Guidelines'
 import Navbar from '../navigation/Nav';
+import Footer from '../footer/Footer';
 import { Link } from 'react-router-dom';
 
 class About extends React.Component {
@@ -37,6 +38,7 @@ class About extends React.Component {
               <Guidelines />
             </div>
           </div>
+          <Footer />
         </div>
       </div>
     );
