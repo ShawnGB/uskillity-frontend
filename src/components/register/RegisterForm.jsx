@@ -72,7 +72,7 @@ class RegisterForm extends Component {
           </div>
           <div>{this.state.error.message}</div>
           <div>
-            <Link style={{ margin: '10%'}} to={'#'}>Do you already have an account? Login here.</Link>
+            <Link onClick={this.props.jumpToModal} style={{ margin: '10%'}} to={'#'}>Do you already have an account? Login here.</Link>
           </div>
 
         </div>

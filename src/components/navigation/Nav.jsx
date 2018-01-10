@@ -5,26 +5,10 @@ import logo from '../../images/logo.png';
 import Auth from '../authModal/Auth'
 
 class Navbar extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      modalType: '',
-      showModal: false
+    constructor(props) {
+        super(props)
     }
-    this.clickedModal = this.clickedModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-  }
 
-  clickedModal(modalType,showModal){
-    this.setState({
-      modalType,
-      showModal
-    });
-  }
-
-  closeModal() {
-     this.setState({showModal: false})
-}
     render() {
       return (
         <div className='container'>
@@ -37,14 +21,14 @@ class Navbar extends React.Component {
                 <li className='menu-item'>
                   <Link
                     to='#'
-                    onClick={() => this.clickedModal("register",true)}>
+                    onClick={() => this.refs.authComponent.onRegisteredClicked()}>
                     Register now
                   </Link>
                 </li>
                 <li className='menu-item'>
                   <Link
                     to='#'
-                    onClick={() => this.clickedModal("login",true)}>
+                    onClick={() => this.refs.authComponent.onLoginClicked()}>
                     Log in
                   </Link>
                 </li>
@@ -70,10 +54,7 @@ class Navbar extends React.Component {
               </ul>
             </div>
           </nav>
-          <Auth
-            modalType = {this.state.modalType}
-            showModal = {this.state.showModal}
-            closeModal = {this.closeModal} />
+          <Auth ref="authComponent" />
         </div>
       );
     }

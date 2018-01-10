@@ -56,7 +56,7 @@ class LoginForm extends Component {
             </div>
             <div>{this.state.error.message}</div>
             <div>
-              <Link style={{ margin: '30%'}} to='#'>Not a user? Sign up.</Link>
+              <Link onClick={this.props.jumpToModal} style={{ margin: '30%'}} to='#'>Not a user? Sign up.</Link>
             </div>
           </div>
         </div>
