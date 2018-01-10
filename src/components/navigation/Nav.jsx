@@ -5,10 +5,6 @@ import logo from '../../images/logo.png';
 import Auth from '../authModal/Auth'
 
 class Navbar extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
     render() {
       return (
         <div className='container'>
