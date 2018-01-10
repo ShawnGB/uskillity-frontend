@@ -169,14 +169,53 @@ class ShareSkill extends Component {
                 Save Workshop
               </button>
               <p className='skills-form-title'>Date and time</p>
-              <input
-                className='form-control'
-                type='date'
-                name='dateAndTime'
-                onChange={this.onChange}
-                style={{ margin: '5px'}}
-              />
-
+              <div className='form-group row'>
+                <div className="col-xs-2">
+                <input
+                  className='form-control'
+                  type='date'
+                  name='dateAndTime'
+                  onChange={this.onChange}
+                  style={{ margin: '5px'}}
+                />
+                </div>
+                <div className="col-xs-1">
+                  <label htmlFor="startTime">From</label>
+                </div>
+                <div className="col-xs-2">
+                  <input
+                    className="form-control"
+                    id="startTime"
+                    type="text"
+                    placeholder="Start Time" />
+                </div>
+                <div className="col-xs-1">
+                  <label htmlFor="endTime">To</label>
+                </div>
+                <div className="col-xs-2">
+                  <input
+                    className="form-control"
+                    id="endTime"
+                    type="text"
+                    placeholder="End Time" />
+                </div>
+                <div className="col-xs-2">
+                  <button type="button" className="btn btn-default btn-sm">
+                    <span className="glyphicon glyphicon-plus"></span>Add another day to the same course
+                  </button>
+                </div>
+              </div>
+              <p className='skills-form-title'>Photo</p>
+              <button type="button" className="btn btn-default">Upload a cover photo</button>
+              <div className="checkbox">
+                <label><input type="checkbox" value="" />I herby declare that I read the the terms and conditions as stated on this website and agrre with them</label>
+              </div>
+              <button
+                className='btn btn-primary'
+                type='button'
+              >
+                Submit
+              </button>
             </div>
             <div>{this.state.error.message}</div>
           </div>
