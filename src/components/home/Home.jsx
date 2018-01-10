@@ -39,9 +39,47 @@ class Home extends React.Component {
       <div>
         <Navbar />
         <div className='container'>
-          <div className='jumbotron'>
-            <img src='http://placehold.it/900x300?text=Img' width='100%' height='100%' alt='' />
+
+          <div id='myCarousel' className='carousel slide' data-ride='carousel'>
+
+            <ol className='carousel-indicators'>
+              <li data-target='#' data-slide-to='0' className='active'></li>
+              <li data-target='#' data-slide-to='1'></li>
+              <li data-target='#' data-slide-to='2'></li>
+            </ol>
+
+            <div className='carousel-inner'>
+
+              <div className='item active'>
+                <img src='http://via.placeholder.com/780x300' alt='1' style={{width: '100%'}}></img>
+                <div className='carousel-caption'>
+                </div>
+              </div>
+
+              <div className='item'>
+                <img src='http://via.placeholder.com/780x300' alt='2' style={{width: '100%'}}></img>
+                <div className='carousel-caption'>
+                </div>
+              </div>
+
+              <div className='item'>
+                <img src='http://via.placeholder.com/780x300' alt='3' style={{width: '100%'}}></img>
+                <div className='carousel-caption'>
+                </div>
+              </div>
+
+            </div>
+
+            <a className='left carousel-control' href='#' data-slide='prev'>
+              <span className='glyphicon glyphicon-chevron-left'></span>
+              <span className='sr-only'>Previous</span>
+            </a>
+            <a className='right carousel-control' href='#' data-slide='next'>
+              <span className='glyphicon glyphicon-chevron-right'></span>
+              <span className='sr-only'>Next</span>
+            </a>
           </div>
+
           <div className='row row-home'>
             <div className='col-sm-4'>
               <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
