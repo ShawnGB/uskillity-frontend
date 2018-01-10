@@ -3,7 +3,6 @@ import Guidelines from './Guidelines';
 import Sidebar from './Sidebar';
 import Navbar from '../navigation/Nav';
 import Footer from '../footer/Footer';
-import { Link } from 'react-router-dom';
 
 class About extends React.Component {
   render() {

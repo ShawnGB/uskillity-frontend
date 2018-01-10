@@ -1,5 +1,4 @@
 import React from 'react';
-import Guidelines from './Guidelines';
 import Sidebar from './Sidebar';
 import Navbar from '../navigation/Nav';
 import Footer from '../footer/Footer';
