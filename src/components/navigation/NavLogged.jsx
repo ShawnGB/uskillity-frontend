@@ -14,7 +14,7 @@ class NavLogged extends React.Component {
             </div>
             <ul className='nav navbar-nav navbar-center'>
               <li className='menu-item'><Link to='/shareyourskill'>Share your skill</Link></li>
-              <li className='menu-item'><Link to='/'>Learn a Skill</Link></li>
+              <li className='menu-item'><Link to='/learnskill'>Learn a Skill</Link></li>
             </ul>
             <ul className='nav navbar-nav navbar-right'>
               <li className='menu-item'><Link to='/about'>u/about</Link></li>
