@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../navigation/Nav';
 import Footer from '../footer/Footer';
+import { CustomCarousel } from '../carousel/Carousel';
 
 class Home extends React.Component {
   constructor(props) {
@@ -18,7 +19,9 @@ class Home extends React.Component {
       console.log('DATA', data);
       let workshops = [];
       data.map((i => {
-        return console.log('workshops', i);
+        return workshops.push(
+          <img src={i.main_image} alt='img' style={{maxHeight: '600px' ,width: '100%'}} key={i.id}></img>
+        );
       }))
       this.setState({ workshops });
     });
@@ -28,7 +31,11 @@ class Home extends React.Component {
       console.log('DATA', data);
       let categories = [];
       data.map((i => {
-        return console.log('categories', i);
+        return categories.push(
+          <div className='col-sm-4' key={i.id}>
+            <img src={i.image} alt='img' style={{width: '100%'}} ></img>
+          </div>
+        );
       }))
       this.setState({ categories });
     });
@@ -39,68 +46,14 @@ class Home extends React.Component {
       <div>
         <Navbar />
         <div className='container'>
-
-          <div id='myCarousel' className='carousel slide' data-ride='carousel'>
-
-            <ol className='carousel-indicators'>
-              <li data-target='#' data-slide-to='0' className='active'></li>
-              <li data-target='#' data-slide-to='1'></li>
-              <li data-target='#' data-slide-to='2'></li>
-            </ol>
-
-            <div className='carousel-inner'>
-
-              <div className='item active'>
-                <img src='http://via.placeholder.com/780x300' alt='1' style={{width: '100%'}}></img>
-                <div className='carousel-caption'>
-                </div>
-              </div>
-
-              <div className='item'>
-                <img src='http://via.placeholder.com/780x300' alt='2' style={{width: '100%'}}></img>
-                <div className='carousel-caption'>
-                </div>
-              </div>
-
-              <div className='item'>
-                <img src='http://via.placeholder.com/780x300' alt='3' style={{width: '100%'}}></img>
-                <div className='carousel-caption'>
-                </div>
-              </div>
-
-            </div>
-
-            <a className='left carousel-control' data-slide='prev'>
-              <span className='glyphicon glyphicon-chevron-left'></span>
-              <span className='sr-only'>Previous</span>
-            </a>
-            <a className='right carousel-control' data-slide='next'>
-              <span className='glyphicon glyphicon-chevron-right'></span>
-              <span className='sr-only'>Next</span>
-            </a>
-          </div>
-
+        <div>
+          <CustomCarousel items={this.state.workshops} style={{"height":"600px", "marginBottom":"20px"}}/>
+        </div>
           <div className='row row-home'>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-            </div>
+            {this.state.categories.slice(0, 3)}
           </div>
           <div className='row row-home'>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-            </div>
+            {this.state.categories.slice(3, 6)}
           </div>
           <div className='row'>
             <div className='about-home'>
