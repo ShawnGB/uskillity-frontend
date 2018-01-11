@@ -15,7 +15,78 @@ class LearnSkill extends Component {
       <div>
         <Navbar />
         <div className='container'>
-          Hello from Learn Skill page
+          <div className='row row-home'>
+            <p>Category</p>
+            <div className='col-sm-4'>
+              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
+            </div>
+            <div className='col-sm-4'>
+              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
+            </div>
+            <div className='col-sm-4'>
+              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
+            </div>
+          </div>
+          <div className='row row-home'>
+            <p>Category</p>
+            <div className='col-sm-4'>
+              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
+            </div>
+            <div className='col-sm-4'>
+              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
+            </div>
+            <div className='col-sm-4'>
+              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
+            </div>
+          </div>
+          <div className='row row-home'>
+            <p>Category</p>
+            <div className='col-sm-4'>
+              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
+            </div>
+            <div className='col-sm-4'>
+              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
+            </div>
+            <div className='col-sm-4'>
+              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
+            </div>
+          </div>
+          <div className='row row-home'>
+            <p>Category</p>
+            <div className='col-sm-4'>
+              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
+            </div>
+            <div className='col-sm-4'>
+              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
+            </div>
+            <div className='col-sm-4'>
+              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
+            </div>
+          </div>
+          <div className='row row-home'>
+            <p>Category</p>
+            <div className='col-sm-4'>
+              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
+            </div>
+            <div className='col-sm-4'>
+              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
+            </div>
+            <div className='col-sm-4'>
+              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
+            </div>
+          </div>
+          <div className='row row-home'>
+            <p>Category</p>
+            <div className='col-sm-4'>
+              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
+            </div>
+            <div className='col-sm-4'>
+              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
+            </div>
+            <div className='col-sm-4'>
+              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
+            </div>
+          </div>
           <Footer />
         </div>
       </div>
