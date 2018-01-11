@@ -30,7 +30,11 @@ class Home extends React.Component {
       console.log('DATA', data);
       let categories = [];
       data.map((i => {
-        return console.log('categories', i);
+        return categories.push(
+          <div className='col-sm-3'>
+            <img src={i.image} alt='img' style={{width: '100%'}} key={i.id}></img>
+          </div>
+        );
       }))
       this.setState({ categories });
     });
@@ -69,26 +73,10 @@ class Home extends React.Component {
           </div>
 
           <div className='row row-home'>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-            </div>
+            {this.state.categories.slice(0, 3)}
           </div>
           <div className='row row-home'>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-            </div>
+            {this.state.categories.slice(3, 6)}
           </div>
           <div className='row'>
             <div className='about-home'>
