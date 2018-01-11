@@ -123,3 +123,16 @@
   float: right;
   color: rgba(62, 62, 62, 0.72);
 }
+
+.skills-heading {
+  opacity: 0.62;
+  font-size: 26px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  text-transform: uppercase;
+  color: #000000;
+}
