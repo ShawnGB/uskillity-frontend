@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../navigation/Nav';
 import Footer from '../footer/Footer';
+import { CustomCarousel } from '../carousel/Carousel';
 
 class Home extends React.Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class Home extends React.Component {
       let workshops = [];
       data.map((i => {
         return workshops.push(
-          <img src={i.main_image} alt='img' style={{width: '100%'}} key={i.id}></img>
+          <img src={i.main_image} alt='img' style={{maxHeight: '600px' ,width: '100%'}} key={i.id}></img>
         );
       }))
       this.setState({ workshops });
@@ -31,8 +32,8 @@ class Home extends React.Component {
       let categories = [];
       data.map((i => {
         return categories.push(
-          <div className='col-sm-4'>
-            <img src={i.image} alt='img' style={{width: '100%'}} key={i.id}></img>
+          <div className='col-sm-4' key={i.id}>
+            <img src={i.image} alt='img' style={{width: '100%'}} ></img>
           </div>
         );
       }))
@@ -45,33 +46,9 @@ class Home extends React.Component {
       <div>
         <Navbar />
         <div className='container'>
-
-          <div id='myCarousel' className='carousel slide' data-ride='carousel'>
-
-            <ol className='carousel-indicators'>
-              <li data-target='#' data-slide-to='0' className='active'></li>
-              <li data-target='#' data-slide-to='1'></li>
-              <li data-target='#' data-slide-to='2'></li>
-            </ol>
-
-            <div className='carousel-inner'>
-              <div className='item'>
-                {this.state.workshops}
-                <div className='carousel-caption'>
-                </div>
-              </div>
-            </div>
-
-            <a className='left carousel-control' data-slide='prev'>
-              <span className='glyphicon glyphicon-chevron-left'></span>
-              <span className='sr-only'>Previous</span>
-            </a>
-            <a className='right carousel-control' data-slide='next'>
-              <span className='glyphicon glyphicon-chevron-right'></span>
-              <span className='sr-only'>Next</span>
-            </a>
-          </div>
-
+        <div>
+          <CustomCarousel items={this.state.workshops} style={{"height":"600px", "marginBottom":"20px"}}/>
+        </div>
           <div className='row row-home'>
             {this.state.categories.slice(0, 3)}
           </div>
