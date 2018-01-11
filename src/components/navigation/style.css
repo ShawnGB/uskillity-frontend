@@ -1,3 +1,16 @@
 .menu-item {
   font-size: 18px;
 }
+
+.navbar.navbar-default {
+    background-color: #FFFFFF;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.navbar.navbar-default .navbar-collapse {
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
