@@ -18,7 +18,9 @@ class Home extends React.Component {
       console.log('DATA', data);
       let workshops = [];
       data.map((i => {
-        return console.log('workshops', i);
+        return workshops.push(
+          <img src={i.main_image} alt='img' style={{width: '100%'}} key={i.id}></img>
+        );
       }))
       this.setState({ workshops });
     });
@@ -49,25 +51,11 @@ class Home extends React.Component {
             </ol>
 
             <div className='carousel-inner'>
-
-              <div className='item active'>
-                <img src='http://via.placeholder.com/780x300' alt='1' style={{width: '100%'}}></img>
-                <div className='carousel-caption'>
-                </div>
-              </div>
-
               <div className='item'>
-                <img src='http://via.placeholder.com/780x300' alt='2' style={{width: '100%'}}></img>
+                {this.state.workshops}
                 <div className='carousel-caption'>
                 </div>
               </div>
-
-              <div className='item'>
-                <img src='http://via.placeholder.com/780x300' alt='3' style={{width: '100%'}}></img>
-                <div className='carousel-caption'>
-                </div>
-              </div>
-
             </div>
 
             <a className='left carousel-control' data-slide='prev'>
