@@ -13,7 +13,7 @@ class Navbar extends React.Component {
               <div className='navbar-header'>
                 <img src={logo} width='138' height='50' alt='' />
               </div>
-              <ul className='nav navbar-nav navbar-center'>
+              <ul className='nav navbar-nav navbar-right'>
                 <li className='menu-item'>
                   <Link
                     to='#'
@@ -29,14 +29,7 @@ class Navbar extends React.Component {
                   </Link>
                 </li>
               </ul>
-              <ul className='nav navbar-nav navbar-left'>
-                <li className='menu-item'>
-                  <Link to='/about'>
-                    u/about
-                  </Link>
-                </li>
-              </ul>
-              <ul className='nav navbar-nav navbar-right'>
+              <ul className='nav navbar-nav navbar-center'>
                 <li className='menu-item'>
                   <Link to='/shareyourskill'>
                     Share your skill
@@ -45,6 +38,13 @@ class Navbar extends React.Component {
                 <li className='menu-item'>
                   <Link to='/learnskill'>
                     Learn a Skill
+                  </Link>
+                </li>
+              </ul>
+              <ul className='nav navbar-nav navbar-left'>
+                <li className='menu-item'>
+                  <Link to='/about'>
+                    u/about
                   </Link>
                 </li>
               </ul>
