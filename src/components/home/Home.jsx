@@ -31,7 +31,7 @@ class Home extends React.Component {
       let categories = [];
       data.map((i => {
         return categories.push(
-          <div className='col-sm-3'>
+          <div className='col-sm-4'>
             <img src={i.image} alt='img' style={{width: '100%'}} key={i.id}></img>
           </div>
         );
