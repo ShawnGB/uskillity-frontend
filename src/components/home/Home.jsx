@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../navigation/Nav';
 import Footer from '../footer/Footer';
 import { CustomCarousel } from '../carousel/Carousel';
+import './style.css';
 
 class Home extends React.Component {
   constructor(props) {
@@ -49,6 +50,7 @@ class Home extends React.Component {
         <div>
           <CustomCarousel items={this.state.workshops} style={{"height":"600px", "marginBottom":"20px"}}/>
         </div>
+        <p className='home-heading'>Create a possibility</p>
           <div className='row row-home'>
             {this.state.categories.slice(0, 3)}
           </div>
