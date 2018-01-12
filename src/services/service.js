@@ -1,3 +1,5 @@
+const SERVER = process.env.REACT_APP_SERVER;
+
 export const service = {
   login,
   register,
@@ -15,7 +17,7 @@ function login(email, password) {
       password
     })
   };
-  return fetch('https://bluecarbuncle-staging.herokuapp.com/auth/sign_in', requestParams)
+  return fetch(SERVER+'/auth/sign_in', requestParams)
     .then(handleResponse);
 }
 
@@ -40,7 +42,7 @@ function register(user) {
       password_confirmation
     })
   };
-  return fetch('https://bluecarbuncle-staging.herokuapp.com/auth', requestParams)
+  return fetch(SERVER+'/auth', requestParams)
     .then(response => {
       if (!response.ok) {
         return Promise.reject(response.statusText)

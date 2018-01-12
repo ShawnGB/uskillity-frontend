@@ -4,6 +4,8 @@ import Footer from '../footer/Footer';
 import { CustomCarousel } from '../carousel/Carousel';
 import './style.css';
 
+const SERVER = process.env.REACT_APP_SERVER;
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -14,7 +16,7 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://bluecarbuncle-staging.herokuapp.com/workshops/random.json')
+    fetch(SERVER+'/workshops/random.json')
     .then((resp) => resp.json())
     .then((data) => {
       console.log('DATA', data);
@@ -26,7 +28,7 @@ class Home extends React.Component {
       }))
       this.setState({ workshops });
     });
-    fetch('https://bluecarbuncle-staging.herokuapp.com/categories.json')
+    fetch(SERVER+'/categories.json')
     .then((resp) => resp.json())
     .then((data) => {
       console.log('DATA', data);

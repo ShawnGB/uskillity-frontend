@@ -3,6 +3,8 @@ import Navbar from '../navigation/Nav';
 import Footer from '../../components/footer/Footer';
 import './style.css';
 
+const SERVER = process.env.REACT_APP_SERVER;
+
 class ShareSkill extends Component {
   constructor(props) {
     super(props);
@@ -32,20 +34,20 @@ class ShareSkill extends Component {
   }
 
   componentDidMount() {
-    fetch('https://bluecarbuncle-staging.herokuapp.com/levels.json')
+    fetch(SERVER+'/levels.json')
     .then((resp) => resp.json())
     .then((data) => {
-      console.log('DATA', data);
+      console.log('DATA LEVELS', data);
       let levels = [];
       data.map((i => {
         return levels.push(<option key={i.id} value={i.id}>{i.name}</option>);
       }))
       this.setState({ levels });
     });
-    fetch('https://bluecarbuncle-staging.herokuapp.com/categories.json')
+    fetch(SERVER+'/categories.json')
     .then((resp) => resp.json())
     .then((data) => {
-      console.log('DATA', data);
+      console.log('DATA CATAGORIES', data);
       let categories = [];
       data.map((i => {
         return categories.push(<option key={i.id} value={i.name}>{i.name}</option>);
@@ -65,7 +67,7 @@ class ShareSkill extends Component {
   handleSubmit(e){
     e.preventDefault();
     console.log('signup state', this.state);
-    fetch('https://bluecarbuncle-staging.herokuapp.com/workshops.json', {
+    fetch(SERVER+'/workshops.json', {
      method: 'post',
      headers: {'Content-Type':'application/json'},
      body: JSON.stringify({

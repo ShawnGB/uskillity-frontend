@@ -1,5 +1,5 @@
 import React from 'react';
-import Guidelines from './Guidelines';
+import Vision from './Vision';
 import Sidebar from './Sidebar';
 import Navbar from '../navigation/Nav';
 import Footer from '../footer/Footer';
@@ -15,7 +15,7 @@ class About extends React.Component {
               <Sidebar />
             </div>
             <div className='col-md-8'>
-              <Guidelines />
+              <Vision />
             </div>
           </div>
           <Footer />
