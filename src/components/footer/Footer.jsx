@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import logo from '../../images/logo.png';
+import { Link } from 'react-router-dom';
 import './style.css';
 
 export default class Footer extends Component {
@@ -26,7 +27,7 @@ export default class Footer extends Component {
           <br></br>
           <p className='footer-item'>Help</p>
           <p className='footer-item'>Impressum</p>
-          <p className='footer-item'>Terms and Conditions</p>
+          <p className='footer-item'><Link to='/terms'>Terms and Conditions</Link></p>
         </div>
       </div>
     );

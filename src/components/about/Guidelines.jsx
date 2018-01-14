@@ -1,12 +1,19 @@
 import React from 'react';
+import Sidebar from './Sidebar';
+import Navbar from '../navigation/Nav';
+import Footer from '../footer/Footer';
 import './style.css';
 
 export default class Guidelines extends React.Component{
   render(){
     return(
       <div>
+        <Navbar />
         <div className='container'>
           <div className='row'>
+            <div className='col-md-2'>
+              <Sidebar />
+            </div>
             <div className="col-lg-9">
               <h2 className='about-heading'> Guidelines </h2>
               <p className='about-content'>
@@ -20,6 +27,7 @@ export default class Guidelines extends React.Component{
               </p>
             </div>
           </div>
+          <Footer />
         </div>
       </div>
     );
