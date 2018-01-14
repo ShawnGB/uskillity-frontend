@@ -36,22 +36,24 @@ class LoginForm extends Component {
         <div className="row">
           <div className="col-sm-4 col-sm-offset-1">
             <div className="panel-body">
-              <form>
-                <fieldset>
+              <form name="form" onSubmit={this.handleSubmit}>
                   <div className="form-group">
                     <button className='btn btn-lg btn-facebook btn-block' type='button'>
                       Log in with Facebook
                     </button>
-                    <label style={{ margin: '5% 0 5% 50%'}}> or </label>
-                    <input className="form-control" placeholder="Email" name="email" type="text" onChange={this.onChange}></input>
                   </div>
                   <div className="form-group">
-                    <input className="form-control" placeholder="Password" name="password" type="password" onChange={this.onChange}></input>
+                    <label style={{ margin: '0% 0 5% 50%'}}> or </label>
+                    <input className="form-control" placeholder="Email" name="email" type="text" onChange={this.onChange} value={this.state.email}></input>
                   </div>
-                  <button className='btn btn-lg btn-primary btn-block' type='button' onClick={this.handleSubmit}>
-                    Log in
-                  </button>
-                </fieldset>
+                  <div className="form-group">
+                    <input className="form-control" placeholder="Password" name="password" type="password" onChange={this.onChange} value={this.state.password}></input>
+                  </div>
+                  <div className="form-group">
+                    <button className='btn btn-lg btn-primary btn-block' disabled={!this.state.email || !this.state.password}>
+                      Log in
+                    </button>
+                  </div>
               </form>
             </div>
             <div>{this.state.error.message}</div>
