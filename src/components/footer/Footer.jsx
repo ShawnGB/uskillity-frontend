@@ -3,7 +3,7 @@ import logo from '../../images/logo.png';
 import { Link } from 'react-router-dom';
 import './style.css';
 import Facebook from 'react-icons/lib/fa/facebook';
-import Twitter from 'react-icons/lib/fa/twitter';
+import Instagram from 'react-icons/lib/fa/instagram';
 
 export default class Footer extends Component {
   render(){
@@ -19,7 +19,7 @@ export default class Footer extends Component {
           <p className='footer-item'>office@uskillity.de</p>
           <p className='footer-item'>
             <Facebook size={30} />
-            <Twitter size={30}/>
+            <Instagram size={30}/>
           </p>
         </div>
         <div className='col-sm-3'>
