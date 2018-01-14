@@ -11,7 +11,7 @@ class Navbar extends React.Component {
           <nav className='navbar fixed-top navbar-default'>
             <div className='container-fluid'>
               <div className='navbar-header'>
-                <img src={logo} width='138' height='50' alt='' />
+                <Link to='/'><img src={logo} width='138' height='50' alt='' /></Link>
               </div>
               <ul className='nav navbar-nav navbar-right'>
                 <li className='menu-item'>

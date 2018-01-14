@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from '../../images/logo.png';
 import { Link } from 'react-router-dom';
 import './style.css';
+import Facebook from 'react-icons/lib/fa/facebook';
+import Twitter from 'react-icons/lib/fa/twitter';
 
 export default class Footer extends Component {
   render(){
@@ -15,6 +17,10 @@ export default class Footer extends Component {
         <div className='col-sm-3'>
           <p className='footer-title'>Connect</p>
           <p className='footer-item'>office@uskillity.de</p>
+          <p className='footer-item'>
+            <Facebook size={30} />
+            <Twitter size={30}/>
+          </p>
         </div>
         <div className='col-sm-3'>
           <p className='footer-title'>u/Skillity</p>
