@@ -1,9 +1,21 @@
+import {
+  createBrowserHistory
+} from 'history';
+
+const history = createBrowserHistory();
+
 const SERVER = process.env.REACT_APP_SERVER;
+const ACCESS_TOKEN_KEY = "Access-Token";
+const CLIENT = "Client";
+const UID = "Uid";
+const AUTH_PARAMS = "authParams";
 
 export const service = {
   login,
   register,
   alreadyRegistered,
+  logout,
+  checkLoggedIn,
 };
 
 function login(email, password) {
@@ -17,8 +29,21 @@ function login(email, password) {
       password
     })
   };
-  return fetch(SERVER+'/auth/sign_in', requestParams)
-    .then(handleResponse);
+  return fetch(SERVER + '/auth/sign_in', requestParams)
+    .then(handleResponse)
+    .then(data => {
+        //TODO push home path to browserHistory
+        console.log("data", data);
+        // TODO: check if needed?
+        history.push('/')
+
+      },
+      error => {
+        // TODO: return error text to user
+        console.log("error", error);
+      }
+    );
+
 }
 
 function register(user) {
@@ -42,7 +67,7 @@ function register(user) {
       password_confirmation
     })
   };
-  return fetch(SERVER+'/auth', requestParams)
+  return fetch(SERVER + '/auth', requestParams)
     .then(response => {
       if (!response.ok) {
         return Promise.reject(response.statusText)
@@ -51,22 +76,45 @@ function register(user) {
     });
 }
 
-function alreadyRegistered (){
-
+function logout() {
+  clearAuthParameters();
+  // TODO: push the browser back to home page
 }
+
+function alreadyRegistered() {}
 
 function handleResponse(response) {
 
   if (!response.ok) {
     return Promise.reject(response.statusText);
   }
-
-  const authParams = {
-    auth_token: response.headers.get("Access-Token"),
-    client: response.headers.get("Client"),
-    uid: response.headers.get("Uid")
-  }
-
-  sessionStorage.setItem('authParams', JSON.stringify(authParams));
+  setAuthParameters(response);
   return response.json();
+}
+
+function setAuthParameters(response) {
+  const authParams = {
+    // TODO: good to check for null values
+    auth_token: response.headers.get(ACCESS_TOKEN_KEY),
+    client: response.headers.get(CLIENT),
+    uid: response.headers.get(UID)
+  }
+  //Save authentication parameters to sessionStorage
+  // TODO: check if this needs to be sessionStorage or localStorage?
+  sessionStorage.setItem(AUTH_PARAMS, JSON.stringify(authParams));
+}
+//Fetches the value of authentication parameters from sessionStorage
+function getAuthParameters() {
+  return JSON.parse(sessionStorage.getItem(AUTH_PARAMS));
+}
+
+//If authentication params exist and not expired the return true
+function checkLoggedIn() {
+  var params = getAuthParameters();
+  // TODO: Also check if token is expired already
+  return params != null && !!params.auth_token;
+}
+
+function clearAuthParameters() {
+  sessionStorage.removeItem(AUTH_PARAMS);
 }

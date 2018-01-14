@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './style.css';
 import logo from '../../images/logo.png';
 import Auth from '../authModal/Auth'
+import { service } from '../../services/service'
 
 class Navbar extends React.Component {
     render() {
@@ -14,20 +15,39 @@ class Navbar extends React.Component {
                 <Link to='/'><img src={logo} width='138' height='50' alt='' /></Link>
               </div>
               <ul className='nav navbar-nav navbar-right'>
-                <li className='menu-item'>
-                  <Link
-                    to='#'
-                    onClick={() => this.refs.authComponent.onRegisteredClicked()}>
-                    Register now
-                  </Link>
-                </li>
-                <li className='menu-item'>
-                  <Link
-                    to='#'
-                    onClick={() => this.refs.authComponent.onLoginClicked()}>
-                    Log in
-                  </Link>
-                </li>
+                {
+                  (!service.checkLoggedIn()) ?
+                  <li className='menu-item'>
+                    <Link
+                      to='#'
+                      onClick={() => this.refs.authComponent.onRegisteredClicked()}>
+                      Register now
+                    </Link>
+                  </li>
+                  :
+                  <li className='menu-item'>
+                    <Link to='/profile'>
+                      My Account
+                    </Link>
+                  </li>
+                }{
+                  (!service.checkLoggedIn()) ?
+                  <li className='menu-item'>
+                    <Link
+                      to='#'
+                      onClick={() => this.refs.authComponent.onLoginClicked()}>
+                      Log in
+                    </Link>
+                  </li>
+                  :
+                  <li className='menu-item'>
+                    <Link
+                      to='#'
+                      onClick={() => service.logout()}>
+                      Log out
+                    </Link>
+                  </li>
+                }
               </ul>
               <ul className='nav navbar-nav navbar-center'>
                 <li className='menu-item'>
