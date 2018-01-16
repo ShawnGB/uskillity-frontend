@@ -3,182 +3,49 @@ import Navbar from '../navigation/Nav';
 import Footer from '../../components/footer/Footer';
 import './style.css';
 
+const SERVER = process.env.REACT_APP_SERVER;
+
 class LearnSkill extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      workshops: []
     };
+  }
+  componentDidMount(){
+    fetch(`${SERVER}/workshops.json`)
+    .then((resp) => {
+      if (!resp.ok) {
+        // TODO: send back to home page
+      }
+      return resp.json();
+    })
+    .then((workshops) => {
+      console.log("workshops",workshops);
+      this.setState({workshops})
+    });
   }
 
   render() {
+    const { workshops } = this.state;
     return(
       <div>
         <Navbar />
         <div className='container'>
-          <div className='row row-home'>
+        {workshops.map((data,i) =>(
+          <div className='col-sm-4' key={i}>
             <p className='skills-heading'>Category</p>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-              <div className='skill-content'>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-              <div className='skill-content'>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-              <div className='skill-content'>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
+            <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
+            <div className='skill-content'>
+              <p className='skill-title'>{data.title}</p>
+              <p className='skill-author'>Marina Berlin-Kreuzberg</p>
+              <p className='skill-price'>14 €</p>
             </div>
           </div>
-          <div className='row row-home'>
-            <p className='skills-heading'>Category</p>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-              <div className='skill-content'>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-              <div className='skill-content'>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-              <div className='skill-content'>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
-            </div>
-          </div>
-          <div className='row row-home'>
-            <p className='skills-heading'>Category</p>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-              <div className='skill-content'>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-              <div className='skill-content'>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-              <div className='skill-content'>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
-            </div>
-          </div>
-          <div className='row row-home'>
-            <p className='skills-heading'>Category</p>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-              <div className='skill-content'>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-              <div className='skill-content'>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-              <div className='skill-content'>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
-            </div>
-          </div>
-          <div className='row row-home'>
-            <p className='skills-heading'>Category</p>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-              <div className='skill-content'>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-              <div className='skill-content'>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-              <div className='skill-content'>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
-            </div>
-          </div>
-          <div className='row row-home'>
-            <p className='skills-heading'>Category</p>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-              <div className='skill-content'>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-              <div className='skill-content'>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
-            </div>
-            <div className='col-sm-4'>
-              <img src='http://placehold.it/350x220?text=Img' width='350' height='220' alt='' />
-              <div className='skill-content'>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
-            </div>
-          </div>
+        ))}
+
           <Footer />
-        </div>
+        </div>\
       </div>
     )
   }
