@@ -1,14 +1,9 @@
-import {
-  createBrowserHistory
-} from 'history';
-
-const history = createBrowserHistory();
-
 const SERVER = process.env.REACT_APP_SERVER;
 const ACCESS_TOKEN_KEY = "Access-Token";
 const CLIENT = "Client";
 const UID = "Uid";
 const AUTH_PARAMS = "authParams";
+const EXPIRY = "Expiry";
 
 export const service = {
   login,
@@ -32,10 +27,10 @@ function login(email, password) {
   return fetch(SERVER + '/auth/sign_in', requestParams)
     .then(handleResponse)
     .then(data => {
-        //TODO push home path to browserHistory
+        //TODO push home path to history for page navigation
         console.log("data", data);
         // TODO: check if needed?
-        history.push('/')
+
 
       },
       error => {
@@ -45,7 +40,6 @@ function login(email, password) {
     );
 
 }
-
 function register(user) {
   //TODO may be use a better way to destructure the object?
   var email = user.email;
@@ -86,6 +80,7 @@ function alreadyRegistered() {}
 function handleResponse(response) {
 
   if (!response.ok) {
+    // TODO: return user back to home page
     return Promise.reject(response.statusText);
   }
   setAuthParameters(response);
@@ -97,7 +92,8 @@ function setAuthParameters(response) {
     // TODO: good to check for null values
     auth_token: response.headers.get(ACCESS_TOKEN_KEY),
     client: response.headers.get(CLIENT),
-    uid: response.headers.get(UID)
+    uid: response.headers.get(UID),
+    expiry: response.headers.get(EXPIRY)
   }
   //Save authentication parameters to sessionStorage
   // TODO: check if this needs to be sessionStorage or localStorage?
@@ -111,8 +107,11 @@ function getAuthParameters() {
 //If authentication params exist and not expired the return true
 function checkLoggedIn() {
   var params = getAuthParameters();
-  // TODO: Also check if token is expired already
-  return params != null && !!params.auth_token;
+  if (!params) {
+    return null;
+  }
+  // TODO: mab be check for token expiry if needed
+  return !!params.auth_token;
 }
 
 function clearAuthParameters() {
