@@ -2,9 +2,8 @@ import React from 'react';
 import Navbar from '../navigation/Nav';
 import Footer from '../footer/Footer';
 import { CustomCarousel } from '../carousel/Carousel';
+import {Helper} from '../../utils/Helper';
 import './style.css';
-
-const SERVER = process.env.REACT_APP_SERVER;
 
 class Home extends React.Component {
   constructor(props) {
@@ -16,7 +15,7 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    fetch(SERVER+'/workshops/random.json')
+    fetch(Helper.getServerUrl("/workshops/random.json"))
     .then((resp) => resp.json())
     .then((data) => {
       console.log('DATA', data);
@@ -28,7 +27,7 @@ class Home extends React.Component {
       }))
       this.setState({ workshops });
     });
-    fetch(SERVER+'/categories.json')
+    fetch(Helper.getServerUrl("/categories.json"))
     .then((resp) => resp.json())
     .then((data) => {
       console.log('DATA', data);

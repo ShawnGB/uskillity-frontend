@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import Navbar from '../navigation/Nav';
 import Footer from '../../components/footer/Footer';
+import {Helper} from '../../utils/Helper';
 import './style.css';
-
-const SERVER = process.env.REACT_APP_SERVER;
 
 class LearnSkill extends Component {
   constructor(props) {
@@ -13,13 +12,13 @@ class LearnSkill extends Component {
     };
   }
   componentDidMount() {
-    fetch(`${SERVER}/workshops.json`).then((resp) => {
+    fetch(Helper.getServerUrl("/workshops.json")).then((resp) => {
       if (!resp.ok) {
         // TODO: send back to home page
       }
       return resp.json();
     }).then((workshops) => {
-      fetch(`${SERVER}/categories.json`).then((resp) => {
+      fetch(Helper.getServerUrl("/categories.json")).then((resp) => {
         resp.json().then((categories_data) => {
           let categories = {}
           for (var i = 0; i < workshops.length; i++) {

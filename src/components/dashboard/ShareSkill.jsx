@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import Navbar from '../navigation/Nav';
 import Footer from '../../components/footer/Footer';
+import {Helper} from '../../utils/Helper'
 import './style.css';
-
-const SERVER = process.env.REACT_APP_SERVER;
 
 class ShareSkill extends Component {
   constructor(props) {
@@ -34,7 +33,7 @@ class ShareSkill extends Component {
   }
 
   componentDidMount() {
-    fetch(SERVER+'/levels.json')
+    fetch(Helper.getServerUrl("/levels.json"))
     .then((resp) => resp.json())
     .then((data) => {
       console.log('DATA LEVELS', data);
@@ -44,7 +43,7 @@ class ShareSkill extends Component {
       }))
       this.setState({ levels });
     });
-    fetch(SERVER+'/categories.json')
+    fetch(Helper.getServerUrl("/categories.json"))
     .then((resp) => resp.json())
     .then((data) => {
       console.log('DATA CATAGORIES', data);
@@ -67,7 +66,7 @@ class ShareSkill extends Component {
   handleSubmit(e){
     e.preventDefault();
     console.log('signup state', this.state);
-    fetch(SERVER+'/workshops.json', {
+    fetch(Helper.getServerUrl("/workshops.json"), {
      method: 'post',
      headers: {'Content-Type':'application/json'},
      body: JSON.stringify({
