@@ -1,10 +1,35 @@
 import React from 'react';
 import Navbar from '../navigation/Nav';
-import Sidebar from './Sidebar'
+import Sidebar from './Sidebar';
+import {Helper} from '../../utils/Helper';
 import './style.css';
 
 class Workshop extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      id:this.props.match.params.id,
+      workshop : {},
+    }
+  }
+  componentDidMount(){
+    // TODO: this is unnecessary api call, handle it through state manager or pass from parent component
+    fetch(Helper.getServerUrl(`/workshops/${this.state.id}.json`))
+    .then((resp) => {
+      if (!resp.ok) {
+        // TODO: send back to home page
+      }
+      return resp.json();
+    }).then((data) => {
+      this.setState({workshop:data})
+      console.log("after set up",this.state)
+    }
+    );
+  }
   render() {
+
+    console.log("I am a workshop",this.state.workshop);
+
     return	(
       <div>
         <Navbar />
@@ -19,7 +44,7 @@ class Workshop extends React.Component {
           <div className='row row-spacing'>
             <div className='col-lg-6'>
               <p className='workshop-name'>
-                Aquarell malen Grundkenntnisse
+                {this.state.workshop.title}
               </p>
             </div>
           </div>
