@@ -6,7 +6,7 @@ class Instructor extends React.Component {
     return (
       <div>
         <div className="col-lg-3 Instructior-Box">
-          <p className='instructor-title'> Instructor </p>
+          <p className='Instructor'> Instructor </p>
           <div className='img-container'>
             <img
               src='http://placehold.it/300x60?text=Logo'

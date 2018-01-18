@@ -35,13 +35,21 @@
   color: #000000;
 }
 
-.instructor-title {
-  padding: 10px 0 0px 75px;
-  font-size: 15px;
+.Instructor {
+  width: 80px;
+  height: 14px;
+  opacity: 0.72;
+  font-family: Calibre;
+  font-size: 20px;
   font-weight: 600;
-  color: #ff433a;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  padding: 5px 0 0px 70px;
+  color: rgba(0, 0, 0, 0.72);
 }
-
 
 .Instructior-Box {
   width: 260px;
@@ -54,7 +62,7 @@
   width: 180px;
   height: 180px;
   background-color: #575757;
-  margin: 0px 0px 0px 23px;
+  margin: 10px 0px 0px 23px;
 }
 
 .See-Profile-Box {
