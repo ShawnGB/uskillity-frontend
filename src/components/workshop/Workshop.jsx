@@ -22,7 +22,7 @@ class Workshop extends React.Component {
       return resp.json();
     }).then((data) => {
       this.setState({workshop:data})
-      console.log("after set up",this.state)
+      console.log("after set up",this.state.data)
     }
     );
   }
@@ -48,11 +48,15 @@ class Workshop extends React.Component {
               </p>
             </div>
           </div>
+
           <div className='row row-spacing'>
+            <div className='col-lg-3 col-lg-offset-9'>
+              <Sidebar />
+            </div>
             <div className='col-lg-8'>
               <p className='workshop-title'>Description</p>
               <p className='workshop-content'>
-                ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
+                {this.state.workshop.description}
               </p>
             </div>
           </div>
@@ -85,7 +89,6 @@ class Workshop extends React.Component {
             </div>
           </div>
         </div>
-        <Sidebar />
       </div>
     );
   }

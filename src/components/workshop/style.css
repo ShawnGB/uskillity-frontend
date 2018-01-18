@@ -35,13 +35,33 @@
   color: #000000;
 }
 
-.workshop-instructor-card-title {
-  padding: 10px 0 20px 80px;
+.instructor-title {
+  padding: 10px 0 0px 75px;
   font-size: 15px;
   font-weight: 600;
   color: #ff433a;
 }
 
-.workshop-instructor-card-btn {
-  margin: 15px 0 0 95px;
+
+.Instructior-Box {
+  width: 260px;
+  height: 330px;
+  background-color: #ffffff;
+  border: solid 1px #cccccc;
+}
+
+.Ellipse-3 {
+  width: 180px;
+  height: 180px;
+  background-color: #575757;
+  margin: 0px 0px 0px 23px;
+}
+
+.See-Profile-Box {
+  width: 141px;
+  height: 41px;
+  opacity: 0.72;
+  background-color: #ffffff;
+  border: solid 1px #000000;
+  margin: 25px 0 0 45px;
 }
