@@ -10,18 +10,20 @@ class ShareSkill extends Component {
     super(props);
     this.state = {
       //todo: wrap these in workshop object
-      title: '',
-      category: '',
-      description: '',
-      requriements: '',
-      ageTo: '',
-      ageFrom: '',
-      about: '',
-      participants: '',
-      dateAndTime: '',
-      duration: '',
-      location: '',
-      price: '',
+      workshop:{
+        title: '',
+        category: '',
+        description: '',
+        requriements: '',
+        ageTo: '',
+        ageFrom: '',
+        about: '',
+        participants: '',
+        dateAndTime: '',
+        duration: '',
+        location: '',
+        price: '',
+      },
       error: {
         message: ''
       },
@@ -58,11 +60,17 @@ class ShareSkill extends Component {
   }
 
   onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    const input = e.target.name;
+    const workshop = this.state.workshop;
+    workshop[input] = e.target.value;
+    this.setState({ workshop });
   }
 
   onSelect(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    const input = e.target.name;
+    const workshop = this.state.workshop;
+    workshop[input] = e.target.value;
+    this.setState({ workshop });
   }
 
   handleSubmit(e){
@@ -81,12 +89,13 @@ class ShareSkill extends Component {
      method: 'post',
      headers: {
        'Content-Type':'application/json',
-       'auth_token': params.auth_token,
+       'access-token': params.auth_token,
        'client': params.client,
        'uid': params.uid
      },
      body: JSON.stringify({
-       'category': this.state.category,
+       'category': this.state.workshop.category,
+       'workshop':this.state.workshop
      })
     });
   }
@@ -112,7 +121,7 @@ class ShareSkill extends Component {
                 style={{ margin: '5px'}}
               />
             <p className='skills-form-title'>Category</p>
-                <select value={this.state.category} name='category' onChange={this.onSelect}>
+                <select value={this.state.workshop.category} name='category' onChange={this.onSelect}>
                   {this.state.categories}
                 </select>
               <p className='skills-form-title'>Description</p>
