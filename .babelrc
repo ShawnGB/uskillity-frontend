@@ -10,6 +10,7 @@
                 "app:utils": "./utils",
                 "app:services": "./services",
                 "app:containers": "./containers",
+                "app:store": "./store",
             },
             "extensions": [".jsx"]
         }]
