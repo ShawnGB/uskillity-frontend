@@ -1,20 +1,21 @@
 import React from "react";
 import { HashRouter as Router, Route } from "react-router-dom";
 
-import Home from "app:components/home/Home";
 import Vision from "app:components/about/Vision";
 import Team from "app:components/about/Team";
 import Contact from "app:components/about/Contact";
 import Help from "app:components/about/Help";
 import Press from "app:components/about/Press";
-import Courses from "app:components/courses/Courses";
-import Profile from "app:components/dashboard/profile/Profile";
-import ProfileEdit from "app:components/dashboard/profile/ProfileEdit";
-import Workshop from "app:components/workshop/Workshop";
-import ShareSkill from "app:components/dashboard/ShareSkill";
-import LearnSkill from "app:components/dashboard/LearnSkill";
 import TermsConditions from "app:components/about/TermsConditions";
 import Guidelines from "app:components/about/Guidelines";
+
+import Home from "app:routes/home";
+import Profile from "app:routes/profile/Profile";
+import ProfileEdit from "app:routes/profile/ProfileEdit";
+import Courses from "app:routes/courses";
+import Workshop from "app:routes/workshop";
+import ShareSkill from "app:routes/shareSkill";
+import LearnSkill from "app:routes/learnSkill";
 
 export default () => (
   <Router>
