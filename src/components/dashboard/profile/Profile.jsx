@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ProfileContent from './ProfileContent';
-import Navbar from '../../navigation/Nav';
-import Footer from '../../footer/Footer';
+import Navbar from 'app:components/navigation/Nav';
+import Footer from 'app:components/footer/Footer';
 
 class Profile extends Component {
   render(){

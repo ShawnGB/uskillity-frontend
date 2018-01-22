@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Navbar from '../../navigation/Nav';
-import Footer from '../../footer/Footer';
+import Navbar from 'app:components/navigation/Nav';
+import Footer from 'app:components/footer/Footer';
 
 class ProfileEdit extends Component {
   constructor(props) {

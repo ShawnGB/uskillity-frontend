@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {service} from '../../services/service'
+import {service} from 'app:services/service'
 import './style.css';
 
 class RegisterForm extends Component {

@@ -1,8 +1,8 @@
 import React from 'react';
-import Navbar from '../navigation/Nav';
-import Footer from '../footer/Footer';
-import { CustomCarousel } from '../carousel/Carousel';
-import {Helper} from '../../utils/Helper';
+import Navbar from 'app:components/navigation/Nav';
+import Footer from 'app:components/footer/Footer';
+import { CustomCarousel } from 'app:components/carousel/Carousel';
+import {Helper} from 'app:utils/Helper';
 import './style.css';
 
 class Home extends React.Component {

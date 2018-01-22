@@ -1,20 +1,20 @@
 import React from "react";
 import { HashRouter as Router, Route } from "react-router-dom";
 
-import Home from "../components/home/Home";
-import Vision from "../components/about/Vision";
-import Team from "../components/about/Team";
-import Contact from "../components/about/Contact";
-import Help from "../components/about/Help";
-import Press from "../components/about/Press";
-import Courses from "../components/courses/Courses";
-import Profile from "../components/dashboard/profile/Profile";
-import ProfileEdit from "../components/dashboard/profile/ProfileEdit";
-import Workshop from "../components/workshop/Workshop";
-import ShareSkill from "../components/dashboard/ShareSkill";
-import LearnSkill from "../components/dashboard/LearnSkill"
-import TermsConditions from "../components/about/TermsConditions"
-import Guidelines from "../components/about/Guidelines"
+import Home from "app:components/home/Home";
+import Vision from "app:components/about/Vision";
+import Team from "app:components/about/Team";
+import Contact from "app:components/about/Contact";
+import Help from "app:components/about/Help";
+import Press from "app:components/about/Press";
+import Courses from "app:components/courses/Courses";
+import Profile from "app:components/dashboard/profile/Profile";
+import ProfileEdit from "app:components/dashboard/profile/ProfileEdit";
+import Workshop from "app:components/workshop/Workshop";
+import ShareSkill from "app:components/dashboard/ShareSkill";
+import LearnSkill from "app:components/dashboard/LearnSkill";
+import TermsConditions from "app:components/about/TermsConditions";
+import Guidelines from "app:components/about/Guidelines";
 
 export default () => (
   <Router>

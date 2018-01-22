@@ -1,7 +1,7 @@
 import React from 'react';
-import Navbar from '../navigation/Nav';
+import Navbar from 'app:components/navigation/Nav';
 import Sidebar from './Sidebar';
-import {Helper} from '../../utils/Helper';
+import {Helper} from 'app:utils/Helper';
 import './style.css';
 
 class Workshop extends React.Component {

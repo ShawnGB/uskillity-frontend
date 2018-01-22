@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './style.css';
 import logo from '../../images/logo.png';
-import Auth from '../authModal/Auth'
-import { service } from '../../services/service'
+import Auth from 'app:components/authModal/Auth'
+import { service } from 'app:services/service'
 
 class Navbar extends React.Component {
     render() {

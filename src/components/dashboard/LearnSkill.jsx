@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import Navbar from '../navigation/Nav';
+import Navbar from 'app:components/navigation/Nav';
 import {Link} from 'react-router-dom';
-import Footer from '../../components/footer/Footer';
-import {Helper} from '../../utils/Helper';
+import Footer from 'app:components/footer/Footer';
+import {Helper} from 'app:utils/Helper';
 import './style.css';
 
 class LearnSkill extends Component {

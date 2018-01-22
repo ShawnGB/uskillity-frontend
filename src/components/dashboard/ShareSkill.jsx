@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Navbar from '../navigation/Nav';
-import Footer from '../../components/footer/Footer';
-import {Helper} from '../../utils/Helper'
-import {service} from '../../services/service';
+import Navbar from 'app:components/navigation/Nav';
+import Footer from 'app:components/footer/Footer';
+import {Helper} from 'app:utils/Helper'
+import {service} from 'app:services/service';
 import './style.css';
 
 class ShareSkill extends Component {
