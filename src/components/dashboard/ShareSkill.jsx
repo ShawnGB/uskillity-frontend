@@ -2,24 +2,28 @@ import React, { Component } from 'react';
 import Navbar from '../navigation/Nav';
 import Footer from '../../components/footer/Footer';
 import {Helper} from '../../utils/Helper'
+import {service} from '../../services/service';
 import './style.css';
 
 class ShareSkill extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      category: '',
-      description: '',
-      requriements: '',
-      ageTo: '',
-      ageFrom: '',
-      about: '',
-      participants: '',
-      dateAndTime: '',
-      duration: '',
-      location: '',
-      price: '',
+      //todo: wrap these in workshop object
+      workshop:{
+        title: '',
+        category: '',
+        description: '',
+        requriements: '',
+        ageTo: '',
+        ageFrom: '',
+        about: '',
+        participants: '',
+        dateAndTime: '',
+        duration: '',
+        location: '',
+        price: '',
+      },
       error: {
         message: ''
       },
@@ -56,21 +60,42 @@ class ShareSkill extends Component {
   }
 
   onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    const input = e.target.name;
+    const workshop = this.state.workshop;
+    workshop[input] = e.target.value;
+    this.setState({ workshop });
   }
 
   onSelect(e) {
-    this.setState({ [e.target.value]: e.target.value });
+    const input = e.target.name;
+    const workshop = this.state.workshop;
+    workshop[input] = e.target.value;
+    this.setState({ workshop });
   }
 
   handleSubmit(e){
+    if (!service.checkLoggedIn()) {
+      // TODO: if user not log in the return to home page
+      return
+    }
+
+    let params = service.getAuthParameters();
+
+    console.log("params",params);
+
     e.preventDefault();
     console.log('signup state', this.state);
     fetch(Helper.getServerUrl("/workshops.json"), {
      method: 'post',
-     headers: {'Content-Type':'application/json'},
+     headers: {
+       'Content-Type':'application/json',
+       'access-token': params.auth_token,
+       'client': params.client,
+       'uid': params.uid
+     },
      body: JSON.stringify({
-       'category': this.state.category
+       'category': this.state.workshop.category,
+       'workshop':this.state.workshop
      })
     });
   }
@@ -95,8 +120,8 @@ class ShareSkill extends Component {
                 onChange={this.onChange}
                 style={{ margin: '5px'}}
               />
-              <p className='skills-form-title'>Category</p>
-                <select value={this.state.category} onChange={this.onSelect}>
+            <p className='skills-form-title'>Category</p>
+                <select value={this.state.workshop.category} name='category' onChange={this.onSelect}>
                   {this.state.categories}
                 </select>
               <p className='skills-form-title'>Description</p>
@@ -113,11 +138,11 @@ class ShareSkill extends Component {
               <div className='form-group row'>
                 <div className="col-xs-2">
                 <label htmlFor="ageFrom">Age From</label>
-                <input className="form-control" id="ageFrom" type="text"></input>
+                <input className="form-control" id="ageFrom" type="text" onChange={this.onChange}></input>
                 </div>
                 <div className="col-xs-2">
                 <label htmlFor="ageTo">Age To</label>
-                <input className="form-control" id="ageTo" type="text"></input>
+                <input className="form-control" id="ageTo" type="text" onChange={this.onChange}></input>
                 </div>
                 <div className="col-xs-2">
                 <label htmlFor="level">Recommended level</label>

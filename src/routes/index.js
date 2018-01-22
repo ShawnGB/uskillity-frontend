@@ -31,7 +31,7 @@ export default () => (
       <Route path="/terms" component={TermsConditions} />
       <Route exact path="/profile/edit" component={ProfileEdit} />
       <Route exact path="/profile" component={Profile} />
-      <Route path="/workshop" component={Workshop} />
+      <Route path="/workshop/:id" component={Workshop} />
       <Route path="/shareyourskill" component={ShareSkill} />
       <Route path="/learnskill" component={LearnSkill} />
     </div>

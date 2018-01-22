@@ -11,6 +11,7 @@ export const service = {
   alreadyRegistered,
   logout,
   checkLoggedIn,
+  getAuthParameters
 };
 
 function login(email, password) {
@@ -101,7 +102,11 @@ function setAuthParameters(response) {
 }
 //Fetches the value of authentication parameters from sessionStorage
 function getAuthParameters() {
-  return JSON.parse(sessionStorage.getItem(AUTH_PARAMS));
+  let auth = sessionStorage.getItem(AUTH_PARAMS);
+  if (!auth) {
+    return null;
+  }
+  return JSON.parse(auth);
 }
 
 //If authentication params exist and not expired the return true
