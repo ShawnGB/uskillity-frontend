@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './style.css';
 import logo from '../../images/logo.png';
 import Auth from 'app:components/authModal/Auth'
-import { service } from 'app:services/service'
+import * as service from 'app:service'
 
 class Navbar extends React.Component {
     render() {
@@ -43,7 +43,7 @@ class Navbar extends React.Component {
                   <li className='menu-item'>
                     <Link
                       to='#'
-                      onClick={() => service.logout()}>
+                      onClick={() => console.log("service.logout()")}>
                       Log out
                     </Link>
                   </li>

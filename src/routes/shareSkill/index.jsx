@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from 'app:components/navigation/Nav';
 import Footer from 'app:components/footer/Footer';
-import {Helper} from 'app:utils/Helper'
-import {service} from 'app:services/service';
+import * as service  from 'app:service';
 import './style.css';
 
 class ShareSkill extends Component {
@@ -37,7 +36,7 @@ class ShareSkill extends Component {
   }
 
   componentDidMount() {
-    fetch(Helper.getServerUrl("/levels.json"))
+    fetch(service.getServerEndpoint("/levels.json"))
     .then((resp) => resp.json())
     .then((data) => {
       console.log('DATA LEVELS', data);
@@ -47,7 +46,7 @@ class ShareSkill extends Component {
       }))
       this.setState({ levels });
     });
-    fetch(Helper.getServerUrl("/categories.json"))
+    fetch(service.getServerEndpoint("/categories.json"))
     .then((resp) => resp.json())
     .then((data) => {
       console.log('DATA CATAGORIES', data);
@@ -79,20 +78,11 @@ class ShareSkill extends Component {
       return
     }
 
-    let params = service.getAuthParameters();
-
-    console.log("params",params);
-
     e.preventDefault();
     console.log('signup state', this.state);
-    fetch(Helper.getServerUrl("/workshops.json"), {
+    fetch(service.getServerEndpoint("/workshops.json"), {
      method: 'post',
-     headers: {
-       'Content-Type':'application/json',
-       'access-token': params.auth_token,
-       'client': params.client,
-       'uid': params.uid
-     },
+     headers: service.getRequestHeaders(),
      body: JSON.stringify({
        'category': this.state.workshop.category,
        'workshop':this.state.workshop
