@@ -12,7 +12,7 @@ class ShareSkill extends Component {
       //todo: wrap these in workshop object
       workshop:{
         title: '',
-        category: '',
+        category_id: '',
         description: '',
         requirements: '',
         ageTo: '',
@@ -53,7 +53,7 @@ class ShareSkill extends Component {
       console.log('DATA CATAGORIES', data);
       let categories = [];
       data.map((i => {
-        return categories.push(<option key={i.id} value={i.name}>{i.name}</option>);
+        return categories.push(<option key={i.id} value={i.id}>{i.name}</option>);
       }))
       this.setState({ categories });
     });
@@ -120,7 +120,7 @@ class ShareSkill extends Component {
                 style={{ margin: '5px'}}
               />
             <p className='skills-form-title'>Category</p>
-                <select value={this.state.workshop.category} name='category' onChange={this.onSelect}>
+                <select value={this.state.categories.id} name='category_id' onChange={this.onSelect}>
                   {this.state.categories}
                 </select>
               <p className='skills-form-title'>Description</p>

@@ -57,7 +57,7 @@ const CategoryRow = props => {
     <p className='skills-heading'>{props.name}</p>
     {
       props.workshops.map((workshop, i) => (<div className="col-sm-4" key={i}>
-        <Link to={`/workshop/${workshop.category_id}/${workshop.id}`}><img src={workshop.main_image} width='350' height='220' alt=''/></Link>
+        <Link to={`/workshop/${workshop.id}`}><img src={workshop.main_image} width='350' height='220' alt=''/></Link>
         <div className='skill-content'>
           <p className='skill-title'>{workshop.title}</p>
           <p className='skill-author'>Marina Berlin-Kreuzberg</p>
