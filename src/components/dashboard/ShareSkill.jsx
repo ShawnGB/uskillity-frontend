@@ -14,7 +14,7 @@ class ShareSkill extends Component {
         title: '',
         category: '',
         description: '',
-        requriements: '',
+        requirements: '',
         ageTo: '',
         ageFrom: '',
         about: '',
@@ -94,7 +94,6 @@ class ShareSkill extends Component {
        'uid': params.uid
      },
      body: JSON.stringify({
-       'category': this.state.workshop.category,
        'workshop':this.state.workshop
      })
     });
@@ -138,11 +137,11 @@ class ShareSkill extends Component {
               <div className='form-group row'>
                 <div className="col-xs-2">
                 <label htmlFor="ageFrom">Age From</label>
-                <input className="form-control" id="ageFrom" type="text" onChange={this.onChange}></input>
+                <input className="form-control" name="ageFrom" type="text" onChange={this.onChange}></input>
                 </div>
                 <div className="col-xs-2">
                 <label htmlFor="ageTo">Age To</label>
-                <input className="form-control" id="ageTo" type="text" onChange={this.onChange}></input>
+                <input className="form-control" name="ageTo" type="text" onChange={this.onChange}></input>
                 </div>
                 <div className="col-xs-2">
                 <label htmlFor="level">Recommended level</label>
@@ -155,7 +154,7 @@ class ShareSkill extends Component {
               <input
                 className='form-control'
                 type='text'
-                name='add-requirements'
+                name='requirements'
                 placeholder='Ex. basic knowledge of ... only participants that can bring/have ...'
                 onChange={this.onChange}
                 style={{ margin: '5px'}}
