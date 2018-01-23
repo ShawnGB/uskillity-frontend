@@ -1,7 +1,8 @@
+import * as localStorageManager from "./localStorageManager";
+
 const ACCESS_TOKEN_KEY = "Access-Token";
 const CLIENT = "Client";
 const UID = "Uid";
-const AUTH_PARAMS = "authParams";
 const EXPIRY = "Expiry";
 
 const SERVER = process.env.REACT_APP_SERVER;
@@ -17,7 +18,7 @@ export const getRequestHeaders = () => {
 };
 
 const getAuthHeaders = () => {
-  const params = getAuthParametersFromStorage();
+  const params = localStorageManager.getAuthParameters();
   if (!params) {
     return new Headers();
   }
@@ -28,15 +29,12 @@ const getAuthHeaders = () => {
   });
 };
 
-const getAuthParametersFromStorage = () => {
-  let auth = sessionStorage.getItem(AUTH_PARAMS);
-  if (!auth) {
-    return null;
+export const handleResponse = response => {
+  if (!response.ok) {
+    // TODO: return user back to home page
+    return Promise.reject(response.statusText);
   }
-  return JSON.parse(auth);
-};
 
-export const setAuthParametersInStorage = response => {
   const authParams = {
     // TODO: good to check for null values
     auth_token: response.headers.get(ACCESS_TOKEN_KEY),
@@ -44,20 +42,7 @@ export const setAuthParametersInStorage = response => {
     uid: response.headers.get(UID),
     expiry: response.headers.get(EXPIRY)
   };
-  //Save authentication parameters to sessionStorage
-  // TODO: change this to localStorage
-  sessionStorage.setItem(AUTH_PARAMS, JSON.stringify(authParams));
-};
 
-export const clearAuthParameters = () => {
-  sessionStorage.removeItem(AUTH_PARAMS);
-};
-
-export const handleResponse = response => {
-  if (!response.ok) {
-    // TODO: return user back to home page
-    return Promise.reject(response.statusText);
-  }
-  setAuthParametersInStorage(response);
+  localStorageManager.setAuthParameters(authParams);
   return response.json();
 };

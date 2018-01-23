@@ -1,5 +1,5 @@
 import * as sessionActions from "app:store/actions/session";
-import * as service from "app:utils/service";
+import * as localStorageManager from "app:utils/localStorageManager";
 
 const initialState = {
   isLoggedIn: false,
@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
 
     case sessionActions.LOGOUT_PENDING: {
       // TODO: push the browser back to home page
-      service.clearAuthParameters();
+      localStorageManager.clearAuthParameters();
       nextState = { ...state, isLoggedIn: false, user: null };
       break;
     }
