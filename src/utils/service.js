@@ -49,16 +49,6 @@ export const setAuthParametersInStorage = response => {
   sessionStorage.setItem(AUTH_PARAMS, JSON.stringify(authParams));
 };
 
-//If authentication params exist and not expired the return true
-export const checkLoggedIn = () => {
-  var params = getAuthParametersFromStorage();
-  if (!params) {
-    return null;
-  }
-  // TODO: mab be check for token expiry if needed
-  return !!params.auth_token;
-};
-
 export const clearAuthParameters = () => {
   sessionStorage.removeItem(AUTH_PARAMS);
 };

@@ -1,10 +1,13 @@
 import * as service from "app:utils/service";
 
-const LOGIN_PENDING = "session/LOGIN_PENDING";
-const LOGIN_FULFILLED = "session/LOGIN_FULFILLED";
-const LOGIN_REJECTED = "session/LOGIN_REJECTED";
-const REGISTER_PENDING = "session/REGISTER_PENDING";
-const REGISTER_FULFILLED = "session/REGISTER_FULFILLED";
+export const LOGIN_PENDING = "session/LOGIN_PENDING";
+export const LOGIN_FULFILLED = "session/LOGIN_FULFILLED";
+export const LOGIN_REJECTED = "session/LOGIN_REJECTED";
+export const LOGOUT_PENDING = "session/LOGOUT_PENDING";
+export const LOGOUT_FULFILLED = "session/LOGOUT_FULFILLED";
+export const LOGOUT_REJECTED = "session/LOGOUT_REJECTED";
+export const REGISTER_PENDING = "session/REGISTER_PENDING";
+export const REGISTER_FULFILLED = "session/REGISTER_FULFILLED";
 
 export const login = (email, password) => {
   return function(dispatch) {
@@ -21,15 +24,11 @@ export const login = (email, password) => {
       .then(service.handleResponse)
       .then(
         data => {
-          //TODO push home path to history for page navigation
-          dispatch({ type: LOGIN_FULFILLED });
-          console.log("data", data);
-          // TODO: check if needed?
+          //TODO: data.data is extremely ugly
+          dispatch({ type: LOGIN_FULFILLED, payload: data.data });
         },
         error => {
-          // TODO: return error text to user
-          dispatch({ type: LOGIN_REJECTED });
-          console.log("error", error);
+          dispatch({ type: LOGIN_REJECTED, payload: error });
         }
       );
   };
@@ -57,14 +56,12 @@ export const register = user => {
       })
     })
       .then(service.handleResponse)
-      .then(response => {
-        dispatch({ type: REGISTER_FULFILLED });
-        return response.json();
+      .then(data => {
+        dispatch({ type: REGISTER_FULFILLED, payload: data.data });
       });
   };
 };
 
-export const logout = () => {
-  service.clearAuthParameters();
-  // TODO: push the browser back to home page
-};
+export const logout = () => ({
+  type: LOGOUT_PENDING
+});
