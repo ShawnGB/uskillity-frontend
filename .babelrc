@@ -8,7 +8,6 @@
                 "app:routes": "./routes",
                 "app:components": "./components",
                 "app:utils": "./utils",
-                "app:service": "./service",
                 "app:containers": "./containers",
                 "app:store": "./store",
             },

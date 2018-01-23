@@ -1,4 +1,4 @@
-import * as service from "app:service";
+import * as service from "app:utils/service";
 
 const LOGIN_PENDING = "session/LOGIN_PENDING";
 const LOGIN_FULFILLED = "session/LOGIN_FULFILLED";

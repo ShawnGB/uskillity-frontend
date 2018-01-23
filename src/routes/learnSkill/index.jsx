@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Navbar from 'app:components/navigation/Nav';
 import {Link} from 'react-router-dom';
 import Footer from 'app:components/footer/Footer';
-import * as service from 'app:service'
+import * as service from 'app:utils/service'
 import './style.css';
 
 class LearnSkill extends Component {
