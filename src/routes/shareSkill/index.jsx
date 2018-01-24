@@ -22,7 +22,8 @@ class ShareSkill extends Component {
         dateAndTime: "",
         duration: "",
         location: "",
-        price: ""
+        price: "",
+        published_at: "",
       },
       error: {
         message: ""
@@ -72,6 +73,7 @@ class ShareSkill extends Component {
     const workshop = this.state.workshop;
     workshop[input] = e.target.value;
     this.setState({ workshop });
+    console.log("workshop",workshop);
   }
 
   onSelect(e) {
@@ -262,7 +264,7 @@ class ShareSkill extends Component {
               </button>
               <div className="checkbox">
                 <label>
-                  <input type="checkbox" value="" />I herby declare that I read
+                  <input type="checkbox" value={Date.now()} name="published_at" onChange={this.onChange}/>I herby declare that I read
                   the the terms and conditions as stated on this website and
                   agrre with them
                 </label>
