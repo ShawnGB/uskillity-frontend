@@ -1,5 +1,6 @@
 import React from "react";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/lib/integration/react";
 import PropTypes from "prop-types";
 import Routes from "app:routes";
 
@@ -13,11 +14,13 @@ class AppContainer extends React.Component {
   }
 
   render() {
-    const { store } = this.props;
+    const { store, persistor } = this.props;
 
     return (
       <Provider store={store}>
-        <Routes/>
+        <PersistGate loading={null} persistor={persistor}>
+          <Routes />
+        </PersistGate>
       </Provider>
     );
   }

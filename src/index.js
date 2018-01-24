@@ -5,10 +5,10 @@ import AppContainer from "app:containers/AppContainer";
 import registerServiceWorker from "./registerServiceWorker";
 import "bootstrap/dist/css/bootstrap.css";
 
-let store = createReduxStore();
+const { store, persistor } = createReduxStore();
 
 ReactDOM.render(
-  <AppContainer store={store} />,
+  <AppContainer store={store} persistor={persistor} />,
   document.getElementById("root")
 );
 registerServiceWorker();

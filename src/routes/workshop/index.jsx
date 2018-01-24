@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from 'app:components/navigation/Nav';
 import Sidebar from './Sidebar';
-import {Helper} from 'app:utils/Helper';
+import * as service from 'app:utils/service'
 import './style.css';
 
 class Workshop extends React.Component {
@@ -14,7 +14,7 @@ class Workshop extends React.Component {
   }
   componentDidMount(){
     // TODO: this is unnecessary api call, handle it through state manager or pass from parent component
-    fetch(Helper.getServerUrl(`/workshops/${this.state.id}.json`))
+    fetch(service.getServerEndpoint(`/workshops/${this.state.id}.json`))
     .then((resp) => {
       if (!resp.ok) {
         // TODO: send back to home page
