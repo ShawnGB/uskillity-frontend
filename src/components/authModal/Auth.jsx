@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap'
-import LoginForm from '../login/LoginForm';
-import RegisterForm from '../register/RegisterForm';
+import LoginForm from 'app:components/login/LoginForm';
+import RegisterForm from 'app:components/register/RegisterForm';
 
 export default class Auth extends React.Component {
     constructor(props) {
