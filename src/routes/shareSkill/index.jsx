@@ -23,8 +23,9 @@ class ShareSkill extends Component {
         duration: "",
         location: "",
         price: "",
-        published_at: "",
+        published_at: "", //TODO:ask sandeep if we need to pass published_at
       },
+      sessions: [{}],
       error: {
         message: ""
       },
@@ -35,6 +36,7 @@ class ShareSkill extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.addRow = this.addRow.bind(this);
   }
 
   componentDidMount() {
@@ -68,9 +70,27 @@ class ShareSkill extends Component {
       });
   }
 
-  onChange(e) {
+  addRow(){
+    var sessions = this.state.sessions;
+    sessions.push({});
+    this.setState({
+      sessions
+    })
+  }
+
+  captureSession(i,e){
+    let sessions = this.state.sessions;
     const input = e.target.name;
+    sessions[i][input] = e.target.value;
+    this.setState({
+      sessions
+    });
+    console.log("session",this.state);
+  }
+
+  onChange(e) {
     const workshop = this.state.workshop;
+    const input = e.target.name;
     workshop[input] = e.target.value;
     this.setState({ workshop });
     console.log("workshop",workshop);
@@ -102,6 +122,7 @@ class ShareSkill extends Component {
       })
     });
   }
+
 
   render() {
     return (
@@ -219,45 +240,17 @@ class ShareSkill extends Component {
                 Save Workshop
               </button>
               <p className="skills-form-title">Date and time</p>
-              <div className="form-group row">
-                <div className="col-xs-2">
-                  <input
-                    className="form-control"
-                    type="date"
-                    name="dateAndTime"
-                    onChange={this.onChange}
-                    style={{ margin: "5px" }}
-                  />
-                </div>
-                <div className="col-xs-1">
-                  <label htmlFor="startTime">From</label>
-                </div>
-                <div className="col-xs-2">
-                  <input
-                    className="form-control"
-                    id="startTime"
-                    type="text"
-                    placeholder="Start Time"
-                  />
-                </div>
-                <div className="col-xs-1">
-                  <label htmlFor="endTime">To</label>
-                </div>
-                <div className="col-xs-2">
-                  <input
-                    className="form-control"
-                    id="endTime"
-                    type="text"
-                    placeholder="End Time"
-                  />
-                </div>
-                <div className="col-xs-2">
-                  <button type="button" className="btn btn-default btn-sm">
+              {
+                this.state.sessions.map((session,i)=>(
+                  <ScheduleWorkshop captureSession={this.captureSession.bind(this,i)} key={i}/>
+                ))
+              }
+                <div>
+                  <button type="button" className="btn btn-default btn-sm" onClick={this.addRow}>
                     <span className="glyphicon glyphicon-plus" />Add another day
                     to the same course
                   </button>
                 </div>
-              </div>
               <p className="skills-form-title">Photo</p>
               <button type="button" className="btn btn-default">
                 Upload a cover photo
@@ -280,6 +273,45 @@ class ShareSkill extends Component {
       </div>
     );
   }
+}
+
+const ScheduleWorkshop = props => {
+  return <div className="form-group row">
+    <div className="col-xs-2">
+      <input
+        className="form-control"
+        type="date"
+        name="dateAndTime"
+        onChange={props.captureSession}
+        style={{ margin: "5px" }}
+      />
+    </div>
+    <div className="col-xs-1">
+      <label htmlFor="startTime">From</label>
+    </div>
+    <div className="col-xs-2">
+      <input
+        className="form-control"
+        name="startTime"
+        type="text"
+        placeholder="Start Time"
+        onChange={props.captureSession}
+      />
+    </div>
+    <div className="col-xs-1">
+      <label htmlFor="endTime">To</label>
+    </div>
+    <div className="col-xs-2">
+      <input
+        className="form-control"
+        name="endTime"
+        type="text"
+        placeholder="End Time"
+        onChange={props.captureSession}
+      />
+    </div>
+
+  </div>
 }
 
 const mapStateToProps = state => ({
