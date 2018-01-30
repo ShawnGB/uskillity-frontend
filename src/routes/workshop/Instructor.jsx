@@ -5,7 +5,7 @@ class Instructor extends React.Component {
   render() {
     return (
       <div>
-        <div className="col-lg-3 Instructior-Box">
+        <div className="Instructior-Box">
           <p className='Instructor'> Instructor </p>
           <div className='img-container'>
             <img

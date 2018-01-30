@@ -47,7 +47,7 @@ class Workshop extends React.Component {
           </div>
 
           <div className='row row-spacing'>
-            <div className='col-sm-3 col-sm-offset-9'>
+            <div className='col-sm-4 col-sm-offset-9'>
               <Sidebar />
             </div>
             <div className='col-sm-8'>

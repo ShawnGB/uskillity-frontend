@@ -47,12 +47,12 @@
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
-  padding: 5px 0 0px 70px;
+  padding: 5px 0 0px 77px;
   color: rgba(0, 0, 0, 0.72);
 }
 
 .Instructior-Box {
-  width: 260px;
+  width: 255px;
   height: 330px;
   background-color: #ffffff;
   border: solid 1px #cccccc;
@@ -62,7 +62,7 @@
   width: 180px;
   height: 180px;
   background-color: #575757;
-  margin: 10px 0px 0px 23px;
+  margin: 10px 0px 0px 33px;
 }
 
 .See-Profile-Box {
@@ -71,5 +71,5 @@
   opacity: 0.72;
   background-color: #ffffff;
   border: solid 1px #000000;
-  margin: 25px 0 0 45px;
+  margin: 25px 0 0 57px;
 }
