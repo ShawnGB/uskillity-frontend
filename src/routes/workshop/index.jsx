@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from 'app:components/navigation/Nav';
 import Sidebar from './Sidebar';
+import Footer from "app:components/footer/Footer";
 import * as service from 'app:utils/service'
 import './style.css';
 
@@ -45,9 +46,8 @@ class Workshop extends React.Component {
               </p>
             </div>
           </div>
-
           <div className='row row-spacing'>
-            <div className='col-sm-4 col-sm-offset-9'>
+            <div className='col-sm-3 pull-right'>
               <Sidebar />
             </div>
             <div className='col-sm-8'>
@@ -55,28 +55,16 @@ class Workshop extends React.Component {
               <p className='workshop-content'>
                 {this.state.workshop.description}
               </p>
-            </div>
-          </div>
-          <div className='row row-spacing'>
-            <div className='col-sm-8'>
               <p className='workshop-title'>Requirements</p>
               <p className='workshop-content'>
                 ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
               </p>
-            </div>
-          </div>
-          <div className='row row-spacing'>
-            <div className='col-sm-8'>
               <p className='workshop-title'>
                 Who can attend
               </p>
               <p className='workshop-content'>
                 ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
               </p>
-            </div>
-          </div>
-          <div className='row row-spacing'>
-            <div className='col-sm-8'>
               <p className='workshop-title'>
                 About the instructor
               </p>
@@ -85,6 +73,7 @@ class Workshop extends React.Component {
               </p>
             </div>
           </div>
+          <Footer/>
         </div>
       </div>
     );
