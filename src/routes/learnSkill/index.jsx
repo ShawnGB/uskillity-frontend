@@ -53,6 +53,28 @@ class LearnSkill extends Component {
   }
 }
 
+function NextArrow(props) {
+  const {className, style, onClick} = props
+  return (
+    <div
+      className={className}
+      style={{...style, background: 'rgb(143, 143, 143)', margin: '-50px 30px 30px -10px'}}
+      onClick={onClick}
+    ></div>
+  );
+}
+
+function PrevArrow(props) {
+  const {className, style, onClick} = props
+  return (
+    <div
+      className={className}
+      style={{...style, background: 'rgb(143, 143, 143)', margin: '-50px 30px 30px -10px'}}
+      onClick={onClick}
+    ></div>
+  );
+}
+
 const CategoryRow = props => {
   var settings = {
       dots: true,
@@ -60,6 +82,8 @@ const CategoryRow = props => {
       speed: 500,
       slidesToShow: 3,
       slidesToScroll: 1,
+      nextArrow: <NextArrow />,
+      prevArrow: <PrevArrow />,
       responsive: [{
         breakpoint: 1024,
         settings: {
