@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import Navbar from 'app:components/navigation/Nav';
 import {Link} from 'react-router-dom';
 import Footer from 'app:components/footer/Footer';
-import * as service from 'app:utils/service'
+import * as service from 'app:utils/service';
+import Slider from 'react-slick';
 import './style.css';
 
 class LearnSkill extends Component {
@@ -53,10 +54,40 @@ class LearnSkill extends Component {
 }
 
 const CategoryRow = props => {
-  return <div className='row'>
+  var settings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      responsive: [{
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      }, {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      }, {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+}]
+    };
+  return <div className='row row-margin'>
     <p className='skills-heading'>{props.name}</p>
+    <Slider {...settings}>
     {
-      props.workshops.map((workshop, i) => (<div className="col-sm-4" key={i}>
+      props.workshops.map((workshop, i) => (<div key={i}>
         <Link to={`/workshop/${workshop.id}`}><img src={workshop.main_image} width='350' height='220' alt=''/></Link>
         <div className='skill-content'>
           <p className='skill-title'>{workshop.title}</p>
@@ -65,6 +96,7 @@ const CategoryRow = props => {
         </div>
       </div>))
     }
+    </Slider>
   </div>
 }
 
