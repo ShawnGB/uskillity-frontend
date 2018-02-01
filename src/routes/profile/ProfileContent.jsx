@@ -1,9 +1,12 @@
 import React from 'react';
 import ProfileCourses from './ProfileCourses';
+import { connect } from "react-redux";
 import './style.css';
 
 class ProfileContent extends React.Component {
   render() {
+    const { session } = this.props;
+    console.log("params",session.user);
     return (
       <div>
         <div className='container container-profile'>
@@ -15,7 +18,7 @@ class ProfileContent extends React.Component {
             </div>
             <div className="col-lg-6">
               <div className='profile-name'>
-                Profile Name
+                {session.user.first_name}
               </div>
               <div className='profile-skill'>
                 Profile Skill
@@ -36,11 +39,15 @@ class ProfileContent extends React.Component {
           </div>
           <div className=''>
           </div>
-          <ProfileCourses />
+          <ProfileCourses userId={session.user.id}/>
         </div>
       </div>
     );
   }
 }
 
-export default ProfileContent;
+const mapStateToProps = state => ({
+  session: state.session
+});
+
+export default connect(mapStateToProps)(ProfileContent);

@@ -9,7 +9,7 @@ class Profile extends Component {
       <div>
         <Navbar />
         <div className='container'>
-          <ProfileContent />
+          <ProfileContent/>
           <Footer />
         </div>
       </div>
