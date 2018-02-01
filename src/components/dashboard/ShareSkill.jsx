@@ -3,13 +3,15 @@ import Navbar from '../navigation/Nav';
 import Footer from '../../components/footer/Footer';
 import {Helper} from '../../utils/Helper'
 import {service} from '../../services/service';
+import * as sessionActions from "app:store/actions/session";
 import './style.css';
 
 class ShareSkill extends Component {
   constructor(props) {
     super(props);
+    const { session } = this.props;
+    const {workshops,categories} = session & session;
     this.state = {
-      //todo: wrap these in workshop object
       workshop:{
         title: '',
         category_id: '',
@@ -27,46 +29,13 @@ class ShareSkill extends Component {
       error: {
         message: ''
       },
-      levels: [],
       level_id: '',
-      categories: []
     };
-    this.onChange = this.onChange.bind(this);
-    this.onSelect = this.onSelect.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    fetch(Helper.getServerUrl("/levels.json"))
-    .then((resp) => resp.json())
-    .then((data) => {
-      console.log('DATA LEVELS', data);
-      let levels = [];
-      data.map((i => {
-        return levels.push(<option key={i.id} value={i.id}>{i.name}</option>);
-      }))
-      this.setState({ levels });
-    });
-    fetch(Helper.getServerUrl("/categories.json"))
-    .then((resp) => resp.json())
-    .then((data) => {
-      console.log('DATA CATAGORIES', data);
-      let categories = [];
-      data.map((i => {
-        return categories.push(<option key={i.id} value={i.id}>{i.name}</option>);
-      }))
-      this.setState({ categories });
-    });
-  }
-
-  onChange(e) {
-    const input = e.target.name;
-    const workshop = this.state.workshop;
-    workshop[input] = e.target.value;
-    this.setState({ workshop });
-  }
-
-  onSelect(e) {
+  handleChange(e) {
     const input = e.target.name;
     const workshop = this.state.workshop;
     workshop[input] = e.target.value;
@@ -116,12 +85,16 @@ class ShareSkill extends Component {
                 type='text'
                 name='title'
                 placeholder='Be creative, but precise...'
-                onChange={this.onChange}
+                onChange={this.handleChange}
                 style={{ margin: '5px'}}
               />
             <p className='skills-form-title'>Category</p>
-                <select value={this.state.categories.id} name='category_id' onChange={this.onSelect}>
-                  {this.state.categories}
+                <select value={this.categories.id} name='category_id' onChange={this.handleChange}>
+                  {this.categories.map(i=>{
+                    <option key={i.id} value={i.name}>
+                      {i.name}
+                    </option>
+                  })}
                 </select>
               <p className='skills-form-title'>Description</p>
               <input
@@ -129,7 +102,7 @@ class ShareSkill extends Component {
                 type='text'
                 name='description'
                 placeholder='Explain more in detail what people can learn from your skill'
-                onChange={this.onChange}
+                onChange={this.handleChange}
                 style={{ margin: '5px'}}
               />
               <p className='skills-form-title'>Requriements</p>
@@ -137,16 +110,22 @@ class ShareSkill extends Component {
               <div className='form-group row'>
                 <div className="col-xs-2">
                 <label htmlFor="ageFrom">Age From</label>
-                <input className="form-control" name="ageFrom" type="text" onChange={this.onChange}></input>
+                <input className="form-control" name="ageFrom" type="text" onChange={this.handleChange}></input>
                 </div>
                 <div className="col-xs-2">
                 <label htmlFor="ageTo">Age To</label>
-                <input className="form-control" name="ageTo" type="text" onChange={this.onChange}></input>
+                <input className="form-control" name="ageTo" type="text" onChange={this.handleChange}></input>
                 </div>
                 <div className="col-xs-2">
                 <label htmlFor="level">Recommended level</label>
-                <select value={this.state.level} onChange={this.onSelect}>
-                  {this.state.levels}
+                <select value={this.state.level} onChange={this.handleChange}>
+                  {this.workshops.map(i => {
+                      <option key={i.id} value={i.id}>
+                        {i.name}
+                      </option>
+                    );
+                    }
+                  }
                 </select>
                 </div>
               </div>
@@ -156,7 +135,7 @@ class ShareSkill extends Component {
                 type='text'
                 name='requirements'
                 placeholder='Ex. basic knowledge of ... only participants that can bring/have ...'
-                onChange={this.onChange}
+                onChange={this.handleChange}
                 style={{ margin: '5px'}}
               />
               <p className='skills-form-title'>Location</p>
@@ -165,7 +144,7 @@ class ShareSkill extends Component {
                 type='text'
                 name='location'
                 placeholder='Where you will be teaching your skill'
-                onChange={this.onChange}
+                onChange={this.handleChange}
                 style={{ margin: '5px'}}
               />
               <p className='skills-form-title'>Number of participants</p>
@@ -174,7 +153,7 @@ class ShareSkill extends Component {
                 type='number'
                 name='participants'
                 placeholder='Number of participants'
-                onChange={this.onChange}
+                onChange={this.handleChange}
                 style={{ margin: '5px'}}
               />
               <p className='skills-form-title'>Price</p>
@@ -183,7 +162,7 @@ class ShareSkill extends Component {
                 type='number'
                 name='price'
                 placeholder='How much will it cost?'
-                onChange={this.onChange}
+                onChange={this.handleChange}
                 style={{ margin: '5px'}}
               />
               <button
@@ -200,7 +179,7 @@ class ShareSkill extends Component {
                   className='form-control'
                   type='date'
                   name='dateAndTime'
-                  onChange={this.onChange}
+                  onChange={this.handleChange}
                   style={{ margin: '5px'}}
                 />
                 </div>

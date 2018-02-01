@@ -53,7 +53,7 @@ class LearnSkill extends Component {
   }
 }
 
-function NextArrow(props) {
+const NextArrow = (props) => {
   const {className, style, onClick} = props
   return (
     <div
@@ -64,7 +64,7 @@ function NextArrow(props) {
   );
 }
 
-function PrevArrow(props) {
+const PrevArrow = (props) => {
   const {className, style, onClick} = props
   return (
     <div
