@@ -23,7 +23,6 @@ class Workshop extends React.Component {
       return resp.json();
     }).then((data) => {
       this.setState({workshop:data})
-      console.log("after set up",this.state.data)
     }
     );
   }
@@ -48,7 +47,7 @@ class Workshop extends React.Component {
           </div>
           <div className='row row-spacing'>
             <div className='col-sm-3 pull-right'>
-              <Sidebar />
+              <Sidebar workshop={this.state.workshop}/>
             </div>
             <div className='col-sm-8'>
               <p className='workshop-title'>Description</p>
