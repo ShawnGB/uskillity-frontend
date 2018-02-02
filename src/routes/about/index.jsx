@@ -1,7 +1,5 @@
 import React from "react";
-import Navbar from "app:components/navigation/Nav";
-import Footer from "app:components/footer/Footer";
-import { Tabs, Tab, TabContainer, TabContent, TabPane } from "react-bootstrap";
+import { Tab } from "react-bootstrap";
 import {Row, Col, NavItem, Nav} from "react-bootstrap";
 
 import Vision from "app:components/about/Vision";
