@@ -67,23 +67,3 @@ export const register = user => {
 export const logout = () => ({
   type: LOGOUT_PENDING
 });
-
-export const fetchLevels = () => {
-  return (dispatch) => {
-    fetch(service.getServerEndpoint("/levels.json"))
-    .then(service.handleResponse)
-    .then(data => {
-      dispatch({ type: LEVELS_FETCHED, payload: data.data })
-    });
-  }
-};
-
-export const fetchCategories = () => {
-  return (dispatch) => {
-    fetch(service.getServerEndpoint("/categories.json"))
-    .then(service.handleResponse)
-    .then(data => {
-      dispatch({type: FETCHED_CATEGORIES, payload: data.data})
-    });
-  }
-}
