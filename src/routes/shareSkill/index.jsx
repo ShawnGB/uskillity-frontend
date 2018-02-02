@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import * as service from "app:utils/service";
 import * as skillActions from "app:routes/shareSkill/actions"
 import "./style.css";
 
@@ -12,13 +11,11 @@ class ShareSkill extends Component {
         title: "",
         category_id: "",
         description: "",
-        requriements: "",
+        requirements: "",
         ageTo: "",
         ageFrom: "",
-        about: "",
         participants: "",
         dateAndTime: "",
-        duration: "",
         location: "",
         price: "",
         published_at: "", //TODO:ask sandeep if we need to pass published_at
@@ -48,7 +45,7 @@ class ShareSkill extends Component {
     this.setState({sessions})
   }
 
-  captureSession(i, e) {
+  addWorkshopSession(i, e) {
     let sessions = this.state.sessions;
     const input = e.target.name;
     sessions[i][input] = e.target.value;
@@ -64,26 +61,15 @@ class ShareSkill extends Component {
   }
 
   handleSubmit(e) {
-    const {session} = this.props;
-    const isLoggedIn = session && session.isLoggedIn;
-    if (!isLoggedIn) {
-      // TODO: if user not log in the return to home page
-      return;
-    }
-
     e.preventDefault();
-    console.log("signup state", this.state);
-    fetch(service.getServerEndpoint("/workshops.json"), {
-      method: "post",
-      headers: service.getRequestHeaders(),
-      body: JSON.stringify({category: this.state.workshop.category, workshop: this.state.workshop})
-    });
+    this.props.dispatch(skillActions.saveWorkshop(this.state.workshop));
   }
 
   render() {
-    const { skills } = this.props;
+    const { skills, session } = this.props;
     const levels = skills.levels;
     const categories =  skills.categories;
+    const isLoggedIn = session && session.isLoggedIn;
     return (<div>
       <div className="container">
         <div className="form" style={{
@@ -101,7 +87,7 @@ class ShareSkill extends Component {
             <SkillInput name={'title'} onChange={this.handleChange} placeholder={"Be creative, but precise..."}/>
             <p className="skills-form-title">Category</p>
             <select value={categories.id} name="category_id" onChange={this.handleChange}>
-              {categories.map(i => (<option key={i.id} value={i.name}>
+              {categories.map(i => (<option key={i.id} value={i.id}>
                 {i.name}
               </option>
             ))}
@@ -113,11 +99,11 @@ class ShareSkill extends Component {
             <div className="form-group row">
               <div className="col-xs-2">
                 <label htmlFor="ageFrom">Age From</label>
-                <input className="form-control" id="ageFrom" type="text" onChange={this.handleChange}/>
+                <input className="form-control" name="ageFrom" type="text" onChange={this.handleChange}/>
               </div>
               <div className="col-xs-2">
                 <label htmlFor="ageTo">Age To</label>
-                <input className="form-control" id="ageTo" type="text" onChange={this.handleChange}/>
+                <input className="form-control" name="ageTo" type="text" onChange={this.handleChange}/>
               </div>
               <div className="col-xs-2">
                 <label htmlFor="level">Recommended level</label>
@@ -130,9 +116,7 @@ class ShareSkill extends Component {
               </div>
             </div>
             Additional Requirements
-            <input className="form-control" type="text" name="add-requirements" placeholder="Ex. basic knowledge of ... only participants that can bring/have ..." onChange={this.handleChange} style={{
-                margin: "5px"
-              }}/>
+            <SkillInput name={"requirements"} onChange={this.handleChange} placeholder={"Ex. basic knowledge of ... only participants that can bring/have ..."}/>
             <p className="skills-form-title">Location</p>
             <input className="form-control" type="text" name="location" placeholder="Where you will be teaching your skill" onChange={this.handleChange} style={{
                 margin: "5px"
@@ -145,11 +129,11 @@ class ShareSkill extends Component {
             <input className="form-control" type="number" name="price" placeholder="How much will it cost?" onChange={this.handleChange} style={{
                 margin: "5px"
               }}/>
-            <button className="btn btn-primary" type="button" onClick={this.handleSubmit}>
+            <button className="btn btn-primary" type="button" onClick={this.handleSubmit} disabled={!isLoggedIn}>
               Save Workshop
             </button>
             <p className="skills-form-title">Date and time</p>
-            {this.state.sessions.map((session, i) => (<ScheduleWorkshop captureSession={this.captureSession.bind(this, i)} key={i}/>))}
+            {this.state.sessions.map((session, i) => (<ScheduleWorkshop addWorkshopSession={this.addWorkshopSession.bind(this, i)} key={i}/>))}
             <div>
               <button type="button" className="btn btn-default btn-sm" onClick={this.addRow}>
                 <span className="glyphicon glyphicon-plus"/>Add another day to the same course
@@ -189,7 +173,7 @@ const SkillInput = props => (
 const ScheduleWorkshop = props => {
   return <div className="form-group row">
     <div className="col-xs-2">
-      <input className="form-control" type="date" name="dateAndTime" onChange={props.captureSession} style={{
+      <input className="form-control" type="date" name="dateAndTime" onChange={props.addWorkshopSession} style={{
           margin: "5px"
         }}/>
     </div>
@@ -197,18 +181,21 @@ const ScheduleWorkshop = props => {
       <label htmlFor="startTime">From</label>
     </div>
     <div className="col-xs-2">
-      <input className="form-control" name="startTime" type="text" placeholder="Start Time" onChange={props.captureSession}/>
+      <input className="form-control" name="startTime" type="text" placeholder="Start Time" onChange={props.addWorkshopSession}/>
     </div>
     <div className="col-xs-1">
       <label htmlFor="endTime">To</label>
     </div>
     <div className="col-xs-2">
-      <input className="form-control" name="endTime" type="text" placeholder="End Time" onChange={props.captureSession}/>
+      <input className="form-control" name="endTime" type="text" placeholder="End Time" onChange={props.addWorkshopSession}/>
     </div>
 
   </div>
 }
 
-const mapStateToProps = state => ({skills: state.skills});
+const mapStateToProps = state => ({
+  skills: state.skills,
+  session: state.session
+});
 
 export default connect(mapStateToProps)(ShareSkill);
