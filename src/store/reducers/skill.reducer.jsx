@@ -1,4 +1,4 @@
-import * as skillActions from "app:routes/shareSkill/actions";
+import * as skillActions from "app:store/actions/skill.actions";
 
 const initialState = {
   levels: [],

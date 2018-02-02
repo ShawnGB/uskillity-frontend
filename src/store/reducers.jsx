@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import session from "./reducers/session";
-import skills from "app:routes/shareSkill/reducer";
+import session from "./reducers/session.reducer";
+import skills from "./reducers/skill.reducer";
 
 export const createReducers = () => {
   return combineReducers({

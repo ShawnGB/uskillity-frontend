@@ -28,7 +28,7 @@ export const fetchCategories = () => {
 export const saveWorkshop = workshop => {
   return (dispatch) => {
     fetch(service.getServerEndpoint("/workshops.json"), {
-      method: "post",
+      method: "POST",
       headers: service.getRequestHeaders(),
       body: JSON.stringify({
         category: workshop.category,
