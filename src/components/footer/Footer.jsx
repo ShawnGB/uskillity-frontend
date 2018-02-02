@@ -9,11 +9,11 @@ export default class Footer extends Component {
   render() {
     return (
       <div className="row">
-            <p className="border" />
+        <p className="border" />
         <div className="col-sm-6 footer-block">
           <div className="row">
             <div className="col-sm-6 col-xs-6">
-              <img src={logo} className="footer-logo"/>
+              <img src={logo} className="footer-logo" alt="" />
               <p className="copyright">
                 © 2017 Nikolovska Becker UG - u/skillity
               </p>
