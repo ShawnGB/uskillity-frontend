@@ -1,6 +1,9 @@
 import React from "react";
 import { HashRouter as Router, Route } from "react-router-dom";
 
+import Navbar from "app:components/navigation/Nav";
+import Footer from "app:components/footer/Footer";
+
 import About from "app:routes/about";
 
 import Home from "app:routes/home";
@@ -13,7 +16,8 @@ import LearnSkill from "app:routes/learnSkill";
 
 export default () => (
   <Router>
-    <div>
+    <div className="container">
+      <Navbar />
       <Route exact path="/" component={Home} />
       <Route path="/about" render={props => <About subpath="vision" />} />
       <Route path="/terms" render={props => <About subpath="terms" />} />
@@ -24,6 +28,7 @@ export default () => (
       <Route path="/workshop/:id" component={Workshop} />
       <Route path="/shareyourskill" component={ShareSkill} />
       <Route path="/learnskill" component={LearnSkill} />
+      <Footer />
     </div>
   </Router>
 );

@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from 'app:components/navigation/Nav';
 import Sidebar from './Sidebar';
 import * as service from 'app:utils/service'
 import './style.css';
@@ -29,7 +28,6 @@ class Workshop extends React.Component {
   render() {
     return	(
       <div>
-        <Navbar />
         <div className='container'>
           <div className='jumbotron'>
             <img

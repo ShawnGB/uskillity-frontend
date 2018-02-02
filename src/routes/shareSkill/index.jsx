@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Navbar from "app:components/navigation/Nav";
-import Footer from "app:components/footer/Footer";
 import * as service from "app:utils/service";
 import "./style.css";
 
@@ -104,7 +102,6 @@ class ShareSkill extends Component {
   render() {
     return (
       <div>
-        <Navbar />
         <div className="container">
           <div className="form" style={{ margin: "5%" }}>
             <p className="skills-form-header">Share your skill with us</p>
@@ -273,7 +270,6 @@ class ShareSkill extends Component {
             </div>
             <div>{this.state.error.message}</div>
           </div>
-          <Footer />
         </div>
       </div>
     );

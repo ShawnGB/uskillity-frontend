@@ -14,7 +14,6 @@ class About extends React.Component {
   render() {
     return (
       <div>
-        <Navbar />
         <div className="container about-container">
           <Tab.Container id="left-tabs" defaultActiveKey={this.props.subpath}>
             <Row className="clearfix">
@@ -43,7 +42,6 @@ class About extends React.Component {
             </Row>
           </Tab.Container>
         </div>
-        <Footer />
       </div>
     );
   }

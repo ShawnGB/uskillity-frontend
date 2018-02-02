@@ -11,7 +11,7 @@ class Navbar extends React.Component {
     const { session } = this.props;
     const isLoggedIn = session && session.isLoggedIn;
     return (
-      <div className="container">
+      <div>
         <nav className="navbar fixed-top navbar-default">
           <div className="container-fluid">
             <div className="navbar-header">
