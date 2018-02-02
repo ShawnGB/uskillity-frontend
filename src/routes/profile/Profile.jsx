@@ -1,17 +1,11 @@
-import React, { Component } from 'react';
-import ProfileContent from './ProfileContent';
-import Navbar from 'app:components/navigation/Nav';
-import Footer from 'app:components/footer/Footer';
+import React, { Component } from "react";
+import ProfileContent from "./ProfileContent";
 
 class Profile extends Component {
-  render(){
+  render() {
     return (
       <div>
-        <Navbar />
-        <div className='container'>
-          <ProfileContent/>
-          <Footer />
-        </div>
+        <ProfileContent />
       </div>
     );
   }

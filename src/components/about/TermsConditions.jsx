@@ -1,5 +1,4 @@
 import React from "react";
-import Sidebar from "./Sidebar";
 import "./style.css";
 
 export default class TermsConditions extends React.Component {

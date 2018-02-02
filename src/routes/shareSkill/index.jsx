@@ -1,7 +1,5 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import Navbar from "app:components/navigation/Nav";
-import Footer from "app:components/footer/Footer";
 import * as service from "app:utils/service";
 import * as skillActions from "app:routes/shareSkill/actions"
 import "./style.css";
@@ -87,7 +85,6 @@ class ShareSkill extends Component {
     const levels = skills.levels;
     const categories =  skills.categories;
     return (<div>
-      <Navbar/>
       <div className="container">
         <div className="form" style={{
             margin: "5%"
@@ -173,7 +170,6 @@ class ShareSkill extends Component {
           </div>
           <div>{this.state.error.message}</div>
         </div>
-        <Footer/>
       </div>
     </div>);
   }

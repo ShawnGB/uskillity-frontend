@@ -1,6 +1,4 @@
 import React from 'react';
-import Navbar from 'app:components/navigation/Nav';
-import Footer from 'app:components/footer/Footer';
 import { CustomCarousel } from 'app:components/carousel/Carousel';
 import * as service from 'app:utils/service'
 import './style.css';
@@ -46,7 +44,6 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <Navbar />
         <div className='container'>
         <div>
           <CustomCarousel items={this.state.workshops} style={{"height":"600px", "marginBottom":"20px"}}/>
@@ -65,7 +62,6 @@ class Home extends React.Component {
               <p className='about-home-content'>... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit </p>
             </div>
           </div>
-          <Footer />
         </div>
       </div>
     );

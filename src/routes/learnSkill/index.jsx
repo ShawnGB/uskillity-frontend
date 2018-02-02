@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import Navbar from 'app:components/navigation/Nav';
 import {Link} from 'react-router-dom';
-import Footer from 'app:components/footer/Footer';
 import * as service from 'app:utils/service';
 import Slider from 'react-slick';
 import './style.css';
@@ -44,10 +42,8 @@ class LearnSkill extends Component {
   render() {
     const {categories} = this.state;
     return <div>
-      <Navbar/>
       <div className='container'>
         {Object.keys(categories).map((key, i) => (<CategoryRow name={categories[key].name} workshops={categories[key].workshops} key={i}/>))}
-        <Footer/>
       </div>
     </div>
   }

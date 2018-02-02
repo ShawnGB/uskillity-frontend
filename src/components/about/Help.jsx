@@ -1,7 +1,4 @@
 import React from "react";
-import Sidebar from "./Sidebar";
-import Navbar from "../navigation/Nav";
-import Footer from "../footer/Footer";
 import "./style.css";
 
 export default class Help extends React.Component {
