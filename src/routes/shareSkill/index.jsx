@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import Navbar from "app:components/navigation/Nav";
 import Footer from "app:components/footer/Footer";
 import * as service from "app:utils/service";
+import * as skillActions from "app:routes/shareSkill/actions"
 import "./style.css";
 
 class ShareSkill extends Component {
@@ -30,37 +31,17 @@ class ShareSkill extends Component {
       error: {
         message: ""
       },
-      levels: [],
       level_id: "",
-      categories: []
     };
-    this.onChange = this.onChange.bind(this);
-    this.onSelect = this.onSelect.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addRow = this.addRow.bind(this);
   }
 
-  componentDidMount() {
-    fetch(service.getServerEndpoint("/levels.json")).then(resp => resp.json()).then(data => {
-      console.log("DATA LEVELS", data);
-      let levels = [];
-      data.map(i => {
-        return levels.push(<option key={i.id} value={i.id}>
-          {i.name}
-        </option>);
-      });
-      this.setState({levels});
-    });
-    fetch(service.getServerEndpoint("/categories.json")).then(resp => resp.json()).then(data => {
-      console.log("DATA CATAGORIES", data);
-      let categories = [];
-      data.map(i => {
-        return categories.push(<option key={i.id} value={i.id}>
-          {i.name}
-        </option>);
-      });
-      this.setState({categories});
-    });
+  componentWillMount(){
+    const {dispatch} = this.props;
+    dispatch(skillActions.fetchLevels());
+    dispatch(skillActions.fetchCategories());
   }
 
   addRow() {
@@ -77,15 +58,7 @@ class ShareSkill extends Component {
     console.log("session", this.state);
   }
 
-  onChange(e) {
-    const workshop = this.state.workshop;
-    const input = e.target.name;
-    workshop[input] = e.target.value;
-    this.setState({workshop});
-    console.log("workshop", workshop);
-  }
-
-  onSelect(e) {
+  handleChange(e) {
     const input = e.target.name;
     const workshop = this.state.workshop;
     workshop[input] = e.target.value;
@@ -110,6 +83,9 @@ class ShareSkill extends Component {
   }
 
   render() {
+    const { skills } = this.props;
+    const levels = skills.levels;
+    const categories =  skills.categories;
     return (<div>
       <Navbar/>
       <div className="container">
@@ -125,49 +101,51 @@ class ShareSkill extends Component {
           </p>
           <div className="form-group">
             <p className="skills-form-title">Title of skill</p>
-            <input className="form-control" type="text" name="title" placeholder="Be creative, but precise..." onChange={this.onChange} style={{
-                margin: "5px"
-              }}/>
+            <SkillInput name={'title'} onChange={this.handleChange} placeholder={"Be creative, but precise..."}/>
             <p className="skills-form-title">Category</p>
-            <select value={this.state.categories.id} name="category_id" onChange={this.onSelect}>
-              {this.state.categories}
+            <select value={categories.id} name="category_id" onChange={this.handleChange}>
+              {categories.map(i => (<option key={i.id} value={i.name}>
+                {i.name}
+              </option>
+            ))}
             </select>
             <p className="skills-form-title">Description</p>
-            <input className="form-control" type="text" name="description" placeholder="Explain more in detail what people can learn from your skill" onChange={this.onChange} style={{
-                margin: "5px"
-              }}/>
+            <SkillInput name={'description'} onChange={this.handleChange} placeholder={"Explain more in detail what people can learn from your skill"}/>
             <p className="skills-form-title">Requriements</p>
             <p>Age Recommendation</p>
             <div className="form-group row">
               <div className="col-xs-2">
                 <label htmlFor="ageFrom">Age From</label>
-                <input className="form-control" id="ageFrom" type="text" onChange={this.onChange}/>
+                <input className="form-control" id="ageFrom" type="text" onChange={this.handleChange}/>
               </div>
               <div className="col-xs-2">
                 <label htmlFor="ageTo">Age To</label>
-                <input className="form-control" id="ageTo" type="text" onChange={this.onChange}/>
+                <input className="form-control" id="ageTo" type="text" onChange={this.handleChange}/>
               </div>
               <div className="col-xs-2">
                 <label htmlFor="level">Recommended level</label>
-                <select value={this.state.level} onChange={this.onSelect}>
-                  {this.state.levels}
+                <select value={this.state.level} onChange={this.handleChange}>
+                  {levels.map(i => (<option key={i.id} value={i.id}>
+                      {i.name}
+                    </option>)
+                    )};
                 </select>
               </div>
             </div>
             Additional Requirements
-            <input className="form-control" type="text" name="add-requirements" placeholder="Ex. basic knowledge of ... only participants that can bring/have ..." onChange={this.onChange} style={{
+            <input className="form-control" type="text" name="add-requirements" placeholder="Ex. basic knowledge of ... only participants that can bring/have ..." onChange={this.handleChange} style={{
                 margin: "5px"
               }}/>
             <p className="skills-form-title">Location</p>
-            <input className="form-control" type="text" name="location" placeholder="Where you will be teaching your skill" onChange={this.onChange} style={{
+            <input className="form-control" type="text" name="location" placeholder="Where you will be teaching your skill" onChange={this.handleChange} style={{
                 margin: "5px"
               }}/>
             <p className="skills-form-title">Number of participants</p>
-            <input className="form-control" type="number" name="participants" placeholder="Number of participants" onChange={this.onChange} style={{
+            <input className="form-control" type="number" name="participants" placeholder="Number of participants" onChange={this.handleChange} style={{
                 margin: "5px"
               }}/>
             <p className="skills-form-title">Price</p>
-            <input className="form-control" type="number" name="price" placeholder="How much will it cost?" onChange={this.onChange} style={{
+            <input className="form-control" type="number" name="price" placeholder="How much will it cost?" onChange={this.handleChange} style={{
                 margin: "5px"
               }}/>
             <button className="btn btn-primary" type="button" onClick={this.handleSubmit}>
@@ -186,7 +164,7 @@ class ShareSkill extends Component {
             </button>
             <div className="checkbox">
               <label>
-                <input type="checkbox" value={Date.now()} name="published_at" onChange={this.onChange}/>I herby declare that I read the the terms and conditions as stated on this website and agrre with them
+                <input type="checkbox" value={Date.now()} name="published_at" onChange={this.handleChange}/>I herby declare that I read the the terms and conditions as stated on this website and agrre with them
               </label>
             </div>
             <button className="btn btn-primary" type="button">
@@ -200,6 +178,17 @@ class ShareSkill extends Component {
     </div>);
   }
 }
+
+const SkillInput = props => (
+  <input
+    className='form-control'
+    type='text'
+    name={props.name}
+    placeholder={props.placeholder}
+    onChange={props.onChange}
+    style={{ margin: '5px'}}
+    />
+)
 
 const ScheduleWorkshop = props => {
   return <div className="form-group row">
@@ -224,6 +213,6 @@ const ScheduleWorkshop = props => {
   </div>
 }
 
-const mapStateToProps = state => ({session: state.session});
+const mapStateToProps = state => ({skills: state.skills});
 
 export default connect(mapStateToProps)(ShareSkill);
