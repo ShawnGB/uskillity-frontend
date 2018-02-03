@@ -2,7 +2,8 @@ import * as skillActions from "app:store/actions/skill.actions";
 
 const initialState = {
   levels: [],
-  categories: []
+  categories: [],
+  workshops: [],
 };
 
 export default (state = initialState, action) => {
@@ -24,6 +25,14 @@ export default (state = initialState, action) => {
         };
         break;
       }
+      case skillActions.WORKSHOPS_FETCHED:
+        {
+          nextState = {
+            ...state,
+            workshops: action.payload
+          };
+          break;
+        }
     default:
       {
         break;

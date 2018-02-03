@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from "react-redux";
 import {Link} from 'react-router-dom';
-import * as workshopActions from 'app:store/actions/workshop.actions';
+import * as skillActions from 'app:store/actions/skill.actions';
 import Slider from 'react-slick';
 import './style.css';
 
@@ -15,8 +15,8 @@ class LearnSkill extends Component {
   }
   componentWillMount() {
     const { dispatch } = this.props;
-    dispatch(workshopActions.fetchWorkshops());
-    dispatch(workshopActions.fetchCategories());
+    dispatch(skillActions.fetchWorkshops());
+    dispatch(skillActions.fetchCategories());
   }
 
   componentDidMount (){
@@ -24,8 +24,8 @@ class LearnSkill extends Component {
   }
 
   prepareWorkshops(){
-    const { workshopStore } = this.props;
-    const {workshops,categories} = workshopStore;
+    const { skills } = this.props;
+    const {workshops, categories} = skills;
     let categories_data = {}
     for (var i = 0; i < workshops.length; i++) {
       let category_id = workshops[i].category_id
@@ -121,6 +121,6 @@ const CategoryRow = props => {
   </div>
 }
 export const mapStateToProps = state => ({
-  //TODO: this is confusing, because we have workshops inside workshops, refactor this
-  workshopStore: state.workshops})
+  skills: state.skills
+})
 export default connect (mapStateToProps)(LearnSkill);

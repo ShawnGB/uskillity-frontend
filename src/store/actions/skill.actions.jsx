@@ -1,8 +1,9 @@
 import * as service from "app:utils/service";
 
-export const LEVELS_FETCHED = "session/LEVELS_FETCHED";
-export const CATEGORIES_FETCHED = "session/CATEGORIES_FETCHED";
-export const WORKSHOP_SAVED = "session/WORKSHOP_SAVED";
+export const LEVELS_FETCHED = "skill/LEVELS_FETCHED";
+export const CATEGORIES_FETCHED = "skill/CATEGORIES_FETCHED";
+export const WORKSHOP_SAVED = "skill/WORKSHOP_SAVED";
+export const WORKSHOPS_FETCHED = "skill/WORKSHOPS_FETCHED";
 
 export const fetchLevels = () => {
   return function(dispatch) {
@@ -24,7 +25,7 @@ export const fetchCategories = () => {
     });
   }
 }
-//TODO: move this to workshop actions
+
 export const saveWorkshop = workshop => {
   return (dispatch) => {
     fetch(service.getServerEndpoint("/workshops.json"), {
@@ -35,5 +36,16 @@ export const saveWorkshop = workshop => {
         workshop: workshop
       })
     }).then(dispatch({type:WORKSHOP_SAVED}));
+  }
+}
+
+export const fetchWorkshops = () => {
+  return function(dispatch) {
+    //TODO: add pending event
+    fetch(service.getServerEndpoint("/workshops.json"))
+    .then(service.handleResponse)
+    .then(data => {
+      dispatch({ type: WORKSHOPS_FETCHED, payload: data })
+    });
   }
 }
