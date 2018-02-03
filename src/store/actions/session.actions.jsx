@@ -8,8 +8,6 @@ export const LOGOUT_FULFILLED = "session/LOGOUT_FULFILLED";
 export const LOGOUT_REJECTED = "session/LOGOUT_REJECTED";
 export const REGISTER_PENDING = "session/REGISTER_PENDING";
 export const REGISTER_FULFILLED = "session/REGISTER_FULFILLED";
-export const LEVELS_FETCHED = "session/LEVELS_FETCHED";
-export const FETCHED_CATEGORIES = "session/FETCHED_CATEGORIES";
 
 export const login = (email, password) => {
   return function(dispatch) {

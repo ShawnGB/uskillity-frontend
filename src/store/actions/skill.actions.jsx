@@ -1,7 +1,7 @@
 import * as service from "app:utils/service";
 
 export const LEVELS_FETCHED = "session/LEVELS_FETCHED";
-export const CATEGORIES_FETCHED = "session/FETCHED_CATEGORIES";
+export const CATEGORIES_FETCHED = "session/CATEGORIES_FETCHED";
 export const WORKSHOP_SAVED = "session/WORKSHOP_SAVED";
 
 export const fetchLevels = () => {
@@ -24,7 +24,7 @@ export const fetchCategories = () => {
     });
   }
 }
-
+//TODO: move this to workshop actions
 export const saveWorkshop = workshop => {
   return (dispatch) => {
     fetch(service.getServerEndpoint("/workshops.json"), {

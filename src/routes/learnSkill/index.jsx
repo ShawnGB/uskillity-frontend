@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
+import { connect } from "react-redux";
 import {Link} from 'react-router-dom';
-import * as service from 'app:utils/service';
+import * as workshopActions from 'app:store/actions/workshop.actions';
 import Slider from 'react-slick';
 import './style.css';
 
@@ -10,40 +11,40 @@ class LearnSkill extends Component {
     this.state = {
       categories: {}
     };
+    this.prepareWorkshops = this.prepareWorkshops.bind(this);
   }
-  componentDidMount() {
-    fetch(service.getServerEndpoint("/workshops.json")).then((resp) => {
-      if (!resp.ok) {
-        // TODO: send back to home page
+  componentWillMount() {
+    const { dispatch } = this.props;
+    dispatch(workshopActions.fetchWorkshops());
+    dispatch(workshopActions.fetchCategories());
+  }
+
+  componentDidMount (){
+    this.prepareWorkshops();
+  }
+
+  prepareWorkshops(){
+    const { workshopStore } = this.props;
+    const {workshops,categories} = workshopStore;
+    let categories_data = {}
+    for (var i = 0; i < workshops.length; i++) {
+      let category_id = workshops[i].category_id
+      if (!categories_data[category_id]) {
+        categories_data[category_id] = {}
+        categories_data[category_id].workshops_data = []
+        let category = categories.find(c => c.id === category_id)
+        categories_data[category_id].name = category.name
       }
-      return resp.json();
-    }).then((workshops) => {
-      fetch(service.getServerEndpoint("/categories.json")).then((resp) => {
-        resp.json().then((categories_data) => {
-          let categories = {}
-          for (var i = 0; i < workshops.length; i++) {
-            let category_id = workshops[i].category_id
-            if (!categories[category_id]) {
-              categories[category_id] = {}
-              categories[category_id].workshops = []
-              let category = categories_data.find(c => c.id === category_id)
-              categories[category_id].name = category.name
-            }
-            categories[category_id].workshops.push(workshops[i]);
-          }
-          this.setState({categories})
-          console.log("categories", categories);
-        });
-      })
-      console.log("workshops", workshops);
-    });
+      categories_data[category_id].workshops_data.push(workshops[i]);
+      this.setState({categories:categories_data})
+    }
   }
 
   render() {
-    const {categories} = this.state;
+    const categories_data = this.state.categories
     return <div>
       <div className='container'>
-        {Object.keys(categories).map((key, i) => (<CategoryRow name={categories[key].name} workshops={categories[key].workshops} key={i}/>))}
+        {Object.keys(categories_data).map((key, i) => (<CategoryRow name={categories_data[key].name} workshops={categories_data[key].workshops_data} key={i}/>))}
       </div>
     </div>
   }
@@ -119,5 +120,7 @@ const CategoryRow = props => {
     </Slider>
   </div>
 }
-
-export default LearnSkill;
+export const mapStateToProps = state => ({
+  //TODO: this is confusing, because we have workshops inside workshops, refactor this
+  workshopStore: state.workshops})
+export default connect (mapStateToProps)(LearnSkill);

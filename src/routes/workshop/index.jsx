@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from "react-redux";
 import Sidebar from './Sidebar';
 import * as service from 'app:utils/service'
+// import * as workshopActions from 'app:store/actions/workshop.actions';
 import './style.css';
 
 class Workshop extends React.Component {
@@ -11,7 +13,9 @@ class Workshop extends React.Component {
       workshop : {},
     }
   }
-  componentDidMount(){
+  componentWillMount(){
+
+
     // TODO: this is unnecessary api call, handle it through state manager or pass from parent component
     fetch(service.getServerEndpoint(`/workshops/${this.state.id}.json`))
     .then((resp) => {
@@ -74,5 +78,5 @@ class Workshop extends React.Component {
     );
   }
 }
-
-export default Workshop;
+export const mapStateToProps = state => ({workshop: state.workshop})
+export default connect(mapStateToProps)(Workshop);
