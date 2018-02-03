@@ -39,7 +39,7 @@ class ProfileContent extends React.Component {
           </div>
           <div className=''>
           </div>
-          <ProfileCourses userId={session.user.id}/>
+          <ProfileCourses/>
         </div>
       </div>
     );

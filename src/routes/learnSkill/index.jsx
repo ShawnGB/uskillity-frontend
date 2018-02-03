@@ -23,8 +23,8 @@ class LearnSkill extends Component {
     this.prepareWorkshops();
   }
 
-  prepareWorkshops(){
-    const { skills } = this.props;
+  prepareWorkshops() {
+    const {skills} = this.props;
     const {workshops, categories} = skills;
     let categories_data = {}
     for (var i = 0; i < workshops.length; i++) {
@@ -36,7 +36,7 @@ class LearnSkill extends Component {
         categories_data[category_id].name = category.name
       }
       categories_data[category_id].workshops_data.push(workshops[i]);
-      this.setState({categories:categories_data})
+      this.setState({categories: categories_data})
     }
   }
 
