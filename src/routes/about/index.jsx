@@ -1,6 +1,6 @@
 import React from "react";
 import { Tab } from "react-bootstrap";
-import {Row, Col, NavItem, Nav} from "react-bootstrap";
+import { Row, Col, NavItem, Nav } from "react-bootstrap";
 
 import Vision from "app:components/about/Vision";
 import Team from "app:components/about/Team";
@@ -30,13 +30,27 @@ class About extends React.Component {
               </Col>
               <Col sm={9}>
                 <Tab.Content animation>
-                  <Tab.Pane eventKey="vision"><Vision/></Tab.Pane>
-                  <Tab.Pane eventKey="team"><Team/></Tab.Pane>
-                  <Tab.Pane eventKey="contact"><Contact/></Tab.Pane>
-                  <Tab.Pane eventKey="press"><Press/></Tab.Pane>
-                  <Tab.Pane eventKey="help"><Help/></Tab.Pane>
-                  <Tab.Pane eventKey="guidelines"><Guidelines/></Tab.Pane>
-                  <Tab.Pane eventKey="terms"><TermsConditions/></Tab.Pane>
+                  <Tab.Pane eventKey="vision">
+                    <Vision />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="team">
+                    <Team />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="contact">
+                    <Contact />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="press">
+                    <Press />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="help">
+                    <Help />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="guidelines">
+                    <Guidelines />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="terms">
+                    <TermsConditions />
+                  </Tab.Pane>
                 </Tab.Content>
               </Col>
             </Row>

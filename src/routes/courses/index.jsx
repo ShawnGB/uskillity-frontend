@@ -1,12 +1,8 @@
-import React from 'react';
+import React from "react";
 
 class Courses extends React.Component {
   render() {
-    return (
-      <div>
-        Hello from Courses container
-      </div>
-    );
+    return <div>Hello from Courses container</div>;
   }
 }
 

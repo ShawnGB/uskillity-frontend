@@ -25,7 +25,8 @@ class Navbar extends React.Component {
                   <Link
                     to="#"
                     onClick={() =>
-                      this.refs.authComponent.onRegisteredClicked()}
+                      this.refs.authComponent.onRegisteredClicked()
+                    }
                   >
                     Register now
                   </Link>

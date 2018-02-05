@@ -1,5 +1,5 @@
-import React from 'react';
-import './style.css';
+import React from "react";
+import "./style.css";
 
 class Instructor extends React.Component {
   render() {
@@ -7,19 +7,21 @@ class Instructor extends React.Component {
     return (
       <div>
         <div className="Instructior-Box">
-          <p className='Instructor'> Instructor </p>
-          <div className='img-container'>
+          <p className="Instructor"> Instructor </p>
+          <div className="img-container">
             <img
               src={provider.image}
-              width='179.1'
-              height='178.2'
-              alt=''
-              className='img-circle Ellipse-3'/>
+              width="179.1"
+              height="178.2"
+              alt=""
+              className="img-circle Ellipse-3"
+            />
           </div>
           <p className="instructor-name"> {provider.name} </p>
-          <button
-            className='See-Profile-Box'
-            type='button'> See Profile </button>
+          <button className="See-Profile-Box" type="button">
+            {" "}
+            See Profile{" "}
+          </button>
         </div>
       </div>
     );

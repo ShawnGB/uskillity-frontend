@@ -1,12 +1,8 @@
-import React from 'react';
+import React from "react";
 
 class Dates extends React.Component {
   render() {
-    return (
-      <div>
-        Dates
-      </div>
-    );
+    return <div>Dates</div>;
   }
 }
 
