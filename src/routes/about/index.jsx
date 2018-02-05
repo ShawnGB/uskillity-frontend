@@ -20,7 +20,7 @@ class About extends React.Component {
           <Tab.Container id="left-tabs" defaultActiveKey={this.props.subpath}>
             <Row className="clearfix">
               <Col sm={3}>
-                <Nav bsStyle="pills" stacked>
+                <Nav stacked>
                   <NavItem className="full-width-nav-item" eventKey="vision">Vision</NavItem>
                   <NavItem className="full-width-nav-item" eventKey="team">Team</NavItem>
                   <NavItem className="full-width-nav-item" eventKey="contact">Contact</NavItem>
