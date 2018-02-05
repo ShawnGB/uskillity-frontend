@@ -1,44 +1,39 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import * as userActions from "app:store/actions/user.actions"
 
 class ProfileCourses extends React.Component {
+  
+  componentDidMount() {
+    const {session} = this.props;
+    const user_id = session && session.user.id;
+    this.props.dispatch(userActions.fetchUserWorkshop(user_id))
+  }
   render() {
-    return (
-      <div>
-        <div className='container container-profile'>
-          <p className='skills-heading'>My Shared Courses</p>
-          <div className='row'>
-            <div className='col-sm-3'>
-              <img src='http://placehold.it/300x60?text=Img' width='250' height='180' alt='' />
+    const {userStore} = this.props;
+    const user_workshops = userStore && userStore.user_workshops;
+    return (<div>
+      <div className='container container-profile'>
+        <p className='skills-heading'>My Shared Courses</p>
+        <div className='row'>
+          {
+            user_workshops.map((workshop, i) => (<div className='col-sm-3' key={i}>
+              <img src={workshop.main_image} width='250' height='180' alt=''/>
               <div className='skill-content'>
                 <p className='skill-category'>Arts & Crafts</p>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
+                <p className='skill-title'>{workshop.title}</p>
+                <p className='skill-author'>{workshop.provider.first_name}{workshop.provider.name} </p>
                 <p className='skill-price'>14 €</p>
               </div>
-            </div>
-            <div className='col-sm-3'>
-              <img src='http://placehold.it/300x60?text=Img' width='250' height='180' alt='' />
-              <div className='skill-content'>
-                <p className='skill-category'>Arts & Crafts</p>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
-            </div>
-            <div className='col-sm-3'>
-              <img src='http://placehold.it/300x60?text=Img' width='250' height='180' alt='' />
-              <div className='skill-content'>
-                <p className='skill-category'>Arts & Crafts</p>
-                <p className='skill-title'>Aquarell painting for beginners</p>
-                <p className='skill-author'>Marina Berlin-Kreuzberg</p>
-                <p className='skill-price'>14 €</p>
-              </div>
-            </div>
-          </div>
+            </div>))
+          }
         </div>
       </div>
-    );
+    </div>);
   }
 }
-
-export default ProfileCourses;
+export const mapStateToProps = state => ({
+  session: state.session,
+  userStore: state.user,
+})
+export default connect (mapStateToProps)(ProfileCourses);

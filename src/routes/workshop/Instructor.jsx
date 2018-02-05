@@ -3,18 +3,20 @@ import './style.css';
 
 class Instructor extends React.Component {
   render() {
+    const provider = this.props.workshop.provider || {};
     return (
       <div>
-        <div className="col-lg-3 Instructior-Box">
+        <div className="Instructior-Box">
           <p className='Instructor'> Instructor </p>
           <div className='img-container'>
             <img
-              src='http://placehold.it/300x60?text=Logo'
+              src={provider.image}
               width='179.1'
               height='178.2'
               alt=''
               className='img-circle Ellipse-3'/>
           </div>
+          <p className="instructor-name"> {provider.name} </p>
           <button
             className='See-Profile-Box'
             type='button'> See Profile </button>

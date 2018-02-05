@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from "react-redux";
 import Sidebar from './Sidebar';
 import * as service from 'app:utils/service'
+// import * as workshopActions from 'app:store/actions/workshop.actions';
 import './style.css';
 
 class Workshop extends React.Component {
@@ -11,7 +13,9 @@ class Workshop extends React.Component {
       workshop : {},
     }
   }
-  componentDidMount(){
+  componentWillMount(){
+
+
     // TODO: this is unnecessary api call, handle it through state manager or pass from parent component
     fetch(service.getServerEndpoint(`/workshops/${this.state.id}.json`))
     .then((resp) => {
@@ -21,7 +25,6 @@ class Workshop extends React.Component {
       return resp.json();
     }).then((data) => {
       this.setState({workshop:data})
-      console.log("after set up",this.state.data)
     }
     );
   }
@@ -43,38 +46,22 @@ class Workshop extends React.Component {
               </p>
             </div>
           </div>
-
           <div className='row row-spacing'>
-            <div className='col-sm-3 col-sm-offset-9'>
-              <Sidebar />
-            </div>
-            <div className='col-sm-8'>
+            <div className='col-sm-9'>
               <p className='workshop-title'>Description</p>
               <p className='workshop-content'>
                 {this.state.workshop.description}
               </p>
-            </div>
-          </div>
-          <div className='row row-spacing'>
-            <div className='col-sm-8'>
               <p className='workshop-title'>Requirements</p>
               <p className='workshop-content'>
                 ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
               </p>
-            </div>
-          </div>
-          <div className='row row-spacing'>
-            <div className='col-sm-8'>
               <p className='workshop-title'>
                 Who can attend
               </p>
               <p className='workshop-content'>
                 ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
               </p>
-            </div>
-          </div>
-          <div className='row row-spacing'>
-            <div className='col-sm-8'>
               <p className='workshop-title'>
                 About the instructor
               </p>
@@ -82,11 +69,14 @@ class Workshop extends React.Component {
                 ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
               </p>
             </div>
+            <div className='col-sm-3'>
+              <Sidebar workshop={this.state.workshop}/>
+            </div>
           </div>
         </div>
       </div>
     );
   }
 }
-
-export default Workshop;
+export const mapStateToProps = state => ({workshop: state.workshop})
+export default connect(mapStateToProps)(Workshop);
