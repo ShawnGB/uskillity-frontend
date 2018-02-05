@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as skillActions from "app:store/actions/skill.actions";
+import * as skillActions from "app:store/actions/skill";
 import "./style.css";
 
 class ShareSkill extends Component {

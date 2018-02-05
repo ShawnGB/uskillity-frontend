@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as sessionActions from "app:store/actions/session.actions";
+import * as sessionActions from "app:store/actions/session";
 import { Link } from "react-router-dom";
 import "./style.css";
 import logo from "../../images/logo.png";

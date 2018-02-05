@@ -23,9 +23,8 @@ export const login = (email, password) => {
     })
       .then(service.handleResponse)
       .then(
-        data => {
-          //TODO: data.data is extremely ugly
-          dispatch({ type: LOGIN_FULFILLED, payload: data.data });
+        resp => {
+          dispatch({ type: LOGIN_FULFILLED, payload: resp.data });
         },
         error => {
           dispatch({ type: LOGIN_REJECTED, payload: error });

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as userActions from "app:store/actions/user.actions";
+import * as userActions from "app:store/actions/user";
 
 class ProfileCourses extends React.Component {
   componentDidMount() {

@@ -1,4 +1,4 @@
-import * as sessionActions from "app:store/actions/session.actions";
+import * as sessionActions from "app:store/actions/session";
 import * as localStorageManager from "app:utils/localStorageManager";
 
 const initialState = {
