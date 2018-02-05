@@ -2,6 +2,8 @@ import React from "react";
 import { Tab } from "react-bootstrap";
 import { Row, Col, NavItem, Nav } from "react-bootstrap";
 
+import "./style.css";
+
 import Vision from "app:components/about/Vision";
 import Team from "app:components/about/Team";
 import Contact from "app:components/about/Contact";
@@ -19,13 +21,13 @@ class About extends React.Component {
             <Row className="clearfix">
               <Col sm={3}>
                 <Nav bsStyle="pills" stacked>
-                  <NavItem eventKey="vision">Vision</NavItem>
-                  <NavItem eventKey="team">Team</NavItem>
-                  <NavItem eventKey="contact">Contact</NavItem>
-                  <NavItem eventKey="press">Press</NavItem>
-                  <NavItem eventKey="help">Help</NavItem>
-                  <NavItem eventKey="guidelines">Guidelines</NavItem>
-                  <NavItem eventKey="terms">Terms and Conditions</NavItem>
+                  <NavItem className="full-width-nav-item" eventKey="vision">Vision</NavItem>
+                  <NavItem className="full-width-nav-item" eventKey="team">Team</NavItem>
+                  <NavItem className="full-width-nav-item" eventKey="contact">Contact</NavItem>
+                  <NavItem className="full-width-nav-item" eventKey="press">Press</NavItem>
+                  <NavItem className="full-width-nav-item" eventKey="help">Help</NavItem>
+                  <NavItem className="full-width-nav-item" eventKey="guidelines">Guidelines</NavItem>
+                  <NavItem className="full-width-nav-item" eventKey="terms">Terms and Conditions</NavItem>
                 </Nav>
               </Col>
               <Col sm={9}>
