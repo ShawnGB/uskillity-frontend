@@ -1,6 +1,6 @@
 import * as service from "app:utils/service";
 
-export const USER_WORKSHOPS_FETCHED = "user/USER_WORKSHOPS_FETCHED";
+export const USER_WORKSHOPS_FETCHED = "profle/USER_WORKSHOPS_FETCHED";
 
 export const fetchUserWorkshop = id => {
   return dispatch => {

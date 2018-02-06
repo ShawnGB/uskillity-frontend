@@ -3,9 +3,9 @@ import * as localStorageManager from "app:utils/localStorageManager";
 
 const initialState = {
   isLoggedIn: false,
-  user: null
+  user: []
 };
-
+// TODO: In case or rejected , set error message
 export default (state = initialState, action) => {
   let nextState;
   switch (action.type) {
@@ -15,24 +15,24 @@ export default (state = initialState, action) => {
     }
 
     case sessionActions.LOGIN_PENDING: {
-      nextState = { ...state, isLoggedIn: false, user: null };
+      nextState = { ...state, isLoggedIn: false, user: [] };
       break;
     }
 
     case sessionActions.LOGIN_REJECTED: {
-      nextState = { ...state, isLoggedIn: false, user: null };
+      nextState = { ...state, isLoggedIn: false, user: [] };
       break;
     }
 
     case sessionActions.LOGOUT_PENDING: {
       // TODO: push the browser back to home page
       localStorageManager.clearAuthParameters();
-      nextState = { ...state, isLoggedIn: false, user: null };
+      nextState = { ...state, isLoggedIn: false, user: [] };
       break;
     }
 
     case sessionActions.REGISTER_PENDING: {
-      nextState = { ...state, isLoggedIn: false, user: null };
+      nextState = { ...state, isLoggedIn: false, user: [] };
       break;
     }
 

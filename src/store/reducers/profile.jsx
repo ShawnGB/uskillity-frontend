@@ -1,4 +1,4 @@
-import * as userActions from "app:store/actions/user";
+import * as userActions from "app:store/actions/profile";
 
 const initialState = {
   user_workshops: []

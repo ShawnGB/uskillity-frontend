@@ -24,7 +24,9 @@ class ShareSkill extends Component {
       error: {
         message: ""
       },
-      level_id: ""
+      level_id: "",
+      file: "",
+      imagePreviewUrl: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -56,6 +58,29 @@ class ShareSkill extends Component {
     const workshop = this.state.workshop;
     workshop[input] = e.target.value;
     this.setState({ workshop });
+  }
+
+  handleImageChange(e) {
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+
+    reader.onloadend = () => {
+      this.setState({
+        file: file,
+        imagePreviewUrl: reader.result
+      });
+    };
+  }
+
+  saveWorkshopCover(){
+    const {dispatch} = this.props;
+    dispatch(skillActions.saveWorkshopCover(this.state.file))
   }
 
   handleSubmit(e) {
@@ -214,9 +239,18 @@ class ShareSkill extends Component {
                 </button>
               </div>
               <p className="skills-form-title">Photo</p>
-              <button type="button" className="btn btn-default">
-                Upload a cover photo
-              </button>
+              <form onSubmit={this.saveWorkshopCover.bind(this)}>
+                <input
+                  type="file"
+                  onChange={this.handleImageChange.bind(this)}
+                />
+                <button
+                  type="button"
+                  className="btn btn-default"
+                >
+                  Upload a cover photo
+                </button>
+              </form>
               <div className="checkbox">
                 <label>
                   <input

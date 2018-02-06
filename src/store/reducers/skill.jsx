@@ -5,7 +5,7 @@ const initialState = {
   categories: [],
   workshops: []
 };
-
+// TODO: In case or rejected , set error message
 export default (state = initialState, action) => {
   let nextState;
   switch (action.type) {
@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
       break;
     }
     case skillActions.LEVELS_REJECTED: {
-      nextState = { ...state, levels: [] };
+      nextState = { ...state, levels: action.payload };
       break;
     }
     case skillActions.CATEGORIES_FETCHED_PENDING: {
@@ -36,7 +36,7 @@ export default (state = initialState, action) => {
       break;
     }
     case skillActions.CATEGORIES_FETCHED_REJECTED: {
-      nextState = { ...state, categories: [] };
+      nextState = { ...state, categories: action.payload };
       break;
     }
     case skillActions.WORKSHOPS_FETCHED_PENDING: {
@@ -51,7 +51,15 @@ export default (state = initialState, action) => {
       break;
     }
     case skillActions.WORKSHOPS_FETCHED_REJECTED: {
-      nextState = { ...state, workshops: [] };
+      nextState = { ...state, workshops: action.payload };
+      break;
+    }
+    case skillActions.WORKSHOP_SAVED: {
+      nextState = { ...state, workshops: action.payload };
+      break;
+    }
+    case skillActions.WORKSHOP_SAVE_REJECTED: {
+      nextState = { ...state, workshops: action.payload };
       break;
     }
     default: {
