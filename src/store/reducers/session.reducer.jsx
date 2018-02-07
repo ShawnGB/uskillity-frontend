@@ -15,6 +15,7 @@ export default (state = initialState, action) => {
     }
 
     case sessionActions.LOGIN_PENDING: {
+      localStorageManager.clearAuthParameters();
       nextState = { ...state, isLoggedIn: false, user: null };
       break;
     }

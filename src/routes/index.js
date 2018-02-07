@@ -4,6 +4,7 @@ import { HashRouter as Router, Route } from "react-router-dom";
 import Navbar from "app:components/nav-bar";
 import Footer from "app:components/footer";
 import ModalRoot from "app:components/modal-root";
+import AuthRoot from "app:components/auth-root";
 
 import About from "app:routes/about";
 import Home from "app:routes/home";
@@ -30,6 +31,7 @@ export default () => (
       <Route path="/learnskill" component={LearnSkill} />
       <Footer />
       <ModalRoot />
+      <AuthRoot />
     </div>
   </Router>
 );
