@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import * as sessionActions from "app:store/actions/session.actions";
 import * as modalActions from "app:store/actions/modal";
 
-class Auth extends React.Component {
+class AuthModals extends React.Component {
   jumpToModal(modalType) {
     this.props.dispatch(modalActions.showModal(modalType));
   }
@@ -46,4 +46,4 @@ class Auth extends React.Component {
 }
 
 // connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
-export default connect(null, null, null, { withRef: true })(Auth);
+export default connect(null, null, null, { withRef: true })(AuthModals);

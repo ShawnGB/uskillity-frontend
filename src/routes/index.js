@@ -1,8 +1,8 @@
 import React from "react";
 import { HashRouter as Router, Route } from "react-router-dom";
 
-import Navbar from "app:components/navigation/Nav";
-import Footer from "app:components/footer/Footer";
+import Navbar from "app:components/nav-bar";
+import Footer from "app:components/footer";
 import ModalRoot from "app:components/modal-root";
 
 import About from "app:routes/about";

@@ -1,5 +1,5 @@
 import React from "react";
-import { CustomCarousel } from "app:components/carousel/Carousel";
+import { CustomCarousel } from "app:components/carousel";
 import * as service from "app:utils/service";
 import "./style.css";
 
