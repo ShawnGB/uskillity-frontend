@@ -56,12 +56,16 @@ export const saveWorkshop = workshop => {
         category: workshop.category,
         workshop: workshop
       })
-    }).then(data => {
-      dispatch({ type: WORKSHOP_SAVED, payload: data });
-    },
-  error => {
-    dispatch({ type: WORKSHOP_SAVE_REJECTED, payload: error });
-  });
+    })
+      .then(service.handleResponse)
+      .then(
+        data => {
+          dispatch({ type: WORKSHOP_SAVED, payload: data });
+        },
+        error => {
+          dispatch({ type: WORKSHOP_SAVE_REJECTED, payload: error });
+        }
+      );
   };
 };
 
@@ -81,10 +85,21 @@ export const fetchWorkshops = () => {
   };
 };
 //TODO: need to pass workshop id as well
-export const saveWorkshopCover = file => {
+export const saveWorkshopCover = (file, id) => {
   return function(dispatch) {
+    let headers = service.getAuthHeaders();
+    headers.append("Content-Type", "multipart/form-data");
     dispatch({ type: UPLOAD_IMG_PENDING });
-    fetch(service.getServerEndpoint(`/workshops/${1}/images`))
+    const data = new FormData();
+    data.append("images", {
+      type: file.type,
+      name: file.name
+    });
+    fetch(service.getServerEndpoint(`/workshops/${id}/images`), {
+      method: "POST",
+      headers: headers,
+      body: data
+    })
       .then(service.handleResponse)
       .then(
         data => {

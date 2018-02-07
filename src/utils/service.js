@@ -17,7 +17,7 @@ export const getRequestHeaders = () => {
   return headers;
 };
 
-const getAuthHeaders = () => {
+export const getAuthHeaders = () => {
   const params = localStorageManager.getAuthParameters();
   if (!params) {
     return new Headers();

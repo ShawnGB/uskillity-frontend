@@ -50,7 +50,6 @@ class ShareSkill extends Component {
     const input = e.target.name;
     sessions[i][input] = e.target.value;
     this.setState({ sessions });
-    console.log("session", this.state);
   }
 
   handleChange(e) {
@@ -78,9 +77,13 @@ class ShareSkill extends Component {
     };
   }
 
-  saveWorkshopCover(){
-    const {dispatch} = this.props;
-    dispatch(skillActions.saveWorkshopCover(this.state.file))
+  saveWorkshopCover() {
+    const { dispatch, skills } = this.props;
+    //TODO: check for null here
+    // if (!skills.workshops.length === 0) {
+    //   this.setState({workId:skills.workshops.id})
+    // }
+    dispatch(skillActions.saveWorkshopCover(this.state.file,skills.workshops.id));
   }
 
   handleSubmit(e) {
@@ -239,17 +242,16 @@ class ShareSkill extends Component {
                 </button>
               </div>
               <p className="skills-form-title">Photo</p>
-              <form onSubmit={this.saveWorkshopCover.bind(this)}>
+              <form name="form" >
+                <div className="form-group">
                 <input
                   type="file"
                   onChange={this.handleImageChange.bind(this)}
                 />
-                <button
-                  type="button"
-                  className="btn btn-default"
-                >
+              <button onClick={this.saveWorkshopCover.bind(this)} type="button" className="btn btn-default">
                   Upload a cover photo
                 </button>
+              </div>
               </form>
               <div className="checkbox">
                 <label>
