@@ -4,7 +4,7 @@ import * as sessionActions from "app:store/actions/session";
 import { Link } from "react-router-dom";
 import "./style.css";
 import logo from "../../images/logo.png";
-import Auth from "app:components/authModal/Auth";
+import AuthModals from "app:components/auth-modals";
 
 class Navbar extends React.Component {
   render() {
@@ -25,8 +25,9 @@ class Navbar extends React.Component {
                   <Link
                     to="#"
                     onClick={() =>
-                      this.refs.authComponent.onRegisteredClicked()
-                    }
+                      this.refs.authModals
+                        .getWrappedInstance()
+                        .onRegisteredClicked()}
                   >
                     Register now
                   </Link>
@@ -40,7 +41,10 @@ class Navbar extends React.Component {
                 <li className="menu-item">
                   <Link
                     to="#"
-                    onClick={() => this.refs.authComponent.onLoginClicked()}
+                    onClick={() =>
+                      this.refs.authModals
+                        .getWrappedInstance()
+                        .onLoginClicked()}
                   >
                     Log in
                   </Link>
@@ -71,7 +75,7 @@ class Navbar extends React.Component {
             </ul>
           </div>
         </nav>
-        <Auth ref="authComponent" />
+        <AuthModals ref="authModals" />
       </div>
     );
   }

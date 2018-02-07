@@ -4,14 +4,15 @@ import promiseMiddleware from "redux-promise";
 import { createLogger } from "redux-logger";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import createReducers from "./reducers";
+import rootReducer from "./reducers";
 
 const persistConfig = {
   key: "root",
-  storage: storage
+  storage: storage,
+  blacklist: ["modal"]
 };
 
-const persistedReducer = persistReducer(persistConfig, createReducers());
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const createReduxStore = (initialState = {}) => {
   // ***************** Middleware Configuration ***************** //

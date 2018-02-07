@@ -1,11 +1,12 @@
 import React from "react";
 import { HashRouter as Router, Route } from "react-router-dom";
 
-import Navbar from "app:components/navigation/Nav";
-import Footer from "app:components/footer/Footer";
+import Navbar from "app:components/nav-bar";
+import Footer from "app:components/footer";
+import ModalRoot from "app:components/modal-root";
+import AuthRoot from "app:components/auth-root";
 
 import About from "app:routes/about";
-
 import Home from "app:routes/home";
 import Profile from "app:routes/profile/Profile";
 import ProfileEdit from "app:routes/profile/ProfileEdit";
@@ -28,7 +29,10 @@ export default () => (
       <Route path="/workshop/:id" component={Workshop} />
       <Route path="/shareyourskill" component={ShareSkill} />
       <Route path="/learnskill" component={LearnSkill} />
+      <Route path="/learnskill/:id" component={LearnSkill} />
       <Footer />
+      <ModalRoot />
+      <AuthRoot />
     </div>
   </Router>
 );

@@ -17,10 +17,14 @@ class LearnSkill extends Component {
     const { dispatch } = this.props;
     dispatch(skillActions.fetchWorkshops());
     dispatch(skillActions.fetchCategories());
+    this.prepareWorkshops();
   }
 
   componentDidMount() {
-    this.prepareWorkshops();
+    const categoryId = this.props.match.params.id;
+    if (categoryId) {
+      this.scrollToElement(categoryId);
+    }
   }
 
   prepareWorkshops() {
@@ -34,9 +38,18 @@ class LearnSkill extends Component {
         categories_data[category_id].workshops_data = [];
         let category = categories.find(c => c.id === category_id);
         categories_data[category_id].name = category.name;
+        categories_data[category_id].categoryId = category.id;
       }
       categories_data[category_id].workshops_data.push(workshops[i]);
       this.setState({ categories: categories_data });
+    }
+  }
+
+  scrollToElement(categoryId) {
+    console.log("categoryId", categoryId);
+    const categoryElement = document.getElementById(categoryId);
+    if (categoryElement) {
+      window.scrollTo(0, categoryElement.offsetTop);
     }
   }
 
@@ -125,13 +138,13 @@ const CategoryRow = props => {
     ]
   };
   return (
-    <div className="row row-margin">
+    <div id={props.categoryId} className="row row-margin">
       <p className="skills-heading">{props.name}</p>
       <Slider {...settings}>
         {props.workshops.map((workshop, i) => (
           <div key={i}>
             <Link to={`/workshop/${workshop.id}`}>
-              <img src={workshop.main_image} width="350" height="220" alt="" />
+              <img src={workshop.images[0]} width="350" height="220" alt="" />
             </Link>
             <div className="skill-content">
               <p className="skill-title">{workshop.title}</p>

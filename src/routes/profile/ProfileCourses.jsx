@@ -19,7 +19,7 @@ class ProfileCourses extends React.Component {
             {user_workshops.map((workshop, i) => (
               <div className="col-sm-3" key={i}>
                 <img
-                  src={workshop.main_image}
+                  src={workshop.images[0]}
                   width="250"
                   height="180"
                   alt=""

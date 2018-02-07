@@ -1,10 +1,30 @@
 .home-heading {
-  font-size: 36px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: center;
-  color: #ff433a;
+    font-size: 36px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ff433a;
+}
+
+.home-category-img-text {
+    color: darkgray;
+    font-size: xx-large;
+    font-weight: 900;
+    left: 0;
+    top: 40%;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+.home-category-img {
+    width: 100%;
+    position:relative;
+}
+
+.home-category {
+    cursor: pointer;
 }
