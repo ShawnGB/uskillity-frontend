@@ -55,6 +55,7 @@ export default (state = initialState, action) => {
       break;
     }
     case skillActions.WORKSHOP_SAVED: {
+      // TODO: append to workshops
       nextState = { ...state, workshops: action.payload };
       break;
     }

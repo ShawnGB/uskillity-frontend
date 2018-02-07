@@ -21,7 +21,7 @@ export const login = (email, password) => {
         password
       })
     })
-      .then(service.handleResponse)
+      .then(service.handleAuthResponse)
       .then(
         resp => {
           dispatch({ type: LOGIN_FULFILLED, payload: resp.data });
@@ -54,7 +54,7 @@ export const register = user => {
         password_confirmation
       })
     })
-      .then(service.handleResponse)
+      .then(service.handleAuthResponse)
       .then(data => {
         dispatch({ type: REGISTER_FULFILLED, payload: data.data });
       });

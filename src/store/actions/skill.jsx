@@ -88,13 +88,9 @@ export const fetchWorkshops = () => {
 export const saveWorkshopCover = (file, id) => {
   return function(dispatch) {
     let headers = service.getAuthHeaders();
-    headers.append("Content-Type", "multipart/form-data");
     dispatch({ type: UPLOAD_IMG_PENDING });
     const data = new FormData();
-    data.append("images", {
-      type: file.type,
-      name: file.name
-    });
+    data.append("url", file, file.name);
     fetch(service.getServerEndpoint(`/workshops/${id}/images`), {
       method: "POST",
       headers: headers,

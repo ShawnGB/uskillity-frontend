@@ -79,10 +79,8 @@ class ShareSkill extends Component {
 
   saveWorkshopCover() {
     const { dispatch, skills } = this.props;
-    //TODO: check for null here
-    // if (!skills.workshops.length === 0) {
-    //   this.setState({workId:skills.workshops.id})
-    // }
+    //TODO: push to id of latest worksop
+    //TODO: push only when a new workshop is created
     dispatch(skillActions.saveWorkshopCover(this.state.file,skills.workshops.id));
   }
 
