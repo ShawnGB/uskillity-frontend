@@ -1,6 +1,8 @@
 import React from "react";
 import { CustomCarousel } from "app:components/carousel";
 import * as service from "app:utils/service";
+import { withRouter } from "react-router-dom";
+import { PropTypes } from "prop-types";
 import "./style.css";
 
 class Home extends React.Component {
@@ -35,15 +37,30 @@ class Home extends React.Component {
       .then(data => {
         console.log("DATA", data);
         let categories = [];
-        data.map(i => {
+        data.map(category => {
           return categories.push(
-            <div className="col-sm-4" key={i.id}>
-              <img src={i.image} alt="img" style={{ width: "100%" }} />
+            <div
+              onClick={() => this.goToCategory(category.id)}
+              className="col-sm-4 home-category"
+              key={category.id}
+            >
+              <img
+                className="home-category-img"
+                src={category.image}
+                alt="img"
+              />
+              <span className="home-category-img-text">
+                {category.name.toUpperCase()}
+              </span>
             </div>
           );
         });
         this.setState({ categories });
       });
+  }
+
+  goToCategory(categoryId) {
+    this.props.history.push(`/learnskill/${categoryId}`);
   }
 
   render() {
@@ -90,4 +107,10 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+Home.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
+};
+
+export default withRouter(Home);

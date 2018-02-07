@@ -29,6 +29,7 @@ export default () => (
       <Route path="/workshop/:id" component={Workshop} />
       <Route path="/shareyourskill" component={ShareSkill} />
       <Route path="/learnskill" component={LearnSkill} />
+      <Route path="/learnskill/:id" component={LearnSkill} />
       <Footer />
       <ModalRoot />
       <AuthRoot />
