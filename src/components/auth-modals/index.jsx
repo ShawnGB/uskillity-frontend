@@ -4,15 +4,11 @@ import * as sessionActions from "app:store/actions/session.actions";
 import * as modalActions from "app:store/actions/modal";
 
 class AuthModals extends React.Component {
-  jumpToModal(modalType) {
-    this.props.dispatch(modalActions.showModal(modalType));
-  }
-
   onLoginClicked() {
     this.props.dispatch(
       modalActions.showModal("MODAL_LOGIN", {
         handleSubmit: (email, password) => this.handleLogin(email, password),
-        jumpToModal: () => this.jumpToModal("MODAL_REGISTER"),
+        jumpToModal: () => this.onRegisteredClicked(),
         hideModal: () => this.hideModal("MODAL_LOGIN")
       })
     );
@@ -22,7 +18,7 @@ class AuthModals extends React.Component {
     this.props.dispatch(
       modalActions.showModal("MODAL_REGISTER", {
         handleSubmit: user => this.handleRegister(user),
-        jumpToModal: () => this.jumpToModal("MODAL_LOGIN"),
+        jumpToModal: () => this.onLoginClicked(),
         hideModal: () => this.hideModal("MODAL_REGISTER")
       })
     );
