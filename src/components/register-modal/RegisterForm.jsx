@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import * as sessionActions from "app:store/actions/session.actions";
 import "./style.css";
 
 class RegisterForm extends Component {
@@ -34,7 +32,7 @@ class RegisterForm extends Component {
     e.preventDefault();
     const user = this.state.user;
     if (user) {
-      this.props.dispatch(sessionActions.register(user));
+      this.props.handleSubmit(user);
     }
   }
 
@@ -134,4 +132,4 @@ class RegisterForm extends Component {
   }
 }
 
-export default connect()(RegisterForm);
+export default RegisterForm;

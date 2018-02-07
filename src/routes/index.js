@@ -3,9 +3,9 @@ import { HashRouter as Router, Route } from "react-router-dom";
 
 import Navbar from "app:components/navigation/Nav";
 import Footer from "app:components/footer/Footer";
+import ModalRoot from "app:components/modal-root";
 
 import About from "app:routes/about";
-
 import Home from "app:routes/home";
 import Profile from "app:routes/profile/Profile";
 import ProfileEdit from "app:routes/profile/ProfileEdit";
@@ -29,6 +29,7 @@ export default () => (
       <Route path="/shareyourskill" component={ShareSkill} />
       <Route path="/learnskill" component={LearnSkill} />
       <Footer />
+      <ModalRoot />
     </div>
   </Router>
 );

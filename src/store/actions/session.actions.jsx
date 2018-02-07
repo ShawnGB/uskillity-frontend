@@ -1,4 +1,5 @@
 import * as service from "app:utils/service";
+import * as modalActions from "app:store/actions/modal";
 
 export const LOGIN_PENDING = "session/LOGIN_PENDING";
 export const LOGIN_FULFILLED = "session/LOGIN_FULFILLED";
@@ -26,6 +27,7 @@ export const login = (email, password) => {
         data => {
           //TODO: data.data is extremely ugly
           dispatch({ type: LOGIN_FULFILLED, payload: data.data });
+          dispatch({ type: modalActions.HIDE_MODAL });
         },
         error => {
           dispatch({ type: LOGIN_REJECTED, payload: error });
@@ -58,6 +60,7 @@ export const register = user => {
       .then(service.handleResponse)
       .then(data => {
         dispatch({ type: REGISTER_FULFILLED, payload: data.data });
+        dispatch({ type: modalActions.HIDE_MODAL });
       });
   };
 };

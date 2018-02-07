@@ -8,7 +8,8 @@ import createReducers from "./reducers";
 
 const persistConfig = {
   key: "root",
-  storage: storage
+  storage: storage,
+  blacklist: ["modal"]
 };
 
 const persistedReducer = persistReducer(persistConfig, createReducers());

@@ -25,8 +25,9 @@ class Navbar extends React.Component {
                   <Link
                     to="#"
                     onClick={() =>
-                      this.refs.authComponent.onRegisteredClicked()
-                    }
+                      this.refs.authComponent
+                        .getWrappedInstance()
+                        .onRegisteredClicked()}
                   >
                     Register now
                   </Link>
@@ -40,7 +41,10 @@ class Navbar extends React.Component {
                 <li className="menu-item">
                   <Link
                     to="#"
-                    onClick={() => this.refs.authComponent.onLoginClicked()}
+                    onClick={() =>
+                      this.refs.authComponent
+                        .getWrappedInstance()
+                        .onLoginClicked()}
                   >
                     Log in
                   </Link>

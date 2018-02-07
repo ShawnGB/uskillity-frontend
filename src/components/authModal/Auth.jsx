@@ -1,73 +1,49 @@
 import React from "react";
-import { Modal } from "react-bootstrap";
-import LoginForm from "app:components/login/LoginForm";
-import RegisterForm from "app:components/register/RegisterForm";
+import { connect } from "react-redux";
+import * as sessionActions from "app:store/actions/session.actions";
+import * as modalActions from "app:store/actions/modal";
 
-export default class Auth extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { modalType: "" };
-    this.closeModal = this.closeModal.bind(this);
-  }
-
-  jumpToModal(modal) {
-    this.showModal(modal);
+class Auth extends React.Component {
+  jumpToModal(modalType) {
+    this.props.dispatch(modalActions.showModal(modalType));
   }
 
   onLoginClicked() {
-    this.showModal("login");
+    this.props.dispatch(
+      modalActions.showModal("MODAL_LOGIN", {
+        handleSubmit: (email, password) => this.handleLogin(email, password),
+        jumpToModal: () => this.jumpToModal("MODAL_REGISTER"),
+        hideModal: () => this.hideModal("MODAL_LOGIN")
+      })
+    );
   }
 
   onRegisteredClicked() {
-    this.showModal("register");
+    this.props.dispatch(
+      modalActions.showModal("MODAL_REGISTER", {
+        handleSubmit: user => this.handleRegister(user),
+        jumpToModal: () => this.jumpToModal("MODAL_LOGIN"),
+        hideModal: () => this.hideModal("MODAL_REGISTER")
+      })
+    );
   }
 
-  showModal(modalType) {
-    this.setState({
-      modalType: modalType
-    });
+  hideModal(modalType) {
+    this.props.dispatch(modalActions.hideModal(modalType));
   }
 
-  closeModal() {
-    this.setState({ modalType: "" });
+  handleLogin(email, password) {
+    this.props.dispatch(sessionActions.login(email, password));
+  }
+
+  handleRegister(user) {
+    this.props.dispatch(sessionActions.register(user));
   }
 
   render() {
-    return (
-      <div>
-        <div>
-          <Modal
-            show={this.state.modalType === "register"}
-            onHide={this.closeModal}
-          >
-            <Modal.Header closeButton>
-              <Modal.Title>uSkillity</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <RegisterForm
-                jumpToModal={this.jumpToModal.bind(this, "login")}
-              />
-            </Modal.Body>
-            <Modal.Footer />
-          </Modal>
-        </div>
-        <div>
-          <Modal
-            show={this.state.modalType === "login"}
-            onHide={this.closeModal}
-          >
-            <Modal.Header closeButton>
-              <Modal.Title>uSkillity</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <LoginForm
-                jumpToModal={this.jumpToModal.bind(this, "register")}
-              />
-            </Modal.Body>
-            <Modal.Footer />
-          </Modal>
-        </div>
-      </div>
-    );
+    return null;
   }
 }
+
+// connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
+export default connect(null, null, null, { withRef: true })(Auth);

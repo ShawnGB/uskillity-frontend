@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import * as sessionActions from "app:store/actions/session.actions";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -26,7 +24,7 @@ class LoginForm extends Component {
     e.preventDefault();
     const { email, password } = this.state;
     if (email && password) {
-      this.props.dispatch(sessionActions.login(email, password));
+      this.props.handleSubmit(email, password);
     }
   }
 
@@ -93,4 +91,4 @@ class LoginForm extends Component {
   }
 }
 
-export default connect()(LoginForm);
+export default LoginForm;
