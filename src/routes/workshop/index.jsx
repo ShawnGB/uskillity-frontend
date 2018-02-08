@@ -15,8 +15,7 @@ class Workshop extends React.Component {
   findWorkshopWithId = () => {
     const {skills} = this.props;
     const {workshops} = skills;
-      // TODO: may be strict type checking is required?
-      let workshop = workshops.find(w => w.id == this.state.id);
+      let workshop = workshops.find(w => w.id === +this.state.id);
       this.setState({workshop:workshop})
   }
   componentWillMount(){
