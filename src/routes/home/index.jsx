@@ -3,6 +3,8 @@ import { CustomCarousel } from "app:components/carousel";
 import * as service from "app:utils/service";
 import { withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
+import { translate, Trans } from "react-i18next";
+import { compose } from "redux";
 import "./style.css";
 
 class Home extends React.Component {
@@ -63,6 +65,16 @@ class Home extends React.Component {
     this.props.history.push(`/learnskill/${categoryId}`);
   }
 
+  componentWillMount() {
+    console.log("navigator.language", navigator.language);
+    if (navigator.language.includes("de")) {
+      this.props.i18n.changeLanguage("de");
+    }
+    //else {
+    //this.props.i18n.changeLanguage("en");
+    //}
+  }
+
   render() {
     return (
       <div>
@@ -73,7 +85,9 @@ class Home extends React.Component {
               style={{ height: "600px", marginBottom: "20px" }}
             />
           </div>
-          <p className="home-heading">Create a possibility</p>
+          <p className="home-heading">
+            <Trans i18nKey="home.createPossibility">Create a possibility</Trans>
+          </p>
           <div className="row row-home">
             {this.state.categories.slice(0, 3)}
           </div>
@@ -113,4 +127,10 @@ Home.propTypes = {
   }).isRequired
 };
 
-export default withRouter(Home);
+export default compose(
+  withRouter,
+  translate("translations")
+  //connect(mapStateToProps, mapDispatchToProps)
+)(Home);
+
+//export default withRouter(Home);
