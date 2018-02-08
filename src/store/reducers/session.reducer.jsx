@@ -3,7 +3,7 @@ import * as localStorageManager from "app:utils/localStorageManager";
 
 const initialState = {
   isLoggedIn: false,
-  user: null
+  user: []
 };
 
 export default (state = initialState, action) => {
@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
 
     case sessionActions.LOGIN_PENDING: {
       localStorageManager.clearAuthParameters();
-      nextState = { ...state, isLoggedIn: false, user: null };
+      nextState = { ...state, isLoggedIn: false, user: [] };
       break;
     }
 
@@ -28,12 +28,12 @@ export default (state = initialState, action) => {
     case sessionActions.LOGOUT_PENDING: {
       // TODO: push the browser back to home page
       localStorageManager.clearAuthParameters();
-      nextState = { ...state, isLoggedIn: false, user: null };
+      nextState = { ...state, isLoggedIn: false, user: [] };
       break;
     }
 
     case sessionActions.REGISTER_PENDING: {
-      nextState = { ...state, isLoggedIn: false, user: null };
+      nextState = { ...state, isLoggedIn: false, user: [] };
       break;
     }
 
