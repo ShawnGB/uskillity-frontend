@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import Sidebar from "./Sidebar";
-import * as service from "app:utils/service";
-// import * as workshopActions from 'app:store/actions/workshop.actions';
 import "./style.css";
 
 class Workshop extends React.Component {
@@ -13,26 +11,25 @@ class Workshop extends React.Component {
       workshop: {}
     };
   }
-  componentWillMount() {
-    // TODO: this is unnecessary api call, handle it through state manager or pass from parent component
-    fetch(service.getServerEndpoint(`/workshops/${this.state.id}.json`))
-      .then(resp => {
-        if (!resp.ok) {
-          // TODO: send back to home page
-        }
-        return resp.json();
-      })
-      .then(data => {
-        this.setState({ workshop: data });
-      });
+
+  findWorkshopWithId = () => {
+    const {skills} = this.props;
+    const {workshops} = skills;
+      // TODO: may be strict type checking is required?
+      let workshop = workshops.find(w => w.id == this.state.id);
+      this.setState({workshop:workshop})
   }
+  componentWillMount(){
+    this.findWorkshopWithId();
+  }
+
   render() {
     return (
       <div>
         <div className="container">
           <div className="jumbotron">
             <img
-              src={this.state.workshop.main_image}
+              src={this.state.workshop.images[0]}
               width="100%"
               height="60%"
               alt=""
@@ -86,5 +83,5 @@ class Workshop extends React.Component {
     );
   }
 }
-export const mapStateToProps = state => ({ workshop: state.workshop });
+export const mapStateToProps = state => ({ skills: state.skills });
 export default connect(mapStateToProps)(Workshop);
