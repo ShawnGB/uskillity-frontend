@@ -28,11 +28,11 @@ class LearnSkill extends Component {
   }
 
   prepareWorkshops() {
-    const { skills } = this.props;
-    const { workshops, categories } = skills;
+    const { workshops, categories } = this.props.skills;
     let categories_data = {};
-    for (var i = 0; i < workshops.length; i++) {
-      let category_id = workshops[i].category_id;
+    /* eslint-disable */
+    workshops.map((workshop, i) => {
+      let category_id = workshop.category_id;
       if (!categories_data[category_id]) {
         categories_data[category_id] = {};
         categories_data[category_id].workshops_data = [];
@@ -40,9 +40,11 @@ class LearnSkill extends Component {
         categories_data[category_id].name = category.name;
         categories_data[category_id].categoryId = category.id;
       }
-      categories_data[category_id].workshops_data.push(workshops[i]);
-      this.setState({ categories: categories_data });
-    }
+      categories_data[category_id].workshops_data.push(workshop);
+    });
+    /* eslint-enable */
+    this.setState({ categories: categories_data });
+    console.log(categories_data);
   }
 
   scrollToElement(categoryId) {
@@ -144,7 +146,7 @@ const CategoryRow = props => {
         {props.workshops.map((workshop, i) => (
           <div key={i}>
             <Link to={`/workshop/${workshop.id}`}>
-              <img src={workshop.main_image} width="350" height="220" alt="" />
+              <img src={workshop.images[0]} width="350" height="220" alt="" />
             </Link>
             <div className="skill-content">
               <p className="skill-title">{workshop.title}</p>
