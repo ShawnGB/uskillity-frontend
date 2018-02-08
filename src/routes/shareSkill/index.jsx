@@ -79,9 +79,16 @@ class ShareSkill extends Component {
 
   saveWorkshopCover() {
     const { dispatch, skills } = this.props;
+    const { workshops } = skills;
+    // TODO: check if workshops array is null
     //TODO: push to id of latest worksop
     //TODO: push only when a new workshop is created
-    dispatch(skillActions.saveWorkshopCover(this.state.file,skills.workshops.id));
+    dispatch(
+      skillActions.saveWorkshopCover(
+        this.state.file,
+        workshops[workshops.length - 1].id
+      )
+    );
   }
 
   handleSubmit(e) {
@@ -240,16 +247,20 @@ class ShareSkill extends Component {
                 </button>
               </div>
               <p className="skills-form-title">Photo</p>
-              <form name="form" >
+              <form name="form">
                 <div className="form-group">
-                <input
-                  type="file"
-                  onChange={this.handleImageChange.bind(this)}
-                />
-              <button onClick={this.saveWorkshopCover.bind(this)} type="button" className="btn btn-default">
-                  Upload a cover photo
-                </button>
-              </div>
+                  <input
+                    type="file"
+                    onChange={this.handleImageChange.bind(this)}
+                  />
+                  <button
+                    onClick={this.saveWorkshopCover.bind(this)}
+                    type="button"
+                    className="btn btn-default"
+                  >
+                    Upload a cover photo
+                  </button>
+                </div>
               </form>
               <div className="checkbox">
                 <label>
