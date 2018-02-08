@@ -40,9 +40,13 @@ class ShareSkill extends Component {
   }
 
   addRow() {
+    const { dispatch, skills } = this.props;
+    const { workshops } = skills;
     var sessions = this.state.sessions;
     sessions.push({});
     this.setState({ sessions });
+    let w_id = workshops[workshops.length - 1].id;
+    dispatch(skillActions.saveWorkshopSession(w_id, sessions));
   }
 
   addWorkshopSession(i, e) {
@@ -80,7 +84,7 @@ class ShareSkill extends Component {
   saveWorkshopCover() {
     const { dispatch, skills } = this.props;
     const { workshops } = skills;
-    // TODO: check if workshops array is null
+    //TODO: check if workshops array is null
     //TODO: push to id of latest worksop
     //TODO: push only when a new workshop is created
     dispatch(

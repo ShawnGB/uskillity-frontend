@@ -9,6 +9,7 @@ export const CATEGORIES_FETCHED_REJECTED = "skill/CATEGORIES_FETCHED_REJECTED";
 export const WORKSHOP_SAVED = "skill/WORKSHOP_SAVED";
 export const WORKSHOP_SAVE_REJECTED = "skill/WORKSHOP_SAVE_REJECTED";
 export const WORKSHOPS_FETCHED_PENDING = "skill/WORKSHOPS_FETCHED_PENDING";
+export const WORKSHOP_SESSION_SAVE_PENDING = "skill/WORKSHOP_SESSION_SAVE_PENDING";
 export const WORKSHOPS_FETCHED = "skill/WORKSHOPS_FETCHED";
 export const WORKSHOPS_FETCHED_REJECTED = "skill/WORKSHOPS_FETCHED_REJECTED";
 export const UPLOAD_IMG_PENDING = "skill/UPLOAD_IMG_PENDING";
@@ -87,13 +88,12 @@ export const fetchWorkshops = () => {
 //TODO: need to pass workshop id as well
 export const saveWorkshopCover = (file, id) => {
   return function(dispatch) {
-    let headers = service.getAuthHeaders();
     dispatch({ type: UPLOAD_IMG_PENDING });
     const data = new FormData();
     data.append("url", file, file.name);
     fetch(service.getServerEndpoint(`/workshops/${id}/images`), {
       method: "POST",
-      headers: headers,
+      headers: service.getRequestHeaders(),
       body: data
     })
       .then(service.handleResponse)
@@ -107,3 +107,17 @@ export const saveWorkshopCover = (file, id) => {
       );
   };
 };
+
+export const saveWorkshopSession = (w_id,session,s_id) => {
+  return function(dispatch){
+    dispatch({type:WORKSHOP_SESSION_SAVE_PENDING});
+    fetch(service.getServerEndpoint(`/workshops/${w_id}/workshop_sessions`), {
+      method: "POST",
+      headers: service.getRequestHeaders(),
+      body: JSON.stringify({
+        starts_at: session[0].startTime,
+        ends_at: session[0].endTime
+      })
+    }).then(service.handleResponse);
+  }
+}
