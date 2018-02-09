@@ -22,11 +22,10 @@ export const login = (email, password) => {
         password
       })
     })
-      .then(service.handleResponse)
+      .then(service.handleAuthResponse)
       .then(
-        data => {
-          //TODO: data.data is extremely ugly
-          dispatch({ type: LOGIN_FULFILLED, payload: data.data });
+        response => {
+          dispatch({ type: LOGIN_FULFILLED, payload: response.data });
           dispatch({ type: modalActions.HIDE_MODAL });
         },
         error => {
@@ -57,7 +56,7 @@ export const register = user => {
         password_confirmation
       })
     })
-      .then(service.handleResponse)
+      .then(service.handleAuthResponse)
       .then(data => {
         dispatch({ type: REGISTER_FULFILLED, payload: data.data });
         dispatch({ type: modalActions.HIDE_MODAL });

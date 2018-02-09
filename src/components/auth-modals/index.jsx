@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as sessionActions from "app:store/actions/session.actions";
+import * as sessionActions from "app:store/actions/session";
 import * as modalActions from "app:store/actions/modal";
 
 class AuthModals extends React.Component {

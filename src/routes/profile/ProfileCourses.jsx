@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as userActions from "app:store/actions/user.actions";
+import * as userActions from "app:store/actions/profile";
 
 class ProfileCourses extends React.Component {
   componentDidMount() {
@@ -9,8 +9,8 @@ class ProfileCourses extends React.Component {
     this.props.dispatch(userActions.fetchUserWorkshop(user_id));
   }
   render() {
-    const { userStore } = this.props;
-    const user_workshops = userStore && userStore.user_workshops;
+    const { profile } = this.props;
+    const user_workshops = profile && profile.user_workshops;
     return (
       <div>
         <div className="container container-profile">
@@ -19,7 +19,7 @@ class ProfileCourses extends React.Component {
             {user_workshops.map((workshop, i) => (
               <div className="col-sm-3" key={i}>
                 <img
-                  src={workshop.main_image}
+                  src={workshop.images[0]}
                   width="250"
                   height="180"
                   alt=""
@@ -43,6 +43,6 @@ class ProfileCourses extends React.Component {
 }
 export const mapStateToProps = state => ({
   session: state.session,
-  userStore: state.user
+  profile: state.profile
 });
 export default connect(mapStateToProps)(ProfileCourses);

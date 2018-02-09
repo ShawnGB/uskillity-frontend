@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import * as skillActions from "app:store/actions/skill.actions";
+import * as skillActions from "app:store/actions/skill";
 import Slider from "react-slick";
 import "./style.css";
 
@@ -144,7 +144,7 @@ const CategoryRow = props => {
         {props.workshops.map((workshop, i) => (
           <div key={i}>
             <Link to={`/workshop/${workshop.id}`}>
-              <img src={workshop.main_image} width="350" height="220" alt="" />
+              <img src={workshop.images[0]} width="350" height="220" alt="" />
             </Link>
             <div className="skill-content">
               <p className="skill-title">{workshop.title}</p>

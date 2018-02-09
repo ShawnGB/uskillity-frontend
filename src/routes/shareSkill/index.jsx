@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as skillActions from "app:store/actions/skill.actions";
+import * as skillActions from "app:store/actions/skill";
 import "./style.css";
 
 class ShareSkill extends Component {
@@ -24,7 +24,9 @@ class ShareSkill extends Component {
       error: {
         message: ""
       },
-      level_id: ""
+      level_id: "",
+      file: "",
+      imagePreviewUrl: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,9 +40,13 @@ class ShareSkill extends Component {
   }
 
   addRow() {
+    const { dispatch, skills } = this.props;
+    const { workshops } = skills;
     var sessions = this.state.sessions;
     sessions.push({});
     this.setState({ sessions });
+    let w_id = workshops[workshops.length - 1].id;
+    dispatch(skillActions.saveWorkshopSession(w_id, sessions));
   }
 
   addWorkshopSession(i, e) {
@@ -48,7 +54,6 @@ class ShareSkill extends Component {
     const input = e.target.name;
     sessions[i][input] = e.target.value;
     this.setState({ sessions });
-    console.log("session", this.state);
   }
 
   handleChange(e) {
@@ -56,6 +61,38 @@ class ShareSkill extends Component {
     const workshop = this.state.workshop;
     workshop[input] = e.target.value;
     this.setState({ workshop });
+  }
+
+  handleImageChange(e) {
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+
+    reader.onloadend = () => {
+      this.setState({
+        file: file,
+        imagePreviewUrl: reader.result
+      });
+    };
+  }
+
+  saveWorkshopCover() {
+    const { dispatch, skills } = this.props;
+    const { workshops } = skills;
+    //TODO: check if workshops array is null
+    //TODO: push to id of latest worksop
+    //TODO: push only when a new workshop is created
+    dispatch(
+      skillActions.saveWorkshopCover(
+        this.state.file,
+        workshops[workshops.length - 1].id
+      )
+    );
   }
 
   handleSubmit(e) {
@@ -214,9 +251,21 @@ class ShareSkill extends Component {
                 </button>
               </div>
               <p className="skills-form-title">Photo</p>
-              <button type="button" className="btn btn-default">
-                Upload a cover photo
-              </button>
+              <form name="form">
+                <div className="form-group">
+                  <input
+                    type="file"
+                    onChange={this.handleImageChange.bind(this)}
+                  />
+                  <button
+                    onClick={this.saveWorkshopCover.bind(this)}
+                    type="button"
+                    className="btn btn-default"
+                  >
+                    Upload a cover photo
+                  </button>
+                </div>
+              </form>
               <div className="checkbox">
                 <label>
                   <input
