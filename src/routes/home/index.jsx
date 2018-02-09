@@ -3,7 +3,7 @@ import { CustomCarousel } from "app:components/carousel";
 import * as service from "app:utils/service";
 import { withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
-import { translate, Trans } from "react-i18next";
+import { translate } from "react-i18next";
 import { compose } from "redux";
 import "./style.css";
 
@@ -20,16 +20,22 @@ class Home extends React.Component {
     fetch(service.getServerEndpoint("/workshops/random.json"))
       .then(resp => resp.json())
       .then(data => {
-        console.log("DATA", data);
+        console.log("workshops", data);
         let workshops = [];
         data.map(i => {
           return workshops.push(
-            <img
-              src={i.main_image}
-              alt="img"
-              style={{ maxHeight: "600px", width: "100%" }}
+            <div
+              className="home-random-workshop"
               key={i.id}
-            />
+              onClick={() => this.goToWorkshop(i.id)}
+            >
+              <img
+                src={i.images[0]}
+                alt="img"
+                className="home-random-workshop-img"
+              />
+              <span className="home-random-workshop-img-text">{i.title}</span>
+            </div>
           );
         });
         this.setState({ workshops });
@@ -37,7 +43,7 @@ class Home extends React.Component {
     fetch(service.getServerEndpoint("/categories.json"))
       .then(resp => resp.json())
       .then(data => {
-        console.log("DATA", data);
+        console.log("categories", data);
         let categories = [];
         data.map(category => {
           return categories.push(
@@ -65,6 +71,10 @@ class Home extends React.Component {
     this.props.history.push(`/learnskill/${categoryId}`);
   }
 
+  goToWorkshop(workshopId) {
+    this.props.history.push(`/workshop/${workshopId}`);
+  }
+
   componentWillMount() {
     console.log("navigator.language", navigator.language);
     if (navigator.language.includes("de")) {
@@ -74,6 +84,10 @@ class Home extends React.Component {
     //this.props.i18n.changeLanguage("en");
     //}
   }
+
+  //<p className="home-heading">
+  //<Trans i18nKey="home.createPossibility">Create a possibility</Trans>
+  //</p>
 
   render() {
     return (
@@ -85,9 +99,6 @@ class Home extends React.Component {
               style={{ height: "600px", marginBottom: "20px" }}
             />
           </div>
-          <p className="home-heading">
-            <Trans i18nKey="home.createPossibility">Create a possibility</Trans>
-          </p>
           <div className="row row-home">
             {this.state.categories.slice(0, 3)}
           </div>
