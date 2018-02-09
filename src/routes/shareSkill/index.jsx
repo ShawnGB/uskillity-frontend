@@ -25,7 +25,7 @@ class ShareSkill extends Component {
         message: ""
       },
       level_id: "",
-      file: "",
+      file: {},
       imagePreviewUrl: ""
     };
     this.handleChange = this.handleChange.bind(this);
@@ -45,8 +45,8 @@ class ShareSkill extends Component {
     var sessions = this.state.sessions;
     sessions.push({});
     this.setState({ sessions });
-    let w_id = workshops[workshops.length - 1].id;
-    dispatch(skillActions.saveWorkshopSession(w_id, sessions));
+    let wId = workshops[workshops.length - 1].id;
+    dispatch(skillActions.saveWorkshopSession(wId, sessions));
   }
 
   addWorkshopSession(i, e) {

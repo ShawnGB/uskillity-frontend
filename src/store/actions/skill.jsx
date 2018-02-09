@@ -13,7 +13,7 @@ export const WORKSHOP_SESSION_SAVE_PENDING = "skill/WORKSHOP_SESSION_SAVE_PENDIN
 export const WORKSHOPS_FETCHED = "skill/WORKSHOPS_FETCHED";
 export const WORKSHOPS_FETCHED_REJECTED = "skill/WORKSHOPS_FETCHED_REJECTED";
 export const UPLOAD_IMG_PENDING = "skill/UPLOAD_IMG_PENDING";
-export const UPLOAD_IMG_DONE = "skill/UPLOAD_IMG_DONE";
+export const UPLOAD_IMG_FULFILLED = "skill/UPLOAD_IMG_FULFILLED";
 export const UPLOAD_IMG_REJECTED = "skill/UPLOAD_IMG_REJECTED";
 
 export const fetchLevels = () => {
@@ -99,7 +99,7 @@ export const saveWorkshopCover = (file, id) => {
       .then(service.handleResponse)
       .then(
         data => {
-          dispatch({ type: UPLOAD_IMG_DONE, payload: data });
+          dispatch({ type: UPLOAD_IMG_FULFILLED, payload: data });
         },
         error => {
           dispatch({ type: UPLOAD_IMG_REJECTED, payload: error });
@@ -108,10 +108,10 @@ export const saveWorkshopCover = (file, id) => {
   };
 };
 
-export const saveWorkshopSession = (w_id,session,s_id) => {
+export const saveWorkshopSession = (wId,session) => {
   return function(dispatch){
     dispatch({type:WORKSHOP_SESSION_SAVE_PENDING});
-    fetch(service.getServerEndpoint(`/workshops/${w_id}/workshop_sessions`), {
+    fetch(service.getServerEndpoint(`/workshops/${wId}/workshop_sessions`), {
       method: "POST",
       headers: service.getRequestHeaders(),
       body: JSON.stringify({
