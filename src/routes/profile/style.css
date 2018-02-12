@@ -50,7 +50,7 @@
 .skills-heading {
   opacity: 0.72;
   font-size: 30.2px;
-  font-weight: 500;
+  font-weight: 300;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
@@ -95,28 +95,17 @@
   color: rgba(0, 0, 0, 0.72);
 }
 
-.skill-price {
-  opacity: 0.72;
-  font-size: 19.7px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  float: right;
-  color: rgba(62, 62, 62, 0.72);
-}
 
-.skills-heading {
-  opacity: 0.62;
-  font-size: 26px;
-  font-weight: 600;
+.skill-price {
+  width: 306.7px;
+  height: 41px;
+  font-family: Calibre;
+  font-size: 20px;
+  font-weight: normal;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
-  text-transform: uppercase;
-  color: #000000;
+  color: #717171;
 }

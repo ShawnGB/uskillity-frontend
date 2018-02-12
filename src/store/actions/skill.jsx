@@ -93,7 +93,7 @@ export const saveWorkshopCover = (file, id) => {
     data.append("url", file, file.name);
     fetch(service.getServerEndpoint(`/workshops/${id}/images`), {
       method: "POST",
-      headers: service.getRequestHeaders(),
+      headers: service.getAuthHeaders(),
       body: data
     })
       .then(service.handleResponse)

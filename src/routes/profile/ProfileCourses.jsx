@@ -14,18 +14,18 @@ class ProfileCourses extends React.Component {
     return (
       <div>
         <div className="container container-profile">
-          <p className="skills-heading">My Shared Courses</p>
+          <p className="skills-heading">My Shared Skills</p>
           <div className="row">
             {user_workshops.map((workshop, i) => (
-              <div className="col-sm-3" key={i}>
+              <div className="col-sm-4" key={i}>
                 <img
                   src={workshop.images[0]}
-                  width="250"
-                  height="180"
+                  width= "306.3"
+                  height= "178.8"
                   alt=""
                 />
                 <div className="skill-content">
-                  <p className="skill-category">Arts & Crafts</p>
+                  <p className="skill-provider">{workshop.provider.name} {workshop.provider.first_name}</p>
                   <p className="skill-title">{workshop.title}</p>
                   <p className="skill-author">
                     {workshop.provider.first_name}
