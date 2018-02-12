@@ -1,9 +1,19 @@
 import React from "react";
 import ProfileCourses from "./ProfileCourses";
+import * as profileActions from "app:store/actions/profile";
+import Dropzone from "react-dropzone";
 import { connect } from "react-redux";
 import "./style.css";
 
 class Profile extends React.Component {
+
+  onDrop(acceptedFiles, rejectedFiles) {
+    const { session, dispatch } = this.props;
+    const { user } = session;
+    const userId = user.id;
+    dispatch(profileActions.saveUserPic(acceptedFiles[0], userId));
+  }
+
   render() {
     const { session } = this.props;
     console.log("params", session.user);
@@ -12,15 +22,17 @@ class Profile extends React.Component {
         <div className="container container-profile">
           <div className="row">
             <div className="col-lg-3">
-              <div className="img-container">
-                <img
-                  src="http://placehold.it/300x60?text=Logo"
-                  width="250"
-                  height="250"
-                  alt=""
-                  className="img-circle"
-                />
-              </div>
+              <Dropzone onDrop={files => this.onDrop(files)}>
+                <div className="img-container">
+                  <img
+                    src={session.user.image}
+                    width="250"
+                    height="250"
+                    alt=""
+                    className="img-circle"
+                  />
+                </div>
+              </Dropzone>
             </div>
             <div className="col-lg-6">
               <div className="profile-name">{session.user.first_name}</div>

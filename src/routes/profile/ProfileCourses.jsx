@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import * as userActions from "app:store/actions/profile";
 
 class ProfileCourses extends React.Component {
@@ -18,14 +19,18 @@ class ProfileCourses extends React.Component {
           <div className="row">
             {user_workshops.map((workshop, i) => (
               <div className="col-sm-4" key={i}>
-                <img
-                  src={workshop.images[0]}
-                  width= "306.3"
-                  height= "178.8"
-                  alt=""
-                />
+                <Link to={`/workshop/${workshop.id}`}>
+                  <img
+                    src={workshop.images[0]}
+                    width="306.3"
+                    height="178.8"
+                    alt=""
+                  />
+                </Link>
                 <div className="skill-content">
-                  <p className="skill-provider">{workshop.provider.name} {workshop.provider.first_name}</p>
+                  <p className="skill-provider">
+                    {workshop.provider.name} {workshop.provider.first_name}
+                  </p>
                   <p className="skill-title">{workshop.title}</p>
                   <p className="skill-author">
                     {workshop.provider.first_name}
