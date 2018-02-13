@@ -61,6 +61,7 @@ class ShareSkill extends Component {
     const workshop = this.state.workshop;
     workshop[input] = e.target.value;
     this.setState({ workshop });
+    this.setState({ level_id: input === "level_id" ? e.target.value : "" });
   }
 
   handleImageChange(e) {
@@ -137,6 +138,7 @@ class ShareSkill extends Component {
                 name="category_id"
                 onChange={this.handleChange}
               >
+                <option>select</option>
                 {categories.map(i => (
                   <option key={i.id} value={i.id}>
                     {i.name}
@@ -174,7 +176,12 @@ class ShareSkill extends Component {
                 </div>
                 <div className="col-xs-2">
                   <label htmlFor="level">Recommended level</label>
-                  <select value={this.state.level} onChange={this.handleChange}>
+                  <select
+                    name="level_id"
+                    value={this.state.level}
+                    onChange={this.handleChange}
+                  >
+                    <option>select</option>
                     {levels.map(i => (
                       <option key={i.id} value={i.id}>
                         {i.name}
