@@ -85,7 +85,6 @@ class ShareSkill extends Component {
     const { dispatch, skills } = this.props;
     const { workshops } = skills;
     //TODO: check if workshops array is null
-    //TODO: push to id of latest worksop
     //TODO: push only when a new workshop is created
     dispatch(
       skillActions.saveWorkshopCover(

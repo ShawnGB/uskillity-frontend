@@ -9,7 +9,8 @@ export const CATEGORIES_FETCHED_REJECTED = "skill/CATEGORIES_FETCHED_REJECTED";
 export const WORKSHOP_SAVED = "skill/WORKSHOP_SAVED";
 export const WORKSHOP_SAVE_REJECTED = "skill/WORKSHOP_SAVE_REJECTED";
 export const WORKSHOPS_FETCHED_PENDING = "skill/WORKSHOPS_FETCHED_PENDING";
-export const WORKSHOP_SESSION_SAVE_PENDING = "skill/WORKSHOP_SESSION_SAVE_PENDING";
+export const WORKSHOP_SESSION_SAVE_PENDING =
+  "skill/WORKSHOP_SESSION_SAVE_PENDING";
 export const WORKSHOPS_FETCHED = "skill/WORKSHOPS_FETCHED";
 export const WORKSHOPS_FETCHED_REJECTED = "skill/WORKSHOPS_FETCHED_REJECTED";
 export const UPLOAD_IMG_PENDING = "skill/UPLOAD_IMG_PENDING";
@@ -108,9 +109,9 @@ export const saveWorkshopCover = (file, id) => {
   };
 };
 
-export const saveWorkshopSession = (wId,session) => {
-  return function(dispatch){
-    dispatch({type:WORKSHOP_SESSION_SAVE_PENDING});
+export const saveWorkshopSession = (wId, session) => {
+  return function(dispatch) {
+    dispatch({ type: WORKSHOP_SESSION_SAVE_PENDING });
     fetch(service.getServerEndpoint(`/workshops/${wId}/workshop_sessions`), {
       method: "POST",
       headers: service.getRequestHeaders(),
@@ -119,5 +120,5 @@ export const saveWorkshopSession = (wId,session) => {
         ends_at: session[0].endTime
       })
     }).then(service.handleResponse);
-  }
-}
+  };
+};

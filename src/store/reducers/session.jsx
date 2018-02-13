@@ -40,6 +40,10 @@ export default (state = initialState, action) => {
       nextState = { ...state, isLoggedIn: true, user: action.payload };
       break;
     }
+    case sessionActions.USER_FETCHED: {
+      nextState = { ...state, isLoggedIn: true, user: action.payload };
+      break;
+    }
 
     default: {
       break;

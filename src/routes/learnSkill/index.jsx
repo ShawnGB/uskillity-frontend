@@ -46,7 +46,6 @@ class LearnSkill extends Component {
   }
 
   scrollToElement(categoryId) {
-    console.log("categoryId", categoryId);
     const categoryElement = document.getElementById(categoryId);
     if (categoryElement) {
       window.scrollTo(0, categoryElement.offsetTop);
