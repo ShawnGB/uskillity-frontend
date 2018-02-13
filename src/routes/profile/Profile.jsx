@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import "./style.css";
 
 class Profile extends React.Component {
-
   onDrop(acceptedFiles, rejectedFiles) {
     const { session, dispatch } = this.props;
     const { user } = session;
@@ -16,13 +15,21 @@ class Profile extends React.Component {
 
   render() {
     const { session } = this.props;
-    console.log("params", session.user);
+    const dropzoneStyle = {
+      "border-radius": "50%",
+      width: "252px",
+      height: "252px",
+      border: "1px solid grey"
+    };
     return (
       <div>
         <div className="container container-profile">
           <div className="row">
             <div className="col-lg-3">
-              <Dropzone onDrop={files => this.onDrop(files)}>
+              <Dropzone
+                style={dropzoneStyle}
+                onDrop={files => this.onDrop(files)}
+              >
                 <div className="img-container">
                   <img
                     src={session.user.image}

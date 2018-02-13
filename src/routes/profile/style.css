@@ -109,3 +109,8 @@
   text-align: left;
   color: #717171;
 }
+.dropzone {
+  width : 100%;
+  height : 20%;
+  border : 1px solid black;
+}
