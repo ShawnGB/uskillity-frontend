@@ -14,6 +14,28 @@ export default (state = initialState, action) => {
       };
       break;
     }
+    case userActions.USER_WORKSHOPS_FETCH_PENDING: {
+      nextState = {
+        ...state,
+        user_workshops: []
+      };
+      break;
+    }
+    case userActions.USER_WORKSHOPS_FETCH_REJECTED: {
+      nextState = {
+        ...state,
+        user_workshops: []
+      };
+      break;
+    }
+    case userActions.UPLOAD_USER_PIC_FULFILLED: {
+      // TODO: do something
+      break;
+    }
+    case userActions.UPLOAD_USER_PIC_REJECTED: {
+      // TODO: do something
+      break;
+    }
     default: {
       break;
     }

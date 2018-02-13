@@ -1,18 +1,27 @@
 import * as service from "app:utils/service";
 import * as sessionActions from "app:store/actions/session";
 
-export const USER_WORKSHOPS_FETCHED = "profle/USER_WORKSHOPS_FETCHED";
-export const UPLOAD_USER_PIC_PENDING = "profle/UPLOAD_USER_PIC_PENDING";
-export const UPLOAD_USER_PIC_REJECTED = "profle/UPLOAD_USER_PIC_REJECTED";
+export const USER_WORKSHOPS_FETCHED = "profile/USER_WORKSHOPS_FETCHED";
+export const USER_WORKSHOPS_FETCH_PENDING =
+  "profile/USER_WORKSHOPS_FETCH_PENDING";
+export const USER_WORKSHOPS_FETCH_REJECTED = "profile/USER_WORKSHOPS_REJECTED";
+export const UPLOAD_USER_PIC_PENDING = "profile/UPLOAD_USER_PIC_PENDING";
+export const UPLOAD_USER_PIC_REJECTED = "profile/UPLOAD_USER_PIC_REJECTED";
+export const UPLOAD_USER_PIC_FULFILLED = "profile/UPLOAD_USER_PIC_FULFILLED";
 
 export const fetchUserWorkshop = id => {
   return dispatch => {
-    // TODO: Add pending event here
+    dispatch({ type: USER_WORKSHOPS_FETCH_PENDING });
     fetch(service.getServerEndpoint(`/users/${id}/workshops`))
       .then(service.handleResponse)
-      .then(data => {
-        dispatch({ type: USER_WORKSHOPS_FETCHED, payload: data });
-      });
+      .then(
+        data => {
+          dispatch({ type: USER_WORKSHOPS_FETCHED, payload: data });
+        },
+        error => {
+          dispatch({ type: USER_WORKSHOPS_FETCH_REJECTED, payload: error });
+        }
+      );
   };
 };
 
@@ -26,12 +35,15 @@ export const saveUserPic = (file, userId) => {
       headers: service.getAuthHeaders(),
       body: data
     })
-    .then(service.handleResponse)
-    .then(response => {
-      dispatch(sessionActions.fetchUser(userId))
-    },error =>{
-      dispatch({type:UPLOAD_USER_PIC_REJECTED,payload:error})
-    })
-
+      .then(service.handleResponse)
+      .then(
+        response => {
+          dispatch(sessionActions.fetchUser(userId));
+          dispatch({ type: UPLOAD_USER_PIC_FULFILLED });
+        },
+        error => {
+          dispatch({ type: UPLOAD_USER_PIC_REJECTED, payload: error });
+        }
+      );
   };
 };
