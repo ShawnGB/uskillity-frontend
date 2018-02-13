@@ -28,13 +28,10 @@ class ProfileCourses extends React.Component {
                   />
                 </Link>
                 <div className="skill-content">
-                  <p className="skill-provider">
-                    {workshop.provider.name} {workshop.provider.first_name}
-                  </p>
                   <p className="skill-title">{workshop.title}</p>
                   <p className="skill-author">
-                    {workshop.provider.first_name}
-                    {workshop.provider.name}{" "}
+                    {workshop.provider.first_name}{" "}
+                    {workshop.provider.name}
                   </p>
                   <p className="skill-price">14 €</p>
                 </div>

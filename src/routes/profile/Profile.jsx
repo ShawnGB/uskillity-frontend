@@ -15,8 +15,9 @@ class Profile extends React.Component {
 
   render() {
     const { session } = this.props;
+    const { user } = session;
     const dropzoneStyle = {
-      "border-radius": "50%",
+      borderRadius: "50%",
       width: "252px",
       height: "252px",
       border: "1px solid grey"
@@ -32,7 +33,7 @@ class Profile extends React.Component {
               >
                 <div className="img-container">
                   <img
-                    src={session.user.image}
+                    src={user.image}
                     width="250"
                     height="250"
                     alt=""
@@ -42,20 +43,14 @@ class Profile extends React.Component {
               </Dropzone>
             </div>
             <div className="col-lg-6">
-              <div className="profile-name">{session.user.first_name}</div>
+              <div className="profile-name">{user.first_name}</div>
               <div className="profile-skill">Profile Skill</div>
               <div className="profile-content-title">About Me</div>
-              <div className="profile-content">
-                Ich bin Marina, 30 Jahre alt. Neben meiner Arbeit als Lehrerin
-                beschäftige ich mich seit zehn Jahren mit Aquarellmalerei. Ich
-                gebe Kurse dazu und freue mich über jeden, der Interesse daran
-                hat mit mir zu malen und den Umgang mit Pinsel und Farbe zu
-                lernen.
-              </div>
+              <div className="profile-content">{user.about}</div>
               <div className="profile-content-title">
                 Educational Background
               </div>
-              <div className="profile-content">Grundschullehrerin</div>
+              <div className="profile-content">{user.edu_bg}</div>
             </div>
           </div>
           <div className="" />
