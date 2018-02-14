@@ -8,6 +8,9 @@ export const USER_WORKSHOPS_FETCH_REJECTED = "profile/USER_WORKSHOPS_REJECTED";
 export const UPLOAD_USER_PIC_PENDING = "profile/UPLOAD_USER_PIC_PENDING";
 export const UPLOAD_USER_PIC_REJECTED = "profile/UPLOAD_USER_PIC_REJECTED";
 export const UPLOAD_USER_PIC_FULFILLED = "profile/UPLOAD_USER_PIC_FULFILLED";
+export const UPDATE_USER_PENDING = "profile/UPDATE_USER_PENDING";
+export const UPDATE_USER_FULFILLED = "profile/UPDATE_USER_FULFILLED";
+export const UPDATE_USER_REJECTED = "profile/UPDATE_USER_REJECTED";
 
 export const fetchUserWorkshop = id => {
   return dispatch => {
@@ -44,6 +47,23 @@ export const saveUserPic = (file, userId) => {
         error => {
           dispatch({ type: UPLOAD_USER_PIC_REJECTED, payload: error });
         }
+      );
+  };
+};
+
+export const updateUser = (profile, userId) => {
+  return function(dispatch) {
+    dispatch({ type: UPDATE_USER_PENDING });
+
+    fetch(service.getServerEndpoint(`/users/${userId}`), {
+      method: "PUT",
+      headers: service.getRequestHeaders(),
+      body: JSON.stringify(profile, ["about", "name", "edu_bg", "profession"])
+    })
+      .then(promise => {
+        dispatch({type:UPDATE_USER_FULFILLED});
+        dispatch(sessionActions.fetchUser(userId));
+      }
       );
   };
 };

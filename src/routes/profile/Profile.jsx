@@ -6,6 +6,22 @@ import { connect } from "react-redux";
 import "./style.css";
 
 class Profile extends React.Component {
+
+  handleEdit = e => {
+    //keyCode:13 = Enter event
+    if (e.keyCode === 13) {
+      let profile = {};
+      profile[e.target.name] = e.target.value;
+      this.handleProfileEdit(profile);
+    }
+  };
+  handleProfileEdit = profile => {
+    const { dispatch, session } = this.props;
+    const { user } = session;
+    let userId = user.id;
+    dispatch(profileActions.updateUser(profile, userId));
+  };
+
   onDrop(acceptedFiles, rejectedFiles) {
     const { session, dispatch } = this.props;
     const { user } = session;
@@ -47,11 +63,26 @@ class Profile extends React.Component {
               <div className="profile-name">{user.first_name}</div>
               <div className="profile-skill">Profile Skill</div>
               <div className="profile-content-title">About Me</div>
-              <div className="profile-content">{user.about}</div>
+              <input
+                onKeyDown={this.handleEdit}
+                type="text"
+                className="form-control"
+                ref={`about_me`}
+                name="about"
+                defaultValue={user.about}
+              />
               <div className="profile-content-title">
                 Educational Background
               </div>
-              <div className="profile-content">{user.edu_bg}</div>
+
+              <input
+                onKeyDown={this.handleEdit}
+                type="text"
+                className="form-control"
+                ref={`edu_bg`}
+                name="edu_bg"
+                defaultValue={user.edu_bg}
+              />
             </div>
           </div>
           <div className="" />
