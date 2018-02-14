@@ -15,7 +15,7 @@ class Workshop extends React.Component {
   findWorkshopWithId = () => {
     const { skills } = this.props;
     const { workshops } = skills;
-    let workshop = workshops.find(w => w.id === +this.state.id);
+    let workshop = workshops.find(w => w.id === +this.state.id) || {};
     this.setState({ workshop: workshop });
   };
   componentWillMount() {
@@ -25,7 +25,7 @@ class Workshop extends React.Component {
   render() {
     const workshop = this.state.workshop;
     const { levels } = this.props.skills;
-    let level = levels.find(i => i.id === workshop.level_id);
+    let level = levels.find(i => i.id === workshop.level_id) || {};
     return (
       <div>
         <div className="container">
@@ -35,6 +35,7 @@ class Workshop extends React.Component {
           <div className="row row-spacing">
             <div className="col-sm-6">
               <p className="workshop-name">{workshop.title}</p>
+              <p>TODO:Add location here</p>
             </div>
           </div>
           <div className="row row-spacing">
@@ -48,7 +49,6 @@ class Workshop extends React.Component {
                 </li>
                 <li>Other:</li>
                 <li>Level:{level.name}</li>
-
               </ul>
               <p>
                 Sessions:{workshop.sessions.map(

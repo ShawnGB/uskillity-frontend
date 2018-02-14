@@ -17,7 +17,7 @@ class ShareSkill extends Component {
         participants: "",
         dateAndTime: "",
         location: "",
-        price: "",
+        fees: "",
         published_at: "" //TODO:ask sandeep if we need to pass published_at
       },
       sessions: [{}],
@@ -224,7 +224,7 @@ class ShareSkill extends Component {
               <input
                 className="form-control"
                 type="number"
-                name="price"
+                name="fees"
                 placeholder="How much will it cost?"
                 onChange={this.handleChange}
                 style={{
