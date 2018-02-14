@@ -12,6 +12,7 @@ class ProfileEdit extends Component {
   }
 
   render() {
+    const { t } = this.props;
     return (
       <div className="container container-profile">
         <div className="row">
@@ -40,11 +41,7 @@ class ProfileEdit extends Component {
                 className="form-control"
                 type="text"
                 name="interest"
-                placeholder={
-                  <Trans i18nKey="profile.edit.placeholder_profandpassion">
-                    Profession or Passion
-                  </Trans>
-                }
+                placeholder={t("profile.edit.placeholder_profandpassion")}
                 onChange={this.onChange}
                 style={{ margin: "5px" }}
               />
@@ -54,11 +51,7 @@ class ProfileEdit extends Component {
                 className="form-control"
                 type="text"
                 name="location"
-                placeholder={
-                  <Trans i18nKey="profile.edit.placeholder_residence">
-                    Residence
-                  </Trans>
-                }
+                placeholder={t("profile.edit.placeholder_residence")}
                 onChange={this.onChange}
                 style={{ margin: "5px" }}
               />

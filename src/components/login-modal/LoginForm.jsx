@@ -30,6 +30,7 @@ class LoginForm extends Component {
   }
 
   render() {
+    const { t } = this.props;
     return (
       <div className="container">
         <div className="row">
@@ -50,11 +51,7 @@ class LoginForm extends Component {
                   <label style={{ margin: "0% 0 5% 50%" }}> or </label>
                   <input
                     className="form-control"
-                    placeholder={
-                      <Trans i18nKey="login.form.placeholder_email">
-                        Email
-                      </Trans>
-                    }
+                    placeholder={t("login.form.email_placeholder")}
                     name="email"
                     type="text"
                     onChange={this.onChange}
@@ -64,11 +61,7 @@ class LoginForm extends Component {
                 <div className="form-group">
                   <input
                     className="form-control"
-                    placeholder={
-                      <Trans i18nKey="login.form.placeholder_password">
-                        Password
-                      </Trans>
-                    }
+                    placeholder={t("login.form.password_placeholder")}
                     name="password"
                     type="password"
                     onChange={this.onChange}

@@ -38,6 +38,7 @@ class RegisterForm extends Component {
   }
 
   render() {
+    const { t } = this.props;
     return (
       <div className="container">
         <div className="row">
@@ -47,11 +48,7 @@ class RegisterForm extends Component {
                 <div className="form-group">
                   <input
                     className="form-control"
-                    placeholder={
-                      <Trans i18nKey="register.form.placehodler_email">
-                        Email
-                      </Trans>
-                    }
+                    placeholder={t("register.form.placehodler_email")}
                     name="email"
                     type="text"
                     onChange={this.onChange}
@@ -61,11 +58,7 @@ class RegisterForm extends Component {
                 <div className="form-group">
                   <input
                     className="form-control"
-                    placeholder={
-                      <Trans i18nKey="register.form.placehodler_name">
-                        Name
-                      </Trans>
-                    }
+                    placeholder={t("register.form.placehodler_name")}
                     name="name"
                     type="text"
                     onChange={this.onChange}
@@ -75,11 +68,7 @@ class RegisterForm extends Component {
                 <div className="form-group">
                   <input
                     className="form-control"
-                    placeholder={
-                      <Trans i18nKey="register.form.placehodler_first_name">
-                        First Name
-                      </Trans>
-                    }
+                    placeholder={t("register.form.placehodler_first_name")}
                     name="first_name"
                     type="text"
                     onChange={this.onChange}
@@ -89,11 +78,7 @@ class RegisterForm extends Component {
                 <div className="form-group">
                   <input
                     className="form-control"
-                    placeholder={
-                      <Trans i18nKey="register.form.placehodler_password">
-                        Password
-                      </Trans>
-                    }
+                    placeholder={t("register.form.placehodler_password")}
                     name="password"
                     type="password"
                     onChange={this.onChange}
@@ -103,11 +88,9 @@ class RegisterForm extends Component {
                 <div className="form-group">
                   <input
                     className="form-control"
-                    placeholder={
-                      <Trans i18nKey="register.form.placehodler_confirm_password">
-                        Confirm Password
-                      </Trans>
-                    }
+                    placeholder={t(
+                      "register.form.placehodler_confirm_password"
+                    )}
                     name="password_confirmation"
                     type="password"
                     onChange={this.onChange}

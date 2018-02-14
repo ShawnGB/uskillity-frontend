@@ -102,7 +102,7 @@ class ShareSkill extends Component {
   }
 
   render() {
-    const { skills, session } = this.props;
+    const { skills, session, t } = this.props;
     const levels = skills.levels;
     const categories = skills.categories;
     const isLoggedIn = session && session.isLoggedIn;
@@ -141,11 +141,7 @@ class ShareSkill extends Component {
               <SkillInput
                 name={"title"}
                 onChange={this.handleChange}
-                placeholder={
-                  <Trans i18nKey="share_skill.title_placeholder">
-                    Be creative, but precise...
-                  </Trans>
-                }
+                placeholder={t("share_skill.title_placeholder")}
               />
               <p className="skills-form-title">
                 <Trans i18nKey="share_skill.category_label">Category</Trans>
@@ -169,11 +165,7 @@ class ShareSkill extends Component {
               <SkillInput
                 name={"description"}
                 onChange={this.handleChange}
-                placeholder={
-                  <Trans i18nKey="share_skill.description_placeholder">
-                    Explain more in detail what people can learn from your skill
-                  </Trans>
-                }
+                placeholder={t("share_skill.description_placeholder")}
               />
               <p className="skills-form-title">
                 <Trans i18nKey="share_skill.requriements_label">
@@ -225,12 +217,9 @@ class ShareSkill extends Component {
               <SkillInput
                 name={"requirements"}
                 onChange={this.handleChange}
-                placeholder={
-                  <Trans i18nKey="share_skill.additional_requirements_placeholder">
-                    Ex. basic knowledge of ... only participants that can
-                    bring/have ...
-                  </Trans>
-                }
+                placeholder={t(
+                  "share_skill.additional_requirements_placeholder"
+                )}
               />
               <p className="skills-form-title">
                 <Trans i18nKey="share_skill.location_label">Location</Trans>
@@ -239,11 +228,7 @@ class ShareSkill extends Component {
                 className="form-control"
                 type="text"
                 name="location"
-                placeholder={
-                  <Trans i18nKey="share_skill.location_placeholder">
-                    Where you will be teaching your skill
-                  </Trans>
-                }
+                placeholder={t("share_skill.location_placeholder")}
                 onChange={this.handleChange}
                 style={{
                   margin: "5px"
@@ -258,11 +243,7 @@ class ShareSkill extends Component {
                 className="form-control"
                 type="number"
                 name="participants"
-                placeholder={
-                  <Trans i18nKey="share_skill.participant_number_placeholder">
-                    Number of participants
-                  </Trans>
-                }
+                placeholder={t("share_skill.participant_number_placeholder")}
                 onChange={this.handleChange}
                 style={{
                   margin: "5px"
@@ -275,11 +256,7 @@ class ShareSkill extends Component {
                 className="form-control"
                 type="number"
                 name="price"
-                placeholder={
-                  <Trans i18nKey="share_skill.price_placeholder">
-                    How much will it cost?
-                  </Trans>
-                }
+                placeholder={t("share_skill.price_placeholder")}
                 onChange={this.handleChange}
                 style={{
                   margin: "5px"
