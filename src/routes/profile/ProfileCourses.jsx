@@ -1,4 +1,6 @@
 import React from "react";
+import { translate, Trans } from "react-i18next";
+import { compose } from "redux";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as userActions from "app:store/actions/profile";
@@ -15,7 +17,9 @@ class ProfileCourses extends React.Component {
     return (
       <div>
         <div className="container container-profile">
-          <p className="skills-heading">My Shared Skills</p>
+          <p className="skills-heading">
+            <Trans i18nKey="profile.courses.header">My Shared Skills</Trans>
+          </p>
           <div className="row">
             {user_workshops.map((workshop, i) => (
               <div className="col-sm-4" key={i}>
@@ -30,8 +34,7 @@ class ProfileCourses extends React.Component {
                 <div className="skill-content">
                   <p className="skill-title">{workshop.title}</p>
                   <p className="skill-author">
-                    {workshop.provider.first_name}{" "}
-                    {workshop.provider.name}
+                    {workshop.provider.first_name} {workshop.provider.name}
                   </p>
                   <p className="skill-price">14 €</p>
                 </div>
@@ -47,4 +50,7 @@ export const mapStateToProps = state => ({
   session: state.session,
   profile: state.profile
 });
-export default connect(mapStateToProps)(ProfileCourses);
+
+export default compose(translate("translations"), connect(mapStateToProps))(
+  ProfileCourses
+);

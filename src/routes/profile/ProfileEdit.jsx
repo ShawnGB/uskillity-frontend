@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { translate, Trans } from "react-i18next";
 
 class ProfileEdit extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class ProfileEdit extends Component {
   }
 
   render() {
+    const { t } = this.props;
     return (
       <div className="container container-profile">
         <div className="row">
@@ -23,11 +25,15 @@ class ProfileEdit extends Component {
                 alt=""
                 className="img-circle"
               />
-              Upload a profile picture
+              <Trans i18nKey="profile.edit.upload_profile.image">
+                Upload a profile picture
+              </Trans>
             </div>
           </div>
           <div className="col-lg-8">
-            <div className="profile-name">Name</div>
+            <div className="profile-name">
+              <Trans i18nKey="profile.edit.name">Name</Trans>
+            </div>
           </div>
           <div className="form-group">
             <div className="col-lg-3">
@@ -35,7 +41,7 @@ class ProfileEdit extends Component {
                 className="form-control"
                 type="text"
                 name="interest"
-                placeholder="Profession or Passion"
+                placeholder={t("profile.edit.placeholder_profandpassion")}
                 onChange={this.onChange}
                 style={{ margin: "5px" }}
               />
@@ -45,7 +51,7 @@ class ProfileEdit extends Component {
                 className="form-control"
                 type="text"
                 name="location"
-                placeholder="Residence"
+                placeholder={t("profile.edit.placeholder_residence")}
                 onChange={this.onChange}
                 style={{ margin: "5px" }}
               />
@@ -71,7 +77,7 @@ class ProfileEdit extends Component {
               type="button"
               onClick={this.handleSubmit}
             >
-              Save
+              <Trans i18nKey="profile.edit.button_save">Save</Trans>
             </button>
           </div>
         </div>
@@ -81,4 +87,4 @@ class ProfileEdit extends Component {
   }
 }
 
-export default ProfileEdit;
+export default translate("translations")(ProfileEdit);

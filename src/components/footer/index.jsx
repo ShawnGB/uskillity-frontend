@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import { translate, Trans } from "react-i18next";
 import logo from "../../images/logo.png";
 import { Link } from "react-router-dom";
 import "./style.css";
 import Facebook from "react-icons/lib/fa/facebook";
 import Instagram from "react-icons/lib/fa/instagram";
 
-export default class Footer extends Component {
+class Footer extends Component {
   render() {
     return (
       <div className="row">
@@ -15,12 +16,18 @@ export default class Footer extends Component {
             <div className="col-sm-6 col-xs-6">
               <img src={logo} className="footer-logo" alt="" />
               <p className="copyright">
-                © 2017 Nikolovska Becker UG - u/skillity
+                <Trans i18nKey="footer.copyright">
+                  © 2017 Nikolovska Becker UG - u/skillity
+                </Trans>
               </p>
             </div>
             <div className="col-sm-6 col-xs-6">
-              <p className="footer-title">Connect</p>
-              <p className="footer-item">office@uskillity.de</p>
+              <p className="footer-title">
+                <Trans i18nKey="footer.connect">Connect</Trans>
+              </p>
+              <p className="footer-item">
+                <Trans i18nKey="footer.email">office@uskillity.de</Trans>
+              </p>
               <p className="footer-item">
                 <Facebook size={30} />
                 <Instagram size={30} />
@@ -31,18 +38,36 @@ export default class Footer extends Component {
         <div className="col-sm-6 footer-block">
           <div className="row">
             <div className="col-sm-6 col-xs-6">
-              <p className="footer-title">u/Skillity</p>
-              <p className="footer-item">Vision</p>
-              <p className="footer-item">Team</p>
-              <p className="footer-item">Press</p>
-              <p className="footer-item">Guidelines</p>
+              <p className="footer-title">
+                <Trans i18nKey="footer.name">u/Skillity</Trans>
+              </p>
+              <p className="footer-item">
+                <Trans i18nKey="footer.vision">Vision</Trans>
+              </p>
+              <p className="footer-item">
+                <Trans i18nKey="footer.team">Team</Trans>
+              </p>
+              <p className="footer-item">
+                <Trans i18nKey="footer.press">Press</Trans>
+              </p>
+              <p className="footer-item">
+                <Trans i18nKey="footer.guidelines">Guidelines</Trans>
+              </p>
             </div>
             <div className="col-sm-6 col-xs-6">
               <br />
-              <p className="footer-item">Help</p>
-              <p className="footer-item">Impressum</p>
               <p className="footer-item">
-                <Link to="/terms">Terms and Conditions</Link>
+                <Trans i18nKey="footer.help">Help</Trans>
+              </p>
+              <p className="footer-item">
+                <Trans i18nKey="footer.impressum">Impressum</Trans>
+              </p>
+              <p className="footer-item">
+                <Link to="/terms">
+                  <Trans i18nKey="footer.termsandconditions">
+                    Terms and Conditions
+                  </Trans>
+                </Link>
               </p>
             </div>
           </div>
@@ -51,3 +76,5 @@ export default class Footer extends Component {
     );
   }
 }
+
+export default translate("translations")(Footer);

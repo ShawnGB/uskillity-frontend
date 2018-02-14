@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { translate, Trans } from "react-i18next";
 
 class Sidebar extends React.Component {
   render() {
@@ -7,22 +8,34 @@ class Sidebar extends React.Component {
       <div>
         <ul className="nav nav-stacked">
           <li className="active">
-            <Link to="/vision">Vision</Link>
+            <Link to="/vision">
+              <Trans i18nKey="about.sidebar.team">Vision</Trans>
+            </Link>
           </li>
           <li>
-            <Link to="/team">Team</Link>
+            <Link to="/team">
+              <Trans i18nKey="about.sidebar.team">Team</Trans>
+            </Link>
           </li>
           <li>
-            <Link to="/contact">Contact</Link>
+            <Link to="/contact">
+              <Trans i18nKey="about.sidebar.contact">Contact</Trans>
+            </Link>
           </li>
           <li>
-            <Link to="/press">Press</Link>
+            <Link to="/press">
+              <Trans i18nKey="about.sidebar.press">Press</Trans>
+            </Link>
           </li>
           <li>
-            <Link to="/help">Help</Link>
+            <Link to="/help">
+              <Trans i18nKey="about.sidebar.help">Help</Trans>
+            </Link>
           </li>
           <li>
-            <Link to="/guidelines">Guidelines</Link>
+            <Link to="/guidelines">
+              <Trans i18nKey="about.sidebar.guidelines">Guidelines</Trans>
+            </Link>
           </li>
         </ul>
       </div>
@@ -30,4 +43,4 @@ class Sidebar extends React.Component {
   }
 }
 
-export default Sidebar;
+export default translate("translations")(Sidebar);

@@ -3,7 +3,7 @@ import { CustomCarousel } from "app:components/carousel";
 import * as service from "app:utils/service";
 import { withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
-import { translate } from "react-i18next";
+import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
 import "./style.css";
 
@@ -85,10 +85,6 @@ class Home extends React.Component {
     //}
   }
 
-  //<p className="home-heading">
-  //<Trans i18nKey="home.createPossibility">Create a possibility</Trans>
-  //</p>
-
   render() {
     return (
       <div>
@@ -107,22 +103,28 @@ class Home extends React.Component {
           </div>
           <div className="row">
             <div className="about-home">
-              <p className="about-home-header">ABOUT US</p>
-              <p className="about-home-content">
-                ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
-                dolor sit{" "}
+              <p className="about-home-header">
+                <Trans i18nKey="home.header">ABOUT US</Trans>
               </p>
               <p className="about-home-content">
-                ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
-                dolor sit{" "}
+                <Trans i18nKey="home.body_0">
+                  ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                  sed diam nonumy eirmod tempor invidunt ut labore et dolore
+                  magna aliquyam erat, sed diam voluptua. At vero eos et accusam
+                  et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+                  no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
+                  ipsum dolor sit
+                </Trans>
+              </p>
+              <p className="about-home-content">
+                <Trans i18nKey="home.body_1">
+                  ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                  sed diam nonumy eirmod tempor invidunt ut labore et dolore
+                  magna aliquyam erat, sed diam voluptua. At vero eos et accusam
+                  et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+                  no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
+                  ipsum dolor sit
+                </Trans>
               </p>
             </div>
           </div>
@@ -138,10 +140,15 @@ Home.propTypes = {
   }).isRequired
 };
 
-export default compose(
-  withRouter,
-  translate("translations")
-  //connect(mapStateToProps, mapDispatchToProps)
-)(Home);
+export default compose(withRouter, translate("translations"))(Home);
 
-//export default withRouter(Home);
+//export default compose(
+//withRouter,
+//translate("translations"),
+//connect(null, null, null, { withRef: true })
+//connect(mapStateToProps, mapDispatchToProps)
+//)(AuthModals);
+
+//export default compose(translate("translations"), connect(mapStateToProps))(
+//Profile
+//);

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { translate, Trans } from "react-i18next";
+import { compose } from "redux";
 import { connect } from "react-redux";
 import * as skillActions from "app:store/actions/skill";
 import "./style.css";
@@ -101,7 +103,7 @@ class ShareSkill extends Component {
   }
 
   render() {
-    const { skills, session } = this.props;
+    const { skills, session, t } = this.props;
     const levels = skills.levels;
     const categories = skills.categories;
     const isLoggedIn = session && session.isLoggedIn;
@@ -114,25 +116,37 @@ class ShareSkill extends Component {
               margin: "5%"
             }}
           >
-            <p className="skills-form-header">Share your skill with us</p>
-            <p className="skills-text-content">
-              We are so glad you want to share your skill with us. You are doing
-              a great deed to the well-being of all of us!
+            <p className="skills-form-header">
+              <Trans i18nKey="share_skill.header_0">
+                Share your skill with us
+              </Trans>
             </p>
             <p className="skills-text-content">
-              It might take up to two days for us to process your application.
-              We do this only to escape vulgarities and inappropriate posts. We
-              also give feedback towards the presentation of your skill, so you
-              can have more success conducting it.{" "}
+              <Trans i18nKey="share_skill.header_1">
+                We are so glad you want to share your skill with us. You are
+                doing a great deed to the well-being of all of us!
+              </Trans>
+            </p>
+            <p className="skills-text-content">
+              <Trans i18nKey="share_skill.header_2">
+                It might take up to two days for us to process your application.
+                We do this only to escape vulgarities and inappropriate posts.
+                We also give feedback towards the presentation of your skill, so
+                you can have more success conducting it.{" "}
+              </Trans>
             </p>
             <div className="form-group">
-              <p className="skills-form-title">Title of skill</p>
+              <p className="skills-form-title">
+                <Trans i18nKey="share_skill.title_label">Title of skill</Trans>
+              </p>
               <SkillInput
                 name={"title"}
                 onChange={this.handleChange}
-                placeholder={"Be creative, but precise..."}
+                placeholder={t("share_skill.title_placeholder")}
               />
-              <p className="skills-form-title">Category</p>
+              <p className="skills-form-title">
+                <Trans i18nKey="share_skill.category_label">Category</Trans>
+              </p>
               <select
                 value={categories.id}
                 name="category_id"
@@ -145,19 +159,27 @@ class ShareSkill extends Component {
                   </option>
                 ))}
               </select>
-              <p className="skills-form-title">Description</p>
+              <p className="skills-form-title">
+                <Trans i18nKey="share_skill.description_label">
+                  Description
+                </Trans>
+              </p>
               <SkillInput
                 name={"description"}
                 onChange={this.handleChange}
-                placeholder={
-                  "Explain more in detail what people can learn from your skill"
-                }
+                placeholder={t("share_skill.description_placeholder")}
               />
-              <p className="skills-form-title">Requriements</p>
+              <p className="skills-form-title">
+                <Trans i18nKey="share_skill.requriements_label">
+                  Requriements
+                </Trans>
+              </p>
               <p>Age Recommendation</p>
               <div className="form-group row">
                 <div className="col-xs-2">
-                  <label htmlFor="ageFrom">Age From</label>
+                  <label htmlFor="ageFrom">
+                    <Trans i18nKey="share_skill.age_from_label">Age From</Trans>
+                  </label>
                   <input
                     className="form-control"
                     name="ageFrom"
@@ -166,7 +188,9 @@ class ShareSkill extends Component {
                   />
                 </div>
                 <div className="col-xs-2">
-                  <label htmlFor="ageTo">Age To</label>
+                  <label htmlFor="ageTo">
+                    <Trans i18nKey="share_skill.age_to_label">Age To</Trans>
+                  </label>
                   <input
                     className="form-control"
                     name="ageTo"
@@ -175,7 +199,7 @@ class ShareSkill extends Component {
                   />
                 </div>
                 <div className="col-xs-2">
-                  <label htmlFor="level">Recommended level</label>
+                  <label htmlFor="level"><Trans i18nKey="share_skill.recommended_label">Recommended level</Trans></label>
                   <select
                     name="level_id"
                     value={this.state.level}
@@ -190,42 +214,52 @@ class ShareSkill extends Component {
                   </select>
                 </div>
               </div>
-              Additional Requirements
+              <Trans i18nKey="share_skill.additional_requirements_label">
+                Additional Requirements
+              </Trans>{" "}
               <SkillInput
                 name={"requirements"}
                 onChange={this.handleChange}
-                placeholder={
-                  "Ex. basic knowledge of ... only participants that can bring/have ..."
-                }
+                placeholder={t(
+                  "share_skill.additional_requirements_placeholder"
+                )}
               />
-              <p className="skills-form-title">Location</p>
+              <p className="skills-form-title">
+                <Trans i18nKey="share_skill.location_label">Location</Trans>
+              </p>
               <input
                 className="form-control"
                 type="text"
                 name="location"
-                placeholder="Where you will be teaching your skill"
+                placeholder={t("share_skill.location_placeholder")}
                 onChange={this.handleChange}
                 style={{
                   margin: "5px"
                 }}
               />
-              <p className="skills-form-title">Number of participants</p>
+              <p className="skills-form-title">
+                <Trans i18nKey="share_skill.participant_number_label">
+                  Number of participants
+                </Trans>
+              </p>
               <input
                 className="form-control"
                 type="number"
                 name="participants"
-                placeholder="Number of participants"
+                placeholder={t("share_skill.participant_number_placeholder")}
                 onChange={this.handleChange}
                 style={{
                   margin: "5px"
                 }}
               />
-              <p className="skills-form-title">Price</p>
+              <p className="skills-form-title">
+                <Trans i18nKey="share_skill.price_title">Price</Trans>
+              </p>
               <input
                 className="form-control"
                 type="number"
                 name="fees"
-                placeholder="How much will it cost?"
+                placeholder={t("share_skill.price_placeholder")}
                 onChange={this.handleChange}
                 style={{
                   margin: "5px"
@@ -237,9 +271,15 @@ class ShareSkill extends Component {
                 onClick={this.handleSubmit}
                 disabled={!isLoggedIn}
               >
-                Save Workshop
+                <Trans i18nKey="share_skill.button_save_workshop">
+                  Save Workshop
+                </Trans>
               </button>
-              <p className="skills-form-title">Date and time</p>
+              <p className="skills-form-title">
+                <Trans i18nKey="share_skill.date_and_time_label">
+                  Date and time
+                </Trans>
+              </p>
               {this.state.sessions.map((session, i) => (
                 <ScheduleWorkshop
                   addWorkshopSession={this.addWorkshopSession.bind(this, i)}
@@ -252,8 +292,10 @@ class ShareSkill extends Component {
                   className="btn btn-default btn-sm"
                   onClick={this.addRow}
                 >
-                  <span className="glyphicon glyphicon-plus" />Add another day
-                  to the same course
+                  <span className="glyphicon glyphicon-plus" />
+                  <Trans i18nKey="share_skill.button_add_another_date">
+                    Add another day to the same course
+                  </Trans>
                 </button>
               </div>
               <p className="skills-form-title">Photo</p>
@@ -268,7 +310,9 @@ class ShareSkill extends Component {
                     type="button"
                     className="btn btn-default"
                   >
-                    Upload a cover photo
+                    <Trans i18nKey="share_skill.button_upload_picture">
+                      Upload a cover photo
+                    </Trans>
                   </button>
                 </div>
               </form>
@@ -279,12 +323,15 @@ class ShareSkill extends Component {
                     value={Date.now()}
                     name="published_at"
                     onChange={this.handleChange}
-                  />I herby declare that I read the the terms and conditions as
-                  stated on this website and agrre with them
+                  />
+                  <Trans i18nKey="share_skill.checkbox_agreement">
+                    I herby declare that I read the the terms and conditions as
+                    stated on this website and agrre with them
+                  </Trans>
                 </label>
               </div>
               <button className="btn btn-primary" type="button">
-                Submit
+                <Trans i18nKey="share_skill.button_sumbit">Submit</Trans>
               </button>
             </div>
             <div>{this.state.error.message}</div>
@@ -353,4 +400,6 @@ const mapStateToProps = state => ({
   session: state.session
 });
 
-export default connect(mapStateToProps)(ShareSkill);
+export default compose(translate("translations"), connect(mapStateToProps))(
+  ShareSkill
+);

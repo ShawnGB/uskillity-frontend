@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import { translate, Trans } from "react-i18next";
+import { compose } from "redux";
 import Sidebar from "./Sidebar";
 import "./style.css";
 
@@ -40,7 +42,12 @@ class Workshop extends React.Component {
           </div>
           <div className="row row-spacing">
             <div className="col-sm-9">
-              <p className="workshop-title">Recommended</p>
+              <p className="workshop-title">
+                <Trans i18nKey="workshop.requirements_label">
+                  Recommended
+                </Trans>
+</p>
+
               <ul>
                 <li>
                   Age: {workshop.min_age}
@@ -55,13 +62,21 @@ class Workshop extends React.Component {
                   (session, i) => session.starts_at
                 )}
               </p>
-              <p className="workshop-title">Description</p>
+              <p className="workshop-title">
+                <Trans i18nKey="workshop.description_label">Description</Trans>
+              </p>
+
               <p className="workshop-content">{workshop.description}</p>
               <p className="workshop-title">Who can attend</p>
               <p className="workshop-content">
                 May be remove this if not needed
               </p>
-              <p className="workshop-title">About the instructor</p>
+              <p className="workshop-title">
+                <Trans i18nKey="workshop.about_the_instructor_label">
+                  About the instructor
+                </Trans>
+</p>
+
               <p className="workshop-content">{workshop.about}</p>
             </div>
             <div className="col-sm-3">
@@ -74,4 +89,6 @@ class Workshop extends React.Component {
   }
 }
 export const mapStateToProps = state => ({ skills: state.skills });
-export default connect(mapStateToProps)(Workshop);
+export default compose(translate("translations"), connect(mapStateToProps))(
+  Workshop
+);
