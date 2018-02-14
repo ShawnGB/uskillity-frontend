@@ -15,6 +15,7 @@ class Profile extends React.Component {
 
   render() {
     const { session } = this.props;
+    // TODO:use provider from workshops instead of session user, since this user flushes at logout
     const { user } = session;
     const dropzoneStyle = {
       borderRadius: "50%",

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./style.css";
 
 class Instructor extends React.Component {
@@ -17,11 +18,16 @@ class Instructor extends React.Component {
               className="img-circle Ellipse-3"
             />
           </div>
-          <p className="instructor-name"> {provider.name} </p>
-          <button className="See-Profile-Box" type="button">
+          <p className="instructor-name">
             {" "}
-            See Profile{" "}
-          </button>
+            {provider.name} {provider.first_name}{" "}
+          </p>
+          <Link to="/profile">
+            <button className="See-Profile-Box" type="button">
+              {" "}
+              See Profile{" "}
+            </button>
+          </Link>
         </div>
       </div>
     );

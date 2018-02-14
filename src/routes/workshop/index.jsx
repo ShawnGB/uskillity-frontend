@@ -13,27 +13,24 @@ class Workshop extends React.Component {
   }
 
   findWorkshopWithId = () => {
-    const {skills} = this.props;
-    const {workshops} = skills;
-      let workshop = workshops.find(w => w.id === +this.state.id);
-      this.setState({workshop:workshop})
-  }
-  componentWillMount(){
+    const { skills } = this.props;
+    const { workshops } = skills;
+    let workshop = workshops.find(w => w.id === +this.state.id);
+    this.setState({ workshop: workshop });
+  };
+  componentWillMount() {
     this.findWorkshopWithId();
   }
 
   render() {
     const workshop = this.state.workshop;
+    const { levels } = this.props.skills;
+    let level = levels.find(i => i.id === workshop.level_id);
     return (
       <div>
         <div className="container">
           <div className="jumbotron">
-            <img
-              src={workshop.images[0]}
-              width="100%"
-              height="60%"
-              alt=""
-            />
+            <img src={workshop.images[0]} width="100%" height="60%" alt="" />
           </div>
           <div className="row row-spacing">
             <div className="col-sm-6">
@@ -42,34 +39,30 @@ class Workshop extends React.Component {
           </div>
           <div className="row row-spacing">
             <div className="col-sm-9">
-              <p className="workshop-title">Description</p>
-              <p className="workshop-content">
-                {workshop.description}
-              </p>
               <p className="workshop-title">Recommended</p>
               <ul>
-                <li>Age: {workshop.min_age}{" - "}{workshop.max_age}</li>
-                <li>Level:TODO: levels are not added when submitting workshop yet.</li>
+                <li>
+                  Age: {workshop.min_age}
+                  {" - "}
+                  {workshop.max_age}
+                </li>
                 <li>Other:</li>
-                <p>Sessions:{
-                    workshop.sessions.map((session,i) => (session.starts_at
-                  )
-                    )
-                  }</p>
+                <li>Level:{level.name}</li>
+
               </ul>
+              <p>
+                Sessions:{workshop.sessions.map(
+                  (session, i) => session.starts_at
+                )}
+              </p>
+              <p className="workshop-title">Description</p>
+              <p className="workshop-content">{workshop.description}</p>
               <p className="workshop-title">Who can attend</p>
               <p className="workshop-content">
-                ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
-                dolor sit
+                May be remove this if not needed
               </p>
               <p className="workshop-title">About the instructor</p>
-              <p className="workshop-content">
-                {workshop.about}
-              </p>
+              <p className="workshop-content">{workshop.about}</p>
             </div>
             <div className="col-sm-3">
               <Sidebar workshop={this.state.workshop} />
