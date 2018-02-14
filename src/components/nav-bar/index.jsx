@@ -1,4 +1,6 @@
 import React from "react";
+import { translate, Trans } from "react-i18next";
+import { compose } from "redux";
 import { connect } from "react-redux";
 import * as sessionActions from "app:store/actions/session";
 import { Link } from "react-router-dom";
@@ -29,12 +31,14 @@ class Navbar extends React.Component {
                         .getWrappedInstance()
                         .onRegisteredClicked()}
                   >
-                    Register now
+                    <Trans i18nKey="navbar.button_register">Register now</Trans>
                   </Link>
                 </li>
               ) : (
                 <li className="menu-item">
-                  <Link to="/profile">My Account</Link>
+                  <Link to="/profile">
+                    <Trans i18nKey="navbar.button_my_account">My Account</Trans>
+                  </Link>
                 </li>
               )}
               {!isLoggedIn ? (
@@ -46,7 +50,7 @@ class Navbar extends React.Component {
                         .getWrappedInstance()
                         .onLoginClicked()}
                   >
-                    Log in
+                    <Trans i18nKey="navbar.button_login">Log in</Trans>
                   </Link>
                 </li>
               ) : (
@@ -55,22 +59,32 @@ class Navbar extends React.Component {
                     to="#"
                     onClick={() => this.props.dispatch(sessionActions.logout())}
                   >
-                    Log out
+                    <Trans i18nKey="navbar.button_logout">Log out</Trans>
                   </Link>
                 </li>
               )}
             </ul>
             <ul className="nav navbar-nav navbar-center">
               <li className="menu-item">
-                <Link to="/shareyourskill">Share your skill</Link>
+                <Link to="/shareyourskill">
+                  <Trans i18nKey="navbar.button_share_skill">
+                    Share your skill
+                  </Trans>
+                </Link>
               </li>
               <li className="menu-item">
-                <Link to="/learnskill">Learn a Skill</Link>
+                <Link to="/learnskill">
+                  <Trans i18nKey="navbar.button_learn_skill">
+                    Learn a Skill
+                  </Trans>
+                </Link>
               </li>
             </ul>
             <ul className="nav navbar-nav navbar-left">
               <li className="menu-item">
-                <Link to="/about">u/about</Link>
+                <Link to="/about">
+                  <Trans i18nKey="navbar.button_about">u/about</Trans>
+                </Link>
               </li>
             </ul>
           </div>
@@ -85,4 +99,6 @@ const mapStateToProps = state => ({
   session: state.session
 });
 
-export default connect(mapStateToProps)(Navbar);
+export default compose(translate("translations"), connect(mapStateToProps))(
+  Navbar
+);

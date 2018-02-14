@@ -1,4 +1,5 @@
 import React from "react";
+import { translate, Trans } from "react-i18next";
 import { Modal } from "react-bootstrap";
 import RegisterForm from "./RegisterForm";
 
@@ -6,7 +7,9 @@ const RegisterModal = props => {
   return (
     <Modal show={true} onHide={props.hideModal}>
       <Modal.Header closeButton>
-        <Modal.Title>uSkillity</Modal.Title>
+        <Modal.Title>
+          <Trans i18nKey="register.modal.title">uSkillity</Trans>
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <RegisterForm
@@ -19,4 +22,4 @@ const RegisterModal = props => {
   );
 };
 
-export default RegisterModal;
+export default translate("translations")(RegisterModal);

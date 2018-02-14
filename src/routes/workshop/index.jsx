@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import { translate, Trans } from "react-i18next";
+import { compose } from "redux";
 import Sidebar from "./Sidebar";
 import "./style.css";
 
@@ -13,12 +15,12 @@ class Workshop extends React.Component {
   }
 
   findWorkshopWithId = () => {
-    const {skills} = this.props;
-    const {workshops} = skills;
-      let workshop = workshops.find(w => w.id === +this.state.id);
-      this.setState({workshop:workshop})
-  }
-  componentWillMount(){
+    const { skills } = this.props;
+    const { workshops } = skills;
+    let workshop = workshops.find(w => w.id === +this.state.id);
+    this.setState({ workshop: workshop });
+  };
+  componentWillMount() {
     this.findWorkshopWithId();
   }
 
@@ -41,11 +43,17 @@ class Workshop extends React.Component {
           </div>
           <div className="row row-spacing">
             <div className="col-sm-9">
-              <p className="workshop-title">Description</p>
+              <p className="workshop-title">
+                <Trans i18nKey="workshop.description_label">Description</Trans>
+              </p>
               <p className="workshop-content">
                 {this.state.workshop.description}
               </p>
-              <p className="workshop-title">Requirements</p>
+              <p className="workshop-title">
+                <Trans i18nKey="workshop.requirements_label">
+                  Requirements
+                </Trans>
+              </p>
               <p className="workshop-content">
                 ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                 diam nonumy eirmod tempor invidunt ut labore et dolore magna
@@ -54,7 +62,11 @@ class Workshop extends React.Component {
                 takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
                 dolor sit
               </p>
-              <p className="workshop-title">Who can attend</p>
+              <p className="workshop-title">
+                <Trans i18nKey="workshop.who_can_attend_label">
+                  Who can attend
+                </Trans>
+              </p>
               <p className="workshop-content">
                 ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                 diam nonumy eirmod tempor invidunt ut labore et dolore magna
@@ -63,7 +75,11 @@ class Workshop extends React.Component {
                 takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
                 dolor sit
               </p>
-              <p className="workshop-title">About the instructor</p>
+              <p className="workshop-title">
+                <Trans i18nKey="workshop.about_the_instructor_label">
+                  About the instructor
+                </Trans>
+              </p>
               <p className="workshop-content">
                 ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                 diam nonumy eirmod tempor invidunt ut labore et dolore magna
@@ -83,4 +99,6 @@ class Workshop extends React.Component {
   }
 }
 export const mapStateToProps = state => ({ skills: state.skills });
-export default connect(mapStateToProps)(Workshop);
+export default compose(translate("translations"), connect(mapStateToProps))(
+  Workshop
+);

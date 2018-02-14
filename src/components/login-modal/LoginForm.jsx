@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { translate, Trans } from "react-i18next";
 import { Link } from "react-router-dom";
 
 class LoginForm extends Component {
@@ -40,14 +41,20 @@ class LoginForm extends Component {
                     className="btn btn-lg btn-facebook btn-block"
                     type="button"
                   >
-                    Log in with Facebook
+                    <Trans i18nKey="login.form.button_login_facebook">
+                      Log in with Facebook
+                    </Trans>
                   </button>
                 </div>
                 <div className="form-group">
                   <label style={{ margin: "0% 0 5% 50%" }}> or </label>
                   <input
                     className="form-control"
-                    placeholder="Email"
+                    placeholder={
+                      <Trans i18nKey="login.form.placeholder_email">
+                        Email
+                      </Trans>
+                    }
                     name="email"
                     type="text"
                     onChange={this.onChange}
@@ -57,7 +64,11 @@ class LoginForm extends Component {
                 <div className="form-group">
                   <input
                     className="form-control"
-                    placeholder="Password"
+                    placeholder={
+                      <Trans i18nKey="login.form.placeholder_password">
+                        Password
+                      </Trans>
+                    }
                     name="password"
                     type="password"
                     onChange={this.onChange}
@@ -69,7 +80,7 @@ class LoginForm extends Component {
                     className="btn btn-lg btn-primary btn-block"
                     disabled={!this.state.email || !this.state.password}
                   >
-                    Log in
+                    <Trans i18nKey="login.form.button_login">Log in</Trans>
                   </button>
                 </div>
               </form>
@@ -81,7 +92,9 @@ class LoginForm extends Component {
                 style={{ margin: "30%" }}
                 to="#"
               >
-                Not a user? Sign up.
+                <Trans i18nKey="login.form.button_register">
+                  Not a user? Sign up.
+                </Trans>
               </Link>
             </div>
           </div>
@@ -91,4 +104,4 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+export default translate("translations")(LoginForm);

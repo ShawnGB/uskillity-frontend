@@ -1,4 +1,6 @@
 import React from "react";
+import { translate, Trans } from "react-i18next";
+import { compose } from "redux";
 import ProfileCourses from "./ProfileCourses";
 import * as profileActions from "app:store/actions/profile";
 import Dropzone from "react-dropzone";
@@ -44,11 +46,17 @@ class Profile extends React.Component {
             </div>
             <div className="col-lg-6">
               <div className="profile-name">{user.first_name}</div>
-              <div className="profile-skill">Profile Skill</div>
-              <div className="profile-content-title">About Me</div>
+              <div className="profile-skill">
+                <Trans i18nKey="profile.header_skill">Profile Skill</Trans>
+              </div>
+              <div className="profile-content-title">
+                <Trans i18nKey="profile.header_about_me">About Me</Trans>
+              </div>
               <div className="profile-content">{user.about}</div>
               <div className="profile-content-title">
-                Educational Background
+                <Trans i18nKey="profile.header_educational_background">
+                  Educational Background
+                </Trans>
               </div>
               <div className="profile-content">{user.edu_bg}</div>
             </div>
@@ -65,4 +73,6 @@ const mapStateToProps = state => ({
   session: state.session
 });
 
-export default connect(mapStateToProps)(Profile);
+export default compose(translate("translations"), connect(mapStateToProps))(
+  Profile
+);

@@ -1,4 +1,5 @@
 import React from "react";
+import { translate, Trans } from "react-i18next";
 import "./style.css";
 
 class Instructor extends React.Component {
@@ -7,7 +8,10 @@ class Instructor extends React.Component {
     return (
       <div>
         <div className="Instructior-Box">
-          <p className="Instructor"> Instructor </p>
+          <p className="Instructor">
+            {" "}
+            <Trans i18nKey="workshop.instructor.header">Instructor</Trans>{" "}
+          </p>
           <div className="img-container">
             <img
               src={provider.image}
@@ -19,8 +23,9 @@ class Instructor extends React.Component {
           </div>
           <p className="instructor-name"> {provider.name} </p>
           <button className="See-Profile-Box" type="button">
-            {" "}
-            See Profile{" "}
+            <Trans i18nKey="workshop.instructor.button_see_profile">
+              See Profile
+            </Trans>
           </button>
         </div>
       </div>
@@ -28,4 +33,4 @@ class Instructor extends React.Component {
   }
 }
 
-export default Instructor;
+export default translate("translations")(Instructor);
