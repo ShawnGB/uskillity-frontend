@@ -49,7 +49,7 @@ class Home extends React.Component {
           return categories.push(
             <div
               onClick={() => this.goToCategory(category.id)}
-              className="col-sm-4 home-category"
+              className="col-sm-6 col-md-4 home-category"
               key={category.id}
             >
               <img
@@ -96,10 +96,7 @@ class Home extends React.Component {
             />
           </div>
           <div className="row row-home">
-            {this.state.categories.slice(0, 3)}
-          </div>
-          <div className="row row-home">
-            {this.state.categories.slice(3, 6)}
+            {this.state.categories}
           </div>
           <div className="row">
             <div className="about-home">
