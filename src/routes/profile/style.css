@@ -98,7 +98,6 @@
   color: rgba(0, 0, 0, 0.72);
 }
 
-
 .skill-price {
   width: 306.7px;
   height: 41px;
@@ -111,4 +110,14 @@
   letter-spacing: normal;
   text-align: left;
   color: #717171;
+}
+
+.btn_edit_skill {
+  width: 80px;
+  height: 35px;
+  opacity: 0.72;
+  background-color: #ffffff;
+  border: solid 1px #000000;
+  margin: 20px 55px 10px 0px;
+  float: right;
 }

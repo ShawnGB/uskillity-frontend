@@ -32,11 +32,12 @@ class ProfileCourses extends React.Component {
                   />
                 </Link>
                 <div className="skill-content">
+                  <button className= "btn_edit_skill" type="button"> Edit </button>
                   <p className="skill-title">{workshop.title}</p>
                   <p className="skill-author">
                     {workshop.provider.first_name} {workshop.provider.name}
                   </p>
-                  <p className="skill-price">14 €</p>
+                  <p className="skill-price">{workshop.fees} €</p>
                 </div>
               </div>
             ))}

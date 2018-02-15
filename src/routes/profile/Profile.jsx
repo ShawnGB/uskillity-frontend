@@ -63,8 +63,12 @@ class Profile extends React.Component {
             </div>
             <div className="col-lg-6">
               <div className="profile-name">{user.first_name}</div>
-              <Trans i18nKey="profile.header_skill">Profile Skill</Trans>
-              <Trans i18nKey="profile.header_about_me">About Me</Trans>
+                <div className="profile-skill">
+                  <Trans i18nKey="profile.header_skill">Profile Skill</Trans>
+                </div>
+                <div className="profile-content-title">
+                  <Trans i18nKey="profile.header_about_me">About Me</Trans>
+                </div>
               <input
                 onKeyDown={this.handleEdit}
                 type="text"
