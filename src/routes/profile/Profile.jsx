@@ -8,6 +8,31 @@ import { connect } from "react-redux";
 import "./style.css";
 
 class Profile extends React.Component {
+  constructor(props) {
+    super();
+    this.state = {
+      about: "",
+      edu_bg: "",
+      isEditing: false,
+      showCancelBtn: false
+    };
+  }
+
+  toggleEdit = () => {
+    this.setState({ isEditing: true });
+    this.toggleCancelBtn();
+  };
+
+  saveEdit = () => {
+    let about = this.refs.about.value;
+    this.setState({
+      about: about
+    });
+  };
+
+  toggleCancelBtn = () => {
+    this.setState({ showCancelBtn: true });
+  };
 
   handleEdit = e => {
     //keyCode:13 = Enter event
@@ -24,6 +49,12 @@ class Profile extends React.Component {
     dispatch(profileActions.updateUser(profile, userId));
   };
 
+  onCancel = () => {
+    this.setState({
+      showCancelBtn: false
+    });
+  };
+
   onDrop(acceptedFiles, rejectedFiles) {
     const { session, dispatch } = this.props;
     const { user } = session;
@@ -34,7 +65,7 @@ class Profile extends React.Component {
   render() {
     const { session } = this.props;
     // TODO:use provider from workshops instead of session user, since this user flushes at logout
-    const { user } = session;
+    const { user, isLoggedIn } = session;
     const dropzoneStyle = {
       borderRadius: "50%",
       width: "252px",
@@ -42,64 +73,91 @@ class Profile extends React.Component {
       border: "1px solid grey"
     };
     return (
-      <div>
-        <div className="container container-profile">
-          <div className="row">
-            <div className="col-lg-3">
-              <Dropzone
-                style={dropzoneStyle}
-                onDrop={files => this.onDrop(files)}
-              >
-                <div className="img-container">
-                  <img
-                    src={user.image}
-                    width="250"
-                    height="250"
-                    alt=""
-                    className="img-circle"
-                  />
-                </div>
-              </Dropzone>
-            </div>
-            <div className="col-lg-6">
-              <div className="profile-name">{user.first_name}</div>
-                <div className="profile-skill">
-                  <Trans i18nKey="profile.header_skill">Profile Skill</Trans>
-                </div>
-                <div className="profile-content-title">
-                  <Trans i18nKey="profile.header_about_me">About Me</Trans>
-                </div>
-              <input
-                onKeyDown={this.handleEdit}
-                type="text"
-                className="form-control"
-                ref={`about_me`}
-                name="about"
-                defaultValue={user.about}
-              />
-              <div className="profile-content-title">
-                <Trans i18nKey="profile.header_educational_background">
-                  Educational Background
-                </Trans>
+      <div className="container container-profile">
+        <div className="row">
+          <div className="col-lg-3">
+            <Dropzone
+              style={dropzoneStyle}
+              onDrop={files => this.onDrop(files)}
+            >
+              <div className="img-container">
+                <img
+                  src={user.image}
+                  width="250"
+                  height="250"
+                  alt=""
+                  className="img-circle"
+                />
               </div>
-
-              <input
-                onKeyDown={this.handleEdit}
-                type="text"
-                className="form-control"
-                ref={`edu_bg`}
-                name="edu_bg"
-                defaultValue={user.edu_bg}
-              />
-            </div>
+            </Dropzone>
           </div>
-          <div className="" />
-          <ProfileCourses />
+          {this.state.isEditing && this.state.showCancelBtn ? (
+            <ProfileEditable user={user} />
+          ) : (
+            <ProfileNormal user={user} />
+          )}
+          {isLoggedIn ? (
+            <button type="button" onClick={this.toggleEdit}>
+              Edit
+            </button>
+          ) : null}
+          {this.state.showCancelBtn ? (
+            <CancelButton onCancel={this.onCancel} />
+          ) : null}
         </div>
+        <ProfileCourses />
       </div>
     );
   }
 }
+
+const ProfileNormal = props => (
+  <div className="col-lg-6">
+    <div className="profile-name">
+      {props.user.first_name} {props.user.name}
+    </div>
+    <div className="profile-skill">
+      <Trans i18nKey="profile.header_skill">Profile Skill</Trans>
+    </div>
+    <div className="profile-content-title">
+      <Trans i18nKey="profile.header_about_me">About Me</Trans>
+    </div>
+    <p>{props.user.about}</p>
+    <div className="profile-content-title">
+      <Trans i18nKey="profile.header_educational_background">
+        Educational Background
+      </Trans>
+    </div>
+    <p>{props.user.edu_bg}</p>
+  </div>
+);
+
+const ProfileEditable = props => (
+  <div className="col-lg-6">
+    <div className="profile-name">
+      {props.user.first_name} {props.user.name}
+    </div>
+    <div className="profile-skill">
+      <Trans i18nKey="profile.header_skill">Profile Skill</Trans>
+    </div>
+    <div className="profile-content-title">
+      <Trans i18nKey="profile.header_about_me">About Me</Trans>
+    </div>
+    <input defaultValue={props.user.about} />
+    <div className="profile-content-title">
+      <Trans i18nKey="profile.header_educational_background">
+        Educational Background
+      </Trans>
+    </div>
+    <input defaultValue={props.user.edu_bg} />
+  </div>
+);
+
+const CancelButton = props => (
+  <button type="button" onClick={props.onCancel}>
+    Cancel
+  </button>
+);
 
 const mapStateToProps = state => ({
   session: state.session

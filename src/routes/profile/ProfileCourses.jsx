@@ -32,7 +32,13 @@ class ProfileCourses extends React.Component {
                   />
                 </Link>
                 <div className="skill-content">
-                  <button className= "btn_edit_skill" type="button"> Edit </button>
+                  {/* TODO:use button click instead of Link to */}
+                  <Link to={`/shareyourskill/${workshop.id}`}>
+                    <button className="btn_edit_skill" type="button">
+                      {" "}
+                      Edit{" "}
+                    </button>
+                  </Link>
                   <p className="skill-title">{workshop.title}</p>
                   <p className="skill-author">
                     {workshop.provider.first_name} {workshop.provider.name}
