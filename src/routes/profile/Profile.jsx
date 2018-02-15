@@ -11,27 +11,22 @@ class Profile extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      about: "",
-      edu_bg: "",
-      isEditing: false,
+      profile: {
+        about: "",
+        edu_bg: ""
+      },
+      isEditing: false,//Default is false, false = pre-edit state, so edit button will appear
       showCancelBtn: false,
-      showSaveBtn: false,
+      showSaveBtn: false
     };
   }
 
   toggleEdit = () => {
     this.setState({
       isEditing: true,
-      showSaveBtn:true
+      showSaveBtn: true
     });
     this.toggleCancelBtn();
-  };
-
-  saveEdit = () => {
-    this.setState({
-      about: "about"
-    });
-    console.log("save clicked");
   };
 
   toggleCancelBtn = () => {
@@ -39,28 +34,32 @@ class Profile extends React.Component {
   };
 
   handleEdit = e => {
-    //keyCode:13 = Enter event
-    if (e.keyCode === 13) {
-      let profile = {};
-      profile[e.target.name] = e.target.value;
-      this.handleProfileEdit(profile);
-    }
+    let profile = this.state.profile;
+    profile[e.target.name] = e.target.value;
+    this.setState({ profile });
+    console.log("profile", profile);
   };
-  handleProfileEdit = profile => {
+
+  saveEdit = () => {
     const { dispatch, session } = this.props;
     const { user } = session;
     let userId = user.id;
-    dispatch(profileActions.updateUser(profile, userId));
+    this.toggleButtons();
+    dispatch(profileActions.updateUser(this.state.profile, userId));
   };
 
   onCancel = () => {
-    this.setState({
-      showCancelBtn: false,
-      showSaveBtn:false,
-      isEditing:false
-    });
+    this.toggleButtons();
   };
 
+  toggleButtons = () => {
+    this.setState({
+      showCancelBtn: false,
+      showSaveBtn: false,
+      isEditing: false
+    });
+  }
+//React Dropzone requires onDrop to be implemented
   onDrop(acceptedFiles, rejectedFiles) {
     const { session, dispatch } = this.props;
     const { user } = session;
@@ -98,7 +97,7 @@ class Profile extends React.Component {
             </Dropzone>
           </div>
           {this.state.isEditing && this.state.showCancelBtn ? (
-            <ProfileEditable user={user} />
+            <ProfileEditable user={user} handleEdit={this.handleEdit} />
           ) : (
             <ProfileNormal user={user} />
           )}
@@ -126,8 +125,9 @@ const ProfileNormal = props => (
     <div className="profile-name">
       {props.user.first_name} {props.user.name}
     </div>
-    <div className="profile-skill">
-      <Trans i18nKey="profile.header_skill">Profile Skill</Trans>
+    <div className="">
+      {/*TODO:Make this editable once the values are being fetched.*/}
+      <p>{props.user.profession} - {props.user.location} </p>
     </div>
     <div className="profile-content-title">
       <Trans i18nKey="profile.header_about_me">About Me</Trans>
@@ -153,13 +153,21 @@ const ProfileEditable = props => (
     <div className="profile-content-title">
       <Trans i18nKey="profile.header_about_me">About Me</Trans>
     </div>
-    <input defaultValue={props.user.about} />
+    <input
+      name="about"
+      defaultValue={props.user.about}
+      onChange={props.handleEdit}
+    />
     <div className="profile-content-title">
       <Trans i18nKey="profile.header_educational_background">
         Educational Background
       </Trans>
     </div>
-    <input defaultValue={props.user.edu_bg} />
+    <input
+      name="edu_bg"
+      defaultValue={props.user.edu_bg}
+      onChange={props.handleEdit}
+    />
   </div>
 );
 

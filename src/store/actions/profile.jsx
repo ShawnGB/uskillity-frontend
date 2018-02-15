@@ -1,5 +1,6 @@
 import * as service from "app:utils/service";
 import * as sessionActions from "app:store/actions/session";
+import { replacer } from "app:utils/utils"
 
 export const USER_WORKSHOPS_FETCHED = "profile/USER_WORKSHOPS_FETCHED";
 export const USER_WORKSHOPS_FETCH_PENDING =
@@ -58,7 +59,7 @@ export const updateUser = (profile, userId) => {
     fetch(service.getServerEndpoint(`/users/${userId}`), {
       method: "PUT",
       headers: service.getRequestHeaders(),
-      body: JSON.stringify(profile, ["about", "name", "edu_bg", "profession"])
+      body: JSON.stringify(profile, replacer)
     })
       .then(promise => {
         dispatch({type:UPDATE_USER_FULFILLED});
