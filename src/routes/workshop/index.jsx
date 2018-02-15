@@ -17,7 +17,7 @@ class Workshop extends React.Component {
   findWorkshopWithId = () => {
     const { skills } = this.props;
     const { workshops } = skills;
-    let workshop = workshops.find(w => w.id === +this.state.id);
+    let workshop = workshops.find(w => w.id === +this.state.id) || {};
     this.setState({ workshop: workshop });
   };
   componentWillMount() {
@@ -25,69 +25,59 @@ class Workshop extends React.Component {
   }
 
   render() {
+    const workshop = this.state.workshop;
+    const { levels } = this.props.skills;
+    let level = levels.find(i => i.id === workshop.level_id) || {};
     return (
       <div>
         <div className="container">
           <div className="jumbotron">
-            <img
-              src={this.state.workshop.images[0]}
-              width="100%"
-              height="60%"
-              alt=""
-            />
+            <img src={workshop.images[0]} width="100%" height="60%" alt="" />
           </div>
           <div className="row row-spacing">
             <div className="col-sm-6">
-              <p className="workshop-name">{this.state.workshop.title}</p>
+              <p className="workshop-name">{workshop.title}</p>
+              <p>TODO:Add location here</p>
             </div>
           </div>
           <div className="row row-spacing">
             <div className="col-sm-9">
               <p className="workshop-title">
+                <Trans i18nKey="workshop.requirements_label">
+                  Recommended
+                </Trans>
+</p>
+
+              <ul>
+                <li>
+                  Age: {workshop.min_age}
+                  {" - "}
+                  {workshop.max_age}
+                </li>
+                <li>Other:</li>
+                <li>Level:{level.name}</li>
+              </ul>
+              <p>
+                Sessions:{workshop.sessions.map(
+                  (session, i) => session.starts_at
+                )}
+              </p>
+              <p className="workshop-title">
                 <Trans i18nKey="workshop.description_label">Description</Trans>
               </p>
+
+              <p className="workshop-content">{workshop.description}</p>
+              <p className="workshop-title">Who can attend</p>
               <p className="workshop-content">
-                {this.state.workshop.description}
-              </p>
-              <p className="workshop-title">
-                <Trans i18nKey="workshop.requirements_label">
-                  Requirements
-                </Trans>
-              </p>
-              <p className="workshop-content">
-                ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
-                dolor sit
-              </p>
-              <p className="workshop-title">
-                <Trans i18nKey="workshop.who_can_attend_label">
-                  Who can attend
-                </Trans>
-              </p>
-              <p className="workshop-content">
-                ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
-                dolor sit
+                May be remove this if not needed
               </p>
               <p className="workshop-title">
                 <Trans i18nKey="workshop.about_the_instructor_label">
                   About the instructor
                 </Trans>
-              </p>
-              <p className="workshop-content">
-                ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
-                dolor sit
-              </p>
+</p>
+
+              <p className="workshop-content">{workshop.about}</p>
             </div>
             <div className="col-sm-3">
               <Sidebar workshop={this.state.workshop} />

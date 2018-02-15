@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { translate, Trans } from "react-i18next";
 import "./style.css";
 
@@ -21,12 +22,18 @@ class Instructor extends React.Component {
               className="img-circle Ellipse-3"
             />
           </div>
-          <p className="instructor-name"> {provider.name} </p>
-          <button className="See-Profile-Box" type="button">
-            <Trans i18nKey="workshop.instructor.button_see_profile">
-              See Profile
+          <p className="instructor-name">
+            {" "}
+            {provider.name} {provider.first_name}{" "}
+          </p>
+          <Link to="/profile">
+            <button className="See-Profile-Box" type="button">
+              {" "}
+              <Trans i18nKey="workshop.instructor.button_see_profile">
+              See Profile{" "}
             </Trans>
-          </button>
+            </button>
+          </Link>
         </div>
       </div>
     );

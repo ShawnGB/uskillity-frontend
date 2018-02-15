@@ -19,7 +19,7 @@ class ShareSkill extends Component {
         participants: "",
         dateAndTime: "",
         location: "",
-        price: "",
+        fees: "",
         published_at: "" //TODO:ask sandeep if we need to pass published_at
       },
       sessions: [{}],
@@ -63,6 +63,7 @@ class ShareSkill extends Component {
     const workshop = this.state.workshop;
     workshop[input] = e.target.value;
     this.setState({ workshop });
+    this.setState({ level_id: input === "level_id" ? e.target.value : "" });
   }
 
   handleImageChange(e) {
@@ -151,6 +152,7 @@ class ShareSkill extends Component {
                 name="category_id"
                 onChange={this.handleChange}
               >
+                <option>select</option>
                 {categories.map(i => (
                   <option key={i.id} value={i.id}>
                     {i.name}
@@ -197,12 +199,13 @@ class ShareSkill extends Component {
                   />
                 </div>
                 <div className="col-xs-2">
-                  <label htmlFor="level">
-                    <Trans i18nKey="share_skill.recommended_label">
-                      Recommended level
-                    </Trans>
-                  </label>
-                  <select value={this.state.level} onChange={this.handleChange}>
+                  <label htmlFor="level"><Trans i18nKey="share_skill.recommended_label">Recommended level</Trans></label>
+                  <select
+                    name="level_id"
+                    value={this.state.level}
+                    onChange={this.handleChange}
+                  >
+                    <option>select</option>
                     {levels.map(i => (
                       <option key={i.id} value={i.id}>
                         {i.name}
@@ -255,7 +258,7 @@ class ShareSkill extends Component {
               <input
                 className="form-control"
                 type="number"
-                name="price"
+                name="fees"
                 placeholder={t("share_skill.price_placeholder")}
                 onChange={this.handleChange}
                 style={{

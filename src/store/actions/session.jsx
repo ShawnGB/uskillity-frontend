@@ -40,24 +40,17 @@ export const login = (email, password) => {
 
 export const register = user => {
   return function(dispatch) {
-    //TODO may be use a better way to destructure the object?
-    var email = user.email;
-    var first_name = user.first_name;
-    var name = user.name;
-    var password = user.password;
-    var password_confirmation = user.password_confirmation;
-
     dispatch({ type: REGISTER_PENDING });
     return fetch(service.getServerEndpoint("/auth"), {
       method: "POST",
       headers: service.getRequestHeaders(),
-      body: JSON.stringify({
-        email,
-        first_name,
-        name,
-        password,
-        password_confirmation
-      })
+      body: JSON.stringify(user,
+        ['email',
+        'first_name',
+        'name',
+        'password',
+        'password_confirmation']
+      )
     })
       .then(service.handleAuthResponse)
       .then(response => {

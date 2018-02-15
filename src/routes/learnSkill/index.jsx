@@ -148,7 +148,7 @@ const CategoryRow = props => {
             <div className="skill-content">
               <p className="skill-title">{workshop.title}</p>
               <p className="skill-author">Marina Berlin-Kreuzberg</p>
-              <p className="skill-price">14 €</p>
+              <p className="skill-price">{workshop.fees} €</p>
             </div>
           </div>
         ))}
