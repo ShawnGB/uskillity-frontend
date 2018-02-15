@@ -14,20 +14,24 @@ class Profile extends React.Component {
       about: "",
       edu_bg: "",
       isEditing: false,
-      showCancelBtn: false
+      showCancelBtn: false,
+      showSaveBtn: false,
     };
   }
 
   toggleEdit = () => {
-    this.setState({ isEditing: true });
+    this.setState({
+      isEditing: true,
+      showSaveBtn:true
+    });
     this.toggleCancelBtn();
   };
 
   saveEdit = () => {
-    let about = this.refs.about.value;
     this.setState({
-      about: about
+      about: "about"
     });
+    console.log("save clicked");
   };
 
   toggleCancelBtn = () => {
@@ -51,7 +55,9 @@ class Profile extends React.Component {
 
   onCancel = () => {
     this.setState({
-      showCancelBtn: false
+      showCancelBtn: false,
+      showSaveBtn:false,
+      isEditing:false
     });
   };
 
@@ -96,9 +102,13 @@ class Profile extends React.Component {
           ) : (
             <ProfileNormal user={user} />
           )}
-          {isLoggedIn ? (
+          {isLoggedIn && !this.state.isEditing ? (
             <button type="button" onClick={this.toggleEdit}>
               Edit
+            </button>
+          ) : isLoggedIn && this.state.showSaveBtn ? (
+            <button type="button" onClick={this.saveEdit}>
+              Save
             </button>
           ) : null}
           {this.state.showCancelBtn ? (
