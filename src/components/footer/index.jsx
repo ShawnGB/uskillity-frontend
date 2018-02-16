@@ -11,33 +11,35 @@ class Footer extends Component {
     return (
       <div className="row">
         <p className="border" />
-        <div className="col-sm-6 footer-block">
+        <div className="col-sm-offset-1 col-sm-5 footer-block">
           <div className="row">
-            <div className="col-sm-6 col-xs-6">
-              <img src={logo} className="footer-logo" alt="" />
-              <p className="copyright">
+            <div className="col-sm-offset-1 col-xs-offset-1 col-sm-5 col-xs-5">
+              <img src={logo} className="footer-logo float-right" alt="" />
+              <p className="copyright float-right">
                 <Trans i18nKey="footer.copyright">
                   © 2017 Nikolovska Becker UG - u/skillity
                 </Trans>
               </p>
             </div>
-            <div className="col-sm-6 col-xs-6">
-              <p className="footer-title">
-                <Trans i18nKey="footer.connect">Connect</Trans>
-              </p>
-              <p className="footer-item">
-                <Trans i18nKey="footer.email">office@uskillity.de</Trans>
-              </p>
-              <p className="footer-item">
-                <Facebook size={30} />
-                <Instagram size={30} />
-              </p>
+            <div className="col-sm-5 col-xs-5">
+              <div className="float-right">
+                <p className="footer-title">
+                  <Trans i18nKey="footer.connect">Connect</Trans>
+                </p>
+                <p className="footer-item">
+                  <Trans i18nKey="footer.email">office@uskillity.de</Trans>
+                </p>
+                <p className="footer-item">
+                  <Facebook size={30} />
+                  <Instagram size={30} />
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        <div className="col-sm-6 footer-block">
+        <div className="col-sm-5 footer-block">
           <div className="row">
-            <div className="col-sm-6 col-xs-6">
+            <div className="col-sm-offset-1 col-xs-offset-1 col-sm-5 col-xs-5">
               <p className="footer-title">
                 <Trans i18nKey="footer.name">u/Skillity</Trans>
               </p>
@@ -54,7 +56,7 @@ class Footer extends Component {
                 <Trans i18nKey="footer.guidelines">Guidelines</Trans>
               </p>
             </div>
-            <div className="col-sm-6 col-xs-6">
+            <div className="col-sm-5 col-xs-5">
               <br />
               <p className="footer-item">
                 <Trans i18nKey="footer.help">Help</Trans>
