@@ -38,6 +38,7 @@
 
 .home-category {
     cursor: pointer;
+    margin-top:16px;
 }
 
 .row-home {
@@ -87,4 +88,8 @@
 .carousel-indicators .active {
     background-color: rgba(0, 0, 0, 0) !important;
     border: solid 2px red !important;
+}
+
+.category-collection { 
+  margin-top: 20px;
 }

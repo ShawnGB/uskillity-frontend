@@ -89,13 +89,10 @@ class Home extends React.Component {
     return (
       <div>
         <div className="container">
-          <div>
             <CustomCarousel
-              items={this.state.workshops}
-              style={{ height: "600px", marginBottom: "20px" }}
+              items={this.state.workshops} 
             />
-          </div>
-          <div className="row row-home">
+          <div className="row row-home category-collection">
             {this.state.categories}
           </div>
           <div className="row">
