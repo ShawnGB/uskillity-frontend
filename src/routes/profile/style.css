@@ -3,8 +3,8 @@
 }
 
 .profile-name {
-  font-size: 40px;
-  font-weight: 600;
+  font-size: 25px;
+  font-weight: 400;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
@@ -120,4 +120,7 @@
   border: solid 1px #000000;
   margin: 20px 55px 10px 0px;
   float: right;
+}
+.btn-margin {
+  margin-left: 5px;
 }

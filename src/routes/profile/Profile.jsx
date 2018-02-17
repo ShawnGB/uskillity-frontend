@@ -102,11 +102,11 @@ class Profile extends React.Component {
             <ProfileNormal user={user} />
           )}
           {isLoggedIn && !this.state.isEditing ? (
-            <button type="button" onClick={this.toggleEdit}>
+            <button className="btn btn-primary btn-margin" type="button" onClick={this.toggleEdit}>
               Edit
             </button>
           ) : isLoggedIn && this.state.showSaveBtn ? (
-            <button type="button" onClick={this.saveEdit}>
+            <button className="btn btn-primary btn-margin" type="button" onClick={this.saveEdit}>
               Save
             </button>
           ) : null}
@@ -123,10 +123,9 @@ class Profile extends React.Component {
 const ProfileNormal = props => (
   <div className="col-lg-6">
     <div className="profile-name">
-      {props.user.first_name} {props.user.name}
+      {props.user.first_name}{props.user.name}
     </div>
     <div className="">
-      {/*TODO:Make this editable once the values are being fetched.*/}
       <p>{props.user.profession} - {props.user.location} </p>
     </div>
     <div className="profile-content-title">
@@ -145,15 +144,33 @@ const ProfileNormal = props => (
 const ProfileEditable = props => (
   <div className="col-lg-6">
     <div className="profile-name">
-      {props.user.first_name} {props.user.name}
+      <input
+        name="first_name"
+        defaultValue={props.user.first_name}
+        onChange={props.handleEdit}
+      />
+      <input
+        name="name"
+        defaultValue={props.user.name}
+        onChange={props.handleEdit}
+      />
     </div>
-    <div className="profile-skill">
-      <Trans i18nKey="profile.header_skill">Profile Skill</Trans>
+    <div className="">
+      <input
+        name="profession"
+        defaultValue={props.user.profession}
+        onChange={props.handleEdit}
+      />
+      <input
+        name="location"
+        defaultValue={props.user.location}
+        onChange={props.handleEdit}
+      />
     </div>
     <div className="profile-content-title">
       <Trans i18nKey="profile.header_about_me">About Me</Trans>
     </div>
-    <input
+    <textarea rows="4" cols="70"
       name="about"
       defaultValue={props.user.about}
       onChange={props.handleEdit}
@@ -163,7 +180,7 @@ const ProfileEditable = props => (
         Educational Background
       </Trans>
     </div>
-    <input
+    <textarea rows="4" cols="70"
       name="edu_bg"
       defaultValue={props.user.edu_bg}
       onChange={props.handleEdit}
@@ -172,7 +189,7 @@ const ProfileEditable = props => (
 );
 
 const CancelButton = props => (
-  <button type="button" onClick={props.onCancel}>
+  <button className="btn btn-primary btn-margin btn-margin" type="button" onClick={props.onCancel}>
     Cancel
   </button>
 );

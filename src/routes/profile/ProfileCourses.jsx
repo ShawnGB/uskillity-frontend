@@ -17,9 +17,20 @@ class ProfileCourses extends React.Component {
     return (
       <div>
         <div className="container container-profile">
-          <p className="skills-heading">
-            <Trans i18nKey="profile.courses.header">My Shared Skills</Trans>
-          </p>
+          {user_workshops.length > 0 ? (
+            <p className="skills-heading">
+              <Trans i18nKey="profile.courses.header">My Shared Skills</Trans>
+            </p>
+          ) : (
+            <p>
+              {" "}
+              <Trans i18nKey="profile.courses.no_skill_found">
+                {" "}
+                You don't share any of your skills yet.Why don't you?
+              </Trans>
+            </p>
+          )}
+
           <div className="row">
             {user_workshops.map((workshop, i) => (
               <div className="col-sm-4" key={i}>
