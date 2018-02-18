@@ -1,0 +1,53 @@
+@font-face {
+	font-family: 'CalibreWeb';
+	font-style: normal;
+	font-weight: normal;
+	src:
+	local('CalibreWeb Medium'),
+	local('CalibreWeb-Medium'),
+	url(../fonts/cw/CalibreWeb-Medium.woff) format('woff')
+	/*url(../fonts/cw/CalibreWeb-Medium.eot) format('embedded-opentype')*/
+	/*url(../fonts/cw/CalibreWeb-Medium.woff2) format('woff2'),*/
+}
+
+@font-face {
+	font-family: 'CalibreWeb';
+	font-style: italic;
+	font-weight: normal;
+	src:
+	local('CalibreWeb MediumItalic'),
+	local('CalibreWeb-MediumItalic'),
+	url(../fonts/cw/CalibreWeb-MediumItalic.woff) format('woff')
+	/*url(../fonts/cw/CalibreWeb-MediumItalic.eot) format('embedded-opentype')*/
+	/*url(../fonts/cw/CalibreWeb-MediumItalic.woff2) format('woff2'),*/
+}
+
+@font-face {
+	font-family: 'CalibreWeb';
+	font-style: normal;
+	font-weight: bold;
+	src:
+	local('CalibreWeb Semibold'),
+	local('CalibreWeb-Semibold'),
+	url(../fonts/cw/CalibreWeb-Semibold.woff) format('woff')
+	/*url(../fonts/cw/CalibreWeb-Semibold.eot) format('embedded-opentype')*/
+	/*url(../fonts/cw/CalibreWeb-Semibold.woff2) format('woff2'),*/
+}
+
+@font-face {
+	font-family: 'CalibreWeb';
+	font-style: italic;
+	font-weight: bold;
+	src:
+	local('CalibreWeb SemiboldItalic'),
+	local('CalibreWeb-SemiboldItalic'),
+	url(../fonts/cw/CalibreWeb-SemiboldItalic.woff) format('woff')
+	/*url(../fonts/cw/CalibreWeb-SemiboldItalic.eot) format('embedded-opentype')*/
+	/*url(../fonts/cw/CalibreWeb-SemiboldItalic.woff2) format('woff2'),*/
+}
+
+#root {
+	font-family: "CalibreWeb", sans-serif;
+	font-style: normal;
+	font-weight: normal;
+}

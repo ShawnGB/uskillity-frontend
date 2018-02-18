@@ -17,7 +17,6 @@
     /*width: 100%;*/
     width: 372.3px;
     height: 35px;
-    /*font-family: Calibre;*/
     font-size: 48px;
     font-weight: 600;
     font-style: normal;
@@ -74,7 +73,6 @@
     /*width: 100%;*/
     width: 372.3px;
     height: 35px;
-    /*font-family: Calibre;*/
     font-size: 48px;
     font-weight: 600;
     font-style: normal;
@@ -90,6 +88,6 @@
     border: solid 2px red !important;
 }
 
-.category-collection { 
+.category-collection {
   margin-top: 20px;
 }
