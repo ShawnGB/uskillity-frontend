@@ -377,7 +377,6 @@ class ShareSkill extends Component {
                     <div className="form-group">
                       <SkillInputSingle
                         type="file"
-                        onChange={this.handleChange}
                         onChange={this.handleImageChange.bind(this)}
                       />
                       <button
