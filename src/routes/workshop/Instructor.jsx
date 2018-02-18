@@ -1,6 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Route } from 'react-router-dom'
 import { translate, Trans } from "react-i18next";
+import * as userActions from "app:store/actions/profile";
+import { connect } from "react-redux";
+import { compose } from "redux";
 import "./style.css";
 
 class Instructor extends React.Component {
@@ -26,18 +29,32 @@ class Instructor extends React.Component {
             {" "}
             {provider.name} {provider.first_name}{" "}
           </p>
-          <Link to="/profile">
-            <button className="See-Profile-Box" type="button">
-              {" "}
-              <Trans i18nKey="workshop.instructor.button_see_profile">
-              See Profile{" "}
-            </Trans>
-            </button>
-          </Link>
+          <Button provider={provider} dispatch={this.props.dispatch}/>
         </div>
       </div>
     );
   }
 }
 
-export default translate("translations")(Instructor);
+const Button = props => (
+  <Route render={({ history}) => (
+    <button
+      className="See-Profile-Box"
+      type='button'
+      onClick={() => {
+        props.dispatch(userActions.fetchUserWorkshop(props.provider.id));
+         history.push('/profile')
+        }}
+    >
+      <Trans i18nKey="workshop.instructor.button_see_profile">See Profile</Trans>
+    </button>
+  )} />
+)
+
+const mapStateToProps = state => ({
+  session: state.session
+});
+// export default translate("translations")(Instructor);
+export default compose(translate("translations"), connect(mapStateToProps))(
+  Instructor
+);

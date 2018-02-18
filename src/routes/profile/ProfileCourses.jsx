@@ -7,9 +7,13 @@ import * as userActions from "app:store/actions/profile";
 
 class ProfileCourses extends React.Component {
   componentDidMount() {
-    const { session } = this.props;
-    const user_id = session && session.user.id;
-    this.props.dispatch(userActions.fetchUserWorkshop(user_id));
+    const { session,isLoggedIn } = this.props;
+    if (isLoggedIn) {
+      console.log("isisis",isLoggedIn);
+      // TODO: this is not being called, start work from here next time
+      const user_id = session && session.user.id;
+      this.props.dispatch(userActions.fetchUserWorkshop(user_id));
+    }
   }
   render() {
     const { profile } = this.props;
@@ -43,13 +47,10 @@ class ProfileCourses extends React.Component {
                   />
                 </Link>
                 <div className="skill-content">
-                  {/* TODO:use button click instead of Link to */}
-                  <Link to={`/shareyourskill/${workshop.id}`}>
                     <button className="btn_edit_skill" type="button">
                       {" "}
                       Edit{" "}
                     </button>
-                  </Link>
                   <p className="skill-title">{workshop.title}</p>
                   <p className="skill-author">
                     {workshop.provider.first_name} {workshop.provider.name}
