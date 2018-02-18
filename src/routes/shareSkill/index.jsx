@@ -136,140 +136,218 @@ class ShareSkill extends Component {
               </Trans>
             </p>
             <div className="form-group">
-              <p className="skills-form-title">
-                <Trans i18nKey="share_skill.title_label">Title of skill</Trans>
-              </p>
-              <SkillInput
-                name={"title"}
-                onChange={this.handleChange}
-                placeholder={t("share_skill.title_placeholder")}
-              />
-              <p className="skills-form-title">
-                <Trans i18nKey="share_skill.category_label">Category</Trans>
-              </p>
-              <select
-                value={categories.id}
-                name="category_id"
-                onChange={this.handleChange}
-              >
-                <option>select</option>
-                {categories.map(i => (
-                  <option key={i.id} value={i.id}>
-                    {i.name}
-                  </option>
-                ))}
-              </select>
-              <p className="skills-form-title">
-                <Trans i18nKey="share_skill.description_label">
-                  Description
-                </Trans>
-              </p>
-              <SkillInput
-                name={"description"}
-                onChange={this.handleChange}
-                placeholder={t("share_skill.description_placeholder")}
-              />
-              <p className="skills-form-title">
-                <Trans i18nKey="share_skill.requriements_label">
-                  Requriements
-                </Trans>
-              </p>
-              <p>Age Recommendation</p>
-              <div className="form-group row">
-                <div className="col-xs-2">
-                  <label htmlFor="ageFrom">
-                    <Trans i18nKey="share_skill.age_from_label">Age From</Trans>
-                  </label>
-                  <input
-                    className="form-control"
-                    name="ageFrom"
-                    type="text"
-                    onChange={this.handleChange}
-                  />
+              <div className="row">
+                <div className="col-xs-12">
+                  <p className="skills-form-title">
+                    <Trans i18nKey="share_skill.title_label">
+                      Title of skill
+                    </Trans>
+                  </p>
                 </div>
-                <div className="col-xs-2">
-                  <label htmlFor="ageTo">
-                    <Trans i18nKey="share_skill.age_to_label">Age To</Trans>
-                  </label>
-                  <input
-                    className="form-control"
-                    name="ageTo"
-                    type="text"
-                    onChange={this.handleChange}
-                  />
-                </div>
-                <div className="col-xs-2">
-                  <label htmlFor="level"><Trans i18nKey="share_skill.recommended_label">Recommended level</Trans></label>
-                  <select
-                    name="level_id"
-                    value={this.state.level}
-                    onChange={this.handleChange}
-                  >
-                    <option>select</option>
-                    {levels.map(i => (
-                      <option key={i.id} value={i.id}>
-                        {i.name}
-                      </option>
-                    ))};
-                  </select>
+                <div className="col-xs-12">
+                  <div className="row">
+                    <div className="col-xs-12 col-sm-8">
+                      <SkillInput
+                        name={"title"}
+                        onChange={this.handleChange}
+                        placeholder={t("share_skill.title_placeholder")}
+                      />
+                    </div>
+                    <div className="col-xs-12 col-sm-4">
+                      <select
+                        value={categories.id}
+                        name="category_id"
+                        onChange={this.handleChange}
+                        style={{ width: "100%", height: "36px", margin: "4px" }}
+                      >
+                        <option>Choose a category</option>
+                        {categories.map(i => (
+                          <option key={i.id} value={i.id}>
+                            {i.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <Trans i18nKey="share_skill.additional_requirements_label">
-                Additional Requirements
-              </Trans>{" "}
-              <SkillInput
-                name={"requirements"}
-                onChange={this.handleChange}
-                placeholder={t(
-                  "share_skill.additional_requirements_placeholder"
-                )}
-              />
-              <p className="skills-form-title">
-                <Trans i18nKey="share_skill.location_label">Location</Trans>
-              </p>
-              <input
-                className="form-control"
-                type="text"
-                name="location"
-                placeholder={t("share_skill.location_placeholder")}
-                onChange={this.handleChange}
-                style={{
-                  margin: "5px"
-                }}
-              />
-              <p className="skills-form-title">
-                <Trans i18nKey="share_skill.participant_number_label">
-                  Number of participants
-                </Trans>
-              </p>
-              <input
-                className="form-control"
-                type="number"
-                name="participants"
-                placeholder={t("share_skill.participant_number_placeholder")}
-                onChange={this.handleChange}
-                style={{
-                  margin: "5px"
-                }}
-              />
-              <p className="skills-form-title">
-                <Trans i18nKey="share_skill.price_title">Price</Trans>
-              </p>
-              <input
-                className="form-control"
-                type="number"
-                name="fees"
-                placeholder={t("share_skill.price_placeholder")}
-                onChange={this.handleChange}
-                style={{
-                  margin: "5px"
-                }}
-              />
+              <div className="row">
+                <div className="col-xs-12">
+                  <p className="skills-form-title">
+                    <Trans i18nKey="share_skill.description_label">
+                      Description
+                    </Trans>
+                  </p>
+                </div>
+                <div className="col-xs-12">
+                  <SkillInput
+                    name={"description"}
+                    onChange={this.handleChange}
+                    placeholder={t("share_skill.description_placeholder")}
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-xs-12 col-sm-6">
+                  <div className="row">
+                    <div className="col-xs-6">
+                      <p className="skills-form-title">
+                        <Trans i18nKey="share_skill.age_from_label">
+                          Age Recommended
+                        </Trans>
+                      </p>
+                    </div>
+                    <div className="col-xs-6">
+                      <div className="row">
+                        <div className="col-xs-4">
+                          <input
+                            className="form-control"
+                            name="ageFrom"
+                            type="text"
+                            onChange={this.handleChange}
+                          />
+                        </div>
+                        <div className="col-xs-4">
+                          <p className="skills-form-title">
+                            <Trans i18nKey="share_skill.age_to_label">To</Trans>
+                          </p>
+                        </div>
+                        <div className="col-xs-4">
+                          <input
+                            className="form-control"
+                            name="ageTo"
+                            type="text"
+                            onChange={this.handleChange}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-xs-12 col-sm-6">
+                  <div className="col-xs-6">
+                    <p className="skills-form-title">
+                      <Trans i18nKey="share_skill.recommended_label">
+                        Recommended level
+                      </Trans>
+                    </p>
+                  </div>
+
+                  <div className="col-xs-6">
+                    <select
+                      name="level_id"
+                      value={this.state.level}
+                      onChange={this.handleChange}
+                      style={{
+                        width: "100%",
+                        height: "36px",
+                        margin: "4px"
+                      }}
+                    >
+                      <option>Choose Level</option>
+                      {levels.map(i => (
+                        <option key={i.id} value={i.id}>
+                          {i.name}
+                        </option>
+                      ))};
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-xs-12">
+                  <p className="skills-form-title">
+                    <Trans i18nKey="share_skill.additional_requirements_label">
+                      Additional Requirements
+                    </Trans>{" "}
+                  </p>
+                </div>
+                <div className="col-xs-12">
+                  <SkillInput
+                    name={"requirements"}
+                    onChange={this.handleChange}
+                    placeholder={t(
+                      "share_skill.additional_requirements_placeholder"
+                    )}
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-xs-12">
+                  <p className="skills-form-title">
+                    <Trans i18nKey="share_skill.location_label">Location</Trans>
+                  </p>
+                </div>
+                <div className="col-xs-12">
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="location"
+                    placeholder={t("share_skill.location_placeholder")}
+                    onChange={this.handleChange}
+                    style={{
+                      margin: "5px"
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-xs-12 col-sm-6">
+                  <div className="row">
+                    <div className="col-xs-9">
+                      <p className="skills-form-title">
+                        <Trans i18nKey="share_skill.participant_number_label">
+                          Number of participants
+                        </Trans>
+                      </p>
+                    </div>
+                    <div className="col-xs-3">
+                      <input
+                        className="form-control"
+                        type="number"
+                        name="participants"
+                        placeholder={t(
+                          "share_skill.participant_number_placeholder"
+                        )}
+                        onChange={this.handleChange}
+                        style={{
+                          margin: "5px"
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-xs-12 col-sm-6">
+                  <div className="row">
+                    <div className="col-xs-4">
+                      <p className="skills-form-title">
+                        <Trans i18nKey="share_skill.price_title">Price</Trans>
+                      </p>
+                    </div>
+                    <div className="col-xs-4">
+                      <input
+                        className="form-control"
+                        type="number"
+                        name="fees"
+                        placeholder={t("share_skill.price_placeholder")}
+                        onChange={this.handleChange}
+                        style={{
+                          margin: "5px"
+                        }}
+                      />
+                    </div>
+                    <div className="col-xs-4">
+                      <p className="skills-form-title">Per person</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <button
                 className="btn btn-primary"
                 type="button"
                 onClick={this.handleSubmit}
                 disabled={!isLoggedIn}
+                style={{ float: "right" }}
               >
                 <Trans i18nKey="share_skill.button_save_workshop">
                   Save Workshop
