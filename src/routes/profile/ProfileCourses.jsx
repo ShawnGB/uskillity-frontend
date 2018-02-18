@@ -6,11 +6,6 @@ import { Link } from "react-router-dom";
 import * as userActions from "app:store/actions/profile";
 
 class ProfileCourses extends React.Component {
-  componentDidMount() {
-    const { session,isLoggedIn } = this.props;
-      const user_id = session && session.user.id;
-      this.props.dispatch(userActions.fetchUserWorkshop(user_id));
-  }
   render() {
     const { profile } = this.props;
     const user_workshops = profile && profile.user_workshops;
@@ -43,10 +38,10 @@ class ProfileCourses extends React.Component {
                   />
                 </Link>
                 <div className="skill-content">
-                    <button className="btn_edit_skill" type="button">
-                      {" "}
-                      Edit{" "}
-                    </button>
+                  <button className="btn_edit_skill" type="button">
+                    {" "}
+                    Edit{" "}
+                  </button>
                   <p className="skill-title">{workshop.title}</p>
                   <p className="skill-author">
                     {workshop.provider.first_name} {workshop.provider.name}

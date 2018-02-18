@@ -3,14 +3,16 @@ import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
 import ProfileCourses from "./ProfileCourses";
 import * as profileActions from "app:store/actions/profile";
+import * as userActions from "app:store/actions/profile";
 import Dropzone from "react-dropzone";
 import { connect } from "react-redux";
 import "./style.css";
 
 class Profile extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
+      userId:this.props.match.params.id,
       profile: {
         about: "",
         edu_bg: ""
@@ -19,6 +21,18 @@ class Profile extends React.Component {
       showCancelBtn: false,
       showSaveBtn: false
     };
+  }
+
+  componentWillMount() {
+    const { session,isLoggedIn } = this.props;
+      let userId = null;
+      if (isLoggedIn) {
+        userId = session.user.id;
+      }
+      else {
+        userId = this.state.userId
+      }
+      this.props.dispatch(userActions.fetchUserWorkshop(userId));
   }
 
   toggleEdit = () => {
@@ -71,12 +85,12 @@ class Profile extends React.Component {
     const { user, isLoggedIn } = session;
     const { user_workshops } = profile;
     let provider = {};
-    if (!isLoggedIn && user_workshops.length > 0) {
+    if (isLoggedIn) {
+      provider = user;
+    } else if (user_workshops.length > 0) {
       provider = user_workshops[0].provider;
     }
-    else {
-      provider = user;
-    }
+
     const dropzoneStyle = {
       borderRadius: "50%",
       width: "252px",
