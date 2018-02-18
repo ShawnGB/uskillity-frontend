@@ -8,12 +8,8 @@ import * as userActions from "app:store/actions/profile";
 class ProfileCourses extends React.Component {
   componentDidMount() {
     const { session,isLoggedIn } = this.props;
-    if (isLoggedIn) {
-      console.log("isisis",isLoggedIn);
-      // TODO: this is not being called, start work from here next time
       const user_id = session && session.user.id;
       this.props.dispatch(userActions.fetchUserWorkshop(user_id));
-    }
   }
   render() {
     const { profile } = this.props;
