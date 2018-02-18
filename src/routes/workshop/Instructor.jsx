@@ -1,9 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import { translate, Trans } from "react-i18next";
-import * as userActions from "app:store/actions/profile";
-import { connect } from "react-redux";
-import { compose } from "redux";
 import "./style.css";
 
 class Instructor extends React.Component {

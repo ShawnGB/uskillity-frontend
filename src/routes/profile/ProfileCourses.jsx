@@ -3,7 +3,6 @@ import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import * as userActions from "app:store/actions/profile";
 
 class ProfileCourses extends React.Component {
   render() {
