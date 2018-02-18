@@ -136,87 +136,79 @@ class ShareSkill extends Component {
               </Trans>
             </p>
             <div className="form-group">
-              <div className="row">
-                <div className="col-xs-12">
-                  <p className="skills-form-title">
+              <div className="row share-skill-row">
+                <div className="col-xs-12 skills-form-label">
+                  <span className="skills-form-title">
                     <Trans i18nKey="share_skill.title_label">
                       Title of skill
                     </Trans>
-                  </p>
+                  </span>
                 </div>
-                <div className="col-xs-12">
-                  <div className="row">
-                    <div className="col-xs-12 col-sm-8">
-                      <SkillInput
-                        name={"title"}
-                        onChange={this.handleChange}
-                        placeholder={t("share_skill.title_placeholder")}
-                      />
-                    </div>
-                    <div className="col-xs-12 col-sm-4">
-                      <select
-                        value={categories.id}
-                        name="category_id"
-                        onChange={this.handleChange}
-                        style={{ width: "100%", height: "36px", margin: "4px" }}
-                      >
-                        <option>Choose a category</option>
-                        {categories.map(i => (
-                          <option key={i.id} value={i.id}>
-                            {i.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
+                <div className="col-xs-12 col-sm-8">
+                  <SkillInputSingle
+                    name={"title"}
+                    onChange={this.handleChange}
+                    placeholder={t("share_skill.title_placeholder")}
+                  />
+                </div>
+                <div className="col-xs-12 col-sm-4">
+                  <select
+                    value={categories.id}
+                    name="category_id"
+                    onChange={this.handleChange}
+                    className="skills-select-box"
+                  >
+                    <option>Choose a category</option>
+                    {categories.map(i => (
+                      <option key={i.id} value={i.id}>
+                        {i.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
-              <div className="row">
-                <div className="col-xs-12">
-                  <p className="skills-form-title">
+              <div className="row share-skill-row">
+                <div className="col-xs-12 skills-form-label">
+                  <span className="skills-form-title">
                     <Trans i18nKey="share_skill.description_label">
                       Description
                     </Trans>
-                  </p>
+                  </span>
                 </div>
                 <div className="col-xs-12">
-                  <SkillInput
+                  <SkillInputArea
                     name={"description"}
                     onChange={this.handleChange}
                     placeholder={t("share_skill.description_placeholder")}
                   />
                 </div>
               </div>
-              <div className="row">
+              <div className="row share-skill-row">
                 <div className="col-xs-12 col-sm-6">
-                  <div className="row">
-                    <div className="col-xs-6">
-                      <p className="skills-form-title">
+                  <div className="row share-skill-row">
+                    <div className="col-xs-5 skills-form-label">
+                      <span className="skills-form-title">
                         <Trans i18nKey="share_skill.age_from_label">
                           Age Recommended
                         </Trans>
-                      </p>
+                      </span>
                     </div>
-                    <div className="col-xs-6">
+                    <div className="col-xs-7">
                       <div className="row">
-                        <div className="col-xs-4">
-                          <input
-                            className="form-control"
-                            name="ageFrom"
-                            type="text"
+                        <div className="col-xs-3">
+                          <SkillInputSingle
+                            name={"ageFrom"}
                             onChange={this.handleChange}
                           />
                         </div>
-                        <div className="col-xs-4">
-                          <p className="skills-form-title">
+                        <div className="col-xs-6 skills-form-label">
+                          <span className="skills-form-title">
                             <Trans i18nKey="share_skill.age_to_label">To</Trans>
-                          </p>
+                          </span>
                         </div>
-                        <div className="col-xs-4">
-                          <input
-                            className="form-control"
-                            name="ageTo"
-                            type="text"
+                        <div className="col-xs-3">
+                          <SkillInputSingle
+                            name={"ageTo"}
                             onChange={this.handleChange}
                           />
                         </div>
@@ -225,45 +217,43 @@ class ShareSkill extends Component {
                   </div>
                 </div>
                 <div className="col-xs-12 col-sm-6">
-                  <div className="col-xs-6">
-                    <p className="skills-form-title">
-                      <Trans i18nKey="share_skill.recommended_label">
-                        Recommended level
-                      </Trans>
-                    </p>
-                  </div>
+                  <div className="row share-skill-row">
+                    <div className="col-xs-6 skills-form-label">
+                      <span className="skills-form-title">
+                        <Trans i18nKey="share_skill.recommended_label">
+                          Recommended level
+                        </Trans>
+                      </span>
+                    </div>
 
-                  <div className="col-xs-6">
-                    <select
-                      name="level_id"
-                      value={this.state.level}
-                      onChange={this.handleChange}
-                      style={{
-                        width: "100%",
-                        height: "36px",
-                        margin: "4px"
-                      }}
-                    >
-                      <option>Choose Level</option>
-                      {levels.map(i => (
-                        <option key={i.id} value={i.id}>
-                          {i.name}
-                        </option>
-                      ))};
-                    </select>
+                    <div className="col-xs-6">
+                      <select
+                        name="level_id"
+                        value={this.state.level}
+                        onChange={this.handleChange}
+                        className="skills-select-box"
+                      >
+                        <option>Choose Level</option>
+                        {levels.map(i => (
+                          <option key={i.id} value={i.id}>
+                            {i.name}
+                          </option>
+                        ))};
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="row">
-                <div className="col-xs-12">
-                  <p className="skills-form-title">
+              <div className="row share-skill-row">
+                <div className="col-xs-12 skills-form-label">
+                  <span className="skills-form-title">
                     <Trans i18nKey="share_skill.additional_requirements_label">
                       Additional Requirements
                     </Trans>{" "}
-                  </p>
+                  </span>
                 </div>
                 <div className="col-xs-12">
-                  <SkillInput
+                  <SkillInputArea
                     name={"requirements"}
                     onChange={this.handleChange}
                     placeholder={t(
@@ -272,92 +262,83 @@ class ShareSkill extends Component {
                   />
                 </div>
               </div>
-              <div className="row">
-                <div className="col-xs-12">
-                  <p className="skills-form-title">
+              <div className="row share-skill-row">
+                <div className="col-xs-12 skills-form-label">
+                  <span className="skills-form-title">
                     <Trans i18nKey="share_skill.location_label">Location</Trans>
-                  </p>
+                  </span>
                 </div>
                 <div className="col-xs-12">
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="location"
-                    placeholder={t("share_skill.location_placeholder")}
+                  <SkillInputSingle
+                    name={"location"}
                     onChange={this.handleChange}
-                    style={{
-                      margin: "5px"
-                    }}
+                    placeholder={t("share_skill.location_placeholder")}
                   />
                 </div>
               </div>
-              <div className="row">
+              <div className="row share-skill-row">
                 <div className="col-xs-12 col-sm-6">
-                  <div className="row">
-                    <div className="col-xs-9">
-                      <p className="skills-form-title">
+                  <div className="row  share-skill-row">
+                    <div className="col-xs-9 skills-form-label">
+                      <span className="skills-form-title">
                         <Trans i18nKey="share_skill.participant_number_label">
                           Number of participants
                         </Trans>
-                      </p>
+                      </span>
                     </div>
                     <div className="col-xs-3">
-                      <input
-                        className="form-control"
+                      <SkillInputSingle
+                        name={"participants"}
                         type="number"
-                        name="participants"
+                        onChange={this.handleChange}
                         placeholder={t(
                           "share_skill.participant_number_placeholder"
                         )}
-                        onChange={this.handleChange}
-                        style={{
-                          margin: "5px"
-                        }}
                       />
                     </div>
                   </div>
                 </div>
                 <div className="col-xs-12 col-sm-6">
-                  <div className="row">
-                    <div className="col-xs-4">
-                      <p className="skills-form-title">
+                  <div className="row  share-skill-row">
+                    <div className="col-xs-4 skills-form-label">
+                      <span className="skills-form-title">
                         <Trans i18nKey="share_skill.price_title">Price</Trans>
-                      </p>
+                      </span>
                     </div>
                     <div className="col-xs-4">
-                      <input
-                        className="form-control"
+                      <SkillInputSingle
+                        name={"fees"}
                         type="number"
-                        name="fees"
-                        placeholder={t("share_skill.price_placeholder")}
                         onChange={this.handleChange}
-                        style={{
-                          margin: "5px"
-                        }}
+                        placeholder={t("share_skill.price_placeholder")}
                       />
                     </div>
-                    <div className="col-xs-4">
-                      <p className="skills-form-title">Per person</p>
+                    <div className="col-xs-4 skills-form-label">
+                      <span className="skills-form-title">Per person</span>
                     </div>
                   </div>
                 </div>
               </div>
-              <button
-                className="btn btn-primary"
-                type="button"
-                onClick={this.handleSubmit}
-                disabled={!isLoggedIn}
-                style={{ float: "right" }}
-              >
-                <Trans i18nKey="share_skill.button_save_workshop">
-                  Save Workshop
-                </Trans>
-              </button>
-              <p className="skills-form-title">
+              <div className="row share-skill-row">
+                <div className="col-xs-12">
+                  <button
+                    className="btn btn-primary"
+                    type="button"
+                    onClick={this.handleSubmit}
+                    disabled={!isLoggedIn}
+                    style={{ float: "right" }}
+                  >
+                    <Trans i18nKey="share_skill.button_save_workshop">
+                      Save Workshop
+                    </Trans>
+                  </button>
+                </div>
+              </div>
+              <span className="skills-form-title">
                 <Trans i18nKey="share_skill.date_and_time_label">
                   Date and time
                 </Trans>
-              </p>
+              </span>
               {this.state.sessions.map((session, i) => (
                 <ScheduleWorkshop
                   addWorkshopSession={this.addWorkshopSession.bind(this, i)}
@@ -376,7 +357,7 @@ class ShareSkill extends Component {
                   </Trans>
                 </button>
               </div>
-              <p className="skills-form-title">Photo</p>
+              <span className="skills-form-title">Photo</span>
               <form name="form">
                 <div className="form-group">
                   <input
@@ -420,14 +401,26 @@ class ShareSkill extends Component {
   }
 }
 
-const SkillInput = props => (
-  <input
+const SkillInputArea = props => (
+  <textarea
+    rows="4"
     className="form-control"
-    type="text"
+    type={props.type || "text"}
     name={props.name}
     placeholder={props.placeholder}
     onChange={props.onChange}
-    style={{ margin: "5px" }}
+    style={{ borderRadius: "0px", borderColor: "#9b9b9b" }}
+  />
+);
+
+const SkillInputSingle = props => (
+  <input
+    className="form-control"
+    type={props.type || "text"}
+    name={props.name}
+    placeholder={props.placeholder}
+    onChange={props.onChange}
+    style={{ borderRadius: "0px", borderColor: "#9b9b9b" }}
   />
 );
 
