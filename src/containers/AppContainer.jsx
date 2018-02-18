@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import PropTypes from "prop-types";
 import Routes from "app:routes";
+import "./AppContainer.css"
 
 class AppContainer extends React.Component {
   static propTypes = {

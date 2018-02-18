@@ -47,19 +47,15 @@ class Home extends React.Component {
         let categories = [];
         data.map(category => {
           return categories.push(
-            <div
-              onClick={() => this.goToCategory(category.id)}
-              className="col-sm-4 home-category"
-              key={category.id}
-            >
-              <img
-                className="home-category-img"
-                src={category.image}
-                alt="img"
-              />
-              <span className="home-category-img-text">
-                {category.name.toUpperCase()}
-              </span>
+            <div className="col-sm-6 col-md-4 home-category-wrapper">
+              <div
+                onClick={() => this.goToCategory(category.id)}
+                className="home-category"
+                key={category.id}
+                style={{ backgroundImage: `url(${category.image})` }}
+              >
+                <h2>{category.name.toUpperCase()}</h2>
+              </div>
             </div>
           );
         });
@@ -89,17 +85,9 @@ class Home extends React.Component {
     return (
       <div>
         <div className="container">
-          <div>
-            <CustomCarousel
-              items={this.state.workshops}
-              style={{ height: "600px", marginBottom: "20px" }}
-            />
-          </div>
-          <div className="row row-home">
-            {this.state.categories.slice(0, 3)}
-          </div>
-          <div className="row row-home">
-            {this.state.categories.slice(3, 6)}
+          <CustomCarousel items={this.state.workshops} />
+          <div className="row row-home category-collection">
+            {this.state.categories}
           </div>
           <div className="row">
             <div className="about-home">

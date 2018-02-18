@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as skillActions from "app:store/actions/skill";
 import Slider from "react-slick";
-import "./style.css";
+import "../shareSkill/style.css";
 
 class LearnSkill extends Component {
   constructor(props) {
