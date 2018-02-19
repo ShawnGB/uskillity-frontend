@@ -1,34 +1,62 @@
+import { uskillityUrl } from '../config/constants'
+
 export const service = {
   login,
-  register
+  register,
+  fblogin
 };
+
+const jsonHeaders = {
+  headers: {
+    'Content-Type': 'application/json'
+  }
+};
+
+function fblogin(data) {
+  console.log("fblogin: ", data);
+  const {authResponse: {signedRequest}} = data;
+  console.log("sR::", signedRequest);
+
+  const requestParams = {
+    method: 'GET',
+    credentials: 'include',
+    ...jsonHeaders
+  }
+
+  const url = `#{uskillityUrl('fblogin')}?resource_class=User&signed_request=#{signedRequest}`
+
+  //return fetch(uskillityUrl('fblogin') + '?resource_class=User', requestParams)
+  return fetch(uskillityUrl('fblogin') + '?resource_class=User&signed_request=' + signedRequest + '&auth_origin_url=http://localhost:3001/', requestParams)
+  .then((response) => response.json())
+  .then((json) => {
+    console.log('received:', json);
+  }).catch((err) => {
+    console.log(err);
+  });
+}
 
 function login(email, password) {
   const requestParams = {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
     body: JSON.stringify({
       email,
       password
-    })
+    }),
+    ...jsonHeaders
   };
-  return fetch('https://bluecarbuncle-staging.herokuapp.com/auth/sign_in', requestParams)
+  return fetch(uskillityUrl('login'), requestParams)
     .then(handleResponse);
 }
 
 function register(user) {
   const requestParams = {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
     body: JSON.stringify({
       user
-    })
+    }),
+    ...jsonHeaders
   };
-  return fetch('https://bluecarbuncle-staging.herokuapp.com/auth', requestParams)
+  return fetch(uskillityUrl('register'), requestParams)
     .then(response => {
       if (!response.ok) {
         return Promise.reject(response.statusText)
