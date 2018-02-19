@@ -38,7 +38,6 @@ class Profile extends React.Component {
     const { session } = this.props;
     const { isLoggedIn } = session;
 
-    console.log("pId", pId);
     this.props.dispatch(userActions.fetchUserWorkshop(pId));
 
     if (isLoggedIn && session.user.id === +pId) {
@@ -102,7 +101,6 @@ class Profile extends React.Component {
 
   render() {
     const { profile } = this.props;
-    // const { provider } = profile;
     let provider = {};
     provider = this.state.provider || profile.provider;
     const dropzoneStyle = {
@@ -118,6 +116,7 @@ class Profile extends React.Component {
             <Dropzone
               style={dropzoneStyle}
               onDrop={files => this.onDrop(files)}
+              disableClick={!this.state.isEligible}
             >
               <div className="img-container">
                 <img
@@ -167,7 +166,7 @@ class Profile extends React.Component {
 const ProfileNormal = props => (
   <div className="col-sm-6">
     <div className="profile-name">
-      {props.provider.first_name}
+      {props.provider.first_name}{" "}
       {props.provider.name}
     </div>
     <div className="">
