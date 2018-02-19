@@ -10,30 +10,50 @@ import "./style.css";
 
 class Profile extends React.Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
-      userId:this.props.match.params.id,
       profile: {
         about: "",
         edu_bg: ""
       },
       isEditing: false, //Default is false, false = pre-edit state, so edit button will appear
       showCancelBtn: false,
-      showSaveBtn: false
+      showSaveBtn: false,
+      isEligible: false, //If the user is eligble to edit this profile
+      provider: null
     };
   }
 
   componentWillMount() {
-    const { session,isLoggedIn } = this.props;
-      let userId = null;
-      if (isLoggedIn) {
-        userId = session.user.id;
-      }
-      else {
-        userId = this.state.userId
-      }
-      this.props.dispatch(userActions.fetchUserWorkshop(userId));
+    this.setProvider(this.props.match.params.id);
   }
+  componentWillReceiveProps = nextProps => {
+    // TODO: should check if nextProps has id ?
+    if (this.props.match.params.id !== nextProps.match.params.id) {
+      this.setProvider(nextProps.match.params.id);
+    }
+  };
+
+  setProvider = pId => {
+    const { session } = this.props;
+    const { isLoggedIn } = session;
+
+    console.log("pId", pId);
+    this.props.dispatch(userActions.fetchUserWorkshop(pId));
+
+    if (isLoggedIn && session.user.id === +pId) {
+      this.setState({
+        isEligible: true,
+        provider: session.user
+      });
+    } else {
+      this.setState({
+        isEligible: false,
+        provider: null
+      });
+      this.props.dispatch(profileActions.fetchProvider(pId));
+    }
+  };
 
   toggleEdit = () => {
     this.setState({
@@ -81,16 +101,10 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { session, profile } = this.props;
-    const { user, isLoggedIn } = session;
-    const { user_workshops } = profile;
+    const { profile } = this.props;
+    // const { provider } = profile;
     let provider = {};
-    if (isLoggedIn) {
-      provider = user;
-    } else if (user_workshops.length > 0) {
-      provider = user_workshops[0].provider;
-    }
-
+    provider = this.state.provider || profile.provider;
     const dropzoneStyle = {
       borderRadius: "50%",
       width: "252px",
@@ -100,7 +114,7 @@ class Profile extends React.Component {
     return (
       <div className="container container-profile">
         <div className="row">
-          <div className="col-lg-3">
+          <div className="col-sm-3">
             <Dropzone
               style={dropzoneStyle}
               onDrop={files => this.onDrop(files)}
@@ -116,12 +130,12 @@ class Profile extends React.Component {
               </div>
             </Dropzone>
           </div>
-          {this.state.isEditing && this.state.showCancelBtn ? (
+          {this.state.isEligible && this.state.showCancelBtn ? (
             <ProfileEditable provider={provider} handleEdit={this.handleEdit} />
           ) : (
             <ProfileNormal provider={provider} />
           )}
-          {isLoggedIn && !this.state.isEditing ? (
+          {this.state.isEligible && !this.state.isEditing ? (
             <button
               className="btn btn-primary btn-margin"
               type="button"
@@ -129,7 +143,7 @@ class Profile extends React.Component {
             >
               Edit
             </button>
-          ) : isLoggedIn && this.state.showSaveBtn ? (
+          ) : this.state.isEligible && this.state.showSaveBtn ? (
             <button
               className="btn btn-primary btn-margin"
               type="button"
@@ -142,14 +156,16 @@ class Profile extends React.Component {
             <CancelButton onCancel={this.onCancel} />
           ) : null}
         </div>
-        <ProfileCourses />
+        <div className="row">
+          <ProfileCourses />
+        </div>
       </div>
     );
   }
 }
 
 const ProfileNormal = props => (
-  <div className="col-lg-6">
+  <div className="col-sm-6">
     <div className="profile-name">
       {props.provider.first_name}
       {props.provider.name}
@@ -173,7 +189,7 @@ const ProfileNormal = props => (
 );
 
 const ProfileEditable = props => (
-  <div className="col-lg-6">
+  <div className="col-sm-6">
     <div className="profile-name">
       <input
         name="first_name"

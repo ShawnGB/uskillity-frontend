@@ -12,6 +12,9 @@ export const UPLOAD_USER_PIC_FULFILLED = "profile/UPLOAD_USER_PIC_FULFILLED";
 export const UPDATE_USER_PENDING = "profile/UPDATE_USER_PENDING";
 export const UPDATE_USER_FULFILLED = "profile/UPDATE_USER_FULFILLED";
 export const UPDATE_USER_REJECTED = "profile/UPDATE_USER_REJECTED";
+export const PROVIDER_FETCH_PENDING = "profile/PROVIDER_FETCH_PENDING";
+export const PROVIDER_FETCHED = "profile/PROVIDER_FETCHED";
+export const PROVIDER_FETCH_REJECTED = "profile/PROVIDER_FETCH_REJECTED";
 
 export const fetchUserWorkshop = id => {
   return dispatch => {
@@ -65,6 +68,22 @@ export const updateUser = (profile, userId) => {
         dispatch({type:UPDATE_USER_FULFILLED});
         dispatch(sessionActions.fetchUser(userId));
       }
+      );
+  };
+};
+
+export const fetchProvider = pId => {
+  return function(dispatch) {
+    dispatch({ type: PROVIDER_FETCH_PENDING });
+    fetch(service.getServerEndpoint(`/users/${pId}`))
+      .then(service.handleResponse)
+      .then(
+        response => {
+          dispatch({ type: PROVIDER_FETCHED, payload: response });
+        },
+        error => {
+          dispatch({ type: PROVIDER_FETCH_REJECTED, payload: error });
+        }
       );
   };
 };
