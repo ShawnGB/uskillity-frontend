@@ -100,7 +100,7 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { profile } = this.props;
+    const { profile,t } = this.props;
     let provider = {};
     provider = this.state.provider || profile.provider;
     const dropzoneStyle = {
@@ -112,7 +112,7 @@ class Profile extends React.Component {
     return (
       <div className="container container-profile">
         <div className="row">
-          <div className="col-sm-3">
+          <div className="col-md-4">
             <Dropzone
               style={dropzoneStyle}
               onDrop={files => this.onDrop(files)}
@@ -129,35 +129,33 @@ class Profile extends React.Component {
               </div>
             </Dropzone>
           </div>
-          {this.state.isEligible && this.state.showCancelBtn ? (
-            <ProfileEditable provider={provider} handleEdit={this.handleEdit} />
-          ) : (
-            <ProfileNormal provider={provider} />
-          )}
-          {this.state.isEligible && !this.state.isEditing ? (
-            <button
-              className="btn btn-primary btn-margin"
-              type="button"
-              onClick={this.toggleEdit}
-            >
-              Edit
-            </button>
-          ) : this.state.isEligible && this.state.showSaveBtn ? (
-            <button
-              className="btn btn-primary btn-margin"
-              type="button"
-              onClick={this.saveEdit}
-            >
-              Save
-            </button>
-          ) : null}
-          {this.state.showCancelBtn ? (
-            <CancelButton onCancel={this.onCancel} />
-          ) : null}
+            {this.state.isEligible && this.state.showCancelBtn ? (
+              <ProfileEditable provider={provider} handleEdit={this.handleEdit} t={t} />
+            ) : (
+              <ProfileNormal provider={provider} />
+            )}
+            {this.state.isEligible && !this.state.isEditing ? (
+              <button
+                className="btn btn-primary btn-margin"
+                type="button"
+                onClick={this.toggleEdit}
+              >
+                Edit
+              </button>
+            ) : this.state.isEligible && this.state.showSaveBtn ? (
+              <button
+                className="btn btn-primary btn-margin"
+                type="button"
+                onClick={this.saveEdit}
+              >
+                Save
+              </button>
+            ) : null}
+            {this.state.showCancelBtn ? (
+              <CancelButton onCancel={this.onCancel} />
+            ) : null}
         </div>
-        <div className="row">
           <ProfileCourses />
-        </div>
       </div>
     );
   }
@@ -194,9 +192,11 @@ const ProfileEditable = props => (
         name="first_name"
         defaultValue={props.provider.first_name}
         onChange={props.handleEdit}
+        placeholder={props.t("profile.first_name_placeholder")}
       />
       <input
         name="name"
+        placeholder={props.t("profile.name_placeholder")}
         defaultValue={props.provider.name}
         onChange={props.handleEdit}
       />
@@ -204,11 +204,13 @@ const ProfileEditable = props => (
     <div className="">
       <input
         name="profession"
+        placeholder={props.t("profile.profession_placeholder")}
         defaultValue={props.provider.profession}
         onChange={props.handleEdit}
       />
       <input
         name="location"
+        placeholder={props.t("profile.location_placeholder")}
         defaultValue={props.provider.location}
         onChange={props.handleEdit}
       />
@@ -220,6 +222,7 @@ const ProfileEditable = props => (
       rows="4"
       cols="70"
       name="about"
+      placeholder={props.t("profile.about_placeholder")}
       defaultValue={props.provider.about}
       onChange={props.handleEdit}
     />
@@ -232,6 +235,7 @@ const ProfileEditable = props => (
       rows="4"
       cols="70"
       name="edu_bg"
+      placeholder={props.t("profile.edu_bg_placeholder")}
       defaultValue={props.provider.edu_bg}
       onChange={props.handleEdit}
     />
@@ -240,7 +244,7 @@ const ProfileEditable = props => (
 
 const CancelButton = props => (
   <button
-    className="btn btn-primary btn-margin btn-margin"
+    className="btn btn-primary btn-margin"
     type="button"
     onClick={props.onCancel}
   >

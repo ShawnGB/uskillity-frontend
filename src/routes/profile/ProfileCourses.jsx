@@ -27,7 +27,7 @@ class ProfileCourses extends React.Component {
 
           <div className="row">
             {user_workshops.map((workshop, i) => (
-              <div className="col-sm-4" key={i}>
+              <div className="col-md-4 col-sm-6" key={i}>
                 <Link to={`/workshop/${workshop.id}`}>
                   <img
                     src={workshop.images[0]}
