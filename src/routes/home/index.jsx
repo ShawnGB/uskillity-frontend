@@ -45,9 +45,9 @@ class Home extends React.Component {
       .then(data => {
         console.log("categories", data);
         let categories = [];
-        data.map(category => {
+        data.map((category, i) => {
           return categories.push(
-            <div className="col-sm-6 col-md-4 home-category-wrapper">
+            <div className="col-sm-6 col-md-4 home-category-wrapper" key={i}>
               <div
                 onClick={() => this.goToCategory(category.id)}
                 className="home-category"
