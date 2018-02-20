@@ -16,10 +16,10 @@ class Profile extends React.Component {
         about: "",
         edu_bg: ""
       },
-      isEditing: false, //Default is false, false = pre-edit state, so edit button will appear
+      isEditing: false, // Default is false, false = pre-edit state, so edit button will appear
       showCancelBtn: false,
       showSaveBtn: false,
-      isEligible: false, //If the user is eligble to edit this profile
+      isEligible: false, // If the user is eligble to edit this profile
       provider: null
     };
   }
@@ -91,7 +91,7 @@ class Profile extends React.Component {
       isEditing: false
     });
   };
-  //React Dropzone requires onDrop to be implemented
+  // React Dropzone requires onDrop to be implemented
   onDrop(acceptedFiles, rejectedFiles) {
     const { session, dispatch } = this.props;
     const { user } = session;
@@ -100,40 +100,13 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { profile,t } = this.props;
+    const { profile, t } = this.props;
     let provider = {};
     provider = this.state.provider || profile.provider;
-    const dropzoneStyle = {
-      borderRadius: "50%",
-      width: "252px",
-      height: "252px",
-      border: "1px solid grey"
-    };
     return (
       <div className="container container-profile">
         <div className="row">
-          <div className="col-md-4">
-            <Dropzone
-              style={dropzoneStyle}
-              onDrop={files => this.onDrop(files)}
-              disableClick={!this.state.isEligible}
-            >
-              <div className="img-container">
-                <img
-                  src={provider.image}
-                  width="250"
-                  height="250"
-                  alt=""
-                  className="img-circle"
-                />
-              </div>
-            </Dropzone>
-          </div>
-            {this.state.isEligible && this.state.showCancelBtn ? (
-              <ProfileEditable provider={provider} handleEdit={this.handleEdit} t={t} />
-            ) : (
-              <ProfileNormal provider={provider} />
-            )}
+          <div style={{ float: "right" }}>
             {this.state.isEligible && !this.state.isEditing ? (
               <button
                 className="btn btn-primary btn-margin"
@@ -154,18 +127,47 @@ class Profile extends React.Component {
             {this.state.showCancelBtn ? (
               <CancelButton onCancel={this.onCancel} />
             ) : null}
+          </div>
         </div>
-          <ProfileCourses />
+        <div className="row">
+          <div
+            className="col-sm-4 col-md-3"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "16px"
+            }}
+          >
+            <Dropzone
+              className="dropzone-style"
+              onDrop={files => this.onDrop(files)}
+              disableClick={!this.state.isEligible}
+            >
+              <div className="img-container">
+                <img src={provider.image} alt="" className="img-circle" />
+              </div>
+            </Dropzone>
+          </div>
+          {this.state.isEligible && this.state.showCancelBtn ? (
+            <ProfileEditable
+              provider={provider}
+              handleEdit={this.handleEdit}
+              t={t}
+            />
+          ) : (
+            <ProfileNormal provider={provider} />
+          )}
+        </div>
+        <ProfileCourses />
       </div>
     );
   }
 }
 
 const ProfileNormal = props => (
-  <div className="col-sm-6">
+  <div className="col-sm-8 col-md-9" style={{ marginTop: "16px" }}>
     <div className="profile-name">
-      {props.provider.first_name}{" "}
-      {props.provider.name}
+      {props.provider.first_name} {props.provider.name}
     </div>
     <div className="">
       <p>
@@ -186,7 +188,7 @@ const ProfileNormal = props => (
 );
 
 const ProfileEditable = props => (
-  <div className="col-sm-6">
+  <div className="col-sm-8 col-md-9" style={{ marginTop: "16px" }}>
     <div className="profile-name">
       <input
         name="first_name"
@@ -220,11 +222,11 @@ const ProfileEditable = props => (
     </div>
     <textarea
       rows="4"
-      cols="70"
       name="about"
       placeholder={props.t("profile.about_placeholder")}
       defaultValue={props.provider.about}
       onChange={props.handleEdit}
+      style={{ width: "100%" }}
     />
     <div className="profile-content-title">
       <Trans i18nKey="profile.header_educational_background">
@@ -233,11 +235,11 @@ const ProfileEditable = props => (
     </div>
     <textarea
       rows="4"
-      cols="70"
       name="edu_bg"
       placeholder={props.t("profile.edu_bg_placeholder")}
       defaultValue={props.provider.edu_bg}
       onChange={props.handleEdit}
+      style={{ width: "100%" }}
     />
   </div>
 );

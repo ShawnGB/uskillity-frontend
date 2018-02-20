@@ -9,12 +9,12 @@ class ProfileCourses extends React.Component {
     const { profile } = this.props;
     const user_workshops = profile && profile.user_workshops;
     return (
-      <div>
-        <div className="container container-profile">
+      <div className="row">
+        <div className="col">
           {user_workshops.length > 0 ? (
-            <p className="skills-heading">
+            <h2 style={{ marginLeft: "15px" }}>
               <Trans i18nKey="profile.courses.header">My Shared Skills</Trans>
-            </p>
+            </h2>
           ) : (
             <p>
               {" "}
@@ -24,33 +24,31 @@ class ProfileCourses extends React.Component {
               </Trans>
             </p>
           )}
-
-          <div className="row">
-            {user_workshops.map((workshop, i) => (
-              <div className="col-md-4 col-sm-6" key={i}>
-                <Link to={`/workshop/${workshop.id}`}>
-                  <img
-                    src={workshop.images[0]}
-                    width="306.3"
-                    height="178.8"
-                    alt=""
-                  />
-                </Link>
-                <div className="skill-content">
-                  <button className="btn_edit_skill" type="button">
-                    {" "}
-                    Edit{" "}
-                  </button>
-                  <p className="skill-title">{workshop.title}</p>
-                  <p className="skill-author">
-                    {workshop.provider.first_name} {workshop.provider.name}
-                  </p>
-                  <p className="skill-price">{workshop.fees} €</p>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
+
+        {user_workshops.map((workshop, i) => (
+          <div className="col-md-4 col-sm-6" key={i}>
+            <Link to={`/workshop/${workshop.id}`}>
+              <img
+                src={workshop.images[0]}
+                width="306.3"
+                height="178.8"
+                alt=""
+              />
+            </Link>
+            <div className="skill-content">
+              <button className="btn_edit_skill" type="button">
+                {" "}
+                Edit{" "}
+              </button>
+              <p className="skill-title">{workshop.title}</p>
+              <p className="skill-author">
+                {workshop.provider.first_name} {workshop.provider.name}
+              </p>
+              <p className="skill-price">{workshop.fees} €</p>
+            </div>
+          </div>
+        ))}
       </div>
     );
   }
