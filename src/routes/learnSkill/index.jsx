@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import * as skillActions from "app:store/actions/skill";
 import Slider from "react-slick";
 import "../shareSkill/style.css";
+import WorkshopPreviewDiv from "app:components/workshop-preview";
 
 class LearnSkill extends Component {
   constructor(props) {
@@ -28,11 +28,11 @@ class LearnSkill extends Component {
   }
 
   prepareWorkshops() {
-    const { skills } = this.props;
-    const { workshops, categories } = skills;
+    const { workshops, categories } = this.props.skills;
     let categories_data = {};
-    for (var i = 0; i < workshops.length; i++) {
-      let category_id = workshops[i].category_id;
+    /* eslint-disable */
+    workshops.map((workshop, i) => {
+      let category_id = workshop.category_id;
       if (!categories_data[category_id]) {
         categories_data[category_id] = {};
         categories_data[category_id].workshops_data = [];
@@ -40,9 +40,11 @@ class LearnSkill extends Component {
         categories_data[category_id].name = category.name;
         categories_data[category_id].categoryId = category.id;
       }
-      categories_data[category_id].workshops_data.push(workshops[i]);
-      this.setState({ categories: categories_data });
-    }
+      categories_data[category_id].workshops_data.push(workshop);
+    });
+    /* eslint-enable */
+    this.setState({ categories: categories_data });
+    console.log(categories_data);
   }
 
   scrollToElement(categoryId) {
@@ -102,7 +104,7 @@ const PrevArrow = props => {
 
 const CategoryRow = props => {
   var settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
@@ -111,7 +113,7 @@ const CategoryRow = props => {
     prevArrow: <PrevArrow />,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 4000,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
@@ -120,7 +122,7 @@ const CategoryRow = props => {
         }
       },
       {
-        breakpoint: 600,
+        breakpoint: 992,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
@@ -128,7 +130,7 @@ const CategoryRow = props => {
         }
       },
       {
-        breakpoint: 480,
+        breakpoint: 768,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1
@@ -138,18 +140,11 @@ const CategoryRow = props => {
   };
   return (
     <div id={props.categoryId} className="row row-margin">
-      <p className="skills-heading">{props.name}</p>
+      <h2>{props.name}</h2>
       <Slider {...settings}>
         {props.workshops.map((workshop, i) => (
           <div key={i}>
-            <Link to={`/workshop/${workshop.id}`}>
-              <img src={workshop.images[0]} width="350" height="220" alt="" />
-            </Link>
-            <div className="skill-content">
-              <p className="skill-title">{workshop.title}</p>
-              <p className="skill-author">Marina Berlin-Kreuzberg</p>
-              <p className="skill-price">{workshop.fees} €</p>
-            </div>
+            <WorkshopPreviewDiv i={i} workshop={workshop} />
           </div>
         ))}
       </Slider>
