@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import * as skillActions from "app:store/actions/skill";
 import Slider from "react-slick";
 import "../shareSkill/style.css";
+import WorkshopPreviewDiv from "app:components/workshop-preview";
 
 class LearnSkill extends Component {
   constructor(props) {
@@ -113,7 +114,7 @@ const CategoryRow = props => {
     prevArrow: <PrevArrow />,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 4000,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
@@ -122,7 +123,7 @@ const CategoryRow = props => {
         }
       },
       {
-        breakpoint: 600,
+        breakpoint: 992,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
@@ -130,7 +131,7 @@ const CategoryRow = props => {
         }
       },
       {
-        breakpoint: 480,
+        breakpoint: 768,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1
@@ -144,14 +145,7 @@ const CategoryRow = props => {
       <Slider {...settings}>
         {props.workshops.map((workshop, i) => (
           <div key={i}>
-            <Link to={`/workshop/${workshop.id}`}>
-              <img src={workshop.images[0]} width="350" height="220" alt="" />
-            </Link>
-            <div className="skill-content">
-              <p className="skill-title">{workshop.title}</p>
-              <p className="skill-author">Marina Berlin-Kreuzberg</p>
-              <p className="skill-price">{workshop.fees} €</p>
-            </div>
+            <WorkshopPreviewDiv i={i} workshop={workshop} />
           </div>
         ))}
       </Slider>
