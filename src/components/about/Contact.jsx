@@ -1,27 +1,35 @@
-import React from 'react';
-import './style.css';
+import React from "react";
+import { translate, Trans } from "react-i18next";
+import "./style.css";
 
-export default class Contact extends React.Component{
-  render(){
-    return(
+class Contact extends React.Component {
+  render() {
+    return (
       <div>
-        <div className='container'>
-          <div className='row'>
-            <div className="col-lg-9">
-              <h2 className='about-heading'> Contact </h2>
-              <p className='about-content'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
-              <p className='about-content'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
-              <p className='about-content'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
-            </div>
-          </div>
-        </div>
+        <h2 className="about-heading">
+          <Trans i18nKey="about.contact.header">Contact</Trans>
+        </h2>
+        <p className="about-content">
+          <Trans i18nKey="about.contact.body_0">
+            We would love to hear from you!
+          </Trans>
+        </p>
+        <p className="about-content">
+          <Trans i18nKey="about.contact.body_1">
+            We would love to hear from you! Do you have any questions for us?
+            Suggestions perhaps? Or do you maybe want to collaborate? Send us an
+            email with you query on: office@uskillity.de
+          </Trans>
+        </p>
+        <p className="about-content">
+          <Trans i18nKey="about.contact.body_2">
+            If you have general questions look at our help secrtion on the left
+            or check our posts on Facebook or Instagram.
+          </Trans>
+        </p>
       </div>
     );
   }
 }
+
+export default translate("translations")(Contact);

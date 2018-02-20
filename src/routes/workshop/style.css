@@ -1,0 +1,87 @@
+.row-spacing {
+  padding: 10px 0 20px 10px;
+}
+
+.workshop-name {
+  font-size: 30px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ff433a;
+}
+
+.workshop-title {
+  font-size: 20px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ff433a;
+}
+
+.workshop-content {
+  font-size: 20px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000000;
+}
+
+.Instructor {
+  width: 80px;
+  height: 14px;
+  opacity: 0.72;
+  font-size: 20px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  padding: 5px 0 0px 79px;
+  color: rgba(0, 0, 0, 0.72);
+}
+.instructor-name {
+  height: 14px;
+  opacity: 0.72;
+  font-size: 15px;
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  padding: 15px 0 0px 90px;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.Instructior-Box {
+  width: 255px;
+  height: 330px;
+  background-color: #ffffff;
+  border: solid 1px #cccccc;
+}
+
+.Ellipse-3 {
+  width: 180px;
+  height: 180px;
+  background-color: #575757;
+  margin: 15px 0px 0px 36px;
+}
+
+.See-Profile-Box {
+  width: 141px;
+  height: 41px;
+  opacity: 0.72;
+  background-color: #ffffff;
+  border: solid 1px #000000;
+  margin: 25px 0 0 57px;
+}

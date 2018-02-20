@@ -13,6 +13,17 @@
   color: rgba(0, 0, 0, 0.72);
 }
 
+.float-right{
+  float: right;
+}
+
+.footer-logo {
+  width: 100%;
+  /*height: 100%;*/
+  max-width: 220px;
+  max-height: 220px;
+}
+
 .footer-title {
   opacity: 0.72;
   font-size: 20px;
@@ -38,6 +49,11 @@
 }
 
 .border {
+  width: 100%;
   border-bottom: 1px solid grey;
   margin: 20px 0 20px 0;
+}
+
+.footer-block {
+  margin-bottom: 16px;
 }

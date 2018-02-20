@@ -1,0 +1,118 @@
+.home-heading {
+  font-size: 36px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ff433a;
+}
+
+.home-category-img {
+  max-width: 100%;
+  position: relative;
+  object-fit: scale-down;
+}
+
+
+@media (max-width: 768px) {
+  .home-category-wrapper {
+    height: 300px;
+  }
+}
+
+@media (min-width: 769px) {
+  .home-category-wrapper {
+    height: 240px;
+  }
+}
+
+@media (min-width: 993px) {
+  .home-category-wrapper {
+    height: 240px;
+  }
+}
+
+@media (min-width: 1201px) {
+  .home-category-wrapper {
+    height: 240px;
+  }
+}
+
+.home-category-wrapper {
+  margin-top: 16px;
+}
+
+
+.home-category {
+  background-image: url(https://s3.amazonaws.com/uskillity-assets-staging/static/images/categories/robot-507811_1920.png);
+  width: 100%;
+  background-repeat-x: no-repeat;
+  display: block;
+  background-size: contain;
+  background-repeat-y: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
+  height: 100%;
+
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+
+  cursor: pointer;
+}
+
+.row-home {
+  padding: 0 0 20px 0px;
+}
+
+.about-home-content {
+  margin: 26px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.about-home-header {
+  margin: 26px;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.home-random-workshop {
+  cursor: pointer;
+}
+
+.home-random-workshop-img {
+  max-height: 600px;
+  width: 100%;
+}
+
+.home-random-workshop-img-text {
+  font-weight: 900;
+  left: 35%;
+  top: 40%;
+  position: absolute;
+  /*width: 100%;*/
+  width: 372.3px;
+  height: 35px;
+  font-size: 48px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.carousel-indicators .active {
+  background-color: rgba(0, 0, 0, 0) !important;
+  border: solid 2px red !important;
+}
+
+.category-collection {
+  margin-top: 20px;
+}

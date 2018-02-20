@@ -1,9 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import registerServiceWorker from './registerServiceWorker';
-import 'bootstrap/dist/css/bootstrap.css';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./i18n";
+import { createReduxStore } from "app:store/createStore";
+import AppContainer from "app:containers/AppContainer";
+import registerServiceWorker from "./registerServiceWorker";
+import "bootstrap/dist/css/bootstrap.css";
 
-import Routes from './routes';
+const { store, persistor } = createReduxStore();
 
-ReactDOM.render(<Routes />, document.getElementById('root'));
+ReactDOM.render(
+  <AppContainer store={store} persistor={persistor} />,
+  document.getElementById("root")
+);
 registerServiceWorker();

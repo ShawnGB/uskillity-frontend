@@ -1,0 +1,12 @@
+.full-width-nav-item {
+  width: 100%;
+}
+
+.nav > li.active > a {
+  color: #ff433a;
+}
+
+.nav > li > a {
+    color: #717171;;
+    font-size: 17px;
+}
