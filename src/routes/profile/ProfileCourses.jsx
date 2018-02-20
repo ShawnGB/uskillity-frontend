@@ -3,46 +3,64 @@ import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import * as userActions from "app:store/actions/profile";
 
 class ProfileCourses extends React.Component {
-  componentDidMount() {
-    const { session } = this.props;
-    const user_id = session && session.user.id;
-    this.props.dispatch(userActions.fetchUserWorkshop(user_id));
-  }
   render() {
     const { profile } = this.props;
     const user_workshops = profile && profile.user_workshops;
     return (
-      <div>
-        <div className="container container-profile">
-          <p className="skills-heading">
-            <Trans i18nKey="profile.courses.header">My Shared Skills</Trans>
-          </p>
-          <div className="row">
-            {user_workshops.map((workshop, i) => (
-              <div className="col-sm-4" key={i}>
-                <Link to={`/workshop/${workshop.id}`}>
-                  <img
-                    src={workshop.images[0]}
-                    width="306.3"
-                    height="178.8"
-                    alt=""
-                  />
-                </Link>
-                <div className="skill-content">
-                  <button className= "btn_edit_skill" type="button"> Edit </button>
-                  <p className="skill-title">{workshop.title}</p>
-                  <p className="skill-author">
-                    {workshop.provider.first_name} {workshop.provider.name}
-                  </p>
-                  <p className="skill-price">{workshop.fees} €</p>
-                </div>
-              </div>
-            ))}
-          </div>
+      <div className="row">
+        <div className="col">
+          {user_workshops.length > 0 ? (
+            <h2 style={{ marginLeft: "15px" }}>
+              <Trans i18nKey="profile.courses.header">My Shared Skills</Trans>
+            </h2>
+          ) : (
+            <p>
+              {" "}
+              <Trans i18nKey="profile.courses.no_skill_found">
+                {" "}
+                You don't share any of your skills yet.Why don't you?
+              </Trans>
+            </p>
+          )}
         </div>
+
+        {user_workshops.map((workshop, i) => (
+          <div className="col-sm-6 col-md-4" key={i}>
+            <div className="home-category-wrapper">
+              <Link to={`/workshop/${workshop.id}`}>
+                <div
+                  className="home-category"
+                  key={workshop.id}
+                  style={{ backgroundImage: `url(${workshop.images[0]})` }}
+                />
+              </Link>
+            </div>
+            <div className="row" style={{ marginTop: "12px" }}>
+              <div className="col-xs-8">
+                <p className="skill-title">{workshop.title}</p>
+              </div>
+              <div className="col-xs-4">
+                <button className="btn_edit_skill" type="button">
+                  {" "}
+                  Edit{" "}
+                </button>
+              </div>
+              <div
+                className="col-xs-12"
+                style={{ margin: "0px", height: "22px" }}
+              >
+                <p>
+                  {workshop.provider.first_name} {workshop.provider.name}
+                </p>
+              </div>
+              <div className="col-xs-12">
+                <p className="skill-price">{workshop.fees} €</p>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     );
   }

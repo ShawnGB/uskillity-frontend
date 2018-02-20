@@ -11,6 +11,7 @@ import AuthModals from "app:components/auth-modals";
 class Navbar extends React.Component {
   render() {
     const { session } = this.props;
+    const { user } = session;
     const isLoggedIn = session && session.isLoggedIn;
     return (
       <div className="row">
@@ -40,7 +41,7 @@ class Navbar extends React.Component {
                   </li>
                 ) : (
                   <li className="menu-item">
-                    <Link to="/profile">
+                    <Link to={`/profile/${user.id}`}>
                       <Trans i18nKey="navbar.button_my_account">
                         My Account
                       </Trans>
