@@ -32,7 +32,6 @@
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
-  color: #000000;
   margin-top: 20px;
 }
 
@@ -44,7 +43,6 @@
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
-  color: #000000;
 }
 
 .skill-category {
@@ -56,21 +54,16 @@
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
-  color: rgba(0, 0, 0, 0.72);
 }
 
 .skill-title {
-  padding: 5px 0px 0px 0px;
-  width: 306.7px;
-  height: 20px;
+  height: 32px;
   font-size: 20px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: #717171;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0px;
 }
 
 .skill-author {
@@ -82,29 +75,18 @@
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
-  color: rgba(0, 0, 0, 0.72);
 }
 
 .skill-price {
-  width: 306.7px;
-  height: 41px;
   font-size: 20px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: #717171;
 }
 
 .btn_edit_skill {
   width: 80px;
-  height: 35px;
+  height: 34px;
   opacity: 0.72;
   background-color: #ffffff;
   border: solid 1px #000000;
-  margin: 20px 55px 10px 0px;
   float: right;
 }
 .btn-margin {
@@ -121,3 +103,4 @@
   border-radius: 50%;
   border: solid 1px grey;
 }
+
