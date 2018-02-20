@@ -141,7 +141,7 @@ const CategoryRow = props => {
   };
   return (
     <div id={props.categoryId} className="row row-margin">
-      <p className="skills-heading">{props.name}</p>
+      <h2>{props.name}</h2>
       <Slider {...settings}>
         {props.workshops.map((workshop, i) => (
           <div key={i}>
