@@ -14,8 +14,8 @@ class ShareSkill extends Component {
         category_id: "",
         description: "",
         requirements: "",
-        ageTo: "",
-        ageFrom: "",
+        max_age: "",
+        min_age: "",
         participants: "",
         dateAndTime: "",
         location: "",
@@ -197,7 +197,7 @@ class ShareSkill extends Component {
                       <div className="row">
                         <div className="col-xs-3">
                           <SkillInputSingle
-                            name={"ageFrom"}
+                            name={"min_age"}
                             onChange={this.handleChange}
                           />
                         </div>
@@ -208,7 +208,7 @@ class ShareSkill extends Component {
                         </div>
                         <div className="col-xs-3">
                           <SkillInputSingle
-                            name={"ageTo"}
+                            name={"max_age"}
                             onChange={this.handleChange}
                           />
                         </div>
