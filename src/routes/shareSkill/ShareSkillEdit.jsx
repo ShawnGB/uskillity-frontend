@@ -37,7 +37,7 @@ class ShareSkillEdit extends Component {
     this.addRow = this.addRow.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { profile } = this.props;
     const {user_workshops} = profile;
     let userWorkshop = user_workshops.find(w => w.id === +this.state.skillId) || {};
@@ -186,6 +186,7 @@ class ShareSkillEdit extends Component {
                     name={"description"}
                     onChange={this.handleChange}
                     placeholder={t("share_skill.description_placeholder")}
+                    defaultValue={userWorkshop.description}
                   />
                 </div>
               </div>
@@ -205,6 +206,7 @@ class ShareSkillEdit extends Component {
                           <SkillInputSingle
                             name={"ageFrom"}
                             onChange={this.handleChange}
+                            defaultValue={userWorkshop.min_age}
                           />
                         </div>
                         <div className="col-xs-6 skills-form-label">
@@ -216,6 +218,7 @@ class ShareSkillEdit extends Component {
                           <SkillInputSingle
                             name={"ageTo"}
                             onChange={this.handleChange}
+                            defaultValue={userWorkshop.max_age}
                           />
                         </div>
                       </div>
@@ -265,6 +268,7 @@ class ShareSkillEdit extends Component {
                     placeholder={t(
                       "share_skill.additional_requirements_placeholder"
                     )}
+                    defaultValue={userWorkshop.requirements}
                   />
                 </div>
               </div>
@@ -279,6 +283,7 @@ class ShareSkillEdit extends Component {
                     name={"location"}
                     onChange={this.handleChange}
                     placeholder={t("share_skill.location_placeholder")}
+                    defaultValue={userWorkshop.location}
                   />
                 </div>
               </div>
@@ -300,6 +305,7 @@ class ShareSkillEdit extends Component {
                         placeholder={t(
                           "share_skill.participant_number_placeholder"
                         )}
+                        defaultValue={userWorkshop.participants}
                       />
                     </div>
                   </div>
@@ -317,6 +323,7 @@ class ShareSkillEdit extends Component {
                         type="number"
                         onChange={this.handleChange}
                         placeholder={t("share_skill.price_placeholder")}
+                        defaultValue={userWorkshop.fees}
                       />
                     </div>
                     <div className="col-xs-4 skills-form-label">
@@ -434,6 +441,7 @@ const SkillInputArea = props => (
     name={props.name}
     placeholder={props.placeholder}
     onChange={props.onChange}
+    defaultValue={props.defaultValue}
     style={{ borderRadius: "0px", borderColor: "#9b9b9b" }}
   />
 );

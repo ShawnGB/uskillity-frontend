@@ -71,7 +71,7 @@ const Button = props => (
         className="btn_edit_skill"
         type="button"
         onClick={() => {
-          history.push(`/shareyourskill/edit/${props.skillId}`);
+          history.push(`/editskill/${props.skillId}`);
         }}
       >
         <Trans i18nKey="workshop.instructor.button_edit_workshop">Edit</Trans>
