@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { translate, Trans } from "react-i18next";
 import { Link } from "react-router-dom";
 import "./style.css";
 
@@ -37,6 +38,7 @@ class RegisterForm extends Component {
   }
 
   render() {
+    const { t } = this.props;
     return (
       <div className="container">
         <div className="row">
@@ -46,7 +48,7 @@ class RegisterForm extends Component {
                 <div className="form-group">
                   <input
                     className="form-control"
-                    placeholder="email"
+                    placeholder={t("register.form.placehodler_email")}
                     name="email"
                     type="text"
                     onChange={this.onChange}
@@ -56,7 +58,7 @@ class RegisterForm extends Component {
                 <div className="form-group">
                   <input
                     className="form-control"
-                    placeholder="name"
+                    placeholder={t("register.form.placehodler_name")}
                     name="name"
                     type="text"
                     onChange={this.onChange}
@@ -66,7 +68,7 @@ class RegisterForm extends Component {
                 <div className="form-group">
                   <input
                     className="form-control"
-                    placeholder="first_name"
+                    placeholder={t("register.form.placehodler_first_name")}
                     name="first_name"
                     type="text"
                     onChange={this.onChange}
@@ -76,7 +78,7 @@ class RegisterForm extends Component {
                 <div className="form-group">
                   <input
                     className="form-control"
-                    placeholder="password"
+                    placeholder={t("register.form.placehodler_password")}
                     name="password"
                     type="password"
                     onChange={this.onChange}
@@ -86,7 +88,9 @@ class RegisterForm extends Component {
                 <div className="form-group">
                   <input
                     className="form-control"
-                    placeholder="confirm password"
+                    placeholder={t(
+                      "register.form.placehodler_confirm_password"
+                    )}
                     name="password_confirmation"
                     type="password"
                     onChange={this.onChange}
@@ -104,14 +108,18 @@ class RegisterForm extends Component {
                       !this.state.user.password_confirmation
                     }
                   >
-                    Register
+                    <Trans i18nKey="register.form.button_register">
+                      Register
+                    </Trans>
                   </button>
                 </div>
                 <button
                   className="btn btn-lg btn-facebook btn-block"
                   type="button"
                 >
-                  Register with Facebook
+                  <Trans i18nKey="register.form.button_register_facebook">
+                    Register with Facebook
+                  </Trans>
                 </button>
               </form>
             </div>
@@ -122,7 +130,9 @@ class RegisterForm extends Component {
                 style={{ margin: "10%" }}
                 to={"#"}
               >
-                Do you already have an account? Login here.
+                <Trans i18nKey="register.form.button_login">
+                  Do you already have an account? Login here.
+                </Trans>
               </Link>
             </div>
           </div>
@@ -132,4 +142,4 @@ class RegisterForm extends Component {
   }
 }
 
-export default RegisterForm;
+export default translate("translations")(RegisterForm);

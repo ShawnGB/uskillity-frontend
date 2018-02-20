@@ -1,11 +1,11 @@
-import * as sessionActions from "app:store/actions/session.actions";
+import * as sessionActions from "app:store/actions/session";
 import * as localStorageManager from "app:utils/localStorageManager";
 
 const initialState = {
   isLoggedIn: false,
   user: []
 };
-
+// TODO: In case or rejected , set error message
 export default (state = initialState, action) => {
   let nextState;
   switch (action.type) {
@@ -15,13 +15,12 @@ export default (state = initialState, action) => {
     }
 
     case sessionActions.LOGIN_PENDING: {
-      localStorageManager.clearAuthParameters();
       nextState = { ...state, isLoggedIn: false, user: [] };
       break;
     }
 
     case sessionActions.LOGIN_REJECTED: {
-      nextState = { ...state, isLoggedIn: false, user: null };
+      nextState = { ...state, isLoggedIn: false, user: [] };
       break;
     }
 
@@ -38,6 +37,10 @@ export default (state = initialState, action) => {
     }
 
     case sessionActions.REGISTER_FULFILLED: {
+      nextState = { ...state, isLoggedIn: true, user: action.payload };
+      break;
+    }
+    case sessionActions.USER_FETCHED: {
       nextState = { ...state, isLoggedIn: true, user: action.payload };
       break;
     }

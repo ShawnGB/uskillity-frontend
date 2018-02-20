@@ -1,14 +1,14 @@
 import { combineReducers } from "redux";
-import session from "./reducers/session.reducer";
-import skills from "./reducers/skill.reducer";
-import user from "./reducers/user.reducer";
+import session from "./reducers/session";
+import skills from "./reducers/skill";
+import profile from "./reducers/profile";
 import modal from "./reducers/modal";
-import * as sessionActions from "app:store/actions/session.actions";
+import * as sessionActions from "app:store/actions/session";
 
 const appReducer = combineReducers({
   session,
   skills,
-  user,
+  profile,
   modal
 });
 

@@ -3,8 +3,8 @@
 }
 
 .profile-name {
-  font-size: 40px;
-  font-weight: 600;
+  font-size: 25px;
+  font-weight: 400;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
@@ -32,7 +32,6 @@
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
-  color: #000000;
   margin-top: 20px;
 }
 
@@ -44,7 +43,6 @@
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
-  color: #000000;
 }
 
 .skill-category {
@@ -56,41 +54,52 @@
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
-  color: rgba(0, 0, 0, 0.72);
 }
 
 .skill-title {
-  opacity: 0.72;
+  height: 32px;
   font-size: 20px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: rgba(0, 0, 0, 0.72);
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0px;
 }
 
 .skill-author {
   opacity: 0.72;
-  font-size: 19.9px;
+  font-size: 14.9px;
   font-weight: 500;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
-  color: rgba(0, 0, 0, 0.72);
 }
 
 .skill-price {
+  font-size: 20px;
+}
+
+.btn_edit_skill {
+  width: 80px;
+  height: 34px;
   opacity: 0.72;
-  font-size: 19.7px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: rgba(62, 62, 62, 0.72);
+  background-color: #ffffff;
+  border: solid 1px #000000;
+  float: right;
+}
+.btn-margin {
+  margin-left: 5px;
+}
+
+.img-circle {
+  width: 100%;
+}
+
+.dropzone-style {
+  max-width: 250px;
+  width: 100%;
+  border-radius: 50%;
+  border: solid 1px grey;
 }

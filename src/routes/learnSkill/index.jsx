@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import * as skillActions from "app:store/actions/skill.actions";
+import * as skillActions from "app:store/actions/skill";
 import Slider from "react-slick";
-import "./style.css";
+import "../shareSkill/style.css";
 
 class LearnSkill extends Component {
   constructor(props) {
@@ -48,7 +48,6 @@ class LearnSkill extends Component {
   }
 
   scrollToElement(categoryId) {
-    console.log("categoryId", categoryId);
     const categoryElement = document.getElementById(categoryId);
     if (categoryElement) {
       window.scrollTo(0, categoryElement.offsetTop);
@@ -151,7 +150,7 @@ const CategoryRow = props => {
             <div className="skill-content">
               <p className="skill-title">{workshop.title}</p>
               <p className="skill-author">Marina Berlin-Kreuzberg</p>
-              <p className="skill-price">14 €</p>
+              <p className="skill-price">{workshop.fees} €</p>
             </div>
           </div>
         ))}

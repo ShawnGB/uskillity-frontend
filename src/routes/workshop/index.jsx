@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
+import { translate, Trans } from "react-i18next";
+import { compose } from "redux";
 import Sidebar from "./Sidebar";
-import * as service from "app:utils/service";
-// import * as workshopActions from 'app:store/actions/workshop.actions';
 import "./style.css";
 
 class Workshop extends React.Component {
@@ -13,69 +13,71 @@ class Workshop extends React.Component {
       workshop: {}
     };
   }
+
+  findWorkshopWithId = () => {
+    const { skills } = this.props;
+    const { workshops } = skills;
+    let workshop = workshops.find(w => w.id === +this.state.id) || {};
+    this.setState({ workshop: workshop });
+  };
   componentWillMount() {
-    // TODO: this is unnecessary api call, handle it through state manager or pass from parent component
-    fetch(service.getServerEndpoint(`/workshops/${this.state.id}.json`))
-      .then(resp => {
-        if (!resp.ok) {
-          // TODO: send back to home page
-        }
-        return resp.json();
-      })
-      .then(data => {
-        this.setState({ workshop: data });
-      });
+    this.findWorkshopWithId();
   }
+
   render() {
+    const workshop = this.state.workshop;
+    const { levels } = this.props.skills;
+    let level = levels.find(i => i.id === workshop.level_id) || {};
     return (
       <div>
         <div className="container">
           <div className="jumbotron">
-            <img
-              src={this.state.workshop.main_image}
-              width="100%"
-              height="60%"
-              alt=""
-            />
+            <img src={workshop.images[0]} width="100%" height="60%" alt="" />
           </div>
           <div className="row row-spacing">
             <div className="col-sm-6">
-              <p className="workshop-name">{this.state.workshop.title}</p>
+              <p className="workshop-name">{workshop.title}</p>
+              <p>TODO:Add location here</p>
             </div>
           </div>
           <div className="row row-spacing">
             <div className="col-sm-9">
-              <p className="workshop-title">Description</p>
-              <p className="workshop-content">
-                {this.state.workshop.description}
+              <p className="workshop-title">
+                <Trans i18nKey="workshop.requirements_label">
+                  Recommended
+                </Trans>
+</p>
+
+              <ul>
+                <li>
+                  Age: {workshop.min_age}
+                  {" - "}
+                  {workshop.max_age}
+                </li>
+                <li>Other:</li>
+                <li>Level:{level.name}</li>
+              </ul>
+              <p>
+                Sessions:{workshop.sessions.map(
+                  (session, i) => session.starts_at
+                )}
               </p>
-              <p className="workshop-title">Requirements</p>
-              <p className="workshop-content">
-                ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
-                dolor sit
+              <p className="workshop-title">
+                <Trans i18nKey="workshop.description_label">Description</Trans>
               </p>
+
+              <p className="workshop-content">{workshop.description}</p>
               <p className="workshop-title">Who can attend</p>
               <p className="workshop-content">
-                ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
-                dolor sit
+                May be remove this if not needed
               </p>
-              <p className="workshop-title">About the instructor</p>
-              <p className="workshop-content">
-                ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
-                dolor sit
-              </p>
+              <p className="workshop-title">
+                <Trans i18nKey="workshop.about_the_instructor_label">
+                  About the instructor
+                </Trans>
+</p>
+
+              <p className="workshop-content">{workshop.about}</p>
             </div>
             <div className="col-sm-3">
               <Sidebar workshop={this.state.workshop} />
@@ -86,5 +88,7 @@ class Workshop extends React.Component {
     );
   }
 }
-export const mapStateToProps = state => ({ workshop: state.workshop });
-export default connect(mapStateToProps)(Workshop);
+export const mapStateToProps = state => ({ skills: state.skills });
+export default compose(translate("translations"), connect(mapStateToProps))(
+  Workshop
+);

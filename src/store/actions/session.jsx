@@ -9,6 +9,9 @@ export const LOGOUT_FULFILLED = "session/LOGOUT_FULFILLED";
 export const LOGOUT_REJECTED = "session/LOGOUT_REJECTED";
 export const REGISTER_PENDING = "session/REGISTER_PENDING";
 export const REGISTER_FULFILLED = "session/REGISTER_FULFILLED";
+export const USER_FETCHED_PENDING = "session/USER_FETCHED_PENDING";
+export const USER_FETCHED = "session/USER_FETCHED";
+export const USER_FETCH_REJECTED = "session/USER_FETCH_REJECTED";
 
 export const login = (email, password) => {
   return function(dispatch) {
@@ -22,11 +25,10 @@ export const login = (email, password) => {
         password
       })
     })
-      .then(service.handleResponse)
+      .then(service.handleAuthResponse)
       .then(
-        data => {
-          //TODO: data.data is extremely ugly
-          dispatch({ type: LOGIN_FULFILLED, payload: data.data });
+        response => {
+          dispatch({ type: LOGIN_FULFILLED, payload: response.data });
           dispatch({ type: modalActions.HIDE_MODAL });
         },
         error => {
@@ -38,30 +40,39 @@ export const login = (email, password) => {
 
 export const register = user => {
   return function(dispatch) {
-    //TODO may be use a better way to destructure the object?
-    var email = user.email;
-    var first_name = user.first_name;
-    var name = user.name;
-    var password = user.password;
-    var password_confirmation = user.password_confirmation;
-
     dispatch({ type: REGISTER_PENDING });
     return fetch(service.getServerEndpoint("/auth"), {
       method: "POST",
       headers: service.getRequestHeaders(),
-      body: JSON.stringify({
-        email,
-        first_name,
-        name,
-        password,
-        password_confirmation
-      })
+      body: JSON.stringify(user,
+        ['email',
+        'first_name',
+        'name',
+        'password',
+        'password_confirmation']
+      )
     })
-      .then(service.handleResponse)
-      .then(data => {
-        dispatch({ type: REGISTER_FULFILLED, payload: data.data });
+      .then(service.handleAuthResponse)
+      .then(response => {
+        dispatch({ type: REGISTER_FULFILLED, payload: response.data });
         dispatch({ type: modalActions.HIDE_MODAL });
       });
+  };
+};
+
+export const fetchUser = userId => {
+  return function(dispatch) {
+    dispatch({ type: USER_FETCHED_PENDING });
+    fetch(service.getServerEndpoint(`/users/${userId}`))
+      .then(service.handleResponse)
+      .then(
+        response => {
+          dispatch({ type: USER_FETCHED, payload: response });
+        },
+        error => {
+          dispatch({ type: USER_FETCH_REJECTED, payload: error });
+        }
+      );
   };
 };
 

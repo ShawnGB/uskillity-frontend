@@ -17,7 +17,7 @@ export const getRequestHeaders = () => {
   return headers;
 };
 
-const getAuthHeaders = () => {
+export const getAuthHeaders = () => {
   const params = localStorageManager.getAuthParameters();
   if (!params) {
     return new Headers();
@@ -34,7 +34,10 @@ export const handleResponse = response => {
     // TODO: return user back to home page
     return Promise.reject(response.statusText);
   }
+  return response.json();
+};
 
+export const handleAuthResponse = response => {
   const authParams = {
     // TODO: good to check for null values
     auth_token: response.headers.get(ACCESS_TOKEN_KEY),
@@ -44,5 +47,6 @@ export const handleResponse = response => {
   };
 
   localStorageManager.setAuthParameters(authParams);
-  return response.json();
+
+  return handleResponse(response);
 };
