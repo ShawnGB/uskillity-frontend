@@ -3,6 +3,7 @@ import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 class ProfileCourses extends React.Component {
   render() {
@@ -42,10 +43,7 @@ class ProfileCourses extends React.Component {
                 <p className="skill-title">{workshop.title}</p>
               </div>
               <div className="col-xs-4">
-                <button className="btn_edit_skill" type="button">
-                  {" "}
-                  Edit{" "}
-                </button>
+                <Button skillId={workshop.id} />
               </div>
               <div
                 className="col-xs-12"
@@ -65,6 +63,23 @@ class ProfileCourses extends React.Component {
     );
   }
 }
+
+const Button = props => (
+  <Route
+    render={({ history }) => (
+      <button
+        className="btn_edit_skill"
+        type="button"
+        onClick={() => {
+          history.push(`/shareyourskill/edit/${props.skillId}`);
+        }}
+      >
+        <Trans i18nKey="workshop.instructor.button_edit_workshop">Edit</Trans>
+      </button>
+    )}
+  />
+);
+
 export const mapStateToProps = state => ({
   session: state.session,
   profile: state.profile

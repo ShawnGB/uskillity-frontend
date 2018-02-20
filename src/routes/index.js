@@ -13,6 +13,7 @@ import Courses from "app:routes/courses";
 import Workshop from "app:routes/workshop";
 import ShareSkill from "app:routes/shareSkill";
 import LearnSkill from "app:routes/learnSkill";
+import ShareSkillEdit from "app:routes/shareSkill/ShareSkillEdit";
 
 export default () => (
   <Router>
@@ -26,6 +27,7 @@ export default () => (
           <Route path="/courses" component={Courses} />
           <Route exact path="/profile/:id" component={Profile} />
           <Route path="/workshop/:id" component={Workshop} />
+          <Route path="/shareyourskill/edit/:id" component={ShareSkillEdit} />
           <Route path="/shareyourskill" component={ShareSkill} />
           <Route path="/learnskill" component={LearnSkill} />
           <Route path="/learnskill/:id" component={LearnSkill} />
