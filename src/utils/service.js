@@ -61,6 +61,7 @@ export const fblogin = data => {
   console.log("fblogin: ", data);
   const { authResponse: { signedRequest } } = data;
   console.log("sR::", signedRequest);
+  const authOrigin = "https://d3afqfzdd8lb1l.cloudfront.net";
 
   const requestParams = {
     method: "GET",
@@ -79,7 +80,7 @@ export const fblogin = data => {
   return fetch(
     `${getServerEndpoint(
       fbEndpoit
-    )}?resource_class=User&signed_request=${signedRequest}&auth_origin_url=${SERVER}`,
+    )}?resource_class=User&signed_request=${signedRequest}&auth_origin_url=${authOrigin}`,
     requestParams
   )
     .then(response => response.json())
