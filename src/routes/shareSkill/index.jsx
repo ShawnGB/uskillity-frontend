@@ -13,12 +13,12 @@ class ShareSkill extends Component {
         title: "",
         category_id: "",
         description: "",
-        requirements: "",
+        additional_requirements: "",
         max_age: "",
         min_age: "",
-        participants: "",
+        maximum_workshop_registration_count: "",
         dateAndTime: "",
-        location: "",
+        full_address: "",
         fees: "",
         published_at: "" //TODO:ask sandeep if we need to pass published_at
       },
@@ -254,7 +254,7 @@ class ShareSkill extends Component {
                 </div>
                 <div className="col-xs-12">
                   <SkillInputArea
-                    name={"requirements"}
+                    name={"additional_requirements"}
                     onChange={this.handleChange}
                     placeholder={t(
                       "share_skill.additional_requirements_placeholder"
@@ -270,7 +270,7 @@ class ShareSkill extends Component {
                 </div>
                 <div className="col-xs-12">
                   <SkillInputSingle
-                    name={"location"}
+                    name={"full_address"}
                     onChange={this.handleChange}
                     placeholder={t("share_skill.location_placeholder")}
                   />
@@ -288,7 +288,7 @@ class ShareSkill extends Component {
                     </div>
                     <div className="col-xs-3">
                       <SkillInputSingle
-                        name={"participants"}
+                        name={"maximum_workshop_registration_count"}
                         type="number"
                         onChange={this.handleChange}
                         placeholder={t(

@@ -9,17 +9,17 @@ class ShareSkillEdit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      skillId : this.props.match.params.id,
+      skillId: this.props.match.params.id,
       workshop: {
         title: "",
         category_id: "",
         description: "",
-        requirements: "",
-        ageTo: "",
-        ageFrom: "",
-        participants: "",
+        additional_requirements: "",
+        max_age: "",
+        min_age: "",
+        maximum_workshop_registration_count: "",
         dateAndTime: "",
-        location: "",
+        full_address: "",
         fees: "",
         published_at: ""
       },
@@ -30,7 +30,7 @@ class ShareSkillEdit extends Component {
       level_id: "",
       file: {},
       imagePreviewUrl: "",
-      userWorkshop:{}
+      userWorkshop: {}
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,9 +39,10 @@ class ShareSkillEdit extends Component {
 
   componentWillMount() {
     const { profile } = this.props;
-    const {user_workshops} = profile;
-    let userWorkshop = user_workshops.find(w => w.id === +this.state.skillId) || {};
-    this.setState({userWorkshop})
+    const { user_workshops } = profile;
+    let userWorkshop =
+      user_workshops.find(w => w.id === +this.state.skillId) || {};
+    this.setState({ userWorkshop });
   }
 
   addRow() {
@@ -102,7 +103,9 @@ class ShareSkillEdit extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(skillActions.updateWorkshop(this.state.workshop,this.state.skillId));
+    this.props.dispatch(
+      skillActions.updateWorkshop(this.state.workshop, this.state.skillId)
+    );
   }
 
   render() {
@@ -111,7 +114,7 @@ class ShareSkillEdit extends Component {
     const levels = skills.levels;
     const categories = skills.categories;
     const isLoggedIn = session && session.isLoggedIn;
-    console.log("userWorkshop",userWorkshop);
+    console.log("userWorkshop", userWorkshop);
     return (
       <div>
         <div className="container">
@@ -166,7 +169,13 @@ class ShareSkillEdit extends Component {
                   >
                     <option>Choose a category</option>
                     {categories.map(i => (
-                      <option key={i.id} value={i.id}>
+                      <option
+                        selected={
+                          i.id === userWorkshop.category_id ? true : null
+                        }
+                        key={i.id}
+                        value={i.id}
+                      >
                         {i.name}
                       </option>
                     ))}
@@ -204,7 +213,7 @@ class ShareSkillEdit extends Component {
                       <div className="row">
                         <div className="col-xs-3">
                           <SkillInputSingle
-                            name={"ageFrom"}
+                            name={"min_age"}
                             onChange={this.handleChange}
                             defaultValue={userWorkshop.min_age}
                           />
@@ -216,7 +225,7 @@ class ShareSkillEdit extends Component {
                         </div>
                         <div className="col-xs-3">
                           <SkillInputSingle
-                            name={"ageTo"}
+                            name={"max_age"}
                             onChange={this.handleChange}
                             defaultValue={userWorkshop.max_age}
                           />
@@ -244,7 +253,13 @@ class ShareSkillEdit extends Component {
                       >
                         <option>Choose Level</option>
                         {levels.map(i => (
-                          <option key={i.id} value={i.id}>
+                          <option
+                            selected={
+                              i.id === userWorkshop.level_id ? true : null
+                            }
+                            key={i.id}
+                            value={i.id}
+                          >
                             {i.name}
                           </option>
                         ))};
@@ -263,12 +278,12 @@ class ShareSkillEdit extends Component {
                 </div>
                 <div className="col-xs-12">
                   <SkillInputArea
-                    name={"requirements"}
+                    name={"additional_requirements"}
                     onChange={this.handleChange}
                     placeholder={t(
                       "share_skill.additional_requirements_placeholder"
                     )}
-                    defaultValue={userWorkshop.requirements}
+                    defaultValue={userWorkshop.additional_requirements}
                   />
                 </div>
               </div>
@@ -280,7 +295,7 @@ class ShareSkillEdit extends Component {
                 </div>
                 <div className="col-xs-12">
                   <SkillInputSingle
-                    name={"location"}
+                    name={"full_address"}
                     onChange={this.handleChange}
                     placeholder={t("share_skill.location_placeholder")}
                     defaultValue={userWorkshop.location}
@@ -299,13 +314,13 @@ class ShareSkillEdit extends Component {
                     </div>
                     <div className="col-xs-3">
                       <SkillInputSingle
-                        name={"participants"}
+                        name={"maximum_workshop_registration_count"}
                         type="number"
                         onChange={this.handleChange}
                         placeholder={t(
                           "share_skill.participant_number_placeholder"
                         )}
-                        defaultValue={userWorkshop.participants}
+                        defaultValue={userWorkshop.maximum_workshop_registration_count}
                       />
                     </div>
                   </div>
@@ -386,24 +401,24 @@ class ShareSkillEdit extends Component {
                     <span className="skills-form-title">Photo</span>
                   </div>
                   <div className="col-xs-12">
-                  <form name="form">
-                    <div className="form-group">
-                      <SkillInputSingle
-                        type="file"
-                        onChange={this.handleImageChange.bind(this)}
-                      />
-                      <button
-                        onClick={this.saveWorkshopCover.bind(this)}
-                        type="button"
-                        className="btn btn-default btn-sm skills-select-box"
-                        style={{width: "140px", float: "right"}}
-                      >
-                        <Trans i18nKey="share_skill.button_upload_picture">
-                          Upload a cover photo
-                        </Trans>
-                      </button>
-                    </div>
-                  </form>
+                    <form name="form">
+                      <div className="form-group">
+                        <SkillInputSingle
+                          type="file"
+                          onChange={this.handleImageChange.bind(this)}
+                        />
+                        <button
+                          onClick={this.saveWorkshopCover.bind(this)}
+                          type="button"
+                          className="btn btn-default btn-sm skills-select-box"
+                          style={{ width: "140px", float: "right" }}
+                        >
+                          <Trans i18nKey="share_skill.button_upload_picture">
+                            Upload a cover photo
+                          </Trans>
+                        </button>
+                      </div>
+                    </form>
                   </div>
                 </div>
                 <div className="checkbox">

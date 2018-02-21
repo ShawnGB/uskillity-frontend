@@ -135,13 +135,9 @@ export const updateWorkshop = (workshop, id) => {
         workshop: workshop
       })
     })
-      .then(service.handleResponse)
       .then(
-        data => {
-          dispatch({ type: WORKSHOP_UPDATED, payload: data });
-        },
-        error => {
-          dispatch({ type: WORKSHOP_UPDATE_REJECTED, payload: error });
+        promise => {
+          dispatch({ type: WORKSHOP_UPDATED});
         }
       );
   };
