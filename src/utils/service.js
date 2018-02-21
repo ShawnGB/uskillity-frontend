@@ -77,10 +77,9 @@ export const fblogin = data => {
 
   //return fetch(uskillityUrl('fblogin') + '?resource_class=User', requestParams)
   return fetch(
-    getServerEndpoint(fbEndpoit) +
-      "?resource_class=User&signed_request=" +
-      signedRequest +
-      "&auth_origin_url=http://localhost:3001/",
+    `${getServerEndpoint(
+      fbEndpoit
+    )}?resource_class=User&signed_request=${signedRequest}&auth_origin_url=${SERVER}`,
     requestParams
   )
     .then(response => response.json())
