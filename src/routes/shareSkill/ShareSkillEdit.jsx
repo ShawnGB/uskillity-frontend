@@ -102,7 +102,7 @@ class ShareSkillEdit extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(skillActions.saveWorkshop(this.state.workshop));
+    this.props.dispatch(skillActions.updateWorkshop(this.state.workshop,this.state.skillId));
   }
 
   render() {
