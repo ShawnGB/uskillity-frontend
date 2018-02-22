@@ -57,7 +57,8 @@ export const fblogin = data => {
 
   return fetch(getServerEndpoint(fbEndpoit), {
     method: 'GET',
-    credentials: 'include'
+    credentials: 'include',
+    mode: 'cors'
   }).then(response => {
       response.json();
     })
