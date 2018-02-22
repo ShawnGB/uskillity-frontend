@@ -3,6 +3,7 @@ import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as skillActions from "app:store/actions/skill";
+import { parseSessionDateTime } from "app:utils/utils";
 import "./style.css";
 
 class ShareSkillEdit extends Component {
@@ -48,11 +49,11 @@ class ShareSkillEdit extends Component {
   addRow() {
     const { dispatch, skills } = this.props;
     const { workshops } = skills;
-    var sessions = this.state.sessions;
+    let sessions = this.state.userWorkshop.sessions;
     sessions.push({});
     this.setState({ sessions });
     let wId = workshops[workshops.length - 1].id;
-    dispatch(skillActions.saveWorkshopSession(wId, sessions));
+      dispatch(skillActions.saveWorkshopSession(wId, sessions));
   }
 
   addWorkshopSession(i, e) {
@@ -114,7 +115,6 @@ class ShareSkillEdit extends Component {
     const levels = skills.levels;
     const categories = skills.categories;
     const isLoggedIn = session && session.isLoggedIn;
-    console.log("userWorkshop", userWorkshop);
     return (
       <div>
         <div className="container">
@@ -167,7 +167,7 @@ class ShareSkillEdit extends Component {
                     onChange={this.handleChange}
                     className="skills-select-box"
                   >
-                    <option>Choose a category</option>
+                    <option disabled>Choose a category</option>
                     {categories.map(i => (
                       <option
                         selected={
@@ -290,15 +290,17 @@ class ShareSkillEdit extends Component {
               <div className="row share-skill-row">
                 <div className="col-xs-12 skills-form-label">
                   <span className="skills-form-title">
-                    <Trans i18nKey="share_skill.location_label">Location</Trans>
+                    <Trans i18nKey="share_skill.full_address_label">
+                      full_address
+                    </Trans>
                   </span>
                 </div>
                 <div className="col-xs-12">
                   <SkillInputSingle
                     name={"full_address"}
                     onChange={this.handleChange}
-                    placeholder={t("share_skill.location_placeholder")}
-                    defaultValue={userWorkshop.location}
+                    placeholder={t("share_skill.full_address_placeholder")}
+                    defaultValue={userWorkshop.full_address}
                   />
                 </div>
               </div>
@@ -320,7 +322,9 @@ class ShareSkillEdit extends Component {
                         placeholder={t(
                           "share_skill.participant_number_placeholder"
                         )}
-                        defaultValue={userWorkshop.maximum_workshop_registration_count}
+                        defaultValue={
+                          userWorkshop.maximum_workshop_registration_count
+                        }
                       />
                     </div>
                   </div>
@@ -372,10 +376,11 @@ class ShareSkillEdit extends Component {
                       </Trans>
                     </span>
                   </div>
-                  {this.state.sessions.map((session, i) => (
+                  {userWorkshop.sessions.map((session, i) => (
                     <ScheduleWorkshop
                       addWorkshopSession={this.addWorkshopSession.bind(this, i)}
                       key={i}
+                      session={session}
                     />
                   ))}
                   <div className="col-xs-3">
@@ -474,6 +479,10 @@ const SkillInputSingle = props => (
 );
 
 const ScheduleWorkshop = props => {
+  const hasDefaultValue = () => {
+    return Object.keys(props.session).length > 0;
+  };
+  console.log("props.session", props.session);
   return (
     <div className="col-xs-9">
       <div className="row share-skill-row">
@@ -482,6 +491,11 @@ const ScheduleWorkshop = props => {
             name={"dateAndTime"}
             type="date"
             onChange={props.addWorkshopSession}
+            defaultValue={
+              hasDefaultValue()
+                ? parseSessionDateTime(props.session.starts_at, "YYYY-MM-DD")
+                : null
+            }
           />
         </div>
         <div className="col-xs-1">
@@ -493,6 +507,11 @@ const ScheduleWorkshop = props => {
             type="time"
             onChange={props.addWorkshopSession}
             placeholder="Start Time"
+            defaultValue={
+              hasDefaultValue()
+                ? parseSessionDateTime(props.session.starts_at, "HH:MM")
+                : null
+            }
           />
         </div>
         <div className="col-xs-1">
@@ -504,6 +523,11 @@ const ScheduleWorkshop = props => {
             type="time"
             onChange={props.addWorkshopSession}
             placeholder="End Time"
+            defaultValue={
+              hasDefaultValue()
+                ? parseSessionDateTime(props.session.ends_at, "HH:MM")
+                : null
+            }
           />
         </div>
       </div>

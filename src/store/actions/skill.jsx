@@ -13,6 +13,8 @@ export const WORKSHOP_UPDATE_REJECTED = "skill/WORKSHOP_UPDATE_REJECTED";
 export const WORKSHOPS_FETCHED_PENDING = "skill/WORKSHOPS_FETCHED_PENDING";
 export const WORKSHOP_SESSION_SAVE_PENDING =
   "skill/WORKSHOP_SESSION_SAVE_PENDING";
+export const WORKSHOP_SESSION_SAVED = "skill/WORKSHOP_SESSION_SAVED";
+export const WORKSHOP_SESSION_SAVE_REJECTED = "skill/WORKSHOP_SESSION_SAVE_REJECTED";
 export const WORKSHOPS_FETCHED = "skill/WORKSHOPS_FETCHED";
 export const WORKSHOPS_FETCHED_REJECTED = "skill/WORKSHOPS_FETCHED_REJECTED";
 export const UPLOAD_IMG_PENDING = "skill/UPLOAD_IMG_PENDING";
@@ -121,7 +123,13 @@ export const saveWorkshopSession = (wId, session) => {
         starts_at: session[0].startTime,
         ends_at: session[0].endTime
       })
-    }).then(service.handleResponse);
+    }).then(service.handleResponse)
+    .then(response => {
+      dispatch({ type: WORKSHOP_SESSION_SAVED });
+    },
+  error =>{
+    dispatch({ type: WORKSHOP_SESSION_SAVE_REJECTED });
+  })
   };
 };
 

@@ -158,7 +158,7 @@ class ShareSkill extends Component {
                     onChange={this.handleChange}
                     className="skills-select-box"
                   >
-                    <option>Choose a category</option>
+                    <option selected disabled>Choose a category</option>
                     {categories.map(i => (
                       <option key={i.id} value={i.id}>
                         {i.name}
@@ -233,7 +233,7 @@ class ShareSkill extends Component {
                         onChange={this.handleChange}
                         className="skills-select-box"
                       >
-                        <option>Choose Level</option>
+                        <option selected disabled>Choose Level</option>
                         {levels.map(i => (
                           <option key={i.id} value={i.id}>
                             {i.name}
