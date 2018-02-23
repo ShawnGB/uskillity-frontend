@@ -1,15 +1,24 @@
 import moment from "moment";
-import momentTimezone from 'moment-timezone'
 
-export const replacer = (key,value) => {
+export const replacer = (key, value) => {
   if (value === "") return undefined;
   return value;
 };
 
-export const parseSessionDateTime = (d,f) => {
-  return moment(d).format(f);
+export const parseSessionDateTime = (d) => {
+  console.log(
+    "formatted:",
+    moment(d)
+      .utc()
+      .format("HH:MM")
+  );
+  return moment(d).utc().format("HH:MM");
 };
-export const parseSessionDateToLocal = (d,f) => {
-  momentTimezone.tz.setDefault();
-  return momentTimezone.tz(d,f);
+export const parseToLocalTime = (d, t, f) => {
+  let timeStamp = d + "T" + t + "Z";
+  if (f !== undefined) {
+    return moment(timeStamp).format(f);
+  } else {
+    return timeStamp;
+  }
 };

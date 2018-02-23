@@ -1,4 +1,5 @@
 import * as service from "app:utils/service";
+import * as util from "app:utils/utils";
 export const LEVELS_PENDING = "skill/LEVELS_PENDING";
 export const LEVELS_FETCHED = "skill/LEVELS_FETCHED";
 export const LEVELS_REJECTED = "skill/LEVELS_REJECTED";
@@ -119,15 +120,15 @@ export const saveWorkshopCover = (file, id) => {
   };
 };
 
-export const saveWorkshopSession = (wId, session) => {
+export const saveWorkshopSession = (wId, s) => {
   return function(dispatch) {
     dispatch({ type: WORKSHOP_SESSION_SAVE_PENDING });
     fetch(service.getServerEndpoint(`/workshops/${wId}/workshop_sessions`), {
       method: "POST",
       headers: service.getRequestHeaders(),
       body: JSON.stringify({
-        starts_at: session[0].starts_at,
-        ends_at: session[0].ends_at
+        starts_at: util.parseToLocalTime(s.dateAndTime, s.starts_at),
+        ends_at: util.parseToLocalTime(s.dateAndTime, s.ends_at)
       })
     })
       .then(service.handleResponse)

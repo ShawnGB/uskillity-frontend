@@ -44,18 +44,25 @@ class ShareSkill extends Component {
   addRow() {
     const { dispatch, skills } = this.props;
     const { workshops } = skills;
-    var sessions = this.state.sessions;
+    const sessions = this.state.sessions;
     sessions.push({});
     this.setState({ sessions });
     let wId = workshops[workshops.length - 1].id;
-    dispatch(skillActions.saveWorkshopSession(wId, sessions));
+    sessions.forEach(s => {
+      if (Object.keys(s).length !== 0) {
+        console.log("sessions list", s);
+        // TODO: sessions are getting save n+1 times, since loop runs over existing saved sessions
+        // TODO: call api once all sessions are added, may be call it on separate button click
+        dispatch(skillActions.saveWorkshopSession(wId, s));
+      }
+    });
   }
 
   addWorkshopSession(i, e) {
-    console.log("i,e",i,e);
     let sessions = this.state.sessions;
     const input = e.target.name;
     sessions[i][input] = e.target.value;
+    console.log("session,",sessions);
     this.setState({ sessions });
   }
 
@@ -460,7 +467,7 @@ const ScheduleWorkshop = props => {
         </div>
         <div className="col-xs-3">
           <SkillInputSingle
-            name={"startTime"}
+            name={"starts_at"}
             type="time"
             onChange={props.addWorkshopSession}
             placeholder="Start Time"

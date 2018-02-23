@@ -53,6 +53,8 @@ class ShareSkillEdit extends Component {
     this.setState({ sessions });
     let wId = this.state.skillId;
     sessions.forEach(s => {
+      // TODO: sessions are getting save n+1 times, since loop runs over existing saved sessions
+      // TODO: call api once all sessions are added, may be call it on separate button click
       let sId = s.id;
       if (Object.keys(s).length !== 0 && sId != null) {
         console.log("sessions list", s,s.id);
@@ -515,7 +517,7 @@ const ScheduleWorkshop = props => {
             placeholder="Start Time"
             defaultValue={
               hasDefaultValue()
-                ? parseSessionDateTime(props.session.starts_at, "HH:MM")
+                ? parseSessionDateTime(props.session.starts_at)
                 : null
             }
           />
@@ -531,7 +533,7 @@ const ScheduleWorkshop = props => {
             placeholder="End Time"
             defaultValue={
               hasDefaultValue()
-                ? parseSessionDateTime(props.session.ends_at, "HH:MM")
+                ? parseSessionDateTime(props.session.ends_at)
                 : null
             }
           />
