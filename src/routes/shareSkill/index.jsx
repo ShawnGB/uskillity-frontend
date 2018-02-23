@@ -52,6 +52,7 @@ class ShareSkill extends Component {
   }
 
   addWorkshopSession(i, e) {
+    console.log("i,e",i,e);
     let sessions = this.state.sessions;
     const input = e.target.name;
     sessions[i][input] = e.target.value;
@@ -470,7 +471,7 @@ const ScheduleWorkshop = props => {
         </div>
         <div className="col-xs-3">
           <SkillInputSingle
-            name={"endTime"}
+            name={"ends_at"}
             type="time"
             onChange={props.addWorkshopSession}
             placeholder="End Time"

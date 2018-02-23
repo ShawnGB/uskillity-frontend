@@ -3,7 +3,7 @@ import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as skillActions from "app:store/actions/skill";
-import { parseSessionDateTime } from "app:utils/utils";
+import {parseSessionDateTime} from "app:utils/utils";
 import "./style.css";
 
 class ShareSkillEdit extends Component {
@@ -47,13 +47,18 @@ class ShareSkillEdit extends Component {
   }
 
   addRow() {
-    const { dispatch, skills } = this.props;
-    const { workshops } = skills;
+    const { dispatch } = this.props;
     let sessions = this.state.userWorkshop.sessions;
     sessions.push({});
     this.setState({ sessions });
-    let wId = workshops[workshops.length - 1].id;
-      dispatch(skillActions.saveWorkshopSession(wId, sessions));
+    let wId = this.state.skillId;
+    sessions.forEach(s => {
+      let sId = s.id;
+      if (Object.keys(s).length !== 0 && sId != null) {
+        console.log("sessions list", s,s.id);
+        dispatch(skillActions.updateWorkshopSession(wId, sId, s));
+      }
+    });
   }
 
   addWorkshopSession(i, e) {
@@ -115,6 +120,7 @@ class ShareSkillEdit extends Component {
     const levels = skills.levels;
     const categories = skills.categories;
     const isLoggedIn = session && session.isLoggedIn;
+
     return (
       <div>
         <div className="container">
@@ -503,7 +509,7 @@ const ScheduleWorkshop = props => {
         </div>
         <div className="col-xs-3">
           <SkillInputSingle
-            name={"startTime"}
+            name={"starts_at"}
             type="time"
             onChange={props.addWorkshopSession}
             placeholder="Start Time"
@@ -519,7 +525,7 @@ const ScheduleWorkshop = props => {
         </div>
         <div className="col-xs-3">
           <SkillInputSingle
-            name={"endTime"}
+            name={"ends_at"}
             type="time"
             onChange={props.addWorkshopSession}
             placeholder="End Time"

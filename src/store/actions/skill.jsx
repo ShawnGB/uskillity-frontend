@@ -14,7 +14,13 @@ export const WORKSHOPS_FETCHED_PENDING = "skill/WORKSHOPS_FETCHED_PENDING";
 export const WORKSHOP_SESSION_SAVE_PENDING =
   "skill/WORKSHOP_SESSION_SAVE_PENDING";
 export const WORKSHOP_SESSION_SAVED = "skill/WORKSHOP_SESSION_SAVED";
-export const WORKSHOP_SESSION_SAVE_REJECTED = "skill/WORKSHOP_SESSION_SAVE_REJECTED";
+export const WORKSHOP_SESSION_SAVE_REJECTED =
+  "skill/WORKSHOP_SESSION_SAVE_REJECTED";
+export const WORKSHOP_SESSION_UPDATE_PENDING =
+  "skill/WORKSHOP_SESSION_UPDATE_PENDING";
+export const WORKSHOP_SESSION_UPDATED = "skill/WORKSHOP_SESSION_UPDATED";
+export const WORKSHOP_SESSION_UPDATE_REJECTED =
+  "skill/WORKSHOP_SESSION_UPDATE_REJECTED";
 export const WORKSHOPS_FETCHED = "skill/WORKSHOPS_FETCHED";
 export const WORKSHOPS_FETCHED_REJECTED = "skill/WORKSHOPS_FETCHED_REJECTED";
 export const UPLOAD_IMG_PENDING = "skill/UPLOAD_IMG_PENDING";
@@ -120,33 +126,58 @@ export const saveWorkshopSession = (wId, session) => {
       method: "POST",
       headers: service.getRequestHeaders(),
       body: JSON.stringify({
-        starts_at: session[0].startTime,
-        ends_at: session[0].endTime
+        starts_at: session[0].starts_at,
+        ends_at: session[0].ends_at
       })
-    }).then(service.handleResponse)
-    .then(response => {
-      dispatch({ type: WORKSHOP_SESSION_SAVED });
-    },
-  error =>{
-    dispatch({ type: WORKSHOP_SESSION_SAVE_REJECTED });
-  })
+    })
+      .then(service.handleResponse)
+      .then(
+        response => {
+          dispatch({ type: WORKSHOP_SESSION_SAVED });
+        },
+        error => {
+          dispatch({ type: WORKSHOP_SESSION_SAVE_REJECTED });
+        }
+      );
+  };
+};
+
+export const updateWorkshopSession = (wId, sId, session) => {
+  return function(dispatch) {
+    dispatch({ type: WORKSHOP_SESSION_UPDATE_PENDING });
+    fetch(
+      service.getServerEndpoint(
+        `/workshops/${wId}/workshop_sessions/${sId}.json`
+      ),
+      {
+        method: "PUT",
+        headers: service.getRequestHeaders(),
+        body: JSON.stringify({
+          starts_at: session.starts_at,
+          ends_at: session.ends_at
+        })
+      }
+    ).then(response => {
+      if (response.ok) {
+        dispatch({ type: WORKSHOP_SESSION_UPDATED });
+      } else {
+        dispatch({ type: WORKSHOP_SESSION_UPDATE_REJECTED });
+      }
+    });
   };
 };
 
 export const updateWorkshop = (workshop, id) => {
   return dispatch => {
-    dispatch({ type: WORKSHOP_UPDATE_PENDING});
+    dispatch({ type: WORKSHOP_UPDATE_PENDING });
     fetch(service.getServerEndpoint(`/workshops/${id}.json`), {
       method: "PUT",
       headers: service.getRequestHeaders(),
       body: JSON.stringify({
         workshop: workshop
       })
-    })
-      .then(
-        promise => {
-          dispatch({ type: WORKSHOP_UPDATED});
-        }
-      );
+    }).then(promise => {
+      dispatch({ type: WORKSHOP_UPDATED });
+    });
   };
 };
