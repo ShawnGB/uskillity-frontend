@@ -84,6 +84,7 @@ class Home extends React.Component {
   render() {
     return (
       <div>
+        <div className="container">
           <CustomCarousel items={this.state.workshops} />
           <div className="row row-home category-collection">
             {this.state.categories}
@@ -115,6 +116,7 @@ class Home extends React.Component {
               </p>
             </div>
           </div>
+        </div>
       </div>
     );
   }
@@ -127,3 +129,14 @@ Home.propTypes = {
 };
 
 export default compose(withRouter, translate("translations"))(Home);
+
+//export default compose(
+//withRouter,
+//translate("translations"),
+//connect(null, null, null, { withRef: true })
+//connect(mapStateToProps, mapDispatchToProps)
+//)(AuthModals);
+
+//export default compose(translate("translations"), connect(mapStateToProps))(
+//Profile
+//);

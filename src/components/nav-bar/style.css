@@ -1,6 +1,5 @@
 .menu-item {
   font-size: 18px;
-  float: right;
 }
 
 .navbar.navbar-default {
@@ -15,28 +14,4 @@
   border: 0;
   -webkit-box-shadow: none;
   box-shadow: none;
-}
-
-.menubar-menu-collection {
-  font-size: 20px;
-}
-
-.menubar-menu-collection > a {
-  float: right;
-  text-align: right;
-  margin: auto 12px;
-  color: #777;
-}
-
-@media (max-width: 768px) {
-  .menubar-menu-collection > a {
-    width: 100%;
-    float: right;
-    clear: both;
-    text-align: right;
-  }
-
-  .menubar-header {
-    padding-left: 20px;
-  }
 }
