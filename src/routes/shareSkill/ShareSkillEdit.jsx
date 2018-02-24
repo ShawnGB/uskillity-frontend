@@ -122,7 +122,6 @@ class ShareSkillEdit extends Component {
     const levels = skills.levels;
     const categories = skills.categories;
     const isLoggedIn = session && session.isLoggedIn;
-
     return (
       <div>
         <div className="container">
