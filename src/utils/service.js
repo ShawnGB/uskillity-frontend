@@ -51,41 +51,19 @@ export const handleAuthResponse = response => {
   return handleResponse(response);
 };
 
-const jsonHeaders = {
-  headers: {
-    "Content-Type": "application/json"
-  }
-};
-
 export const fblogin = data => {
-  console.log("fblogin: ", data);
-  const { authResponse: { signedRequest } } = data;
-  console.log("sR::", signedRequest);
-  const authOrigin = "https://d3afqfzdd8lb1l.cloudfront.net";
+  console.log('fblogin: ', data);
+  const fbEndpoit = '/auth/facebook';
 
-  const requestParams = {
-    method: "GET",
-    credentials: "include",
-    ...jsonHeaders
-  };
-
-  const fbEndpoit = "/omniauth/facebook/callback";
-
-  const url = `${getServerEndpoint(
-    fbEndpoit
-  )}?resource_class=User&signed_request=${signedRequest}`;
-  console.log("url", url);
-
-  //return fetch(uskillityUrl('fblogin') + '?resource_class=User', requestParams)
-  return fetch(
-    `${getServerEndpoint(
-      fbEndpoit
-    )}?resource_class=User&signed_request=${signedRequest}&auth_origin_url=${authOrigin}`,
-    requestParams
-  )
-    .then(response => response.json())
+  return fetch(getServerEndpoint(fbEndpoit), {
+    method: 'GET',
+    credentials: 'include',
+    mode: 'cors'
+  }).then(response => {
+      response.json();
+    })
     .then(json => {
-      console.log("received:", json);
+      console.log('received:', json);
     })
     .catch(err => {
       console.log(err);
