@@ -143,7 +143,7 @@ export const saveWorkshopSession = (wId, s) => {
   };
 };
 
-export const updateWorkshopSession = (wId, sId, session) => {
+export const updateWorkshopSession = (wId, sId, s) => {
   return function(dispatch) {
     dispatch({ type: WORKSHOP_SESSION_UPDATE_PENDING });
     fetch(
@@ -154,8 +154,8 @@ export const updateWorkshopSession = (wId, sId, session) => {
         method: "PUT",
         headers: service.getRequestHeaders(),
         body: JSON.stringify({
-          starts_at: session.starts_at,
-          ends_at: session.ends_at
+          starts_at: util.parseToLocalTime(s.dateAndTime, s.starts_at),
+          ends_at: util.parseToLocalTime(s.dateAndTime, s.ends_at)
         })
       }
     ).then(response => {

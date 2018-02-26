@@ -42,27 +42,30 @@ class ShareSkill extends Component {
   }
 
   addRow() {
-    const { dispatch, skills } = this.props;
-    const { workshops } = skills;
     const sessions = this.state.sessions;
     sessions.push({});
     this.setState({ sessions });
+  }
+
+  saveSession = () => {
+    const { dispatch, skills } = this.props;
+    const { workshops } = skills;
+    const sessions = this.state.sessions;
     let wId = workshops[workshops.length - 1].id;
     sessions.forEach(s => {
       if (Object.keys(s).length !== 0) {
-        console.log("sessions list", s);
         // TODO: sessions are getting save n+1 times, since loop runs over existing saved sessions
         // TODO: call api once all sessions are added, may be call it on separate button click
         dispatch(skillActions.saveWorkshopSession(wId, s));
       }
     });
-  }
+  };
 
   addWorkshopSession(i, e) {
     let sessions = this.state.sessions;
     const input = e.target.name;
     sessions[i][input] = e.target.value;
-    console.log("session,",sessions);
+    console.log("session,", sessions);
     this.setState({ sessions });
   }
 
@@ -166,7 +169,9 @@ class ShareSkill extends Component {
                     onChange={this.handleChange}
                     className="skills-select-box"
                   >
-                    <option selected disabled>Choose a category</option>
+                    <option selected disabled>
+                      Choose a category
+                    </option>
                     {categories.map(i => (
                       <option key={i.id} value={i.id}>
                         {i.name}
@@ -241,7 +246,9 @@ class ShareSkill extends Component {
                         onChange={this.handleChange}
                         className="skills-select-box"
                       >
-                        <option selected disabled>Choose Level</option>
+                        <option selected disabled>
+                          Choose Level
+                        </option>
                         {levels.map(i => (
                           <option key={i.id} value={i.id}>
                             {i.name}
@@ -377,28 +384,43 @@ class ShareSkill extends Component {
                   </div>
                 </div>
                 <div className="row share-skill-row">
+                  <div className="col-xs-12">
+                    <button
+                      className="btn btn-primary uski-button-style"
+                      type="button"
+                      onClick={this.saveSession}
+                      disabled={!isLoggedIn}
+                      style={{ float: "right" }}
+                    >
+                      <Trans i18nKey="share_skill.button_save_session">
+                        Save Session
+                      </Trans>
+                    </button>
+                  </div>
+                </div>
+                <div className="row share-skill-row">
                   <div className="col-xs-12 skills-form-label">
                     <span className="skills-form-title">Photo</span>
                   </div>
                   <div className="col-xs-12">
-                  <form name="form">
-                    <div className="form-group">
-                      <SkillInputSingle
-                        type="file"
-                        onChange={this.handleImageChange.bind(this)}
-                      />
-                      <button
-                        onClick={this.saveWorkshopCover.bind(this)}
-                        type="button"
-                        className="btn btn-default btn-sm skills-select-box"
-                        style={{width: "140px", float: "right"}}
-                      >
-                        <Trans i18nKey="share_skill.button_upload_picture">
-                          Upload a cover photo
-                        </Trans>
-                      </button>
-                    </div>
-                  </form>
+                    <form name="form">
+                      <div className="form-group">
+                        <SkillInputSingle
+                          type="file"
+                          onChange={this.handleImageChange.bind(this)}
+                        />
+                        <button
+                          onClick={this.saveWorkshopCover.bind(this)}
+                          type="button"
+                          className="btn btn-default btn-sm skills-select-box"
+                          style={{ width: "140px", float: "right" }}
+                        >
+                          <Trans i18nKey="share_skill.button_upload_picture">
+                            Upload a cover photo
+                          </Trans>
+                        </button>
+                      </div>
+                    </form>
                   </div>
                 </div>
                 <div className="checkbox">

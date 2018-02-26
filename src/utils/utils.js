@@ -5,14 +5,16 @@ export const replacer = (key, value) => {
   return value;
 };
 
-export const parseSessionDateTime = (d) => {
-  console.log(
-    "formatted:",
-    moment(d)
+export const parseSessionDateTime = (d, f) => {
+  if (f !== undefined) {
+    return moment(d)
       .utc()
-      .format("HH:MM")
-  );
-  return moment(d).utc().format("HH:MM");
+      .format(f);
+  } else {
+    return moment(d)
+      .utc()
+      .format("HH:MM");
+  }
 };
 export const parseToLocalTime = (d, t, f) => {
   let timeStamp = d + "T" + t + "Z";

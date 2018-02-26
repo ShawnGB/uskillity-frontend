@@ -3,7 +3,7 @@ import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as skillActions from "app:store/actions/skill";
-import {parseSessionDateTime} from "app:utils/utils";
+import { parseSessionDateTime } from "app:utils/utils";
 import "./style.css";
 
 class ShareSkillEdit extends Component {
@@ -41,33 +41,47 @@ class ShareSkillEdit extends Component {
   componentWillMount() {
     const { profile } = this.props;
     const { user_workshops } = profile;
-    let userWorkshop =
-      user_workshops.find(w => w.id === +this.state.skillId) || {};
+    let userWorkshop = user_workshops.find(w => w.id === +this.state.skillId) || {};
     this.setState({ userWorkshop });
+    console.log("userWorkshop", userWorkshop);
   }
 
   addRow() {
-    const { dispatch } = this.props;
     let sessions = this.state.userWorkshop.sessions;
     sessions.push({});
     this.setState({ sessions });
-    let wId = this.state.skillId;
-    sessions.forEach(s => {
-      // TODO: sessions are getting save n+1 times, since loop runs over existing saved sessions
-      // TODO: call api once all sessions are added, may be call it on separate button click
-      let sId = s.id;
-      if (Object.keys(s).length !== 0 && sId != null) {
-        console.log("sessions list", s,s.id);
-        dispatch(skillActions.updateWorkshopSession(wId, sId, s));
-      }
-    });
   }
 
-  addWorkshopSession(i, e) {
-    let sessions = this.state.sessions;
+  updateWorkshopSession = () => {
+    const { profile, dispatch } = this.props;
+    const { user_workshops } = profile;
+    let workshopSessions = this.state.userWorkshop.sessions;
+    let sessions = this.state.sessions; //sessions to be upded/added
+    console.log("i am a session", sessions);
+    console.log("i am a workshopSession", workshopSessions);
+    let wId = this.state.skillId;
+
+      // TODO: handle if no session was added while creating this workshop
+
+      //update existing sessions
+      // workshopSessions.forEach(s => {
+      //   console.log("workshopSessions", workshopSessions);
+      //   let sId = s.id;
+      //   if (Object.keys(s).length !== 0 && sId != null) {
+      //     console.log("sessions list", s, s.id);
+      //     dispatch(skillActions.onChangeWorkshopSession(wId, sId, s));
+      //   }
+      // });
+  };
+
+  onChangeWorkshopSession(i, e) {
+    console.log("i, e, session",i, e);
+    const {dispatch} = this.props;
+    let sessions = this.state.userWorkshop.sessions;
     const input = e.target.name;
     sessions[i][input] = e.target.value;
     this.setState({ sessions });
+    // dispatch(skillActions.onChangeWorkshopSession(wId, session.id, session));
   }
 
   handleChange(e) {
@@ -385,7 +399,7 @@ class ShareSkillEdit extends Component {
                   </div>
                   {userWorkshop.sessions.map((session, i) => (
                     <ScheduleWorkshop
-                      addWorkshopSession={this.addWorkshopSession.bind(this, i)}
+                      onChangeWorkshopSession={this.onChangeWorkshopSession.bind(this, i)}
                       key={i}
                       session={session}
                     />
@@ -406,6 +420,21 @@ class ShareSkillEdit extends Component {
                         </button>
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div className="row share-skill-row">
+                  <div className="col-xs-12">
+                    <button
+                      className="btn btn-primary uski-button-style"
+                      type="button"
+                      onClick={this.updateSession}
+                      disabled={!isLoggedIn}
+                      style={{ float: "right" }}
+                    >
+                      <Trans i18nKey="share_skill.button_update_session">
+                        Update Session
+                      </Trans>
+                    </button>
                   </div>
                 </div>
                 <div className="row share-skill-row">
@@ -479,6 +508,7 @@ const SkillInputSingle = props => (
     type={props.type || "text"}
     name={props.name}
     placeholder={props.placeholder}
+    onBlur = {props.onBlur}
     onChange={props.onChange}
     defaultValue={props.defaultValue}
     style={{ borderRadius: "0px", borderColor: "#9b9b9b" }}
@@ -497,7 +527,8 @@ const ScheduleWorkshop = props => {
           <SkillInputSingle
             name={"dateAndTime"}
             type="date"
-            onChange={props.addWorkshopSession}
+            onChange={props.onChangeWorkshopSession}
+            onBlur = {props.updateWorkshopSession}
             defaultValue={
               hasDefaultValue()
                 ? parseSessionDateTime(props.session.starts_at, "YYYY-MM-DD")
@@ -512,7 +543,8 @@ const ScheduleWorkshop = props => {
           <SkillInputSingle
             name={"starts_at"}
             type="time"
-            onChange={props.addWorkshopSession}
+            onChange={props.onChangeWorkshopSession}
+            onBlur = {props.updateWorkshopSession}
             placeholder="Start Time"
             defaultValue={
               hasDefaultValue()
@@ -528,7 +560,8 @@ const ScheduleWorkshop = props => {
           <SkillInputSingle
             name={"ends_at"}
             type="time"
-            onChange={props.addWorkshopSession}
+            onChange={props.onChangeWorkshopSession}
+            onBlur = {props.updateWorkshopSession}
             placeholder="End Time"
             defaultValue={
               hasDefaultValue()
