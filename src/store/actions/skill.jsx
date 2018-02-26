@@ -120,17 +120,23 @@ export const saveWorkshopCover = (file, id) => {
   };
 };
 
-export const saveWorkshopSession = (wId, s) => {
+export const saveWorkshopSession = (workshopId, session) => {
   return function(dispatch) {
     dispatch({ type: WORKSHOP_SESSION_SAVE_PENDING });
-    fetch(service.getServerEndpoint(`/workshops/${wId}/workshop_sessions`), {
-      method: "POST",
-      headers: service.getRequestHeaders(),
-      body: JSON.stringify({
-        starts_at: util.parseToLocalTime(s.dateAndTime, s.starts_at),
-        ends_at: util.parseToLocalTime(s.dateAndTime, s.ends_at)
-      })
-    })
+    fetch(
+      service.getServerEndpoint(`/workshops/${workshopId}/workshop_sessions`),
+      {
+        method: "POST",
+        headers: service.getRequestHeaders(),
+        body: JSON.stringify({
+          starts_at: util.parseToLocalTime(
+            session.dateAndTime,
+            session.starts_at
+          ),
+          ends_at: util.parseToLocalTime(session.dateAndTime, session.ends_at)
+        })
+      }
+    )
       .then(service.handleResponse)
       .then(
         response => {
@@ -143,19 +149,22 @@ export const saveWorkshopSession = (wId, s) => {
   };
 };
 
-export const updateWorkshopSession = (wId, sId, s) => {
+export const updateWorkshopSession = (workshopId, session) => {
   return function(dispatch) {
     dispatch({ type: WORKSHOP_SESSION_UPDATE_PENDING });
     fetch(
       service.getServerEndpoint(
-        `/workshops/${wId}/workshop_sessions/${sId}.json`
+        `/workshops/${workshopId}/workshop_sessions/${session.id}.json`
       ),
       {
         method: "PUT",
         headers: service.getRequestHeaders(),
         body: JSON.stringify({
-          starts_at: util.parseToLocalTime(s.dateAndTime, s.starts_at),
-          ends_at: util.parseToLocalTime(s.dateAndTime, s.ends_at)
+          starts_at: util.parseToLocalTime(
+            session.dateAndTime,
+            session.starts_at
+          ),
+          ends_at: util.parseToLocalTime(session.dateAndTime, session.ends_at)
         })
       }
     ).then(response => {
