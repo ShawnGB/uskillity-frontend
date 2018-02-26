@@ -51,7 +51,8 @@ class ShareSkillEdit extends Component {
       sessions.push({
         dateAndTime: parseSessionDateTime(session.starts_at, "YYYY-MM-DD"),
         starts_at: parseSessionDateTime(session.starts_at),
-        ends_at: parseSessionDateTime(session.ends_at)
+        ends_at: parseSessionDateTime(session.ends_at),
+        id: session.id
       })
     );
 
@@ -69,7 +70,8 @@ class ShareSkillEdit extends Component {
     sessions.push({
       dateAndTime: null,
       starts_at: null,
-      ends_at: null
+      ends_at: null,
+      id: null
     });
     this.setState({ sessions });
   }
