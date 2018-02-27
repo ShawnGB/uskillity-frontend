@@ -3,12 +3,14 @@ import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as skillActions from "app:store/actions/skill";
+import { parseSessionDateTime } from "app:utils/utils";
 import "./style.css";
 
 class ShareSkill extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      workshopId: this.props.match? this.props.match.params.id: null,
       workshop: {
         title: "",
         category_id: "",
@@ -20,15 +22,16 @@ class ShareSkill extends Component {
         dateAndTime: "",
         full_address: "",
         fees: "",
-        published_at: "" //TODO:ask sandeep if we need to pass published_at
+        published_at: ""
       },
-      sessions: [{}],
+      sessions: [],
       error: {
         message: ""
       },
       level_id: "",
       file: {},
-      imagePreviewUrl: ""
+      imagePreviewUrl: "",
+      initialWorkshop: {} // TODO: later use workshop object instead
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,35 +40,76 @@ class ShareSkill extends Component {
 
   componentWillMount() {
     const { dispatch } = this.props;
+    this.findWorkshopToEdit();
     dispatch(skillActions.fetchLevels());
     dispatch(skillActions.fetchCategories());
   }
 
+  componentDidMount() {
+    if (this.props.editable) {
+      let sessions = [];
+      // TODO: in case user doesn't have any initial session this approach will not work
+      this.state.initialWorkshop.sessions.map(session =>
+        sessions.push({
+          dateAndTime: parseSessionDateTime(session.starts_at, "YYYY-MM-DD"),
+          starts_at: parseSessionDateTime(session.starts_at),
+          ends_at: parseSessionDateTime(session.ends_at),
+          id: session.id
+        })
+      );
+      this.setState({ sessions });
+    }
+  }
+
+  findWorkshopToEdit = () => {
+    const { user_workshops } = this.props.profile;
+    if (this.props.editable) {
+      let initialWorkshop =
+        user_workshops.find(w => w.id === +this.state.workshopId) || {};
+      this.setState({ initialWorkshop });
+    }
+  };
+
   addRow() {
-    const sessions = this.state.sessions;
-    sessions.push({});
+    let sessions = this.state.sessions;
+    // TODO:
+    // If the user added already one "empty" session don't let him/her add more
+    //if (!sessions[sessions.length - 1].id) {
+    //return;
+    //}
+    sessions.push({
+      dateAndTime: null,
+      starts_at: null,
+      ends_at: null,
+      id: null
+    });
     this.setState({ sessions });
   }
 
-  saveSession = () => {
-    const { dispatch, skills } = this.props;
-    const { workshops } = skills;
-    const sessions = this.state.sessions;
-    let wId = workshops[workshops.length - 1].id;
-    sessions.forEach(s => {
-      if (Object.keys(s).length !== 0) {
-        // TODO: sessions are getting save n+1 times, since loop runs over existing saved sessions
-        // TODO: call api once all sessions are added, may be call it on separate button click
-        dispatch(skillActions.saveWorkshopSession(wId, s));
-      }
-    });
+  updateWorkshopSession = (session, index) => {
+    console.log("mysession, ",session);
+    // TODO: If nothing really changed why PUT??
+    const { dispatch } = this.props;
+    let workshopId = this.state.workshopId;
+    if (session.id) {
+      dispatch(skillActions.updateWorkshopSession(workshopId, session));
+    } else if (this.addingSessionCompleted(session)) {
+      dispatch(skillActions.saveWorkshopSession(workshopId, session));
+    }
   };
 
-  addWorkshopSession(i, e) {
+  addingSessionCompleted(session) {
+    let ret = true;
+    ret &= session["starts_at"] !== undefined;
+    ret &= session["ends_at"] !== undefined;
+    ret &= session["dateAndTime"] !== undefined;
+    return ret === 1;
+  }
+
+  onChangeWorkshopSession(index, e) {
     let sessions = this.state.sessions;
     const input = e.target.name;
-    sessions[i][input] = e.target.value;
-    console.log("session,", sessions);
+    sessions[index][input] = e.target.value;
     this.setState({ sessions });
   }
 
@@ -74,7 +118,7 @@ class ShareSkill extends Component {
     const workshop = this.state.workshop;
     workshop[input] = e.target.value;
     this.setState({ workshop });
-    this.setState({ level_id: input === "level_id" ? e.target.value : "" });
+    this.setState({ level_id: input === "level_id" ? e.target.value : "" }); // TODO: why is it ouside workshop object
   }
 
   handleImageChange(e) {
@@ -118,6 +162,8 @@ class ShareSkill extends Component {
     const levels = skills.levels;
     const categories = skills.categories;
     const isLoggedIn = session && session.isLoggedIn;
+    const initialWorkshop = this.state.initialWorkshop;
+    console.log("initialWorkshop",initialWorkshop);
     return (
       <div>
         <div className="container">
@@ -159,6 +205,7 @@ class ShareSkill extends Component {
                   <SkillInputSingle
                     name={"title"}
                     onChange={this.handleChange}
+                    defaultValue={initialWorkshop.title}
                     placeholder={t("share_skill.title_placeholder")}
                   />
                 </div>
@@ -169,11 +216,17 @@ class ShareSkill extends Component {
                     onChange={this.handleChange}
                     className="skills-select-box"
                   >
-                    <option selected disabled>
+                    <option>
                       Choose a category
                     </option>
                     {categories.map(i => (
-                      <option key={i.id} value={i.id}>
+                      <option
+                        selected={
+                          i.id === initialWorkshop.category_id ? true : null
+                        }
+                        key={i.id}
+                        value={i.id}
+                      >
                         {i.name}
                       </option>
                     ))}
@@ -193,6 +246,7 @@ class ShareSkill extends Component {
                     name={"description"}
                     onChange={this.handleChange}
                     placeholder={t("share_skill.description_placeholder")}
+                    defaultValue={initialWorkshop.description}
                   />
                 </div>
               </div>
@@ -212,6 +266,7 @@ class ShareSkill extends Component {
                           <SkillInputSingle
                             name={"min_age"}
                             onChange={this.handleChange}
+                            defaultValue={initialWorkshop.min_age}
                           />
                         </div>
                         <div className="col-xs-6 skills-form-label">
@@ -223,6 +278,7 @@ class ShareSkill extends Component {
                           <SkillInputSingle
                             name={"max_age"}
                             onChange={this.handleChange}
+                            defaultValue={initialWorkshop.max_age}
                           />
                         </div>
                       </div>
@@ -246,11 +302,17 @@ class ShareSkill extends Component {
                         onChange={this.handleChange}
                         className="skills-select-box"
                       >
-                        <option selected disabled>
+                        <option disabled>
                           Choose Level
                         </option>
                         {levels.map(i => (
-                          <option key={i.id} value={i.id}>
+                          <option
+                            selected={
+                              i.id === initialWorkshop.level_id ? true : null
+                            }
+                            key={i.id}
+                            value={i.id}
+                          >
                             {i.name}
                           </option>
                         ))};
@@ -274,6 +336,7 @@ class ShareSkill extends Component {
                     placeholder={t(
                       "share_skill.additional_requirements_placeholder"
                     )}
+                    defaultValue={initialWorkshop.additional_requirements}
                   />
                 </div>
               </div>
@@ -288,6 +351,7 @@ class ShareSkill extends Component {
                     name={"full_address"}
                     onChange={this.handleChange}
                     placeholder={t("share_skill.location_placeholder")}
+                    defaultValue={initialWorkshop.full_address}
                   />
                 </div>
               </div>
@@ -309,6 +373,9 @@ class ShareSkill extends Component {
                         placeholder={t(
                           "share_skill.participant_number_placeholder"
                         )}
+                        defaultValue={
+                          initialWorkshop.maximum_workshop_registration_count
+                        }
                       />
                     </div>
                   </div>
@@ -326,6 +393,7 @@ class ShareSkill extends Component {
                         type="number"
                         onChange={this.handleChange}
                         placeholder={t("share_skill.price_placeholder")}
+                        defaultValue={initialWorkshop.fees}
                       />
                     </div>
                     <div className="col-xs-4 skills-form-label">
@@ -359,10 +427,16 @@ class ShareSkill extends Component {
                       </Trans>
                     </span>
                   </div>
-                  {this.state.sessions.map((session, i) => (
+                  {this.state.sessions.map((session, index) => (
                     <ScheduleWorkshop
-                      addWorkshopSession={this.addWorkshopSession.bind(this, i)}
-                      key={i}
+                      onChange={this.onChangeWorkshopSession.bind(this, index)}
+                      onBlur={this.updateWorkshopSession.bind(
+                        this,
+                        session,
+                        index
+                      )}
+                      key={index}
+                      session={session}
                     />
                   ))}
                   <div className="col-xs-3">
@@ -381,21 +455,6 @@ class ShareSkill extends Component {
                         </button>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div className="row share-skill-row">
-                  <div className="col-xs-12">
-                    <button
-                      className="btn btn-primary uski-button-style"
-                      type="button"
-                      onClick={this.saveSession}
-                      disabled={!isLoggedIn}
-                      style={{ float: "right" }}
-                    >
-                      <Trans i18nKey="share_skill.button_save_session">
-                        Save Session
-                      </Trans>
-                    </button>
                   </div>
                 </div>
                 <div className="row share-skill-row">
@@ -458,6 +517,7 @@ const SkillInputArea = props => (
     name={props.name}
     placeholder={props.placeholder}
     onChange={props.onChange}
+    defaultValue={props.defaultValue}
     style={{ borderRadius: "0px", borderColor: "#9b9b9b" }}
   />
 );
@@ -468,12 +528,18 @@ const SkillInputSingle = props => (
     type={props.type || "text"}
     name={props.name}
     placeholder={props.placeholder}
+    onBlur={props.onBlur}
     onChange={props.onChange}
+    defaultValue={props.defaultValue}
     style={{ borderRadius: "0px", borderColor: "#9b9b9b" }}
   />
 );
 
 const ScheduleWorkshop = props => {
+  console.log("props.session",props.session);
+  const hasDefaultValue = () => {
+    return Object.keys(props.session).length > 0;
+  };
   return (
     <div className="col-xs-9">
       <div className="row share-skill-row">
@@ -481,7 +547,9 @@ const ScheduleWorkshop = props => {
           <SkillInputSingle
             name={"dateAndTime"}
             type="date"
-            onChange={props.addWorkshopSession}
+            onChange={props.onChange}
+            onBlur={props.onBlur}
+            defaultValue={hasDefaultValue() ? props.session.dateAndTime : null}
           />
         </div>
         <div className="col-xs-1">
@@ -491,8 +559,10 @@ const ScheduleWorkshop = props => {
           <SkillInputSingle
             name={"starts_at"}
             type="time"
-            onChange={props.addWorkshopSession}
+            onChange={props.onChange}
+            onBlur={props.onBlur}
             placeholder="Start Time"
+            defaultValue={hasDefaultValue() ? props.session.starts_at : null}
           />
         </div>
         <div className="col-xs-1">
@@ -502,8 +572,10 @@ const ScheduleWorkshop = props => {
           <SkillInputSingle
             name={"ends_at"}
             type="time"
-            onChange={props.addWorkshopSession}
+            onChange={props.onChange}
+            onBlur={props.onBlur}
             placeholder="End Time"
+            defaultValue={hasDefaultValue() ? props.session.ends_at : null}
           />
         </div>
       </div>
@@ -513,7 +585,8 @@ const ScheduleWorkshop = props => {
 
 const mapStateToProps = state => ({
   skills: state.skills,
-  session: state.session
+  session: state.session,
+  profile: state.profile
 });
 
 export default compose(translate("translations"), connect(mapStateToProps))(

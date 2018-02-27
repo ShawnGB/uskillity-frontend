@@ -32,17 +32,21 @@ class ShareSkillEdit extends Component {
       file: {},
       imagePreviewUrl: "",
       initialWorkshop: {}
-    };
+  };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addRow = this.addRow.bind(this);
   }
 
   componentWillMount() {
+    const { dispatch } = this.props;
     const { user_workshops } = this.props.profile;
     let initialWorkshop =
       user_workshops.find(w => w.id === +this.state.workshopId) || {};
     this.setState({ initialWorkshop });
+    //Fetch levels, categories first
+    dispatch(skillActions.fetchLevels());
+    dispatch(skillActions.fetchCategories());
   }
 
   componentDidMount() {
