@@ -13,7 +13,7 @@ export const parseSessionDateTime = (d, f) => {
   } else {
     return moment(d)
       .utc()
-      .format("HH:MM");
+      .format("hh:mm");
   }
 };
 export const parseToLocalTime = (d, t, f) => {
