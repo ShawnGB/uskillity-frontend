@@ -10,7 +10,7 @@ class ShareSkill extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      workshopId: this.props.match? this.props.match.params.id: null,
+      workshopId: this.props.match ? this.props.match.params.id : null,
       workshop: {
         title: "",
         category_id: "",
@@ -87,13 +87,16 @@ class ShareSkill extends Component {
   }
 
   updateWorkshopSession = (session, index) => {
-    console.log("mysession, ",session);
     // TODO: If nothing really changed why PUT??
     const { dispatch } = this.props;
-    let workshopId = this.state.workshopId;
-    if (session.id) {
-      dispatch(skillActions.updateWorkshopSession(workshopId, session));
+    if (session.id && this.props.editable) {
+        dispatch(
+          skillActions.updateWorkshopSession(this.state.workshopId, session)
+        );
     } else if (this.addingSessionCompleted(session)) {
+      const { workshops } = this.props.skills;
+      // TODO: save only when a new workshop is created.
+      let workshopId = workshops[workshops.length - 1].id; // get the id of latest added workshop
       dispatch(skillActions.saveWorkshopSession(workshopId, session));
     }
   };
@@ -154,6 +157,9 @@ class ShareSkill extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    if (this.props.editable) {
+      skillActions.updateWorkshop(this.state.workshop, this.state.workshopId);
+    }
     this.props.dispatch(skillActions.saveWorkshop(this.state.workshop));
   }
 
@@ -163,7 +169,6 @@ class ShareSkill extends Component {
     const categories = skills.categories;
     const isLoggedIn = session && session.isLoggedIn;
     const initialWorkshop = this.state.initialWorkshop;
-    console.log("initialWorkshop",initialWorkshop);
     return (
       <div>
         <div className="container">
@@ -216,9 +221,7 @@ class ShareSkill extends Component {
                     onChange={this.handleChange}
                     className="skills-select-box"
                   >
-                    <option>
-                      Choose a category
-                    </option>
+                    <option>Choose a category</option>
                     {categories.map(i => (
                       <option
                         selected={
@@ -302,9 +305,7 @@ class ShareSkill extends Component {
                         onChange={this.handleChange}
                         className="skills-select-box"
                       >
-                        <option disabled>
-                          Choose Level
-                        </option>
+                        <option disabled>Choose Level</option>
                         {levels.map(i => (
                           <option
                             selected={
@@ -536,7 +537,7 @@ const SkillInputSingle = props => (
 );
 
 const ScheduleWorkshop = props => {
-  console.log("props.session",props.session);
+  console.log("props.session", props.session);
   const hasDefaultValue = () => {
     return Object.keys(props.session).length > 0;
   };
