@@ -48,7 +48,6 @@ class ShareSkill extends Component {
   componentDidMount() {
     if (this.props.editable) {
       let sessions = [];
-      // TODO: in case user doesn't have any initial session this approach will not work
       this.state.initialWorkshop.sessions.map(session =>
         sessions.push({
           dateAndTime: parseSessionDateTime(session.starts_at, "YYYY-MM-DD"),
@@ -96,7 +95,7 @@ class ShareSkill extends Component {
     } else if (this.addingSessionCompleted(session)) {
       const { workshops } = this.props.skills;
       // TODO: save only when a new workshop is created.
-      let workshopId = workshops[workshops.length - 1].id; // get the id of latest added workshop
+      let workshopId = this.state.workshopId || this.state.initialWorkshop.id;
       dispatch(skillActions.saveWorkshopSession(workshopId, session));
     }
   };
@@ -159,8 +158,9 @@ class ShareSkill extends Component {
     e.preventDefault();
     if (this.props.editable) {
       skillActions.updateWorkshop(this.state.workshop, this.state.workshopId);
+    }else {
+      this.props.dispatch(skillActions.saveWorkshop(this.state.workshop));
     }
-    this.props.dispatch(skillActions.saveWorkshop(this.state.workshop));
   }
 
   render() {
