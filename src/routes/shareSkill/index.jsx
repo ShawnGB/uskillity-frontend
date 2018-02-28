@@ -93,7 +93,6 @@ class ShareSkill extends Component {
           skillActions.updateWorkshopSession(this.state.workshopId, session)
         );
     } else if (this.addingSessionCompleted(session)) {
-      const { workshops } = this.props.skills;
       // TODO: save only when a new workshop is created.
       let workshopId = this.state.workshopId || this.state.initialWorkshop.id;
       dispatch(skillActions.saveWorkshopSession(workshopId, session));
