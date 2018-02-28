@@ -221,15 +221,15 @@ class ShareSkill extends Component {
                     className="skills-select-box"
                   >
                     <option>Choose a category</option>
-                    {categories.map(i => (
+                    {categories.map(c => (
                       <option
                         selected={
-                          i.id === initialWorkshop.category_id ? true : null
+                          c.id === initialWorkshop.category_id ? true : null
                         }
-                        key={i.id}
-                        value={i.id}
+                        key={c.id}
+                        value={c.id}
                       >
-                        {i.name}
+                        {c.name}
                       </option>
                     ))}
                   </select>
