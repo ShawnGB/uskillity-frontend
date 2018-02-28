@@ -93,8 +93,8 @@ class ShareSkill extends Component {
           skillActions.updateWorkshopSession(this.state.workshopId, session)
         );
     } else if (this.addingSessionCompleted(session)) {
-      // TODO: save only when a new workshop is created.
-      let workshopId = this.state.workshopId || this.state.initialWorkshop.id;
+      const { workshops } = this.props.skills;
+      let workshopId = this.state.workshopId || workshops[workshops.length - 1].id;
       dispatch(skillActions.saveWorkshopSession(workshopId, session));
     }
   };
@@ -166,6 +166,7 @@ class ShareSkill extends Component {
     const { skills, session, t } = this.props;
     const levels = skills.levels;
     const categories = skills.categories;
+    const add_session = this.props.editable? true : skills.add_session;
     const isLoggedIn = session && session.isLoggedIn;
     const initialWorkshop = this.state.initialWorkshop;
     return (
@@ -419,69 +420,71 @@ class ShareSkill extends Component {
               </div>
 
               <div>
-                <div className="row share-skill-row">
-                  <div className="col-xs-12 skills-form-label">
-                    <span className="skills-form-title">
-                      <Trans i18nKey="share_skill.date_and_time_label">
-                        Date and time
-                      </Trans>
-                    </span>
-                  </div>
-                  {this.state.sessions.map((session, index) => (
-                    <ScheduleWorkshop
-                      onChange={this.onChangeWorkshopSession.bind(this, index)}
-                      onBlur={this.updateWorkshopSession.bind(
-                        this,
-                        session,
-                        index
-                      )}
-                      key={index}
-                      session={session}
-                    />
-                  ))}
-                  <div className="col-xs-3">
-                    <div className="row share-skill-row">
-                      <div className="col-xs-12">
-                        <button
-                          type="button"
-                          className="btn btn-default btn-sm skills-select-box add-session-button"
-                          onClick={this.addRow}
-                          style={{ borderRadius: "17px" }}
-                        >
-                          <span
-                            className="glyphicon glyphicon-plus"
-                            style={{ fontSize: "15px" }}
-                          />
-                        </button>
+                {add_session?(<div>
+                  <div className="row share-skill-row">
+                    <div className="col-xs-12 skills-form-label">
+                      <span className="skills-form-title">
+                        <Trans i18nKey="share_skill.date_and_time_label">
+                          Date and time
+                        </Trans>
+                      </span>
+                    </div>
+                    {this.state.sessions.map((session, index) => (
+                      <ScheduleWorkshop
+                        onChange={this.onChangeWorkshopSession.bind(this, index)}
+                        onBlur={this.updateWorkshopSession.bind(
+                          this,
+                          session,
+                          index
+                        )}
+                        key={index}
+                        session={session}
+                      />
+                    ))}
+                    <div className="col-xs-3">
+                      <div className="row share-skill-row">
+                        <div className="col-xs-12">
+                          <button
+                            type="button"
+                            className="btn btn-default btn-sm skills-select-box add-session-button"
+                            onClick={this.addRow}
+                            style={{ borderRadius: "17px" }}
+                          >
+                            <span
+                              className="glyphicon glyphicon-plus"
+                              style={{ fontSize: "15px" }}
+                            />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="row share-skill-row">
-                  <div className="col-xs-12 skills-form-label">
-                    <span className="skills-form-title">Photo</span>
+                  <div className="row share-skill-row">
+                    <div className="col-xs-12 skills-form-label">
+                      <span className="skills-form-title">Photo</span>
+                    </div>
+                    <div className="col-xs-12">
+                      <form name="form">
+                        <div className="form-group">
+                          <SkillInputSingle
+                            type="file"
+                            onChange={this.handleImageChange.bind(this)}
+                          />
+                          <button
+                            onClick={this.saveWorkshopCover.bind(this)}
+                            type="button"
+                            className="btn btn-default btn-sm skills-select-box"
+                            style={{ width: "140px", float: "right" }}
+                          >
+                            <Trans i18nKey="share_skill.button_upload_picture">
+                              Upload a cover photo
+                            </Trans>
+                          </button>
+                        </div>
+                      </form>
+                    </div>
                   </div>
-                  <div className="col-xs-12">
-                    <form name="form">
-                      <div className="form-group">
-                        <SkillInputSingle
-                          type="file"
-                          onChange={this.handleImageChange.bind(this)}
-                        />
-                        <button
-                          onClick={this.saveWorkshopCover.bind(this)}
-                          type="button"
-                          className="btn btn-default btn-sm skills-select-box"
-                          style={{ width: "140px", float: "right" }}
-                        >
-                          <Trans i18nKey="share_skill.button_upload_picture">
-                            Upload a cover photo
-                          </Trans>
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
+                </div>):null}
                 <div className="checkbox">
                   <label>
                     <input
