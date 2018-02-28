@@ -305,7 +305,7 @@ class ShareSkill extends Component {
                         onChange={this.handleChange}
                         className="skills-select-box"
                       >
-                        <option disabled>Choose Level</option>
+                        <option>Choose Level</option>
                         {levels.map(i => (
                           <option
                             selected={
