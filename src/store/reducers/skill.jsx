@@ -11,7 +11,6 @@ export default (state = initialState, action) => {
   let nextState;
   switch (action.type) {
     case skillActions.LEVELS_PENDING: {
-      nextState = { ...state, levels: [] };
       break;
     }
     case skillActions.LEVELS_FETCHED: {
@@ -22,11 +21,9 @@ export default (state = initialState, action) => {
       break;
     }
     case skillActions.LEVELS_REJECTED: {
-      nextState = { ...state, levels: action.payload };
       break;
     }
     case skillActions.CATEGORIES_FETCHED_PENDING: {
-      nextState = { ...state, categories: [] };
       break;
     }
     case skillActions.CATEGORIES_FETCHED: {
@@ -37,11 +34,9 @@ export default (state = initialState, action) => {
       break;
     }
     case skillActions.CATEGORIES_FETCHED_REJECTED: {
-      nextState = { ...state, categories: action.payload };
       break;
     }
     case skillActions.WORKSHOPS_FETCHED_PENDING: {
-      nextState = { ...state, workshops: [] };
       break;
     }
     case skillActions.WORKSHOPS_FETCHED: {
@@ -52,7 +47,6 @@ export default (state = initialState, action) => {
       break;
     }
     case skillActions.WORKSHOPS_FETCHED_REJECTED: {
-      nextState = { ...state, workshops: action.payload };
       break;
     }
     case skillActions.WORKSHOP_SAVED: {
@@ -64,7 +58,6 @@ export default (state = initialState, action) => {
       break;
     }
     case skillActions.WORKSHOP_SAVE_REJECTED: {
-      nextState = { ...state, workshops: action.payload };
       break;
     }
     default: {
