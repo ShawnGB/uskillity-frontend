@@ -1,91 +1,108 @@
-import React from 'react'
-import { translate, Trans } from 'react-i18next'
-import { compose } from 'redux'
-import { connect } from 'react-redux'
-import * as sessionActions from 'app:store/actions/session'
-import { Link } from 'react-router-dom'
-import './style.css'
-import logo from '../../images/logo.png'
-import AuthModals from 'app:components/auth-modals'
-import { Navbar, Nav } from 'react-bootstrap'
+import React from "react";
+import { translate, Trans } from "react-i18next";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import * as sessionActions from "app:store/actions/session";
+import { Link } from "react-router-dom";
+import "./style.css";
+import logo from "../../images/logo.png";
+import AuthModals from "app:components/auth-modals";
+import { Navbar, Nav, NavItem } from "react-bootstrap";
 
 class MenuBar extends React.Component {
-  render () {
-    const { session } = this.props
-    const { user } = session
-    const isLoggedIn = session && session.isLoggedIn
+  render() {
+    const { session } = this.props;
+    const { user } = session;
+    const isLoggedIn = session && session.isLoggedIn;
     return (
       <div>
         <Navbar collapseOnSelect>
           <Navbar.Header className="menubar-header">
-            <Link to='/'>
-              <img src={logo} width='138' height='50' alt='' />
+            <Link to="/">
+              <img src={logo} width="138" height="50" alt="" />
             </Link>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
-            <Nav pullRight className='collapse-nav'>
-              <div className='menubar-menu-collection'>
+            <Nav pullRight className="collapse-nav">
+              <div className="menubar-menu-collection">
                 {!isLoggedIn ? (
-                  <Link
-                    to='#'
+                  <NavItem
                     onClick={() =>
                       this.refs.authModals
                         .getWrappedInstance()
-                        .onRegisteredClicked()
-                    }
+                        .onRegisteredClicked()}
                   >
-                    <Trans i18nKey='navbar.button_register'>Register now</Trans>
-                  </Link>
+                    <Trans i18nKey="navbar.button_register">Register now</Trans>
+                  </NavItem>
                 ) : (
-                  <Link to={`/profile/${user.id}`}>
-                    <Trans i18nKey='navbar.button_my_account'>My Account</Trans>
-                  </Link>
+                  <NavItem
+                    componentClass={Link}
+                    eventKey={1}
+                    href={`/profile/${user.id}`}
+                    to={`/profile/${user.id}`}
+                  >
+                    <Trans i18nKey="navbar.button_my_account">My Account</Trans>
+                  </NavItem>
                 )}
                 {!isLoggedIn ? (
-                  <Link
-                    to='#'
+                  <NavItem
                     onClick={() =>
-                      this.refs.authModals.getWrappedInstance().onLoginClicked()
-                    }
+                      this.refs.authModals
+                        .getWrappedInstance()
+                        .onLoginClicked()}
                   >
-                    <Trans i18nKey='navbar.button_login'>Log in</Trans>
-                  </Link>
+                    <Trans i18nKey="navbar.button_login">Log in</Trans>
+                  </NavItem>
                 ) : (
-                  <Link
-                    to='#'
+                  <NavItem
                     onClick={() => this.props.dispatch(sessionActions.logout())}
                   >
-                    <Trans i18nKey='navbar.button_logout'>Log out</Trans>
-                  </Link>
+                    <Trans i18nKey="navbar.button_logout">Log out</Trans>
+                  </NavItem>
                 )}
-                <Link to='/shareyourskill'>
-                  <Trans i18nKey='navbar.button_share_skill'>
+                <NavItem
+                  componentClass={Link}
+                  eventKey={2}
+                  href="/shareyourskill"
+                  to="/shareyourskill"
+                >
+                  <Trans i18nKey="navbar.button_share_skill">
                     Share your skill
                   </Trans>
-                </Link>
-                <Link to='/learnskill'>
-                  <Trans i18nKey='navbar.button_learn_skill'>
+                </NavItem>
+                <NavItem
+                  componentClass={Link}
+                  eventKey={3}
+                  to="/learnskill"
+                  href="/learnskill"
+                >
+                  <Trans i18nKey="navbar.button_learn_skill">
                     Learn a Skill
                   </Trans>
-                </Link>
-                <Link to='/about'>
-                  <Trans i18nKey='navbar.button_about'>u/about</Trans>
-                </Link>
+                </NavItem>
+                <NavItem
+                  componentClass={Link}
+                  eventKey={4}
+                  to="/about"
+                  href="/about"
+                >
+                  <Trans i18nKey="navbar.button_about">u/about</Trans>
+                </NavItem>
               </div>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <AuthModals ref='authModals' />
+        <AuthModals ref="authModals" />
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = state => ({
   session: state.session
-})
+});
 
-export default compose(translate('translations'), connect(mapStateToProps))(
+export default compose(translate("translations"), connect(mapStateToProps))(
   MenuBar
-)
+);

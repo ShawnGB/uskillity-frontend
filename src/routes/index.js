@@ -26,7 +26,8 @@ export default () => (
           <Route path="/courses" component={Courses} />
           <Route exact path="/profile/:id" component={Profile} />
           <Route path="/workshop/:id" component={Workshop} />
-          <Route path="/shareyourskill" component={ShareSkill} />
+          <Route exact path="/shareyourskill" render={props => <ShareSkill editable={false}/>} />
+          <Route path="/shareyourskill/:id/edit" render={props => <ShareSkill editable={true} {...props}/>} />
           <Route path="/learnskill" component={LearnSkill} />
           <Route path="/learnskill/:id" component={LearnSkill} />
         </div>

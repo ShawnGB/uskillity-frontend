@@ -14,7 +14,11 @@ class Profile extends React.Component {
     this.state = {
       profile: {
         about: "",
-        edu_bg: ""
+        edu_bg: "",
+        first_name: "",
+        name: "",
+        location: "",
+        profession: ""
       },
       isEditing: false, // Default is false, false = pre-edit state, so edit button will appear
       showCancelBtn: false,

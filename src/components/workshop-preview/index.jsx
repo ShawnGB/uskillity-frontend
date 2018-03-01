@@ -1,8 +1,8 @@
 import React from "react";
-import { translate } from "react-i18next";
+import { translate,Trans } from "react-i18next";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 
 const WorkshopPreviewDiv = props => (
   <div style={{paddingLeft: "12px", paddingRight: "12px"}}>
@@ -21,10 +21,7 @@ const WorkshopPreviewDiv = props => (
       </div>
       <div className="col-xs-4">
         {props.editable ? (
-          <button className="btn_edit_skill" type="button">
-            {" "}
-            Edit{" "}
-          </button>
+          <Button skillId={props.workshop.id} />
         ) : null}
       </div>
       <div className="col-xs-12" style={{ margin: "0px", height: "22px" }}>
@@ -38,6 +35,23 @@ const WorkshopPreviewDiv = props => (
     </div>
   </div>
 );
+
+const Button = props => (
+  <Route
+    render={({ history }) => (
+      <button
+        className="btn_edit_skill"
+        type="button"
+        onClick={() => {
+          history.push(`/shareyourskill/${props.skillId}/edit`);
+        }}
+      >
+        <Trans i18nKey="workshop.instructor.button_edit_workshop">Edit</Trans>
+      </button>
+    )}
+  />
+);
+
 
 const mapStateToProps = state => ({
   session: state.session

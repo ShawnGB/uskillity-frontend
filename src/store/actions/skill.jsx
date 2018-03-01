@@ -1,5 +1,5 @@
 import * as service from "app:utils/service";
-
+import * as util from "app:utils/utils";
 export const LEVELS_PENDING = "skill/LEVELS_PENDING";
 export const LEVELS_FETCHED = "skill/LEVELS_FETCHED";
 export const LEVELS_REJECTED = "skill/LEVELS_REJECTED";
@@ -8,9 +8,20 @@ export const CATEGORIES_FETCHED = "skill/CATEGORIES_FETCHED";
 export const CATEGORIES_FETCHED_REJECTED = "skill/CATEGORIES_FETCHED_REJECTED";
 export const WORKSHOP_SAVED = "skill/WORKSHOP_SAVED";
 export const WORKSHOP_SAVE_REJECTED = "skill/WORKSHOP_SAVE_REJECTED";
+export const WORKSHOP_UPDATE_PENDING = "skill/WORKSHOP_UPDATE_PENDING";
+export const WORKSHOP_UPDATED = "skill/WORKSHOP_UPDATED";
+export const WORKSHOP_UPDATE_REJECTED = "skill/WORKSHOP_UPDATE_REJECTED";
 export const WORKSHOPS_FETCHED_PENDING = "skill/WORKSHOPS_FETCHED_PENDING";
 export const WORKSHOP_SESSION_SAVE_PENDING =
   "skill/WORKSHOP_SESSION_SAVE_PENDING";
+export const WORKSHOP_SESSION_SAVED = "skill/WORKSHOP_SESSION_SAVED";
+export const WORKSHOP_SESSION_SAVE_REJECTED =
+  "skill/WORKSHOP_SESSION_SAVE_REJECTED";
+export const WORKSHOP_SESSION_UPDATE_PENDING =
+  "skill/WORKSHOP_SESSION_UPDATE_PENDING";
+export const WORKSHOP_SESSION_UPDATED = "skill/WORKSHOP_SESSION_UPDATED";
+export const WORKSHOP_SESSION_UPDATE_REJECTED =
+  "skill/WORKSHOP_SESSION_UPDATE_REJECTED";
 export const WORKSHOPS_FETCHED = "skill/WORKSHOPS_FETCHED";
 export const WORKSHOPS_FETCHED_REJECTED = "skill/WORKSHOPS_FETCHED_REJECTED";
 export const UPLOAD_IMG_PENDING = "skill/UPLOAD_IMG_PENDING";
@@ -49,7 +60,7 @@ export const fetchCategories = () => {
   };
 };
 
-export const saveWorkshop = workshop => {
+export const saveWorkshop = (workshop, router) => {
   return dispatch => {
     fetch(service.getServerEndpoint("/workshops.json"), {
       method: "POST",
@@ -63,6 +74,7 @@ export const saveWorkshop = workshop => {
       .then(
         data => {
           dispatch({ type: WORKSHOP_SAVED, payload: data });
+          router.replace(`/shareyourskill/${data.id}/edit`);
         },
         error => {
           dispatch({ type: WORKSHOP_SAVE_REJECTED, payload: error });
@@ -109,16 +121,74 @@ export const saveWorkshopCover = (file, id) => {
   };
 };
 
-export const saveWorkshopSession = (wId, session) => {
+export const saveWorkshopSession = (workshopId, session) => {
   return function(dispatch) {
     dispatch({ type: WORKSHOP_SESSION_SAVE_PENDING });
-    fetch(service.getServerEndpoint(`/workshops/${wId}/workshop_sessions`), {
-      method: "POST",
+    fetch(
+      service.getServerEndpoint(`/workshops/${workshopId}/workshop_sessions`),
+      {
+        method: "POST",
+        headers: service.getRequestHeaders(),
+        body: JSON.stringify({
+          starts_at: util.parseToLocalTime(
+            session.dateAndTime,
+            session.starts_at
+          ),
+          ends_at: util.parseToLocalTime(session.dateAndTime, session.ends_at)
+        })
+      }
+    )
+      .then(service.handleResponse)
+      .then(
+        response => {
+          dispatch({ type: WORKSHOP_SESSION_SAVED });
+        },
+        error => {
+          dispatch({ type: WORKSHOP_SESSION_SAVE_REJECTED });
+        }
+      );
+  };
+};
+
+export const updateWorkshopSession = (workshopId, session) => {
+  return function(dispatch) {
+    dispatch({ type: WORKSHOP_SESSION_UPDATE_PENDING });
+    fetch(
+      service.getServerEndpoint(
+        `/workshops/${workshopId}/workshop_sessions/${session.id}.json`
+      ),
+      {
+        method: "PUT",
+        headers: service.getRequestHeaders(),
+        body: JSON.stringify({
+          starts_at: util.parseToLocalTime(
+            session.dateAndTime,
+            session.starts_at
+          ),
+          ends_at: util.parseToLocalTime(session.dateAndTime, session.ends_at)
+        })
+      }
+    ).then(response => {
+      if (response.ok) {
+        dispatch({ type: WORKSHOP_SESSION_UPDATED });
+      } else {
+        dispatch({ type: WORKSHOP_SESSION_UPDATE_REJECTED });
+      }
+    });
+  };
+};
+
+export const updateWorkshop = (workshop, id) => {
+  return dispatch => {
+    dispatch({ type: WORKSHOP_UPDATE_PENDING });
+    fetch(service.getServerEndpoint(`/workshops/${id}.json`), {
+      method: "PUT",
       headers: service.getRequestHeaders(),
       body: JSON.stringify({
-        starts_at: session[0].startTime,
-        ends_at: session[0].endTime
+        workshop: workshop
       })
-    }).then(service.handleResponse);
+    }).then(promise => {
+      dispatch({ type: WORKSHOP_UPDATED });
+    });
   };
 };
