@@ -60,7 +60,7 @@ export const fetchCategories = () => {
   };
 };
 
-export const saveWorkshop = workshop => {
+export const saveWorkshop = (workshop, router) => {
   return dispatch => {
     fetch(service.getServerEndpoint("/workshops.json"), {
       method: "POST",
@@ -74,6 +74,7 @@ export const saveWorkshop = workshop => {
       .then(
         data => {
           dispatch({ type: WORKSHOP_SAVED, payload: data });
+          router.replace(`/shareyourskill/${data.id}/edit`);
         },
         error => {
           dispatch({ type: WORKSHOP_SAVE_REJECTED, payload: error });

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import * as skillActions from "app:store/actions/skill";
 import { parseSessionDateTime } from "app:utils/utils";
 import "./style.css";
@@ -61,12 +62,13 @@ class ShareSkill extends Component {
   }
 
   findWorkshopToEdit = () => {
-    const { user_workshops } = this.props.profile;
-    if (this.props.editable) {
-      let initialWorkshop =
-        user_workshops.find(w => w.id === +this.state.workshopId) || {};
-      this.setState({ initialWorkshop });
+    if (!this.props.editable) {
+      return;
     }
+    const { workshops } = this.props.skills;
+    let initialWorkshop =
+      workshops.find(w => w.id === +this.state.workshopId) || {};
+    this.setState({ initialWorkshop });
   };
 
   addRow() {
@@ -93,10 +95,9 @@ class ShareSkill extends Component {
         skillActions.updateWorkshopSession(this.state.workshopId, session)
       );
     } else if (this.addingSessionCompleted(session)) {
-      const { workshops } = this.props.skills;
-      let workshopId =
-        this.state.workshopId || workshops[workshops.length - 1].id;
-      dispatch(skillActions.saveWorkshopSession(workshopId, session));
+      dispatch(
+        skillActions.saveWorkshopSession(this.state.workshopId, session)
+      );
     }
   };
 
@@ -142,15 +143,9 @@ class ShareSkill extends Component {
   }
 
   saveWorkshopCover() {
-    const { dispatch, skills } = this.props;
-    const { workshops } = skills;
-    //TODO: check if workshops array is null
-    //TODO: push only when a new workshop is created
+    const { dispatch } = this.props;
     dispatch(
-      skillActions.saveWorkshopCover(
-        this.state.file,
-        workshops[workshops.length - 1].id
-      )
+      skillActions.saveWorkshopCover(this.state.file, this.state.workshopId)
     );
   }
 
@@ -158,20 +153,20 @@ class ShareSkill extends Component {
     e.preventDefault();
     const { dispatch } = this.props;
     if (this.props.editable) {
-      dispatch(skillActions.updateWorkshop(
-        this.state.workshop,
-        this.state.workshopId
-      ))
+      dispatch(
+        skillActions.updateWorkshop(this.state.workshop, this.state.workshopId)
+      );
     } else {
-      dispatch(skillActions.saveWorkshop(this.state.workshop));
+      dispatch(
+        skillActions.saveWorkshop(this.state.workshop, this.props.history)
+      );
     }
   }
 
   render() {
-    const { skills, session, t } = this.props;
+    const { skills, session, t, editable } = this.props;
     const levels = skills.levels;
     const categories = skills.categories;
-    const add_session = this.props.editable ? true : skills.add_session;
     const isLoggedIn = session && session.isLoggedIn;
     const initialWorkshop = this.state.initialWorkshop;
     return (
@@ -425,93 +420,100 @@ class ShareSkill extends Component {
               </div>
 
               <div>
-                {add_session ? (
-                  <div>
-                    <div className="row share-skill-row">
-                      <div className="col-xs-12 skills-form-label">
-                        <span className="skills-form-title">
-                          <Trans i18nKey="share_skill.date_and_time_label">
-                            Date and time
-                          </Trans>
-                        </span>
-                      </div>
-                      {this.state.sessions.map((session, index) => (
-                        <ScheduleWorkshop
-                          onChange={this.onChangeWorkshopSession.bind(
-                            this,
-                            index
-                          )}
-                          onBlur={this.updateWorkshopSession.bind(
-                            this,
-                            session,
-                            index
-                          )}
-                          key={index}
-                          session={session}
-                        />
-                      ))}
-                      <div className="col-xs-3">
-                        <div className="row share-skill-row">
-                          <div className="col-xs-12">
-                            <button
-                              type="button"
-                              className="btn btn-default btn-sm skills-select-box add-session-button"
-                              onClick={this.addRow}
-                              style={{ borderRadius: "17px" }}
-                            >
-                              <span
-                                className="glyphicon glyphicon-plus"
-                                style={{ fontSize: "15px" }}
-                              />
-                            </button>
-                          </div>
+                <div>
+                  <div className="row share-skill-row">
+                    <div className="col-xs-12 skills-form-label">
+                      <span className="skills-form-title">
+                        <Trans i18nKey="share_skill.date_and_time_label">
+                          Date and time
+                        </Trans>
+                      </span>
+                    </div>
+                    {this.state.sessions.map((session, index) => (
+                      <ScheduleWorkshop
+                        onChange={this.onChangeWorkshopSession.bind(
+                          this,
+                          index
+                        )}
+                        onBlur={this.updateWorkshopSession.bind(
+                          this,
+                          session,
+                          index
+                        )}
+                        key={index}
+                        session={session}
+                        disabled={!editable}
+                      />
+                    ))}
+                    <div className="col-xs-3">
+                      <div className="row share-skill-row">
+                        <div className="col-xs-12">
+                          <button
+                            type="button"
+                            className="btn btn-default btn-sm skills-select-box add-session-button"
+                            onClick={this.addRow}
+                            disabled={!editable}
+                            style={{ borderRadius: "17px" }}
+                          >
+                            <span
+                              className="glyphicon glyphicon-plus"
+                              style={{ fontSize: "15px" }}
+                            />
+                          </button>
                         </div>
                       </div>
                     </div>
-                    <div className="row share-skill-row">
-                      <div className="col-xs-12 skills-form-label">
-                        <span className="skills-form-title">Photo</span>
-                      </div>
-                      <div className="col-xs-12">
-                        <form name="form">
-                          <div className="form-group">
-                            <SkillInputSingle
-                              type="file"
-                              onChange={this.handleImageChange.bind(this)}
-                            />
-                            <button
-                              onClick={this.saveWorkshopCover.bind(this)}
-                              type="button"
-                              className="btn btn-default btn-sm skills-select-box"
-                              style={{ width: "140px", float: "right" }}
-                            >
-                              <Trans i18nKey="share_skill.button_upload_picture">
-                                Upload a cover photo
-                              </Trans>
-                            </button>
-                          </div>
-                        </form>
-                      </div>
+                  </div>
+                  <div className="row share-skill-row">
+                    <div className="col-xs-12 skills-form-label">
+                      <span className="skills-form-title">Photo</span>
+                    </div>
+                    <div className="col-xs-12">
+                      <form name="form">
+                        <div className="form-group">
+                          <SkillInputSingle
+                            type="file"
+                            disabled={!editable}
+                            onChange={this.handleImageChange.bind(this)}
+                          />
+                          <button
+                            onClick={this.saveWorkshopCover.bind(this)}
+                            type="button"
+                            className="btn btn-default btn-sm skills-select-box"
+                            disabled={!editable}
+                            style={{ width: "140px", float: "right" }}
+                          >
+                            <Trans i18nKey="share_skill.button_upload_picture">
+                              Upload a cover photo
+                            </Trans>
+                          </button>
+                        </div>
+                      </form>
                     </div>
                   </div>
-                ) : null}
-                <div className="checkbox">
-                  <label>
-                    <input
-                      type="checkbox"
-                      value={Date.now()}
-                      name="published_at"
-                      onChange={this.handleChange}
-                    />
-                    <Trans i18nKey="share_skill.checkbox_agreement">
-                      I herby declare that I read the the terms and conditions
-                      as stated on this website and agrre with them
-                    </Trans>
-                  </label>
+                  <div className="checkbox">
+                    <label>
+                      <input
+                        type="checkbox"
+                        value={Date.now()}
+                        name="published_at"
+                        disabled={!editable}
+                        onChange={this.handleChange}
+                      />
+                      <Trans i18nKey="share_skill.checkbox_agreement">
+                        I herby declare that I read the the terms and conditions
+                        as stated on this website and agrre with them
+                      </Trans>
+                    </label>
+                  </div>
+                  <button
+                    disabled={!editable}
+                    className="btn btn-primary"
+                    type="button"
+                  >
+                    <Trans i18nKey="share_skill.button_sumbit">Submit</Trans>
+                  </button>
                 </div>
-                <button className="btn btn-primary" type="button">
-                  <Trans i18nKey="share_skill.button_sumbit">Submit</Trans>
-                </button>
               </div>
             </div>
             <div>{this.state.error.message}</div>
@@ -545,11 +547,11 @@ const SkillInputSingle = props => (
     onChange={props.onChange}
     defaultValue={props.defaultValue}
     style={{ borderRadius: "0px", borderColor: "#9b9b9b" }}
+    disabled={props.disabled}
   />
 );
 
 const ScheduleWorkshop = props => {
-  console.log("props.session", props.session);
   const hasDefaultValue = () => {
     return Object.keys(props.session).length > 0;
   };
@@ -562,6 +564,7 @@ const ScheduleWorkshop = props => {
             type="date"
             onChange={props.onChange}
             onBlur={props.onBlur}
+            disabled={props.disabled}
             defaultValue={hasDefaultValue() ? props.session.dateAndTime : null}
           />
         </div>
@@ -574,6 +577,7 @@ const ScheduleWorkshop = props => {
             type="time"
             onChange={props.onChange}
             onBlur={props.onBlur}
+            disabled={props.disabled}
             placeholder="Start Time"
             defaultValue={hasDefaultValue() ? props.session.starts_at : null}
           />
@@ -587,6 +591,7 @@ const ScheduleWorkshop = props => {
             type="time"
             onChange={props.onChange}
             onBlur={props.onBlur}
+            disabled={props.disabled}
             placeholder="End Time"
             defaultValue={hasDefaultValue() ? props.session.ends_at : null}
           />
@@ -598,10 +603,11 @@ const ScheduleWorkshop = props => {
 
 const mapStateToProps = state => ({
   skills: state.skills,
-  session: state.session,
-  profile: state.profile
+  session: state.session
 });
 
-export default compose(translate("translations"), connect(mapStateToProps))(
-  ShareSkill
-);
+export default compose(
+  withRouter,
+  translate("translations"),
+  connect(mapStateToProps)
+)(ShareSkill);
