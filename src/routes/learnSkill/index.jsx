@@ -11,13 +11,11 @@ class LearnSkill extends Component {
     this.state = {
       categories: {}
     };
-    this.prepareWorkshops = this.prepareWorkshops.bind(this);
   }
   componentWillMount() {
     const { dispatch } = this.props;
     dispatch(skillActions.fetchWorkshops());
     dispatch(skillActions.fetchCategories());
-    this.prepareWorkshops();
   }
 
   componentDidMount() {
@@ -27,24 +25,21 @@ class LearnSkill extends Component {
     }
   }
 
-  prepareWorkshops() {
-    const { workshops, categories } = this.props.skills;
-    let categories_data = {};
-    /* eslint-disable */
-    workshops.map((workshop, i) => {
+  groupWorkshops({ workshops = [], categories = [] }) {
+    let groupedWorkshops = {};
+
+    workshops.forEach(workshop => {
       let category_id = workshop.category_id;
-      if (!categories_data[category_id]) {
-        categories_data[category_id] = {};
-        categories_data[category_id].workshops_data = [];
+      if (!groupedWorkshops[category_id]) {
+        groupedWorkshops[category_id] = {};
+        groupedWorkshops[category_id].workshops_data = [];
         let category = categories.find(c => c.id === category_id);
-        categories_data[category_id].name = category.name;
-        categories_data[category_id].categoryId = category.id;
+        groupedWorkshops[category_id].name = category.name;
+        groupedWorkshops[category_id].categoryId = category.id;
       }
-      categories_data[category_id].workshops_data.push(workshop);
+      groupedWorkshops[category_id].workshops_data.push(workshop);
     });
-    /* eslint-enable */
-    this.setState({ categories: categories_data });
-    console.log(categories_data);
+    return groupedWorkshops;
   }
 
   scrollToElement(categoryId) {
@@ -55,14 +50,14 @@ class LearnSkill extends Component {
   }
 
   render() {
-    const categories_data = this.state.categories;
+    const categories = this.groupWorkshops(this.props.skills);
     return (
       <div>
         <div className="container">
-          {Object.keys(categories_data).map((key, i) => (
+          {Object.keys(categories).map((key, i) => (
             <CategoryRow
-              name={categories_data[key].name}
-              workshops={categories_data[key].workshops_data}
+              name={categories[key].name}
+              workshops={categories[key].workshops_data}
               key={i}
             />
           ))}
