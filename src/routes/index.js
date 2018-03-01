@@ -1,7 +1,7 @@
 import React from "react";
 import { HashRouter as Router, Route } from "react-router-dom";
 
-import Navbar from "app:components/nav-bar";
+import MenuBar from "app:components/nav-bar";
 import Footer from "app:components/footer";
 import ModalRoot from "app:components/modal-root";
 import AuthRoot from "app:components/auth-root";
@@ -17,7 +17,7 @@ import LearnSkill from "app:routes/learnSkill";
 export default () => (
   <Router>
     <div>
-      <Navbar />
+      <MenuBar />
       <div className="container">
         <div style={{ minHeight: "75vh" }}>
           <Route exact path="/" component={Home} />

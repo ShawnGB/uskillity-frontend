@@ -19,7 +19,8 @@ class LoginForm extends Component {
   }
 
   componentDidMount() {
-    const APP_ID = "618914508265405";
+    //const APP_ID = "624849507671905"; // dev
+    const APP_ID = "618914508265405"; // staging
     window.fbAsyncInit = function() {
       FB.init({
         appId: APP_ID,
@@ -53,7 +54,9 @@ class LoginForm extends Component {
       if (d.getElementById(id)) return;
       js = d.createElement(s);
       js.id = id;
-      js.src = `https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=${APP_ID}`;
+      js.src = `https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=${
+        APP_ID
+      }`;
       fjs.parentNode.insertBefore(js, fjs);
     })(document, "script", "facebook-jssdk");
   }
