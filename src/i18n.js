@@ -1,13 +1,25 @@
 import i18n from "i18next";
-import XHR from "i18next-xhr-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { reactI18nextModule } from "react-i18next";
+import { en } from "./locales/en/translations.js";
+import { de } from "./locales/de/translations.js";
 
 const instance = i18n
-  .use(XHR)
   .use(LanguageDetector)
   .use(reactI18nextModule)
   .init({
+    resources: {
+      en: {
+        translations: {
+          ...en
+        }
+      },
+      de: {
+        translations: {
+          ...de
+        }
+      }
+    },
     fallbackLng: "en",
     debug: true,
     // have a common namespace used around the full app
