@@ -156,10 +156,14 @@ class ShareSkill extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const { dispatch } = this.props;
     if (this.props.editable) {
-      skillActions.updateWorkshop(this.state.workshop, this.state.workshopId);
+      dispatch(skillActions.updateWorkshop(
+        this.state.workshop,
+        this.state.workshopId
+      ))
     } else {
-      this.props.dispatch(skillActions.saveWorkshop(this.state.workshop));
+      dispatch(skillActions.saveWorkshop(this.state.workshop));
     }
   }
 
