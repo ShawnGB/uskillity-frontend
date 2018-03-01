@@ -23,7 +23,7 @@ class ShareSkill extends Component {
         dateAndTime: "",
         full_address: "",
         fees: "",
-        published_at: ""
+        terms_accepted: false
       },
       sessions: [],
       error: {
@@ -119,7 +119,11 @@ class ShareSkill extends Component {
   handleChange(e) {
     const input = e.target.name;
     const workshop = this.state.workshop;
-    workshop[input] = e.target.value;
+    let value = e.target.value;
+    if (input === "terms_accepted") {
+      value = e.target.checked;
+    }
+    workshop[input] = value;
     this.setState({ workshop });
     this.setState({ level_id: input === "level_id" ? e.target.value : "" }); // TODO: why is it ouside workshop object
   }
@@ -491,28 +495,36 @@ class ShareSkill extends Component {
                       </form>
                     </div>
                   </div>
-                  <div className="checkbox">
-                    <label>
-                      <input
-                        type="checkbox"
-                        value={Date.now()}
-                        name="published_at"
+                  {!initialWorkshop.terms_accepted && (
+                    <div>
+                      <div className="checkbox">
+                        <label>
+                          <input
+                            type="checkbox"
+                            value={initialWorkshop.terms_accepted}
+                            name="terms_accepted"
+                            disabled={!editable}
+                            onChange={this.handleChange}
+                          />
+                          <Trans i18nKey="share_skill.checkbox_agreement">
+                            I herby declare that I read the the terms and
+                            conditions as stated on this website and agrre with
+                            them
+                          </Trans>
+                        </label>
+                      </div>
+                      <button
                         disabled={!editable}
-                        onChange={this.handleChange}
-                      />
-                      <Trans i18nKey="share_skill.checkbox_agreement">
-                        I herby declare that I read the the terms and conditions
-                        as stated on this website and agrre with them
-                      </Trans>
-                    </label>
-                  </div>
-                  <button
-                    disabled={!editable}
-                    className="btn btn-primary"
-                    type="button"
-                  >
-                    <Trans i18nKey="share_skill.button_sumbit">Submit</Trans>
-                  </button>
+                        className="btn btn-primary"
+                        type="button"
+                        onClick={this.handleSubmit}
+                      >
+                        <Trans i18nKey="share_skill.button_sumbit">
+                          Submit
+                        </Trans>
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
