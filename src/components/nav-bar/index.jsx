@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import './style.css'
 import logo from '../../images/logo.png'
 import AuthModals from 'app:components/auth-modals'
-import { Navbar, Nav } from 'react-bootstrap'
+import { Navbar, Nav, NavItem } from 'react-bootstrap'
 
 class MenuBar extends React.Component {
   render () {
@@ -27,7 +27,7 @@ class MenuBar extends React.Component {
             <Nav pullRight className='collapse-nav'>
               <div className='menubar-menu-collection'>
                 {!isLoggedIn ? (
-                  <Link
+                  <NavItem
                     to='#'
                     onClick={() =>
                       this.refs.authModals
@@ -36,42 +36,42 @@ class MenuBar extends React.Component {
                     }
                   >
                     <Trans i18nKey='navbar.button_register'>Register now</Trans>
-                  </Link>
+                  </NavItem>
                 ) : (
-                  <Link to={`/profile/${user.id}`}>
+                  <NavItem to={`/profile/${user.id}`}>
                     <Trans i18nKey='navbar.button_my_account'>My Account</Trans>
-                  </Link>
+                  </NavItem>
                 )}
                 {!isLoggedIn ? (
-                  <Link
+                  <NavItem
                     to='#'
                     onClick={() =>
                       this.refs.authModals.getWrappedInstance().onLoginClicked()
                     }
                   >
                     <Trans i18nKey='navbar.button_login'>Log in</Trans>
-                  </Link>
+                  </NavItem>
                 ) : (
-                  <Link
+                  <NavItem
                     to='#'
                     onClick={() => this.props.dispatch(sessionActions.logout())}
                   >
                     <Trans i18nKey='navbar.button_logout'>Log out</Trans>
-                  </Link>
+                  </NavItem>
                 )}
-                <Link to='/shareyourskill'>
+                <NavItem to='/shareyourskill'>
                   <Trans i18nKey='navbar.button_share_skill'>
                     Share your skill
                   </Trans>
-                </Link>
-                <Link to='/learnskill'>
+                </NavItem>
+                <NavItem to='/learnskill'>
                   <Trans i18nKey='navbar.button_learn_skill'>
                     Learn a Skill
                   </Trans>
-                </Link>
-                <Link to='/about'>
+                </NavItem>
+                <NavItem to='/about'>
                   <Trans i18nKey='navbar.button_about'>u/about</Trans>
-                </Link>
+                </NavItem>
               </div>
             </Nav>
           </Navbar.Collapse>
