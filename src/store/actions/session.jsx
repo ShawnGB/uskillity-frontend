@@ -1,5 +1,6 @@
 import * as service from "app:utils/service";
 import * as modalActions from "app:store/actions/modal";
+import * as skillActions from "app:store/actions/skill";
 
 export const LOGIN_PENDING = "session/LOGIN_PENDING";
 export const LOGIN_FULFILLED = "session/LOGIN_FULFILLED";
@@ -29,6 +30,9 @@ export const login = (email, password) => {
       .then(
         response => {
           dispatch({ type: LOGIN_FULFILLED, payload: response.data });
+          dispatch(skillActions.fetchWorkshops());
+          dispatch(skillActions.fetchCategories());
+          dispatch(skillActions.fetchLevels());
           dispatch({ type: modalActions.HIDE_MODAL });
         },
         error => {
@@ -44,13 +48,13 @@ export const register = user => {
     return fetch(service.getServerEndpoint("/auth"), {
       method: "POST",
       headers: service.getRequestHeaders(),
-      body: JSON.stringify(user,
-        ['email',
-        'first_name',
-        'name',
-        'password',
-        'password_confirmation']
-      )
+      body: JSON.stringify(user, [
+        "email",
+        "first_name",
+        "name",
+        "password",
+        "password_confirmation"
+      ])
     })
       .then(service.handleAuthResponse)
       .then(response => {
