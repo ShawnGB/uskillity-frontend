@@ -1,11 +1,16 @@
 import * as service from "app:utils/service";
 import * as util from "app:utils/utils";
+
 export const LEVELS_PENDING = "skill/LEVELS_PENDING";
 export const LEVELS_FETCHED = "skill/LEVELS_FETCHED";
 export const LEVELS_REJECTED = "skill/LEVELS_REJECTED";
 export const CATEGORIES_FETCHED_PENDING = "skill/CATEGORIES_FETCHED_PENDING";
 export const CATEGORIES_FETCHED = "skill/CATEGORIES_FETCHED";
 export const CATEGORIES_FETCHED_REJECTED = "skill/CATEGORIES_FETCHED_REJECTED";
+export const USER_WORKSHOPS_FETCHED = "skill/USER_WORKSHOPS_FETCHED";
+export const USER_WORKSHOPS_FETCH_PENDING =
+  "skill/USER_WORKSHOPS_FETCH_PENDING";
+export const USER_WORKSHOPS_FETCH_REJECTED = "skill/USER_WORKSHOPS_REJECTED";
 export const WORKSHOP_SAVED = "skill/WORKSHOP_SAVED";
 export const WORKSHOP_SAVE_REJECTED = "skill/WORKSHOP_SAVE_REJECTED";
 export const WORKSHOP_UPDATE_PENDING = "skill/WORKSHOP_UPDATE_PENDING";
@@ -98,6 +103,23 @@ export const fetchWorkshops = () => {
       );
   };
 };
+
+export const fetchUserWorkshops = userId => {
+  return dispatch => {
+    dispatch({ type: USER_WORKSHOPS_FETCH_PENDING });
+    fetch(service.getServerEndpoint(`/users/${userId}/workshops`))
+      .then(service.handleResponse)
+      .then(
+        data => {
+          dispatch({ type: USER_WORKSHOPS_FETCHED, payload: data });
+        },
+        error => {
+          dispatch({ type: USER_WORKSHOPS_FETCH_REJECTED, payload: error });
+        }
+      );
+  };
+};
+
 //TODO: need to pass workshop id as well
 export const saveWorkshopCover = (file, id) => {
   return function(dispatch) {

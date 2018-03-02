@@ -3,7 +3,7 @@ import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
 import ProfileCourses from "./ProfileCourses";
 import * as profileActions from "app:store/actions/profile";
-import * as userActions from "app:store/actions/profile";
+import * as skillActions from "app:store/actions/skill";
 import Dropzone from "react-dropzone";
 import { connect } from "react-redux";
 import "./style.css";
@@ -31,6 +31,7 @@ class Profile extends React.Component {
   componentWillMount() {
     this.setProvider(this.props.match.params.id);
   }
+
   componentWillReceiveProps = nextProps => {
     // TODO: should check if nextProps has id ?
     if (this.props.match.params.id !== nextProps.match.params.id) {
@@ -42,7 +43,7 @@ class Profile extends React.Component {
     const { session } = this.props;
     const { isLoggedIn } = session;
 
-    this.props.dispatch(userActions.fetchUserWorkshop(pId));
+    this.props.dispatch(skillActions.fetchUserWorkshops(pId));
 
     if (isLoggedIn && session.user.id === +pId) {
       this.setState({
@@ -162,7 +163,13 @@ class Profile extends React.Component {
             <ProfileNormal provider={provider} />
           )}
         </div>
-        <ProfileCourses />
+        <ProfileCourses
+          providerId={
+            this.state.provider
+              ? this.state.provider.id
+              : this.props.match.params.id
+          }
+        />
       </div>
     );
   }

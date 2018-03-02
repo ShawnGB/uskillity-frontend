@@ -65,6 +65,39 @@ export default (state = initialState, action) => {
       };
       break;
     }
+
+    case skillActions.USER_WORKSHOPS_FETCHED: {
+      // TODO: there is a better way to do this
+      let stateWorkshops = state.workshops;
+      let userWorkshops = action.payload;
+
+      userWorkshops.forEach(uWorkshop => {
+        let workshopToOverwrite = stateWorkshops.find(
+          sW => sW.id === uWorkshop.id
+        );
+        if (workshopToOverwrite) {
+          workshopToOverwrite = uWorkshop;
+        } else {
+          stateWorkshops.push(uWorkshop);
+        }
+      });
+
+      nextState = {
+        ...state,
+        workshops: stateWorkshops
+      };
+
+      break;
+    }
+
+    case skillActions.USER_WORKSHOPS_FETCH_PENDING: {
+      break;
+    }
+
+    case skillActions.USER_WORKSHOPS_FETCH_REJECTED: {
+      break;
+    }
+
     case skillActions.WORKSHOP_SAVE_REJECTED: {
       break;
     }

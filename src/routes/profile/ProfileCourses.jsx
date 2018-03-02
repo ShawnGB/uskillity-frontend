@@ -6,12 +6,16 @@ import WorkshopPreviewDiv from "app:components/workshop-preview";
 
 class ProfileCourses extends React.Component {
   render() {
-    const { profile } = this.props;
-    const user_workshops = profile && profile.user_workshops;
+    console.log(this.props);
+    const { providerId, skills } = this.props;
+    const workshops = skills.workshops.filter(workshop => {
+      return workshop.provider_id === +providerId;
+    });
+
     return (
       <div className="row">
         <div className="col">
-          {user_workshops.length > 0 ? (
+          {workshops.length > 0 ? (
             <h2 style={{ marginLeft: "15px" }}>
               <Trans i18nKey="profile.courses.header">My Shared Skills</Trans>
             </h2>
@@ -23,7 +27,7 @@ class ProfileCourses extends React.Component {
             </p>
           )}
         </div>
-        {user_workshops.map((workshop, i) => (
+        {workshops.map((workshop, i) => (
           <div className="col-sm-6 col-md-4" key={i}>
             <WorkshopPreviewDiv i={i} workshop={workshop} editable />
           </div>
@@ -35,7 +39,7 @@ class ProfileCourses extends React.Component {
 
 export const mapStateToProps = state => ({
   session: state.session,
-  profile: state.profile
+  skills: state.skills
 });
 
 export default compose(translate("translations"), connect(mapStateToProps))(
