@@ -6,8 +6,9 @@ import WorkshopPreviewDiv from "app:components/workshop-preview";
 
 class ProfileCourses extends React.Component {
   render() {
-    console.log(this.props);
-    const { providerId, skills } = this.props;
+    const { providerId, skills, session } = this.props;
+    const editable =
+      session.isLoggedIn && session.user && session.user.id === +providerId;
     const workshops = skills.workshops.filter(workshop => {
       return workshop.provider_id === +providerId;
     });
@@ -29,7 +30,7 @@ class ProfileCourses extends React.Component {
         </div>
         {workshops.map((workshop, i) => (
           <div className="col-sm-6 col-md-4" key={i}>
-            <WorkshopPreviewDiv i={i} workshop={workshop} editable />
+            <WorkshopPreviewDiv i={i} workshop={workshop} editable={editable} />
           </div>
         ))}
       </div>
