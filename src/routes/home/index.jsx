@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
+import { Link } from "react-router-dom";
 import "./style.css";
 
 class Home extends React.Component {
@@ -22,20 +23,18 @@ class Home extends React.Component {
       .then(data => {
         console.log("workshops", data);
         let workshops = [];
-        data.map(i => {
+        data.map(ws => {
           return workshops.push(
-            <div
-              className="home-random-workshop"
-              key={i.id}
-              onClick={() => this.goToWorkshop(i.id)}
-            >
-              <img
-                src={i.images[0]}
-                alt="img"
-                className="home-random-workshop-img"
-              />
-              <span className="home-random-workshop-img-text">{i.title}</span>
-            </div>
+            <Link to={`/workshop/${ws.id}`}>
+              <div className="home-random-workshop" key={ws.id}>
+                <img
+                  src={ws.images[0]}
+                  alt="img"
+                  className="home-random-workshop-img"
+                />
+                <span className="home-random-workshop-img-text">{ws.title}</span>
+              </div>
+            </Link>
           );
         });
         this.setState({ workshops });
@@ -67,10 +66,6 @@ class Home extends React.Component {
     this.props.history.push(`/learnskill/${categoryId}`);
   }
 
-  goToWorkshop(workshopId) {
-    this.props.history.push(`/workshop/${workshopId}`);
-  }
-
   componentWillMount() {
     console.log("navigator.language", navigator.language);
     if (navigator.language.includes("de")) {
@@ -84,37 +79,37 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-          <CustomCarousel items={this.state.workshops} />
-          <div className="row row-home category-collection">
-            {this.state.categories}
+        <CustomCarousel items={this.state.workshops} />
+        <div className="row row-home category-collection">
+          {this.state.categories}
+        </div>
+        <div className="row">
+          <div className="about-home">
+            <p className="about-home-header">
+              <Trans i18nKey="home.header">ABOUT US</Trans>
+            </p>
+            <p className="about-home-content">
+              <Trans i18nKey="home.body_0">
+                ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+                diam nonumy eirmod tempor invidunt ut labore et dolore magna
+                aliquyam erat, sed diam voluptua. At vero eos et accusam et
+                justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
+                dolor sit
+              </Trans>
+            </p>
+            <p className="about-home-content">
+              <Trans i18nKey="home.body_1">
+                ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+                diam nonumy eirmod tempor invidunt ut labore et dolore magna
+                aliquyam erat, sed diam voluptua. At vero eos et accusam et
+                justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
+                dolor sit
+              </Trans>
+            </p>
           </div>
-          <div className="row">
-            <div className="about-home">
-              <p className="about-home-header">
-                <Trans i18nKey="home.header">ABOUT US</Trans>
-              </p>
-              <p className="about-home-content">
-                <Trans i18nKey="home.body_0">
-                  ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                  sed diam nonumy eirmod tempor invidunt ut labore et dolore
-                  magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-                  et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-                  no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
-                  ipsum dolor sit
-                </Trans>
-              </p>
-              <p className="about-home-content">
-                <Trans i18nKey="home.body_1">
-                  ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                  sed diam nonumy eirmod tempor invidunt ut labore et dolore
-                  magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-                  et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-                  no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
-                  ipsum dolor sit
-                </Trans>
-              </p>
-            </div>
-          </div>
+        </div>
       </div>
     );
   }
