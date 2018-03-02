@@ -54,9 +54,7 @@ class LoginForm extends Component {
       if (d.getElementById(id)) return;
       js = d.createElement(s);
       js.id = id;
-      js.src = `https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=${
-        APP_ID
-      }`;
+      js.src = `https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=${APP_ID}`;
       fjs.parentNode.insertBefore(js, fjs);
     })(document, "script", "facebook-jssdk");
   }
@@ -123,65 +121,65 @@ class LoginForm extends Component {
   render() {
     const { t } = this.props;
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-4 col-sm-offset-1">
-            <div className="panel-body">
-              <form name="form" onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                  <button
-                    className="btn btn-lg btn-facebook btn-block"
-                    onClick={() => this.handleFBbuttonClick()}
-                    type="button"
-                  >
-                    <Trans i18nKey="login.form.button_login_facebook">
-                      Log in with Facebook
-                    </Trans>
-                  </button>
-                </div>
-                <div className="form-group">
-                  <label style={{ margin: "0% 0 5% 50%" }}> or </label>
-                  <input
-                    className="form-control"
-                    placeholder={t("login.form.email_placeholder")}
-                    name="email"
-                    type="text"
-                    onChange={this.onChange}
-                    value={this.state.email}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    className="form-control"
-                    placeholder={t("login.form.password_placeholder")}
-                    name="password"
-                    type="password"
-                    onChange={this.onChange}
-                    value={this.state.password}
-                  />
-                </div>
-                <div className="form-group">
-                  <button
-                    className="btn btn-lg btn-primary btn-block"
-                    disabled={!this.state.email || !this.state.password}
-                  >
-                    <Trans i18nKey="login.form.button_login">Log in</Trans>
-                  </button>
-                </div>
-              </form>
-            </div>
-            <div>{this.state.error.message}</div>
-            <div>
-              <Link
-                onClick={this.props.jumpToModal}
-                style={{ margin: "30%" }}
-                to="#"
+      <div>
+        <div className="equidistant">
+          <form name="form" onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <button
+                className="btn btn-lg btn-facebook btn-block"
+                onClick={() => this.handleFBbuttonClick()}
+                type="button"
               >
-                <Trans i18nKey="login.form.button_register">
-                  Not a user? Sign up.
+                <Trans i18nKey="login.form.button_login_facebook">
+                  Log in with Facebook
                 </Trans>
-              </Link>
+              </button>
             </div>
+              <div
+                style={{
+                  margin: "12px auto",
+                  display: "flex",
+                  justifyContent: "center"
+                }}
+              >
+                <h5>Or</h5>
+              </div>
+            <div className="form-group">
+              <input
+                className="form-control"
+                placeholder={t("login.form.email_placeholder")}
+                name="email"
+                type="text"
+                onChange={this.onChange}
+                value={this.state.email}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                className="form-control"
+                placeholder={t("login.form.password_placeholder")}
+                name="password"
+                type="password"
+                onChange={this.onChange}
+                value={this.state.password}
+              />
+            </div>
+            <div className="form-group">
+              <button
+                className="btn btn-lg btn-primary btn-block"
+                disabled={!this.state.email || !this.state.password}
+              >
+                <Trans i18nKey="login.form.button_login">Log in</Trans>
+              </button>
+            </div>
+          </form>
+          <div>{this.state.error.message}</div>
+          <div>
+            <Link onClick={this.props.jumpToModal} to="#">
+              <Trans i18nKey="login.form.button_register">
+                Not a user? Sign up.
+              </Trans>
+            </Link>
           </div>
         </div>
       </div>

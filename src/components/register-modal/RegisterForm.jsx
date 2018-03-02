@@ -41,7 +41,7 @@ class RegisterForm extends Component {
     const { t } = this.props;
     return (
       <div>
-        <div className="panel-body equidistant">
+        <div className="equidistant">
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
               <input
@@ -106,19 +106,28 @@ class RegisterForm extends Component {
               >
                 <Trans i18nKey="register.form.button_register">Register</Trans>
               </button>
+              <div className="form-group" style={{marginTop: "15px"}}>
+                <button
+                  className="btn btn-lg btn-facebook btn-block"
+                  type="button"
+                >
+                  <Trans i18nKey="register.form.button_register_facebook">
+                    Register with Facebook
+                  </Trans>
+                </button>
+              </div>
             </div>
-            <button className="btn btn-lg btn-facebook btn-block" type="button">
-              <Trans i18nKey="register.form.button_register_facebook">
-                Register with Facebook
-              </Trans>
-            </button>
           </form>
 
-          <Link onClick={this.props.jumpToModal} to={"#"}>
-            <Trans i18nKey="register.form.button_login">
-              Do you already have an account? Login here.
-            </Trans>
-          </Link>
+          <div>{this.state.error.message}</div>
+
+          <div>
+            <Link onClick={this.props.jumpToModal} to={"#"}>
+              <Trans i18nKey="register.form.button_login">
+                Do you already have an account? Login here.
+              </Trans>
+            </Link>
+          </div>
         </div>
         <div>{this.state.error.message}</div>
       </div>
