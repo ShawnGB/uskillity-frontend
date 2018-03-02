@@ -9,11 +9,12 @@ import Instagram from "react-icons/lib/fa/instagram";
 class Footer extends Component {
   render() {
     return (
+      <div className="container">
       <div className="row">
         <p className="border" />
-        <div className="col-sm-offset-1 col-sm-5 footer-block">
+        <div className="col-sm-6 footer-block">
           <div className="row">
-            <div className="col-sm-offset-1 col-xs-offset-1 col-sm-5 col-xs-5">
+            <div className="col-sm-6 col-xs-6">
               <img src={logo} className="footer-logo float-right" alt="" />
               <p className="copyright float-right">
                 <Trans i18nKey="footer.copyright">
@@ -21,28 +22,20 @@ class Footer extends Component {
                 </Trans>
               </p>
             </div>
-            <div className="col-sm-5 col-xs-5">
-              <div className="float-right">
-                <p className="footer-title">
-                  <Trans i18nKey="footer.connect">Connect</Trans>
-                </p>
-                <p className="footer-item">
+            <div className="col-sm-6 col-xs-6">
+              <div>
+                <p className="footer-item" style={{marginLeft: "24px"}}>
                   <Trans i18nKey="footer.email">office@uskillity.de</Trans>
                 </p>
-                <p className="footer-item">
-                  <Facebook size={30} />
-                  <Instagram size={30} />
-                </p>
+                  <Facebook size={30}  style={{  margin: "10px 20px" }}/>
+                  <Instagram size={30} style={{  margin: "10px 20px" }}/>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-sm-5 footer-block">
+        <div className="col-sm-6 footer-block">
           <div className="row">
-            <div className="col-sm-offset-1 col-xs-offset-1 col-sm-5 col-xs-5">
-              <p className="footer-title">
-                <Trans i18nKey="footer.name">u/Skillity</Trans>
-              </p>
+            <div className="col-sm-6 col-xs-6">
               <p className="footer-item">
                 <Trans i18nKey="footer.vision">Vision</Trans>
               </p>
@@ -57,7 +50,6 @@ class Footer extends Component {
               </p>
             </div>
             <div className="col-sm-5 col-xs-5">
-              <br />
               <p className="footer-item">
                 <Trans i18nKey="footer.help">Help</Trans>
               </p>
@@ -74,6 +66,7 @@ class Footer extends Component {
             </div>
           </div>
         </div>
+      </div>
       </div>
     );
   }
