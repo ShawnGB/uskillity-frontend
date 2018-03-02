@@ -16,7 +16,6 @@ export const WORKSHOP_SAVE_REJECTED = "skill/WORKSHOP_SAVE_REJECTED";
 export const WORKSHOP_UPDATE_PENDING = "skill/WORKSHOP_UPDATE_PENDING";
 export const WORKSHOP_UPDATED = "skill/WORKSHOP_UPDATED";
 export const WORKSHOP_UPDATE_REJECTED = "skill/WORKSHOP_UPDATE_REJECTED";
-export const WORKSHOPS_FETCHED_PENDING = "skill/WORKSHOPS_FETCHED_PENDING";
 export const WORKSHOP_SESSION_SAVE_PENDING =
   "skill/WORKSHOP_SESSION_SAVE_PENDING";
 export const WORKSHOP_SESSION_SAVED = "skill/WORKSHOP_SESSION_SAVED";
@@ -28,7 +27,11 @@ export const WORKSHOP_SESSION_UPDATED = "skill/WORKSHOP_SESSION_UPDATED";
 export const WORKSHOP_SESSION_UPDATE_REJECTED =
   "skill/WORKSHOP_SESSION_UPDATE_REJECTED";
 export const WORKSHOPS_FETCHED = "skill/WORKSHOPS_FETCHED";
+export const WORKSHOPS_FETCHED_PENDING = "skill/WORKSHOPS_FETCHED_PENDING";
 export const WORKSHOPS_FETCHED_REJECTED = "skill/WORKSHOPS_FETCHED_REJECTED";
+export const WORKSHOP_FETCHED = "skill/WORKSHOP_FETCHED";
+export const WORKSHOP_FETCHED_PENDING = "skill/WORKSHOP_FETCHED_PENDING";
+export const WORKSHOP_FETCHED_REJECTED = "skill/WORKSHOP_FETCHED_REJECTED";
 export const UPLOAD_IMG_PENDING = "skill/UPLOAD_IMG_PENDING";
 export const UPLOAD_IMG_FULFILLED = "skill/UPLOAD_IMG_FULFILLED";
 export const UPLOAD_IMG_REJECTED = "skill/UPLOAD_IMG_REJECTED";
@@ -99,6 +102,22 @@ export const fetchWorkshops = () => {
         },
         error => {
           dispatch({ type: WORKSHOPS_FETCHED_REJECTED, payload: error });
+        }
+      );
+  };
+};
+
+export const fetchWorkshop = id => {
+  return function(dispatch) {
+    dispatch({ type: WORKSHOP_FETCHED_PENDING });
+    fetch(service.getServerEndpoint(`/workshops/${id}`))
+      .then(service.handleResponse)
+      .then(
+        data => {
+          dispatch({ type: WORKSHOP_FETCHED, payload: data });
+        },
+        error => {
+          dispatch({ type: WORKSHOP_FETCHED_REJECTED, payload: error });
         }
       );
   };

@@ -1,4 +1,5 @@
 import * as skillActions from "app:store/actions/skill";
+const _ = require("lodash");
 
 const initialState = {
   levels: [],
@@ -39,6 +40,32 @@ export default (state = initialState, action) => {
     }
 
     case skillActions.CATEGORIES_FETCHED_REJECTED: {
+      break;
+    }
+
+    case skillActions.WORKSHOP_FETCHED_PENDING: {
+      break;
+    }
+
+    case skillActions.WORKSHOP_FETCHED: {
+      let workshops = state.workshops;
+
+      var index = _.findIndex(workshops, workshop => {
+        return workshop.id === action.payload.id;
+      });
+
+      if (index > -1) {
+        workshops[index] = action.payload;
+      }
+
+      nextState = {
+        ...state,
+        workshops: workshops
+      };
+      break;
+    }
+
+    case skillActions.WORKSHOP_FETCHED_REJECTED: {
       break;
     }
 
