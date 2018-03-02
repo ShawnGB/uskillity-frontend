@@ -43,6 +43,32 @@ export default (state = initialState, action) => {
       break;
     }
 
+    case skillActions.WORKSHOP_PUBLISH_PENDING: {
+      break;
+    }
+
+    case skillActions.WORKSHOP_PUBLISHED: {
+      let workshops = state.workshops;
+
+      let index = _.findIndex(workshops, workshop => {
+        return workshop.id === action.id;
+      });
+
+      if (index > -1) {
+        workshops[index].terms_accepted = true;
+      }
+
+      nextState = {
+        ...state,
+        workshops: workshops
+      };
+      break;
+    }
+
+    case skillActions.WORKSHOP_PUBLISH_REJECTED: {
+      break;
+    }
+
     case skillActions.WORKSHOP_FETCHED_PENDING: {
       break;
     }
@@ -50,7 +76,7 @@ export default (state = initialState, action) => {
     case skillActions.WORKSHOP_FETCHED: {
       let workshops = state.workshops;
 
-      var index = _.findIndex(workshops, workshop => {
+      let index = _.findIndex(workshops, workshop => {
         return workshop.id === action.payload.id;
       });
 

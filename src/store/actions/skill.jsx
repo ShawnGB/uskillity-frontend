@@ -32,6 +32,9 @@ export const WORKSHOPS_FETCHED_REJECTED = "skill/WORKSHOPS_FETCHED_REJECTED";
 export const WORKSHOP_FETCHED = "skill/WORKSHOP_FETCHED";
 export const WORKSHOP_FETCHED_PENDING = "skill/WORKSHOP_FETCHED_PENDING";
 export const WORKSHOP_FETCHED_REJECTED = "skill/WORKSHOP_FETCHED_REJECTED";
+export const WORKSHOP_PUBLISHED = "skill/WORKSHOP_PUBLISHED";
+export const WORKSHOP_PUBLISH_PENDING = "skill/WORKSHOP_PUBLISH_PENDING";
+export const WORKSHOP_PUBLISH_REJECTED = "skill/WORKSHOP_PUBLISH_REJECTED";
 export const UPLOAD_IMG_PENDING = "skill/UPLOAD_IMG_PENDING";
 export const UPLOAD_IMG_FULFILLED = "skill/UPLOAD_IMG_FULFILLED";
 export const UPLOAD_IMG_REJECTED = "skill/UPLOAD_IMG_REJECTED";
@@ -230,6 +233,25 @@ export const updateWorkshop = (workshop, id) => {
       })
     }).then(promise => {
       dispatch({ type: WORKSHOP_UPDATED });
+    });
+  };
+};
+
+export const publishWorkshop = id => {
+  return dispatch => {
+    dispatch({ type: WORKSHOP_PUBLISH_PENDING });
+    fetch(service.getServerEndpoint(`/workshops/${id}.json`), {
+      method: "PUT",
+      headers: service.getRequestHeaders(),
+      body: JSON.stringify({
+        terms_accepted: true
+      })
+    }).then(response => {
+      if (response.ok) {
+        dispatch({ type: WORKSHOP_PUBLISHED, id:id });
+      } else {
+        dispatch({ type: WORKSHOP_PUBLISH_REJECTED });
+      }
     });
   };
 };

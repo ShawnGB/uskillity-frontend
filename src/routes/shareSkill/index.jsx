@@ -13,6 +13,7 @@ class ShareSkill extends Component {
     this.state = {
       workshopId: this.props.match ? +this.props.match.params.id : null,
       workshop: {},
+      isPublished: false,
       sessions: [],
       error: {
         message: ""
@@ -23,6 +24,7 @@ class ShareSkill extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePublish = this.handlePublish.bind(this);
     this.addRow = this.addRow.bind(this);
   }
 
@@ -70,7 +72,11 @@ class ShareSkill extends Component {
       })
     );
     let workshop = { ...wrkShop };
-    this.setState({ sessions, workshop });
+    this.setState({
+      sessions,
+      workshop,
+      isPublished: wrkShop.terms_accepted || false
+    });
   }
 
   addRow() {
@@ -159,14 +165,21 @@ class ShareSkill extends Component {
     e.preventDefault();
     const { dispatch } = this.props;
     if (this.props.editable) {
-      dispatch(
-        skillActions.updateWorkshop(this.state.workshop, this.state.workshopId)
-      );
+      const workshop = { ...this.state.workshop, terms_accepted: null };
+      dispatch(skillActions.updateWorkshop(workshop, this.state.workshopId));
     } else {
       dispatch(
         skillActions.saveWorkshop(this.state.workshop, this.props.history)
       );
     }
+  }
+
+  handlePublish(e) {
+    e.preventDefault();
+    if (!this.state.workshop.terms_accepted) {
+      return;
+    }
+    this.props.dispatch(skillActions.publishWorkshop(this.state.workshopId));
   }
 
   render() {
@@ -488,7 +501,7 @@ class ShareSkill extends Component {
                       </form>
                     </div>
                   </div>
-                  {!workshop.terms_accepted && (
+                  {!this.state.isPublished && (
                     <div>
                       <div className="checkbox">
                         <label>
@@ -510,7 +523,7 @@ class ShareSkill extends Component {
                         disabled={!editable}
                         className="btn btn-primary"
                         type="button"
-                        onClick={this.handleSubmit}
+                        onClick={this.handlePublish}
                       >
                         <Trans i18nKey="share_skill.button_sumbit">
                           Submit
