@@ -23,7 +23,7 @@ class Contact extends React.Component {
         </p>
         <p className="about-content">
           <Trans i18nKey="about.contact.body_2">
-            If you have general questions look at our help secrtion on the left
+            If you have general questions look at our help section on the left
             or check our posts on Facebook or Instagram.
           </Trans>
         </p>
