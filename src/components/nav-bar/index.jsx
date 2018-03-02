@@ -2,6 +2,7 @@ import React from "react";
 import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import * as sessionActions from "app:store/actions/session";
 import { Link } from "react-router-dom";
 import "./style.css";
@@ -11,7 +12,7 @@ import { Navbar, Nav, NavItem } from "react-bootstrap";
 
 class MenuBar extends React.Component {
   render() {
-    const { session } = this.props;
+    const { session, history } = this.props;
     const { user } = session;
     const isLoggedIn = session && session.isLoggedIn;
     return (
@@ -24,72 +25,46 @@ class MenuBar extends React.Component {
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
-            <Nav pullRight className="collapse-nav">
-              <div className="menubar-menu-collection">
-                {!isLoggedIn ? (
-                  <NavItem
-                    onClick={() =>
-                      this.refs.authModals
-                        .getWrappedInstance()
-                        .onRegisteredClicked()}
-                  >
-                    <Trans i18nKey="navbar.button_register">Register now</Trans>
-                  </NavItem>
-                ) : (
-                  <NavItem
-                    componentClass={Link}
-                    eventKey={1}
-                    href={`/profile/${user.id}`}
-                    to={`/profile/${user.id}`}
-                  >
-                    <Trans i18nKey="navbar.button_my_account">My Account</Trans>
-                  </NavItem>
-                )}
-                {!isLoggedIn ? (
-                  <NavItem
-                    onClick={() =>
-                      this.refs.authModals
-                        .getWrappedInstance()
-                        .onLoginClicked()}
-                  >
-                    <Trans i18nKey="navbar.button_login">Log in</Trans>
-                  </NavItem>
-                ) : (
-                  <NavItem
-                    onClick={() => this.props.dispatch(sessionActions.logout())}
-                  >
-                    <Trans i18nKey="navbar.button_logout">Log out</Trans>
-                  </NavItem>
-                )}
+            <Nav pullRight className="collapse-nav menubar-menu-collection">
+              <NavItem onClick={e => history.push("/about")}>
+                <Trans i18nKey="navbar.button_about">u/about</Trans>
+              </NavItem>
+              <NavItem onClick={e => history.push("/learnskill")}>
+                <Trans i18nKey="navbar.button_learn_skill">Learn a Skill</Trans>
+              </NavItem>
+              <NavItem onClick={e => history.push("/shareyourskill")}>
+                <Trans i18nKey="navbar.button_share_skill">
+                  Share your skill
+                </Trans>
+              </NavItem>
+              {!isLoggedIn ? (
                 <NavItem
-                  componentClass={Link}
-                  eventKey={2}
-                  href="/shareyourskill"
-                  to="/shareyourskill"
+                  onClick={() =>
+                    this.refs.authModals
+                      .getWrappedInstance()
+                      .onRegisteredClicked()}
                 >
-                  <Trans i18nKey="navbar.button_share_skill">
-                    Share your skill
-                  </Trans>
+                  <Trans i18nKey="navbar.button_register">Register now</Trans>
                 </NavItem>
+              ) : (
+                <NavItem onClick={e => history.push(`/profile/${user.id}`)}>
+                  <Trans i18nKey="navbar.button_my_account">My Account</Trans>
+                </NavItem>
+              )}
+              {!isLoggedIn ? (
                 <NavItem
-                  componentClass={Link}
-                  eventKey={3}
-                  to="/learnskill"
-                  href="/learnskill"
+                  onClick={() =>
+                    this.refs.authModals.getWrappedInstance().onLoginClicked()}
                 >
-                  <Trans i18nKey="navbar.button_learn_skill">
-                    Learn a Skill
-                  </Trans>
+                  <Trans i18nKey="navbar.button_login">Log in</Trans>
                 </NavItem>
+              ) : (
                 <NavItem
-                  componentClass={Link}
-                  eventKey={4}
-                  to="/about"
-                  href="/about"
+                  onClick={() => this.props.dispatch(sessionActions.logout())}
                 >
-                  <Trans i18nKey="navbar.button_about">u/about</Trans>
+                  <Trans i18nKey="navbar.button_logout">Log out</Trans>
                 </NavItem>
-              </div>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -103,6 +78,8 @@ const mapStateToProps = state => ({
   session: state.session
 });
 
-export default compose(translate("translations"), connect(mapStateToProps))(
-  MenuBar
-);
+export default compose(
+  withRouter,
+  translate("translations"),
+  connect(mapStateToProps)
+)(MenuBar);
