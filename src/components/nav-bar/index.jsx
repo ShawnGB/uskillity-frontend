@@ -18,9 +18,9 @@ class MenuBar extends React.Component {
     return (
       <div>
         <Navbar collapseOnSelect>
-          <Navbar.Header className="menubar-header">
+          <Navbar.Header className="menubar-header" style={{ height: "50px" }}>
             <Link to="/">
-              <img src={logo} width="138" height="50" alt="" />
+              <img src={logo} width="110" height="40" alt="" style={{marginTop: "6px"}}/>
             </Link>
             <Navbar.Toggle />
           </Navbar.Header>
