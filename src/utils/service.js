@@ -33,7 +33,7 @@ export const handleResponse = response => {
   if (!response.ok) {
     return Promise.reject(response);
   }
-  if (response.status == 204) {
+  if (response.status === 204) {
     return {}
   }
   return response.json();
