@@ -4,6 +4,8 @@ import * as skillActions from "app:store/actions/skill";
 import Slider from "react-slick";
 import "../shareSkill/style.css";
 import WorkshopPreviewDiv from "app:components/workshop-preview";
+import leftArrow from "../../images/left_arrow.png";
+import rightArrow from "../../images/right_arrow.png";
 
 class LearnSkill extends Component {
   constructor(props) {
@@ -67,33 +69,39 @@ class LearnSkill extends Component {
   }
 }
 
-const NextArrow = props => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        background: "rgb(143, 143, 143)",
-        margin: "-50px 30px 30px -10px"
-      }}
-      onClick={onClick}
-    />
-  );
-};
-
 const PrevArrow = props => {
   const { className, style, onClick } = props;
   return (
     <div
-      className={className}
-      style={{
-        ...style,
-        background: "rgb(143, 143, 143)",
-        margin: "-50px 30px 30px -10px"
-      }}
+      className="slick-arrow"
+      style={{ ...style, display: "block", float: "right", marginTop: "130px", marginRight: "-30px" }}
       onClick={onClick}
-    />
+    >
+      <img
+        src={rightArrow}
+        alt="<"
+        className="arrow-class"
+        onClick={onClick}
+      />
+    </div>
+  );
+};
+
+const NextArrow = props => {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className="slick-arrow"
+      style={{ ...style, display: "block", marginTop: "-230px", marginLeft: "-30px"}}
+      onClick={onClick}
+    >
+      <img
+        src={leftArrow}
+        alt=">"
+        className="arrow-class"
+        onClick={onClick}
+      />
+    </div>
   );
 };
 
@@ -104,8 +112,8 @@ const CategoryRow = props => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow/>,
+    prevArrow: <PrevArrow/>,
     responsive: [
       {
         breakpoint: 4000,
@@ -119,8 +127,8 @@ const CategoryRow = props => {
       {
         breakpoint: 992,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToShow: 3,
+          slidesToScroll: 3,
           initialSlide: 2
         }
       },
@@ -136,6 +144,7 @@ const CategoryRow = props => {
   return (
     <div id={props.categoryId} className="row row-margin">
       <h2>{props.name}</h2>
+    <div style={{margin: "0px 40px 0 30px"}} >
       <Slider {...settings}>
         {props.workshops.map((workshop, i) => (
           <div key={i}>
@@ -143,6 +152,7 @@ const CategoryRow = props => {
           </div>
         ))}
       </Slider>
+    </div>
     </div>
   );
 };
