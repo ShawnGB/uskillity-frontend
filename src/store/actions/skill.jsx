@@ -49,7 +49,9 @@ export const fetchLevels = () => {
           dispatch({ type: LEVELS_FETCHED, payload: data });
         },
         error => {
-          dispatch({ type: LEVELS_REJECTED, payload: error });
+          error.json().then(e => {
+            dispatch({ type: LEVELS_REJECTED, payload: e });
+          });
         }
       );
   };
@@ -65,7 +67,9 @@ export const fetchCategories = () => {
           dispatch({ type: CATEGORIES_FETCHED, payload: data });
         },
         error => {
-          dispatch({ type: CATEGORIES_FETCHED_REJECTED, payload: error });
+          error.json().then(e => {
+            dispatch({ type: CATEGORIES_FETCHED_REJECTED, payload: e });
+          });
         }
       );
   };
@@ -88,7 +92,10 @@ export const saveWorkshop = (workshop, router) => {
           router.replace(`/shareyourskill/${data.id}/edit`);
         },
         error => {
-          dispatch({ type: WORKSHOP_SAVE_REJECTED, payload: error });
+          error.json().then(e => {
+            util.showErrorModal(dispatch, e);
+            dispatch({ type: WORKSHOP_SAVE_REJECTED, payload: e });
+          });
         }
       );
   };
@@ -104,7 +111,9 @@ export const fetchWorkshops = () => {
           dispatch({ type: WORKSHOPS_FETCHED, payload: data });
         },
         error => {
-          dispatch({ type: WORKSHOPS_FETCHED_REJECTED, payload: error });
+          error.json().then(e => {
+            dispatch({ type: WORKSHOPS_FETCHED_REJECTED, payload: e });
+          });
         }
       );
   };
@@ -120,7 +129,9 @@ export const fetchWorkshop = id => {
           dispatch({ type: WORKSHOP_FETCHED, payload: data });
         },
         error => {
-          dispatch({ type: WORKSHOP_FETCHED_REJECTED, payload: error });
+          error.json().then(e => {
+            dispatch({ type: WORKSHOP_FETCHED_REJECTED, payload: e });
+          });
         }
       );
   };
@@ -136,7 +147,9 @@ export const fetchUserWorkshops = userId => {
           dispatch({ type: USER_WORKSHOPS_FETCHED, payload: data });
         },
         error => {
-          dispatch({ type: USER_WORKSHOPS_FETCH_REJECTED, payload: error });
+          error.json().then(e => {
+            dispatch({ type: USER_WORKSHOPS_FETCH_REJECTED, payload: e });
+          });
         }
       );
   };
@@ -159,7 +172,9 @@ export const saveWorkshopCover = (file, id) => {
           dispatch({ type: UPLOAD_IMG_FULFILLED, payload: data });
         },
         error => {
-          dispatch({ type: UPLOAD_IMG_REJECTED, payload: error });
+          error.json().then(e => {
+            dispatch({ type: UPLOAD_IMG_REJECTED, payload: e });
+          });
         }
       );
   };
@@ -188,7 +203,9 @@ export const saveWorkshopSession = (workshopId, session) => {
           dispatch({ type: WORKSHOP_SESSION_SAVED });
         },
         error => {
-          dispatch({ type: WORKSHOP_SESSION_SAVE_REJECTED });
+          error.json().then(e => {
+            dispatch({ type: WORKSHOP_SESSION_SAVE_REJECTED, payload: e });
+          });
         }
       );
   };
@@ -212,13 +229,18 @@ export const updateWorkshopSession = (workshopId, session) => {
           ends_at: util.parseToLocalTime(session.dateAndTime, session.ends_at)
         })
       }
-    ).then(response => {
-      if (response.ok) {
-        dispatch({ type: WORKSHOP_SESSION_UPDATED });
-      } else {
-        dispatch({ type: WORKSHOP_SESSION_UPDATE_REJECTED });
-      }
-    });
+    )
+      .then(service.handleResponse)
+      .then(
+        response => {
+          dispatch({ type: WORKSHOP_SESSION_UPDATED });
+        },
+        error => {
+          error.json().then(e => {
+            dispatch({ type: WORKSHOP_SESSION_UPDATE_REJECTED, payload: e });
+          });
+        }
+      );
   };
 };
 
@@ -231,9 +253,18 @@ export const updateWorkshop = (workshop, id) => {
       body: JSON.stringify({
         workshop: workshop
       })
-    }).then(promise => {
-      dispatch({ type: WORKSHOP_UPDATED });
-    });
+    })
+      .then(service.handleResponse)
+      .then(
+        response => {
+          dispatch({ type: WORKSHOP_UPDATED });
+        },
+        error => {
+          error.json().then(e => {
+            dispatch({ type: WORKSHOP_UPDATE_REJECTED, payload: e });
+          });
+        }
+      );
   };
 };
 
@@ -246,12 +277,17 @@ export const publishWorkshop = id => {
       body: JSON.stringify({
         terms_accepted: true
       })
-    }).then(response => {
-      if (response.ok) {
-        dispatch({ type: WORKSHOP_PUBLISHED, id:id });
-      } else {
-        dispatch({ type: WORKSHOP_PUBLISH_REJECTED });
-      }
-    });
+    })
+      .then(service.handleResponse)
+      .then(
+        response => {
+          dispatch({ type: WORKSHOP_PUBLISHED, id: id });
+        },
+        error => {
+          error.json().then(e => {
+            dispatch({ type: WORKSHOP_PUBLISH_REJECTED, payload: e });
+          });
+        }
+      );
   };
 };
