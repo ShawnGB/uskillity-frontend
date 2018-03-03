@@ -31,8 +31,7 @@ export const getAuthHeaders = () => {
 
 export const handleResponse = response => {
   if (!response.ok) {
-    // TODO: return user back to home page
-    return Promise.reject(response.statusText);
+    return Promise.reject(response);
   }
   return response.json();
 };

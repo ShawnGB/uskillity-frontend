@@ -29,7 +29,9 @@ export const saveUserPic = (file, userId) => {
           dispatch({ type: UPLOAD_USER_PIC_FULFILLED });
         },
         error => {
-          dispatch({ type: UPLOAD_USER_PIC_REJECTED, payload: error });
+          error.json().then(e => {
+            dispatch({ type: UPLOAD_USER_PIC_REJECTED, payload: e });
+          });
         }
       );
   };
@@ -43,10 +45,19 @@ export const updateUser = (profile, userId) => {
       method: "PUT",
       headers: service.getRequestHeaders(),
       body: JSON.stringify(profile, replacer)
-    }).then(promise => {
-      dispatch({ type: UPDATE_USER_FULFILLED });
-      dispatch(sessionActions.fetchUser(userId));
-    });
+    })
+      .then(service.handleResponse)
+      .then(
+        response => {
+          dispatch({ type: UPDATE_USER_FULFILLED });
+          dispatch(sessionActions.fetchUser(userId));
+        },
+        error => {
+          error.json().then(e => {
+            dispatch({ type: UPDATE_USER_REJECTED, payload: e });
+          });
+        }
+      );
   };
 };
 
@@ -60,7 +71,9 @@ export const fetchProvider = pId => {
           dispatch({ type: PROVIDER_FETCHED, payload: response });
         },
         error => {
-          dispatch({ type: PROVIDER_FETCH_REJECTED, payload: error });
+          error.json().then(e => {
+            dispatch({ type: PROVIDER_FETCH_REJECTED, payload: e });
+          });
         }
       );
   };

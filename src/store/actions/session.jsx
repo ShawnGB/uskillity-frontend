@@ -10,6 +10,7 @@ export const LOGOUT_FULFILLED = "session/LOGOUT_FULFILLED";
 export const LOGOUT_REJECTED = "session/LOGOUT_REJECTED";
 export const REGISTER_PENDING = "session/REGISTER_PENDING";
 export const REGISTER_FULFILLED = "session/REGISTER_FULFILLED";
+export const REGISTER_REJECTED = "session/REGISTER_REJECTED";
 export const USER_FETCHED_PENDING = "session/USER_FETCHED_PENDING";
 export const USER_FETCHED = "session/USER_FETCHED";
 export const USER_FETCH_REJECTED = "session/USER_FETCH_REJECTED";
@@ -36,7 +37,9 @@ export const login = (email, password) => {
           dispatch({ type: modalActions.HIDE_MODAL });
         },
         error => {
-          dispatch({ type: LOGIN_REJECTED, payload: error });
+          error.json().then(e => {
+            dispatch({ type: LOGIN_REJECTED, payload: e });
+          });
         }
       );
   };
@@ -57,10 +60,17 @@ export const register = user => {
       ])
     })
       .then(service.handleAuthResponse)
-      .then(response => {
-        dispatch({ type: REGISTER_FULFILLED, payload: response.data });
-        dispatch({ type: modalActions.HIDE_MODAL });
-      });
+      .then(
+        response => {
+          dispatch({ type: REGISTER_FULFILLED, payload: response.data });
+          dispatch({ type: modalActions.HIDE_MODAL });
+        },
+        error => {
+          error.json().then(e => {
+            dispatch({ type: REGISTER_REJECTED, payload: e });
+          });
+        }
+      );
   };
 };
 
@@ -74,7 +84,9 @@ export const fetchUser = userId => {
           dispatch({ type: USER_FETCHED, payload: response });
         },
         error => {
-          dispatch({ type: USER_FETCH_REJECTED, payload: error });
+          error.json().then(e => {
+            dispatch({ type: USER_FETCH_REJECTED, payload: e });
+          });
         }
       );
   };
