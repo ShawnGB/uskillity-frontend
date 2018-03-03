@@ -31,67 +31,82 @@ class Workshop extends React.Component {
     let level = levels.find(i => i.id === workshop.level_id) || {};
     return (
       <div>
-        <div className="workshop-main-image" style={{ backgroundImage: `url(${workshop.images[0]})` }} />
+        <div
+          className="workshop-main-image"
+          style={{ backgroundImage: `url(${workshop.images[0]})` }}
+        />
         <div className="row">
-          <div className="col-sm-9">
-            <p className="workshop-name">{workshop.title}</p>
+          <div className="col-sm-8 col-md-9">
+            <h2 className="hdr-type" style={{ marginBottom: "0px" }}>
+              {workshop.title}
+            </h2>
             <p>{workshop.full_address}</p>
-            <div className="row">
-              <div className="col-sm-2">
-                <p className="workshop-title">
-                  <Trans i18nKey="workshop.recommended_label">
-                    Recommended
-                  </Trans>
-                </p>
+
+            <div className="row workshop-info-table">
+              <div className="col-md-2 hidden-sm hidden-xs">
+                <Trans i18nKey="workshop.recommended_label">Recommended</Trans>
               </div>
-            </div>
-            <div className="row">
-              <div className="col-sm-3">
-                <ul>
-                  <li>
-                    Age: {workshop.min_age}
-                    {" - "}
-                    {workshop.max_age}
-                  </li>
-                  <li>Other: </li>
-                  <li>Level: {level.name}</li>
-                </ul>
+              <div className="col-md-4 col-sm-4 col-xs-12">
+                <div className="row">
+                  <div className="col-md-4 col-sm-6 col-xs-3 content-right">
+                    Age:
+                  </div>
+                  <div className="col-md-8 col-sm-6 col-xs-9">
+                    {" "}
+                    {workshop.min_age} {" - "} {workshop.max_age}
+                  </div>
+
+                  <div className="col-md-4 col-sm-6 col-xs-3 content-right">
+                    Level:
+                  </div>
+                  <div className="col-md-8 col-sm-6 col-xs-9">{level.name}</div>
+
+                  <div className="col-md-4 col-sm-6 col-xs-3 content-right">
+                    Other:
+                  </div>
+                  <div className="col-md-8 col-sm-6 col-xs-9"> - </div>
+                </div>
               </div>
-              <div className="col-sm-3">
-                <div>
-                  Sessions:{workshop.sessions.map((session, i) => (
-                    <p key={i}>
-                      {" "}
-                      {util.parseSessionDateTime(
-                        session.starts_at,
-                        "DD.MM.YY"
-                      )}{" "}
-                      {util.parseSessionDateTime(session.starts_at)}
-                      {" - "}
-                      {util.parseSessionDateTime(session.ends_at)}
-                    </p>
-                  ))}
+              <div className="col-md-6 col-sm-8 col-xs-12">
+                <div className="row">
+                  <div className="col-sm-4 col-xs-3 content-right">
+                    Sessions:
+                  </div>
+                  <div className="col-sm-8 col-xs-9">
+                    {workshop.sessions.map((session, i) => (
+                      <div key={i} className="row">
+                        <div className="col-sm-4 col-xs-3 content-right">
+                          {util.parseSessionDateTime(
+                            session.starts_at,
+                            "DD.MM.YY"
+                          )}
+                        </div>
+                        <div className="col-sm-8 col-xs-9">
+                          {util.parseSessionDateTime(session.starts_at)}
+                          {" - "}
+                          {util.parseSessionDateTime(session.ends_at)}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
+            <h3 className="hdr-type">
+              <Trans i18nKey="workshop.description_label">Description</Trans>
+            </h3>
+            <p>{workshop.description}</p>
+            <h3 className="hdr-type">
+              <Trans i18nKey="workshop.about_the_instructor_label">
+                About the instructor
+              </Trans>
+            </h3>
+            <p>{workshop.provider.about}</p>
+            <p>{workshop.about}</p>
           </div>
-          <div className="col-sm-3">
+      <div className="col-xs-4 hidden-sm hidden-md hidden-lg" />
+          <div className="col-sm-4 col-md-3 col-xs-4">
             <Sidebar workshop={this.state.workshop} />
-          </div>
-          <div className="row row-spacing">
-            <div className="col-md-9">
-              <p className="workshop-title">
-                <Trans i18nKey="workshop.description_label">Description</Trans>
-              </p>
-              <p >{workshop.description}</p>
-              <p className="workshop-title">
-                <Trans i18nKey="workshop.about_the_instructor_label">
-                  About the instructor
-                </Trans>
-              </p>
-              <p >{workshop.provider.about}</p>
-              <p >{workshop.about}</p>
-            </div>
           </div>
         </div>
       </div>

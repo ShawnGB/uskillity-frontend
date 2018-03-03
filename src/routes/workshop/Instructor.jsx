@@ -8,27 +8,19 @@ class Instructor extends React.Component {
     const provider = this.props.workshop.provider || {};
     console.log("provider", provider);
     return (
-      <div>
-        <div className="Instructior-Box">
-          <p className="Instructor">
-            {" "}
-            <Trans i18nKey="workshop.instructor.header">Instructor</Trans>{" "}
-          </p>
-          <div className="img-container">
-            <img
-              src={provider.image}
-              width="179.1"
-              height="178.2"
-              alt=""
-              className="img-circle Ellipse-3"
-            />
-          </div>
-          <p className="instructor-name">
-            {" "}
-            {provider.name} {provider.first_name}{" "}
-          </p>
-          <Button provider={provider} dispatch={this.props.dispatch} />
-        </div>
+      <div className="Instructior-Box">
+        <h4>
+          {" "}
+          <Trans i18nKey="workshop.instructor.header">Instructor</Trans>{" "}
+        </h4>
+        <div
+          className="profile-img-container"
+          style={{ backgroundImage: `url(${provider.image})` }}
+        />
+        <h4>
+          {provider.name} {provider.first_name}{" "}
+        </h4>
+        <Button provider={provider} dispatch={this.props.dispatch} />
       </div>
     );
   }

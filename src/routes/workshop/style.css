@@ -2,17 +2,6 @@
   padding: 10px 0 20px 10px;
 }
 
-.workshop-name {
-  font-size: 30px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: #ff433a;
-}
-
 .workshop-title {
   font-size: 20px;
   font-weight: 600;
@@ -53,10 +42,13 @@
 }
 
 .Instructior-Box {
-  width: 255px;
-  height: 330px;
-  background-color: #ffffff;
   border: solid 1px #cccccc;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 6px;
 }
 
 .Ellipse-3 {
@@ -68,11 +60,9 @@
 
 .See-Profile-Box {
   width: 141px;
-  height: 41px;
-  opacity: 0.72;
-  background-color: #ffffff;
-  border: solid 1px #000000;
-  margin: 25px 0 0 57px;
+  height: 35px;
+  border: solid 1px #cccccc;
+  background-color: transparent;
 }
 
 .workshop-main-image {
@@ -81,5 +71,37 @@
   background-position-x: center;
   background-position-y: center;
   background-repeat: no-repeat;
-  margin-bottom: 20px;
+}
+
+.workshop-info-table {
+  font-size: 20px;
+}
+
+@media (max-width: 992px) {
+  font-size: 18px;
+}
+
+
+.content-right {
+  display: flex;
+  align-items: flex-end;
+  text-align: right;
+  justify-content: flex-end;
+}
+
+.hdr-type {
+  color: #ff433a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-img-container {
+  background-size: contain;
+  width: 100%;
+  background-position-x: center;
+  background-position-y: center;
+  background-repeat: no-repeat;
+  padding-top: 100%;
+  border-radius: 50%;
 }
