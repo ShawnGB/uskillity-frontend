@@ -92,7 +92,7 @@ const NextArrow = props => {
   return (
     <div
       className="slick-arrow"
-      style={{ ...style, display: "block", marginTop: "-230px", marginLeft: "-30px"}}
+      style={{ ...style, display: "block", marginTop: "-230px", marginLeft: "-30px", height: "230px"}}
       onClick={onClick}
     >
       <img
