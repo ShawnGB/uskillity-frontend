@@ -1,17 +1,11 @@
 .about-container{
   padding: 20px 0 20px 0;
 }
+
 .about-content {
-  font-size: 20px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
+  font-size: 18px;
   text-align: justify;
   text-justify: inter-word;
-  color: #000000;
 }
 
 .about-heading {
