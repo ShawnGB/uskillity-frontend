@@ -1,11 +1,12 @@
 import React from "react";
 import { CustomCarousel } from "app:components/carousel";
-import * as service from "app:utils/service";
 import { withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
+import * as service from "app:utils/service";
+import * as util from "app:utils/utils";
 import "./style.css";
 
 class Home extends React.Component {
@@ -68,7 +69,7 @@ class Home extends React.Component {
 
   componentWillMount() {
     console.log("navigator.language", navigator.language);
-    if (navigator.language.includes("de")) {
+    if (util.isGermanNavigator()) {
       this.props.i18n.changeLanguage("de");
     }
     //else {
