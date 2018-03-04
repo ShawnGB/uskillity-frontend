@@ -4,31 +4,29 @@ import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
 import Sidebar from "./Sidebar";
 import * as util from "app:utils/utils";
+import * as skillActions from "app:store/actions/skill";
 import "./style.css";
 
 class Workshop extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      id: this.props.match.params.id,
-      workshop: {}
-    };
+    this.id = +this.props.match.params.id;
   }
 
-  findWorkshopWithId = () => {
-    const { skills } = this.props;
-    const { workshops } = skills;
-    let workshop = workshops.find(w => w.id === +this.state.id) || {};
-    this.setState({ workshop: workshop });
-  };
   componentWillMount() {
-    this.findWorkshopWithId();
+    this.props.dispatch(skillActions.fetchWorkshop(this.id));
   }
 
   render() {
-    const workshop = this.state.workshop;
-    const { levels } = this.props.skills;
-    let level = levels.find(i => i.id === workshop.level_id) || {};
+    const { levels, workshops } = this.props.skills;
+    const workshop = workshops.find(w => w.id === this.id);
+
+    if (!workshop) {
+      return null;
+    }
+
+    const level = levels.find(i => i.id === workshop.level_id) || {};
+
     return (
       <div>
         <div
@@ -104,9 +102,9 @@ class Workshop extends React.Component {
             <p>{workshop.provider.about}</p>
             <p>{workshop.about}</p>
           </div>
-      <div className="col-xs-4 hidden-sm hidden-md hidden-lg" />
+          <div className="col-xs-4 hidden-sm hidden-md hidden-lg" />
           <div className="col-sm-4 col-md-3 col-xs-4">
-            <Sidebar workshop={this.state.workshop} />
+            <Sidebar workshop={workshop} />
           </div>
         </div>
       </div>
