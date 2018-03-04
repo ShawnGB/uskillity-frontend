@@ -1,4 +1,6 @@
 import * as localStorageManager from "./localStorageManager";
+import * as sessionActions from "app:store/actions/session";
+import * as modalActions from "app:store/actions/modal";
 
 const ACCESS_TOKEN_KEY = "Access-Token";
 const CLIENT = "Client";
@@ -29,17 +31,23 @@ export const getAuthHeaders = () => {
   });
 };
 
-export const handleResponse = response => {
+export const handleResponse = (response, dispatch) => {
+  if (response.status > 399) {
+    dispatch({ type: "HTTP_" + response.status, payload: {} });
+  }
+
   if (!response.ok) {
     return Promise.reject(response);
   }
+
   if (response.status === 204) {
     return {};
   }
+
   return response.json();
 };
 
-export const handleAuthResponse = response => {
+export const handleAuthResponse = (response, dispatch) => {
   const authParams = {
     // TODO: good to check for null values
     auth_token: response.headers.get(ACCESS_TOKEN_KEY),
@@ -50,7 +58,7 @@ export const handleAuthResponse = response => {
 
   localStorageManager.setAuthParameters(authParams);
 
-  return handleResponse(response);
+  return handleResponse(response, dispatch);
 };
 
 export const fblogin = data => {
@@ -59,9 +67,9 @@ export const fblogin = data => {
 
   return fetch(getServerEndpoint(fbEndpoit), {
     method: "POST",
-    body: JSON.stringify({'facebook_data': data.authResponse}),
+    body: JSON.stringify({ facebook_data: data.authResponse }),
     headers: {
-      "Accept": "application/json",
+      Accept: "application/json",
       "Content-Type": "application/json"
     },
     credentials: "include"

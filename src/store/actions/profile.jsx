@@ -22,7 +22,7 @@ export const saveUserPic = (file, userId) => {
       headers: service.getAuthHeaders(),
       body: data
     })
-      .then(service.handleResponse)
+      .then((resp) => service.handleResponse(resp, dispatch))
       .then(
         response => {
           dispatch(sessionActions.fetchUser(userId));
@@ -46,7 +46,7 @@ export const updateUser = (profile, userId) => {
       headers: service.getRequestHeaders(),
       body: JSON.stringify(profile, replacer)
     })
-      .then(service.handleResponse)
+      .then((resp) => service.handleResponse(resp, dispatch))
       .then(
         response => {
           dispatch({ type: UPDATE_USER_FULFILLED });
@@ -65,7 +65,7 @@ export const fetchProvider = pId => {
   return function(dispatch) {
     dispatch({ type: PROVIDER_FETCH_PENDING });
     fetch(service.getServerEndpoint(`/users/${pId}`))
-      .then(service.handleResponse)
+      .then((resp) => service.handleResponse(resp, dispatch))
       .then(
         response => {
           dispatch({ type: PROVIDER_FETCHED, payload: response });

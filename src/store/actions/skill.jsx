@@ -43,7 +43,7 @@ export const fetchLevels = () => {
   return function(dispatch) {
     dispatch({ type: LEVELS_PENDING });
     fetch(service.getServerEndpoint("/levels.json"))
-      .then(service.handleResponse)
+      .then((resp) => service.handleResponse(resp, dispatch))
       .then(
         data => {
           dispatch({ type: LEVELS_FETCHED, payload: data });
@@ -61,7 +61,7 @@ export const fetchCategories = () => {
   return function(dispatch) {
     dispatch({ type: CATEGORIES_FETCHED_PENDING });
     fetch(service.getServerEndpoint("/categories.json"))
-      .then(service.handleResponse)
+      .then((resp) => service.handleResponse(resp, dispatch))
       .then(
         data => {
           dispatch({ type: CATEGORIES_FETCHED, payload: data });
@@ -85,7 +85,7 @@ export const saveWorkshop = (workshop, router) => {
         workshop: workshop
       })
     })
-      .then(service.handleResponse)
+      .then((resp) => service.handleResponse(resp, dispatch))
       .then(
         data => {
           dispatch({ type: WORKSHOP_SAVED, payload: data });
@@ -105,7 +105,7 @@ export const fetchWorkshops = () => {
   return function(dispatch) {
     dispatch({ type: WORKSHOPS_FETCHED_PENDING });
     fetch(service.getServerEndpoint("/workshops.json"))
-      .then(service.handleResponse)
+      .then((resp) => service.handleResponse(resp, dispatch))
       .then(
         data => {
           dispatch({ type: WORKSHOPS_FETCHED, payload: data });
@@ -123,7 +123,7 @@ export const fetchWorkshop = id => {
   return function(dispatch) {
     dispatch({ type: WORKSHOP_FETCHED_PENDING });
     fetch(service.getServerEndpoint(`/workshops/${id}`))
-      .then(service.handleResponse)
+      .then((resp) => service.handleResponse(resp, dispatch))
       .then(
         data => {
           dispatch({ type: WORKSHOP_FETCHED, payload: data });
@@ -141,7 +141,7 @@ export const fetchUserWorkshops = userId => {
   return dispatch => {
     dispatch({ type: USER_WORKSHOPS_FETCH_PENDING });
     fetch(service.getServerEndpoint(`/users/${userId}/workshops`))
-      .then(service.handleResponse)
+      .then((resp) => service.handleResponse(resp, dispatch))
       .then(
         data => {
           dispatch({ type: USER_WORKSHOPS_FETCHED, payload: data });
@@ -166,7 +166,7 @@ export const saveWorkshopCover = (file, id) => {
       headers: service.getAuthHeaders(),
       body: data
     })
-      .then(service.handleResponse)
+      .then((resp) => service.handleResponse(resp, dispatch))
       .then(
         data => {
           dispatch({ type: UPLOAD_IMG_FULFILLED, payload: data });
@@ -197,7 +197,7 @@ export const saveWorkshopSession = (workshopId, session) => {
         })
       }
     )
-      .then(service.handleResponse)
+      .then((resp) => service.handleResponse(resp, dispatch))
       .then(
         response => {
           dispatch({ type: WORKSHOP_SESSION_SAVED });
@@ -230,7 +230,7 @@ export const updateWorkshopSession = (workshopId, session) => {
         })
       }
     )
-      .then(service.handleResponse)
+      .then((resp) => service.handleResponse(resp, dispatch))
       .then(
         response => {
           dispatch({ type: WORKSHOP_SESSION_UPDATED });
@@ -254,7 +254,7 @@ export const updateWorkshop = (workshop, id) => {
         workshop: workshop
       })
     })
-      .then(service.handleResponse)
+      .then((resp) => service.handleResponse(resp, dispatch))
       .then(
         response => {
           dispatch({ type: WORKSHOP_UPDATED });
@@ -278,7 +278,7 @@ export const publishWorkshop = id => {
         terms_accepted: true
       })
     })
-      .then(service.handleResponse)
+      .then((resp) => service.handleResponse(resp, dispatch))
       .then(
         response => {
           dispatch({ type: WORKSHOP_PUBLISHED, id: id });

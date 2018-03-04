@@ -212,24 +212,52 @@ export default (state = initialState, action) => {
       break;
     }
     case http.STATUS_UNAUTHORIZED: {
+      blankSlate = {
+        ...blankSlate,
+        errors: ["You seem to be logged out, Try to login again?"]
+      };
       break;
     }
     case http.STATUS_FORBIDDEN: {
+      blankSlate = {
+        ...blankSlate,
+        errors: ["You don't have the access to do that"]
+      };
       break;
     }
     case http.STATUS_NOTFOUND: {
+      blankSlate = {
+        ...blankSlate,
+        errors: ["What you're looking for is missing"]
+      };
       break;
     }
     case http.STATUS_INTERNALSERVERERROR: {
+      blankSlate = {
+        ...blankSlate,
+        warning: "Oh, you've broken the server"
+      };
       break;
     }
     case http.STATUS_BADGATEWAY: {
+      blankSlate = {
+        ...blankSlate,
+        warning: "The network is facing some problems. Try later?"
+      };
       break;
     }
     case http.STATUS_SERVICEUNAVAILABLE: {
+      blankSlate = {
+        ...blankSlate,
+        warning: "The server seems to be momentarily down. Try later?"
+      };
       break;
     }
     case http.STATUS_IHAVENOCLUE: {
+      blankSlate = {
+        ...blankSlate,
+        warning: "Something is acting weird. Try later?"
+      };
       break;
     }
 

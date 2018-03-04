@@ -27,7 +27,7 @@ export const login = (email, password) => {
         password
       })
     })
-      .then(service.handleAuthResponse)
+      .then((resp) => service.handleAuthResponse(resp, dispatch))
       .then(
         response => {
           dispatch({ type: LOGIN_FULFILLED, payload: response.data });
@@ -57,7 +57,7 @@ export const fbLogin = data => {
       },
       credentials: "include"
     })
-      .then(service.handleAuthResponse)
+      .then((resp) => service.handleAuthResponse(resp, dispatch))
       .then(
         response => {
           dispatch({ type: LOGIN_FULFILLED, payload: response });
@@ -89,7 +89,7 @@ export const register = user => {
         "password_confirmation"
       ])
     })
-      .then(service.handleAuthResponse)
+      .then((resp) => service.handleAuthResponse(resp, dispatch))
       .then(
         response => {
           dispatch({ type: REGISTER_FULFILLED, payload: response.data });
@@ -108,7 +108,7 @@ export const fetchUser = userId => {
   return function(dispatch) {
     dispatch({ type: USER_FETCHED_PENDING });
     fetch(service.getServerEndpoint(`/users/${userId}`))
-      .then(service.handleResponse)
+      .then((resp) => service.handleResponse(resp, dispatch))
       .then(
         response => {
           dispatch({ type: USER_FETCHED, payload: response });
