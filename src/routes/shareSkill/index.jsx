@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as skillActions from "app:store/actions/skill";
 import { parseSessionDateTime } from "app:utils/utils";
+import CleverInputReader from "app:components/clever-input-reader";
 import "./style.css";
 
 class ShareSkill extends Component {
@@ -182,6 +183,36 @@ class ShareSkill extends Component {
     this.props.dispatch(skillActions.publishWorkshop(this.state.workshopId));
   }
 
+  validateContentByLength(content, min, max) {
+    if (!content || content.length < min) {
+      return { color: "red", message: "Too short" };
+    } else if (content.length > max) {
+      return { color: "red", message: "Too long" };
+    } else {
+      return { color: "green", message: "Looks good" };
+    }
+  }
+
+  validateContentByValue(content, min, max) {
+    if (!content || content < min) {
+      return { color: "red", message: "☒" };
+    } else if (content > max) {
+      return { color: "red", message: "☒" };
+    } else {
+      return { color: "green", message: "☑" };
+    }
+  }
+
+  validateFeesLimit(content, min, max) {
+    if (!content || content < min) {
+      return { color: "red", message: "Low" };
+    } else if (content > max) {
+      return { color: "red", message: "High" };
+    } else {
+      return { color: "green", message: "☑" };
+    }
+  }
+
   render() {
     const { skills, session, t, editable } = this.props;
     const levels = skills.levels;
@@ -221,11 +252,18 @@ class ShareSkill extends Component {
                 </span>
               </div>
               <div className="col-xs-12 col-sm-8">
-                <SkillInputSingle
+                <CleverInputReader
+                  componentClass={"input"}
+                  type={"input"}
                   name={"title"}
-                  onChange={this.handleChange}
-                  value={workshop.title}
                   placeholder={t("share_skill.title_placeholder")}
+                  value={workshop.title || ""}
+                  onChange={this.handleChange}
+                  demand={"Too short"}
+                  hint={""}
+                  validate={c => {
+                    return this.validateContentByLength(c, 4, 32);
+                  }}
                 />
               </div>
               <div className="col-xs-12 col-sm-4">
@@ -253,50 +291,71 @@ class ShareSkill extends Component {
                 </span>
               </div>
               <div className="col-xs-12">
-                <SkillInputArea
+                <CleverInputReader
+                  componentClass={"textarea"}
+                  type={"input"}
                   name={"description"}
-                  onChange={this.handleChange}
                   placeholder={t("share_skill.description_placeholder")}
-                  value={workshop.description}
+                  value={workshop.description || ""}
+                  onChange={this.handleChange}
+                  demand={"Too short"}
+                  hint={""}
+                  validate={c => {
+                    return this.validateContentByLength(c, 20, 300);
+                  }}
                 />
               </div>
             </div>
             <div className="row share-skill-row">
-              <div className="col-xs-12 col-sm-6">
+              <div className="col-xs-12 col-sm-7">
                 <div className="row share-skill-row">
-                  <div className="col-xs-5 skills-form-label">
+                  <div className="col-xs-3 skills-form-label">
                     <span className="skills-form-title">
                       <Trans i18nKey="share_skill.age_from_label">
                         Age Recommended
                       </Trans>
                     </span>
                   </div>
-                  <div className="col-xs-7">
-                    <div className="row">
-                      <div className="col-xs-3">
-                        <SkillInputSingle
-                          name={"min_age"}
-                          onChange={this.handleChange}
-                          value={workshop.min_age}
-                        />
-                      </div>
-                      <div className="col-xs-6 skills-form-label">
-                        <span className="skills-form-title">
-                          <Trans i18nKey="share_skill.age_to_label">To</Trans>
-                        </span>
-                      </div>
-                      <div className="col-xs-3">
-                        <SkillInputSingle
-                          name={"max_age"}
-                          onChange={this.handleChange}
-                          value={workshop.max_age}
-                        />
-                      </div>
-                    </div>
+                  <div className="col-xs-3">
+                    <CleverInputReader
+                      componentClass={"input"}
+                      type={"number"}
+                      name={"min_age"}
+                      placeholder={13}
+                      value={workshop.min_age}
+                      onChange={this.handleChange}
+                      demand={"☒"}
+                      hint={""}
+                      validate={c => {
+                        return this.validateContentByValue(c, 0, 120);
+                      }}
+                      style={{ maxWidth: "70px", float: "left" }}
+                    />
+                  </div>
+                  <div className="col-xs-3 skills-form-label">
+                    <span className="skills-form-title">
+                      <Trans i18nKey="share_skill.age_to_label">To</Trans>
+                    </span>
+                  </div>
+                  <div className="col-xs-3">
+                    <CleverInputReader
+                      componentClass={"input"}
+                      type={"number"}
+                      name={"max_age"}
+                      placeholder={120}
+                      value={workshop.max_age}
+                      onChange={this.handleChange}
+                      demand={"☒"}
+                      hint={""}
+                      validate={c => {
+                        return this.validateContentByValue(c, 0, 120);
+                      }}
+                      style={{ maxWidth: "70px", float: "left" }}
+                    />
                   </div>
                 </div>
               </div>
-              <div className="col-xs-12 col-sm-6">
+              <div className="col-xs-12 col-sm-5">
                 <div className="row share-skill-row">
                   <div className="col-xs-6 skills-form-label">
                     <span className="skills-form-title">
@@ -337,13 +396,20 @@ class ShareSkill extends Component {
                 </span>
               </div>
               <div className="col-xs-12">
-                <SkillInputArea
+                <CleverInputReader
+                  componentClass={"textarea"}
+                  type={"input"}
                   name={"additional_requirements"}
-                  onChange={this.handleChange}
                   placeholder={t(
                     "share_skill.additional_requirements_placeholder"
                   )}
-                  value={workshop.additional_requirements}
+                  value={workshop.additional_requirements || ""}
+                  onChange={this.handleChange}
+                  demand={"Too short"}
+                  hint={""}
+                  validate={c => {
+                    return this.validateContentByLength(c, 20, 300);
+                  }}
                 />
               </div>
             </div>
@@ -363,7 +429,7 @@ class ShareSkill extends Component {
               </div>
             </div>
             <div className="row share-skill-row">
-              <div className="col-xs-12 col-sm-6">
+              <div className="col-xs-12 col-sm-7">
                 <div className="row  share-skill-row">
                   <div className="col-xs-9 skills-form-label">
                     <span className="skills-form-title">
@@ -373,36 +439,48 @@ class ShareSkill extends Component {
                     </span>
                   </div>
                   <div className="col-xs-3">
-                    <SkillInputSingle
+                    <CleverInputReader
+                      componentClass={"input"}
+                      type={"number"}
                       name={"maximum_workshop_registration_count"}
-                      type="number"
-                      onChange={this.handleChange}
-                      placeholder={t(
-                        "share_skill.participant_number_placeholder"
-                      )}
+                      placeholder={0}
                       value={workshop.maximum_workshop_registration_count}
+                      onChange={this.handleChange}
+                      demand={"☒"}
+                      hint={""}
+                      validate={c => {
+                        return this.validateContentByValue(c, 0, 120);
+                      }}
+                      style={{ maxWidth: "100px", float: "right" }}
                     />
                   </div>
                 </div>
               </div>
-              <div className="col-xs-12 col-sm-6">
+              <div className="col-xs-12 col-sm-5">
                 <div className="row  share-skill-row">
                   <div className="col-xs-4 skills-form-label">
-                    <span className="skills-form-title">
+                    <span className="skills-form-title" style={{float: "right", width: "100%", textAlign:"right"}}>
                       <Trans i18nKey="share_skill.price_title">Price</Trans>
                     </span>
                   </div>
                   <div className="col-xs-4">
-                    <SkillInputSingle
+                    <CleverInputReader
+                      componentClass={"input"}
+                      type={"number"}
                       name={"fees"}
-                      type="number"
-                      onChange={this.handleChange}
-                      placeholder={t("share_skill.price_placeholder")}
+                      placeholder={0}
                       value={workshop.fees}
+                      onChange={this.handleChange}
+                      demand={"Low"}
+                      hint={""}
+                      validate={c => {
+                        return this.validateFeesLimit(c, 0, 250);
+                      }}
+                      style={{ maxWidth: "100px", float: "right" }}
                     />
                   </div>
                   <div className="col-xs-4 skills-form-label">
-                    <span className="skills-form-title">Per person</span>
+                    <span className="skills-form-title" style={{float:"left"}}>Per person</span>
                   </div>
                 </div>
               </div>
@@ -529,19 +607,6 @@ class ShareSkill extends Component {
     );
   }
 }
-
-const SkillInputArea = props => (
-  <textarea
-    rows="4"
-    className="form-control"
-    type={props.type || "text"}
-    name={props.name}
-    placeholder={props.placeholder}
-    onChange={props.onChange}
-    value={props.value || ""}
-    style={{ borderRadius: "0px", borderColor: "#9b9b9b" }}
-  />
-);
 
 const SkillInputSingle = props => (
   <input

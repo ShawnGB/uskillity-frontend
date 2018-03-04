@@ -63,3 +63,82 @@
   width: 16px;
 }
 
+.validation {
+  font-size: 11px;
+  margin-left: 0px;
+}
+
+
+.password {
+  &__input {
+    display: block;
+    text-transform: none;
+    width: 100%;
+    height: 42px;
+    border-width: 0 0 1px;
+    border-style: solid;
+    border-color: #b6b6b6;
+    font-weight: 400;
+
+    &:focus,
+    &:active {
+      outline: 0;
+    }
+  }
+
+  &__show {
+    cursor: pointer;
+    right: 0;
+    color: #0090d7;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.8em;
+    float: right;
+    width: 9%;
+    height: 34px;
+    padding: 8px;
+  }
+
+  &__strength {
+    position: absolute;
+    width: 0%;
+    height: 4px;
+    margin: 6px auto;
+    right: 15px;
+    background: transparent;
+    transition: all 300ms ease-in-out;
+
+    right: 0;
+    float: right;
+    width: 9%;
+    padding: 1px;
+    margin-right: 15px;
+
+    &[data-score='null'] {
+      width: 0;
+      background: red;
+    }
+
+    &[data-score='0'] {
+      width: 5%;
+      background: $scoreRed;
+    }
+    &[data-score='1'] {
+      width: 25%;
+      background: $scoreRed;
+    }
+    &[data-score='2'] {
+      width: 50%;
+      background: $scoreYellow;
+    }
+    &[data-score='3'] {
+      width: 75%;
+      background: $scoreGreen;
+    }
+    &[data-score='4'] {
+      width: 100%;
+      background: $scoreGreen;
+    }
+  }
+}
+
