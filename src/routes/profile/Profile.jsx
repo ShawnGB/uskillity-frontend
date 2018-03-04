@@ -6,6 +6,12 @@ import * as profileActions from "app:store/actions/profile";
 import * as skillActions from "app:store/actions/skill";
 import Dropzone from "react-dropzone";
 import { connect } from "react-redux";
+import CleverInputReader from "app:components/clever-input-reader";
+import {
+  validateContentByLength,
+  validateContentByValue,
+  validateFeesLimit
+} from "app:utils/utils";
 import "./style.css";
 
 class Profile extends React.Component {
@@ -111,27 +117,29 @@ class Profile extends React.Component {
     return (
       <div className="container container-profile">
         <div className="row">
-          <div style={{ float: "right" }}>
-            {this.state.isEligible && !this.state.isEditing ? (
-              <button
-                className="btn btn-primary btn-margin"
-                type="button"
-                onClick={this.toggleEdit}
-              >
-                Edit
-              </button>
-            ) : this.state.isEligible && this.state.showSaveBtn ? (
-              <button
-                className="btn btn-primary btn-margin"
-                type="button"
-                onClick={this.saveEdit}
-              >
-                Save
-              </button>
-            ) : null}
-            {this.state.showCancelBtn ? (
-              <CancelButton onCancel={this.onCancel} />
-            ) : null}
+          <div className="col-xs-12">
+            <div style={{ float: "right" }}>
+              {this.state.isEligible && !this.state.isEditing ? (
+                <button
+                  className="btn btn-primary btn-margin"
+                  type="button"
+                  onClick={this.toggleEdit}
+                >
+                  Edit
+                </button>
+              ) : this.state.isEligible && this.state.showSaveBtn ? (
+                <button
+                  className="btn btn-primary btn-margin"
+                  type="button"
+                  onClick={this.saveEdit}
+                >
+                  Save
+                </button>
+              ) : null}
+              {this.state.showCancelBtn ? (
+                <CancelButton onCancel={this.onCancel} />
+              ) : null}
+            </div>
           </div>
         </div>
         <div className="row">
@@ -185,72 +193,102 @@ const ProfileNormal = props => (
         {props.provider.profession} - {props.provider.location}{" "}
       </p>
     </div>
-    <div className="profile-content-title">
+    <h3>
       <Trans i18nKey="profile.header_about_me">About Me</Trans>
-    </div>
+    </h3>
     <p>{props.provider.about}</p>
-    <div className="profile-content-title">
+    <h3>
       <Trans i18nKey="profile.header_educational_background">
         Educational Background
       </Trans>
-    </div>
+    </h3>
     <p>{props.provider.edu_bg}</p>
   </div>
 );
 
 const ProfileEditable = props => (
   <div className="col-sm-8 col-md-9" style={{ marginTop: "16px" }}>
-    <div className="profile-name">
-      <input
-        name="first_name"
-        defaultValue={props.provider.first_name}
-        onChange={props.handleEdit}
-        placeholder={props.t("profile.first_name_placeholder")}
-      />
-      <input
-        name="name"
-        placeholder={props.t("profile.name_placeholder")}
-        defaultValue={props.provider.name}
-        onChange={props.handleEdit}
-      />
+    <div className="row">
+      <div className="col-xs-6">
+        <CleverInputReader
+          componentClass={"input"}
+          type={"input"}
+          name={"first_name"}
+          defaultValue={props.provider.first_name}
+          placeholder={props.t("profile.first_name_placeholder")}
+          onChange={props.handleEdit}
+          hintless
+        />
+      </div>
+      <div className="col-xs-6">
+        <CleverInputReader
+          componentClass={"input"}
+          type={"input"}
+          name={"name"}
+          defaultValue={props.provider.name}
+          onChange={props.handleEdit}
+          placeholder={props.t("profile.name_placeholder")}
+          hintless
+        />
+      </div>
     </div>
-    <div className="">
-      <input
-        name="profession"
-        placeholder={props.t("profile.profession_placeholder")}
-        defaultValue={props.provider.profession}
-        onChange={props.handleEdit}
-      />
-      <input
-        name="location"
-        placeholder={props.t("profile.location_placeholder")}
-        defaultValue={props.provider.location}
-        onChange={props.handleEdit}
-      />
+    <div className="row" style={{ marginTop: "10px" }}>
+      <div className="col-xs-4">
+        <CleverInputReader
+          componentClass={"input"}
+          type={"input"}
+          name={"profession"}
+          defaultValue={props.provider.profession}
+          onChange={props.handleEdit}
+          placeholder={props.t("profile.profession_placeholder")}
+          hintless
+        />
+      </div>
+      <div className="col-xs-4">
+        <CleverInputReader
+          componentClass={"input"}
+          type={"input"}
+          name={"location"}
+          placeholder={props.t("profile.location_placeholder")}
+          defaultValue={props.provider.location}
+          onChange={props.handleEdit}
+          hintless
+        />
+      </div>
     </div>
-    <div className="profile-content-title">
+    <h3>
       <Trans i18nKey="profile.header_about_me">About Me</Trans>
-    </div>
-    <textarea
-      rows="4"
-      name="about"
+    </h3>
+    <CleverInputReader
+      componentClass={"textarea"}
+      type={"input"}
+      name={"about"}
       placeholder={props.t("profile.about_placeholder")}
       defaultValue={props.provider.about}
       onChange={props.handleEdit}
-      style={{ width: "100%" }}
+      demand={"Too short"}
+      hint={""}
+      validate={c => {
+        return validateContentByLength(c, 0, 1000);
+      }}
     />
-    <div className="profile-content-title">
+    <h3>
       <Trans i18nKey="profile.header_educational_background">
         Educational Background
       </Trans>
-    </div>
-    <textarea
-      rows="4"
-      name="edu_bg"
+    </h3>
+    <CleverInputReader
+      componentClass={"textarea"}
+      type={"input"}
+      name={"edu_bg"}
       placeholder={props.t("profile.edu_bg_placeholder")}
       defaultValue={props.provider.edu_bg}
       onChange={props.handleEdit}
-      style={{ width: "100%" }}
+      demand={"Too short"}
+      hint={""}
+      validate={c => {
+        return validateContentByLength(c, 0, 1000);
+      }}
     />
   </div>
 );

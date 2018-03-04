@@ -4,7 +4,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as skillActions from "app:store/actions/skill";
-import { parseSessionDateTime } from "app:utils/utils";
+import { parseSessionDateTime, validateContentByLength, validateContentByValue, validateFeesLimit } from "app:utils/utils";
 import CleverInputReader from "app:components/clever-input-reader";
 import "./style.css";
 
@@ -190,36 +190,6 @@ class ShareSkill extends Component {
     this.props.dispatch(skillActions.publishWorkshop(this.state.workshopId));
   }
 
-  validateContentByLength(content, min, max) {
-    if (!content || content.length < min) {
-      return { color: "red", message: "Too short" };
-    } else if (content.length > max) {
-      return { color: "red", message: "Too long" };
-    } else {
-      return { color: "green", message: "Looks good" };
-    }
-  }
-
-  validateContentByValue(content, min, max) {
-    if (!content || content < min) {
-      return { color: "red", message: "☒" };
-    } else if (content > max) {
-      return { color: "red", message: "☒" };
-    } else {
-      return { color: "green", message: "☑" };
-    }
-  }
-
-  validateFeesLimit(content, min, max) {
-    if (!content || content < min) {
-      return { color: "red", message: "Low" };
-    } else if (content > max) {
-      return { color: "red", message: "High" };
-    } else {
-      return { color: "green", message: "☑" };
-    }
-  }
-
   render() {
     const { skills, session, t, editable } = this.props;
     const levels = skills.levels;
@@ -269,7 +239,7 @@ class ShareSkill extends Component {
                   demand={"Too short"}
                   hint={""}
                   validate={c => {
-                    return this.validateContentByLength(c, 4, 32);
+                    return validateContentByLength(c, 4, 32);
                   }}
                 />
               </div>
@@ -308,7 +278,7 @@ class ShareSkill extends Component {
                   demand={"Too short"}
                   hint={""}
                   validate={c => {
-                    return this.validateContentByLength(c, 20, 300);
+                    return validateContentByLength(c, 20, 300);
                   }}
                 />
               </div>
@@ -334,7 +304,7 @@ class ShareSkill extends Component {
                       demand={"☒"}
                       hint={""}
                       validate={c => {
-                        return this.validateContentByValue(c, 0, 120);
+                        return validateContentByValue(c, 0, 120);
                       }}
                       style={{ maxWidth: "70px", float: "left" }}
                     />
@@ -355,7 +325,7 @@ class ShareSkill extends Component {
                       demand={"☒"}
                       hint={""}
                       validate={c => {
-                        return this.validateContentByValue(c, 0, 120);
+                        return validateContentByValue(c, 0, 120);
                       }}
                       style={{ maxWidth: "70px", float: "left" }}
                     />
@@ -415,7 +385,7 @@ class ShareSkill extends Component {
                   demand={"Too short"}
                   hint={""}
                   validate={c => {
-                    return this.validateContentByLength(c, 20, 300);
+                    return validateContentByLength(c, 20, 300);
                   }}
                 />
               </div>
@@ -456,7 +426,7 @@ class ShareSkill extends Component {
                       demand={"☒"}
                       hint={""}
                       validate={c => {
-                        return this.validateContentByValue(c, 0, 120);
+                        return validateContentByValue(c, 0, 120);
                       }}
                       style={{ maxWidth: "100px", float: "right" }}
                     />
@@ -488,7 +458,7 @@ class ShareSkill extends Component {
                       demand={"Low"}
                       hint={""}
                       validate={c => {
-                        return this.validateFeesLimit(c, 0, 250);
+                        return validateFeesLimit(c, 0, 250);
                       }}
                       style={{ maxWidth: "100px", float: "right" }}
                     />

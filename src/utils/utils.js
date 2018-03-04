@@ -55,3 +55,33 @@ export const ErrorsToList = errors => {
     return key.charAt(0).toUpperCase() + key.slice(1) + " " + errors[key];
   });
 };
+
+export const validateContentByLength = (content, min, max) => {
+  if (!content || content.length < min) {
+    return { color: "red", message: "Too short" };
+  } else if (content.length > max) {
+    return { color: "red", message: "Too long" };
+  } else {
+    return { color: "green", message: "Looks good" };
+  }
+};
+
+export const validateContentByValue = (content, min, max) => {
+  if (!content || content < min) {
+    return { color: "red", message: "☒" };
+  } else if (content > max) {
+    return { color: "red", message: "☒" };
+  } else {
+    return { color: "green", message: "☑" };
+  }
+};
+
+export const validateFeesLimit = (content, min, max) => {
+  if (!content || content < min) {
+    return { color: "red", message: "Low" };
+  } else if (content > max) {
+    return { color: "red", message: "High" };
+  } else {
+    return { color: "green", message: "☑" };
+  }
+};

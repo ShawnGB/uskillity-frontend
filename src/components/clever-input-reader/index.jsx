@@ -20,7 +20,7 @@ class CleverInputReader extends React.Component {
   }
 
   componentWillMount() {
-    this.setDemandAndColor(this.props.value)
+    this.setDemandAndColor(this.props.value || this.props.defaultValue)
   }
 
   showHide(e) {
@@ -51,6 +51,7 @@ class CleverInputReader extends React.Component {
   /*}*/
 
   setDemandAndColor(value) {
+    if (this.props.hintless) { return }
     let validations = this.props.validate(value);
     if (validations) {
       this.setState({
@@ -76,6 +77,7 @@ class CleverInputReader extends React.Component {
             placeholder={this.props.placeholder}
             disabled={this.props.disabled}
             onChange={this.onContentChange}
+            defaultValue={this.props.defaultValue}
             value={this.props.value}
             style={{ borderRadius: "0px", borderColor: "#9b9b9b" }}
           />
@@ -85,6 +87,7 @@ class CleverInputReader extends React.Component {
             </span>
           ) : null}
         </div>
+      {this.props.hintless ? null :
         <Row>
           <Col xs={6}>
             <p className="validation">{this.props.hint}</p>
@@ -100,6 +103,7 @@ class CleverInputReader extends React.Component {
             )}
           </Col>
         </Row>
+      }
       </div>
     );
   }
