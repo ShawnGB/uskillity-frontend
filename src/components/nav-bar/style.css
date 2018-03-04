@@ -29,7 +29,6 @@
 }
 
 .menubar-menu-collection > li > a {
-  color: #717171;
   font-size: 16px;
   padding-right: 0px;
 }
@@ -42,13 +41,13 @@
     text-align: right;
   }
 
-  .menubar-menu-collection > li > a {
-    color: #717171;
-  }
-
   .menubar-header {
     padding-left: 20px;
   }
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #717171 !important;
 }
 
 @media (min-width: 769px) {
@@ -61,3 +60,4 @@
     margin-right: 0px;
   }
 }
+
