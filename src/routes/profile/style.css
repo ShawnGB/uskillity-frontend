@@ -21,7 +21,6 @@
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
-  color: #000000;
 }
 
 .profile-content-title {
@@ -85,8 +84,8 @@
   width: 80px;
   height: 34px;
   opacity: 0.72;
-  background-color: #ffffff;
-  border: solid 1px #000000;
+  background-color: white;
+  border: solid 1px #9b9b9b;
   float: right;
 }
 .btn-margin {

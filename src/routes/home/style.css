@@ -103,12 +103,12 @@
   line-height: normal;
   letter-spacing: normal;
   text-align: center;
-  color: #ffffff;
+  color: white;
 }
 
 .carousel-indicators .active {
   background-color: rgba(0, 0, 0, 0) !important;
-  border: solid 2px red !important;
+  border: solid 2px #ff433a !important;
 }
 
 .category-collection {

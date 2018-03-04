@@ -4,7 +4,7 @@
 }
 
 .navbar.navbar-default {
-  background-color: #FFFFFF;
+  background-color: white;
   border: 0;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -29,7 +29,7 @@
 }
 
 .menubar-menu-collection > li > a {
-  color: #777;
+  color: #717171;
   font-size: 16px;
   padding-right: 0px;
 }
@@ -43,7 +43,7 @@
   }
 
   .menubar-menu-collection > li > a {
-    color: #777;
+    color: #717171;
   }
 
   .menubar-header {

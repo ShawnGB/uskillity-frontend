@@ -69,6 +69,12 @@
 }
 
 
+/*
+ *$scoreRed: #f44336;
+ *$scoreYellow: #ffeb3b;
+ *$scoreGreen: #4caf50;
+ */
+
 .password {
   &__input {
     display: block;
@@ -77,7 +83,7 @@
     height: 42px;
     border-width: 0 0 1px;
     border-style: solid;
-    border-color: #b6b6b6;
+    border-color: #9b9b9b;
     font-weight: 400;
 
     &:focus,

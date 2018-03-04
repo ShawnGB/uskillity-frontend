@@ -25,7 +25,6 @@
   letter-spacing: normal;
   text-align: left;
   padding: 5px 0 0px 79px;
-  color: rgba(0, 0, 0, 0.72);
 }
 .instructor-name {
   height: 14px;
@@ -38,7 +37,6 @@
   letter-spacing: normal;
   text-align: left;
   padding: 15px 0 0px 90px;
-  color: rgba(0, 0, 0, 0.72);
 }
 
 .Instructior-Box {
@@ -54,7 +52,7 @@
 .Ellipse-3 {
   width: 180px;
   height: 180px;
-  background-color: #575757;
+  background-color: #9b9b9b;
   margin: 15px 0px 0px 36px;
 }
 
