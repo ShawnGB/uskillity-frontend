@@ -95,11 +95,12 @@
 }
 
 .profile-img-container {
-  background-size: contain;
+  background-size: cover;
   width: 100%;
   background-position-x: center;
   background-position-y: center;
   background-repeat: no-repeat;
   padding-top: 100%;
   border-radius: 50%;
+  min-height: 189px;
 }

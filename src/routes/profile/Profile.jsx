@@ -7,11 +7,7 @@ import * as skillActions from "app:store/actions/skill";
 import Dropzone from "react-dropzone";
 import { connect } from "react-redux";
 import CleverInputReader from "app:components/clever-input-reader";
-import {
-  validateContentByLength,
-  validateContentByValue,
-  validateFeesLimit
-} from "app:utils/utils";
+import { validateContentByLength } from "app:utils/utils";
 import "./style.css";
 
 class Profile extends React.Component {
@@ -156,9 +152,10 @@ class Profile extends React.Component {
               onDrop={files => this.onDrop(files)}
               disableClick={!this.state.isEligible}
             >
-              <div className="img-container">
-                <img src={provider.image} alt="" className="img-circle" />
-              </div>
+              <div
+                className="profile-img-container"
+                style={{ backgroundImage: `url(${provider.image})` }}
+              />
             </Dropzone>
           </div>
           {this.state.isEligible && this.state.showCancelBtn ? (
