@@ -12,7 +12,7 @@ class LoginForm extends Component {
       error: {
         message: ""
       },
-      data: "",
+      data: ""
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -180,13 +180,15 @@ class LoginForm extends Component {
             </div>
           </form>
           <div>{this.state.error.message}</div>
-          <div>
-            <Link onClick={this.props.jumpToModal} to="#">
-              <Trans i18nKey="login.form.button_register">
-                Not a user? Sign up.
-              </Trans>
-            </Link>
-          </div>
+          {this.props.jumpToModal ? (
+            <div>
+              <Link onClick={this.props.jumpToModal} to="#">
+                <Trans i18nKey="login.form.button_register">
+                  Not a user? Sign up.
+                </Trans>
+              </Link>
+            </div>
+          ) : null}
         </div>
       </div>
     );

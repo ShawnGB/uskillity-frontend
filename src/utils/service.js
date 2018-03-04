@@ -36,6 +36,16 @@ export const handleResponse = (response, dispatch) => {
     dispatch({ type: "HTTP_" + response.status, payload: {} });
   }
 
+  if (response.status === 401) {
+    dispatch(
+      modalActions.showModal("MODAL_LOGIN", {
+        handleSubmit: (email, password) => dispatch(sessionActions.login(email, password)),
+        handleFbLogin: data => dispatch(sessionActions.fbLogin(data)),
+        hideModal: () => dispatch(modalActions.hideModal("MODAL_LOGIN"))
+      })
+    );
+  }
+
   if (!response.ok) {
     return Promise.reject(response);
   }
