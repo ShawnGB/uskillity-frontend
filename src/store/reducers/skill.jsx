@@ -82,6 +82,8 @@ export default (state = initialState, action) => {
 
       if (index > -1) {
         workshops[index] = action.payload;
+      } else {
+        workshops.push(action.payload);
       }
 
       nextState = {
