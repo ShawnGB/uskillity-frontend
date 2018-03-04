@@ -19,8 +19,8 @@ class LoginForm extends Component {
   }
 
   componentDidMount() {
-    //const APP_ID = "624849507671905"; // dev
-    const APP_ID = "618914508265405"; // staging
+    const APP_ID = "624849507671905"; // dev
+    ////const APP_ID = "618914508265405"; // staging
     window.fbAsyncInit = function() {
       FB.init({
         appId: APP_ID,
@@ -60,7 +60,6 @@ class LoginForm extends Component {
   }
 
   testAPI() {
-    console.log("Welcome!  Fetching your information.... ");
     FB.api("/me", function(response) {
       console.log("Successful login for: " + response.name);
     });
@@ -102,7 +101,7 @@ class LoginForm extends Component {
 
   handleFBbuttonClick() {
     console.log("handling button click");
-    FB.login(this.checkLoginState());
+    FB.login(this.checkLoginState(), {scope: 'email'});
   }
 
   onChange(e) {
@@ -135,15 +134,15 @@ class LoginForm extends Component {
                 </Trans>
               </button>
             </div>
-              <div
-                style={{
-                  margin: "12px auto",
-                  display: "flex",
-                  justifyContent: "center"
-                }}
-              >
-                <h5>Or</h5>
-              </div>
+            <div
+              style={{
+                margin: "12px auto",
+                display: "flex",
+                justifyContent: "center"
+              }}
+            >
+              <h5>Or</h5>
+            </div>
             <div className="form-group">
               <input
                 className="form-control"

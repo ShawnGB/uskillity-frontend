@@ -34,7 +34,7 @@ export const handleResponse = response => {
     return Promise.reject(response);
   }
   if (response.status === 204) {
-    return {}
+    return {};
   }
   return response.json();
 };
@@ -54,18 +54,23 @@ export const handleAuthResponse = response => {
 };
 
 export const fblogin = data => {
-  console.log('fblogin: ', data);
-  const fbEndpoit = '/auth/facebook';
+  console.log("fblogin: ", data);
+  const fbEndpoit = "/authenticate_with_facebook";
 
   return fetch(getServerEndpoint(fbEndpoit), {
-    method: 'GET',
-    credentials: 'include',
-    mode: 'cors'
-  }).then(response => {
+    method: "POST",
+    body: JSON.stringify({'facebook_data': data.authResponse}),
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    credentials: "include"
+  })
+    .then(response => {
       response.json();
     })
     .then(json => {
-      console.log('received:', json);
+      console.log("received:", json);
     })
     .catch(err => {
       console.log(err);
