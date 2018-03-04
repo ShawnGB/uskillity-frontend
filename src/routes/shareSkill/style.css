@@ -53,10 +53,12 @@
 }
 
 .add-session-button {
-  width: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 34px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #ff433a !important;
+  height: 34px;
 }
 
 .arrow-class {
@@ -68,6 +70,9 @@
   margin-left: 0px;
 }
 
+.my-glyphicon {
+  font-family: 'Glyphicons Halflings';
+}
 
 /*
  *$scoreRed: #f44336;

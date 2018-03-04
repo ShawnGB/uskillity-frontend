@@ -676,8 +676,7 @@ const ScheduleWorkshop = props => {
               style={{ borderRadius: "17px" }}
             >
               <span
-                className="glyphicon glyphicon-minus"
-                style={{ fontSize: "15px" }}
+                className="my-glyphicon glyphicon-minus"
               />
             </button>
           ) : (
@@ -688,8 +687,7 @@ const ScheduleWorkshop = props => {
               style={{ borderRadius: "17px" }}
             >
               <span
-                className="glyphicon glyphicon-plus"
-                style={{ fontSize: "15px" }}
+                className="my-glyphicon glyphicon-plus" style={{color: "green"}}
               />
             </button>
           )}
