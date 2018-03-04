@@ -20,8 +20,8 @@ class LoginForm extends Component {
   }
 
   componentDidMount() {
-    const APP_ID = "624849507671905"; // dev
-    ////const APP_ID = "618914508265405"; // staging
+    //const APP_ID = "624849507671905"; // dev
+    const APP_ID = "618914508265405"; // staging
     window.fbAsyncInit = function() {
       FB.init({
         appId: APP_ID,
