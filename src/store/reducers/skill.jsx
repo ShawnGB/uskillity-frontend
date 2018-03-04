@@ -109,6 +109,36 @@ export default (state = initialState, action) => {
       break;
     }
 
+    case skillActions.WORKSHOP_SESSION_DELETE_REJECTED: {
+      break;
+    }
+
+    case skillActions.WORKSHOP_SESSION_DELETE_PENDING: {
+      break;
+    }
+
+    case skillActions.WORKSHOP_SESSION_DELETED: {
+      const { workshopId, sessionId } = action;
+      let workshops = state.workshops;
+
+      let index = _.findIndex(workshops, workshop => {
+        return workshop.id === +workshopId;
+      });
+
+      if (index > -1) {
+        _.remove(workshops[index].sessions, session => {
+          return session.id === +sessionId;
+        });
+      }
+
+      nextState = {
+        ...state,
+        workshops: workshops
+      };
+
+      break;
+    }
+
     case skillActions.WORKSHOPS_FETCHED_REJECTED: {
       break;
     }

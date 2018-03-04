@@ -126,6 +126,12 @@ class ShareSkill extends Component {
     this.setState({ sessions });
   }
 
+  onDeleteWorkshopSession(session, index) {
+    this.props.dispatch(
+      skillActions.deleteWorkshopSession(this.state.workshopId, session.id)
+    );
+  }
+
   handleChange(e) {
     const input = e.target.name;
     const workshop = this.state.workshop;
@@ -460,7 +466,14 @@ class ShareSkill extends Component {
               <div className="col-xs-12 col-sm-5">
                 <div className="row  share-skill-row">
                   <div className="col-xs-4 skills-form-label">
-                    <span className="skills-form-title" style={{float: "right", width: "100%", textAlign:"right"}}>
+                    <span
+                      className="skills-form-title"
+                      style={{
+                        float: "right",
+                        width: "100%",
+                        textAlign: "right"
+                      }}
+                    >
                       <Trans i18nKey="share_skill.price_title">Price</Trans>
                     </span>
                   </div>
@@ -481,7 +494,12 @@ class ShareSkill extends Component {
                     />
                   </div>
                   <div className="col-xs-4 skills-form-label">
-                    <span className="skills-form-title" style={{float:"left"}}>Per person</span>
+                    <span
+                      className="skills-form-title"
+                      style={{ float: "left" }}
+                    >
+                      Per person
+                    </span>
                   </div>
                 </div>
               </div>
@@ -519,6 +537,11 @@ class ShareSkill extends Component {
                         this,
                         session,
                         index
+                      )}
+                      onDeletePressed={this.onDeleteWorkshopSession.bind(
+                        this,
+                        session,
+                          index
                       )}
                       key={index}
                       session={session}
@@ -625,7 +648,7 @@ const SkillInputSingle = props => (
 
 const ScheduleWorkshop = props => {
   return (
-    <div className="col-xs-9">
+    <div className="col-xs-12">
       <div className="row share-skill-row">
         <div className="col-xs-3">
           <SkillInputSingle
@@ -664,6 +687,20 @@ const ScheduleWorkshop = props => {
             placeholder="End Time"
             value={props.session.ends_at}
           />
+        </div>
+        <div className="col-xs-1">
+          <button
+            type="button"
+            className="btn btn-default btn-sm add-session-button"
+            onClick={props.onDeletePressed}
+            disabled={props.disabled}
+            style={{ borderRadius: "17px" }}
+          >
+            <span
+              className="glyphicon glyphicon-minus"
+              style={{ fontSize: "15px" }}
+            />
+          </button>
         </div>
       </div>
     </div>

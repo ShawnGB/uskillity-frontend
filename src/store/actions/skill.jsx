@@ -26,6 +26,11 @@ export const WORKSHOP_SESSION_UPDATE_PENDING =
 export const WORKSHOP_SESSION_UPDATED = "skill/WORKSHOP_SESSION_UPDATED";
 export const WORKSHOP_SESSION_UPDATE_REJECTED =
   "skill/WORKSHOP_SESSION_UPDATE_REJECTED";
+export const WORKSHOP_SESSION_DELETE_PENDING =
+  "skill/WORKSHOP_SESSION_DELETE_PENDING";
+export const WORKSHOP_SESSION_DELETED = "skill/WORKSHOP_SESSION_DELETED";
+export const WORKSHOP_SESSION_DELETE_REJECTED =
+  "skill/WORKSHOP_SESSION_DELETE_REJECTED";
 export const WORKSHOPS_FETCHED = "skill/WORKSHOPS_FETCHED";
 export const WORKSHOPS_FETCHED_PENDING = "skill/WORKSHOPS_FETCHED_PENDING";
 export const WORKSHOPS_FETCHED_REJECTED = "skill/WORKSHOPS_FETCHED_REJECTED";
@@ -205,6 +210,32 @@ export const saveWorkshopSession = (workshopId, session) => {
         error => {
           error.json().then(e => {
             dispatch({ type: WORKSHOP_SESSION_SAVE_REJECTED, payload: e });
+          });
+        }
+      );
+  };
+};
+
+export const deleteWorkshopSession = (workshopId, sessionId) => {
+  return function(dispatch) {
+    dispatch({ type: WORKSHOP_SESSION_DELETE_PENDING });
+    fetch(
+      service.getServerEndpoint(
+        `/workshops/${workshopId}/workshop_sessions/${sessionId}.json`
+      ),
+      {
+        method: "DELETE",
+        headers: service.getRequestHeaders()
+      }
+    )
+      .then(service.handleResponse)
+      .then(
+        response => {
+          dispatch({ type: WORKSHOP_SESSION_DELETED, sessionId: sessionId, workshopId: workshopId });
+        },
+        error => {
+          error.json().then(e => {
+            dispatch({ type: WORKSHOP_SESSION_DELETE_REJECTED, payload: e });
           });
         }
       );
