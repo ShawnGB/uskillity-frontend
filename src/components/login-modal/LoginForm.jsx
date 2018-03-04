@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 import { translate, Trans } from "react-i18next";
 import { Link } from "react-router-dom";
-import * as service from "app:utils/service";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -12,10 +11,12 @@ class LoginForm extends Component {
       password: "",
       error: {
         message: ""
-      }
+      },
+      data: "",
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleFbLogin = this.handleFbLogin.bind(this);
   }
 
   componentDidMount() {
@@ -76,7 +77,7 @@ class LoginForm extends Component {
     if (response.status === "connected") {
       // Logged into your app and Facebook.
       this.testAPI();
-      service.fblogin(response);
+      this.handleFbLogin(response);
     } else if (response.status === "not_authorized") {
       // The person is logged into Facebook, but not your app.
       //document.getElementById('status').innerHTML = 'Please log into this app.';
@@ -101,7 +102,7 @@ class LoginForm extends Component {
 
   handleFBbuttonClick() {
     console.log("handling button click");
-    FB.login(this.checkLoginState(), {scope: 'email'});
+    FB.login(this.checkLoginState(), { scope: "email" });
   }
 
   onChange(e) {
@@ -114,6 +115,12 @@ class LoginForm extends Component {
     const { email, password } = this.state;
     if (email && password) {
       this.props.handleSubmit(email, password);
+    }
+  }
+
+  handleFbLogin(data) {
+    if (data) {
+      this.props.handleFbLogin(data);
     }
   }
 

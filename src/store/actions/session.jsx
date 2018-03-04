@@ -45,6 +45,36 @@ export const login = (email, password) => {
   };
 };
 
+export const fbLogin = data => {
+  return function(dispatch) {
+    dispatch({ type: LOGIN_PENDING });
+    fetch(service.getServerEndpoint("/authenticate_with_facebook"), {
+      method: "POST",
+      body: JSON.stringify({ facebook_data: data.authResponse }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      credentials: "include"
+    })
+      .then(service.handleAuthResponse)
+      .then(
+        response => {
+          dispatch({ type: LOGIN_FULFILLED, payload: response });
+          dispatch(skillActions.fetchWorkshops());
+          dispatch(skillActions.fetchCategories());
+          dispatch(skillActions.fetchLevels());
+          dispatch({ type: modalActions.HIDE_MODAL });
+        },
+        error => {
+          error.json().then(e => {
+            dispatch({ type: LOGIN_REJECTED, payload: e });
+          });
+        }
+      );
+  };
+};
+
 export const register = user => {
   return function(dispatch) {
     dispatch({ type: REGISTER_PENDING });

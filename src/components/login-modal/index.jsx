@@ -10,6 +10,7 @@ const LoginModal = props => {
         <LoginForm
           handleSubmit={props.handleSubmit}
           jumpToModal={props.jumpToModal}
+          handleFbLogin={props.handleFbLogin}
         />
       </Modal.Body>
     </Modal>

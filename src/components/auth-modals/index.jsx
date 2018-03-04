@@ -8,6 +8,7 @@ class AuthModals extends React.Component {
     this.props.dispatch(
       modalActions.showModal("MODAL_LOGIN", {
         handleSubmit: (email, password) => this.handleLogin(email, password),
+        handleFbLogin: (data) => this.handleFacebookLogin(data),
         jumpToModal: () => this.onRegisteredClicked(),
         hideModal: () => this.hideModal("MODAL_LOGIN")
       })
@@ -18,6 +19,7 @@ class AuthModals extends React.Component {
     this.props.dispatch(
       modalActions.showModal("MODAL_REGISTER", {
         handleSubmit: user => this.handleRegister(user),
+        handleFbLogin: (data) => this.handleFacebookLogin(data),
         jumpToModal: () => this.onLoginClicked(),
         hideModal: () => this.hideModal("MODAL_REGISTER")
       })
@@ -30,6 +32,10 @@ class AuthModals extends React.Component {
 
   handleLogin(email, password) {
     this.props.dispatch(sessionActions.login(email, password));
+  }
+
+  handleFacebookLogin(data) {
+    this.props.dispatch(sessionActions.fbLogin(data));
   }
 
   handleRegister(user) {
