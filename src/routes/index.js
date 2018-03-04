@@ -14,9 +14,13 @@ import Workshop from "app:routes/workshop";
 import ShareSkill from "app:routes/shareSkill";
 import LearnSkill from "app:routes/learnSkill";
 
+import { ToastContainer } from "react-toastify";
+
 export default () => (
   <Router>
     <div>
+      <ToastContainer autoClose={8000} />
+
       <MenuBar />
       <div className="container">
         <div style={{ minHeight: "75vh" }}>
@@ -26,8 +30,15 @@ export default () => (
           <Route path="/courses" component={Courses} />
           <Route exact path="/profile/:id" component={Profile} />
           <Route path="/workshop/:id" component={Workshop} />
-          <Route exact path="/shareyourskill" render={props => <ShareSkill editable={false}/>} />
-          <Route path="/shareyourskill/:id/edit" render={props => <ShareSkill editable={true} {...props}/>} />
+          <Route
+            exact
+            path="/shareyourskill"
+            render={props => <ShareSkill editable={false} />}
+          />
+          <Route
+            path="/shareyourskill/:id/edit"
+            render={props => <ShareSkill editable={true} {...props} />}
+          />
           <Route exact path="/learnskill" component={LearnSkill} />
           <Route path="/learnskill/:id" component={LearnSkill} />
         </div>

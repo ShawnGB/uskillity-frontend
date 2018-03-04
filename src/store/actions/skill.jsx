@@ -93,7 +93,7 @@ export const saveWorkshop = (workshop, router) => {
         },
         error => {
           error.json().then(e => {
-            util.showErrorModal(dispatch, e);
+            //util.showErrorModal(dispatch, e);
             dispatch({ type: WORKSHOP_SAVE_REJECTED, payload: e });
           });
         }

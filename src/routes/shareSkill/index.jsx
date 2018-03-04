@@ -47,6 +47,7 @@ class ShareSkill extends Component {
     const workshop = nextProps.skills.workshops.find(
       w => w.id === this.state.workshopId
     );
+
     if (workshop && workshop !== this.state.workshop) {
       this.findWorkshopToEdit(workshop);
     }

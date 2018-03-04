@@ -3,13 +3,15 @@ import session from "./reducers/session";
 import skills from "./reducers/skill";
 import profile from "./reducers/profile";
 import modal from "./reducers/modal";
+import notifier from "./reducers/notifier";
 import * as sessionActions from "app:store/actions/session";
 
 const appReducer = combineReducers({
+  notifier,
   session,
   skills,
   profile,
-  modal
+  modal,
 });
 
 const rootReducer = (state, action) => {

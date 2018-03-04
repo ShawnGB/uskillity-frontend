@@ -1,5 +1,6 @@
 import moment from "moment";
 import * as modalActions from "app:store/actions/modal";
+import { toast } from "react-toastify";
 
 export const replacer = (key, value) => {
   if (value === "") return undefined;
@@ -61,4 +62,28 @@ export const showErrorModal = (dispatch, error) => {
       hideModal: () => dispatch(modalActions.hideModal("MODAL_ERROR"))
     })
   );
+};
+
+export const NotifyUser = (errors, warning, info, success) => {
+  if (success) {
+    toast.success(success);
+  }
+
+  if (warning) {
+    toast.warning(warning);
+  }
+
+  if (info) {
+    toast.info(info);
+  }
+
+  if (errors) {
+    errors.forEach(error => toast.error(error));
+  }
+};
+
+export const ErrorsToList = errors => {
+  return Object.keys(errors).map(key => {
+    return key.charAt(0).toUpperCase() + key.slice(1) + " " + errors[key];
+  });
 };

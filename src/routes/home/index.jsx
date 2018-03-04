@@ -33,7 +33,9 @@ class Home extends React.Component {
                   alt="img"
                   className="home-random-workshop-img"
                 />
-                <span className="home-random-workshop-img-text">{ws.title}</span>
+                <span className="home-random-workshop-img-text">
+                  {ws.title}
+                </span>
               </div>
             </Link>
           );
