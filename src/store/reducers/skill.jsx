@@ -139,6 +139,24 @@ export default (state = initialState, action) => {
       break;
     }
 
+    case skillActions.WORKSHOP_SESSION_SAVED: {
+      const { workshopId, session, dummy } = action;
+      let workshops = state.workshops;
+
+      let index = _.findIndex(workshops, workshop => {
+        return workshop.id === +workshopId;
+      });
+
+      if (index > -1) {
+        workshops[index].sessions.push(session);
+        nextState = {
+          ...state,
+          workshops: workshops
+        };
+      }
+      break;
+    }
+
     case skillActions.WORKSHOPS_FETCHED_REJECTED: {
       break;
     }

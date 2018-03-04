@@ -4,8 +4,14 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as skillActions from "app:store/actions/skill";
-import { parseSessionDateTime, validateContentByLength, validateContentByValue, validateFeesLimit } from "app:utils/utils";
+import {
+  parseSessionDateTime,
+  validateContentByLength,
+  validateContentByValue,
+  validateFeesLimit
+} from "app:utils/utils";
 import CleverInputReader from "app:components/clever-input-reader";
+import moment from "moment";
 import "./style.css";
 
 class ShareSkill extends Component {
@@ -26,7 +32,7 @@ class ShareSkill extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePublish = this.handlePublish.bind(this);
-    this.addRow = this.addRow.bind(this);
+    this.addEmptySession = this.addEmptySession.bind(this);
   }
 
   componentWillMount() {
@@ -73,6 +79,9 @@ class ShareSkill extends Component {
         id: session.id
       })
     );
+
+    sessions = this.addEmptySession(sessions);
+
     let workshop = { ...wrkShop };
     this.setState({
       sessions,
@@ -81,20 +90,26 @@ class ShareSkill extends Component {
     });
   }
 
-  addRow() {
-    let sessions = this.state.sessions;
-    // TODO:
-    // If the user added already one "empty" session don't let him/her add more
-    //if (!sessions[sessions.length - 1].id) {
-    //return;
-    //}
-    sessions.push({
-      dateAndTime: null,
-      starts_at: null,
-      ends_at: null,
+  dummySession() {
+  return {
+      dateAndTime: parseSessionDateTime(moment(), "YYYY-MM-DD"),
+      starts_at: parseSessionDateTime(
+        moment()
+          .startOf("day")
+          .add(10, "hours")
+      ),
+      ends_at: parseSessionDateTime(
+        moment()
+          .startOf("day")
+          .add(12, "hours")
+      ),
       id: null
-    });
-    this.setState({ sessions });
+    }
+  }
+
+  addEmptySession(sessions) {
+    sessions.push(this.dummySession());
+    return sessions;
   }
 
   updateWorkshopSession(session, index) {
@@ -104,18 +119,15 @@ class ShareSkill extends Component {
       dispatch(
         skillActions.updateWorkshopSession(this.state.workshopId, session)
       );
-    } else if (this.addingSessionCompleted(session)) {
-      dispatch(
-        skillActions.saveWorkshopSession(this.state.workshopId, session)
-      );
     }
   }
 
-  addingSessionCompleted(session) {
+  isAddable(session) {
     let ret = true;
     ret &= session["starts_at"] !== null;
     ret &= session["ends_at"] !== null;
     ret &= session["dateAndTime"] !== null;
+    ret &= session["id"] === null;
     return ret === 1;
   }
 
@@ -124,6 +136,15 @@ class ShareSkill extends Component {
     const input = e.target.name;
     sessions[index][input] = e.target.value;
     this.setState({ sessions });
+  }
+
+  onReallySaveSession(session, index) {
+    const { dispatch } = this.props;
+    if (this.isAddable(session)) {
+      dispatch(
+        skillActions.saveWorkshopSession(this.state.workshopId, session)
+      );
+    }
   }
 
   onDeleteWorkshopSession(session, index) {
@@ -508,34 +529,21 @@ class ShareSkill extends Component {
                         session,
                         index
                       )}
-                      onDeletePressed={this.onDeleteWorkshopSession.bind(
+                      onDeleteWorkshopSession={this.onDeleteWorkshopSession.bind(
                         this,
                         session,
-                          index
+                        index
+                      )}
+                      onReallySaveSession={this.onReallySaveSession.bind(
+                        this,
+                        session,
+                        index
                       )}
                       key={index}
                       session={session}
                       disabled={!editable}
                     />
                   ))}
-                  <div className="col-xs-3">
-                    <div className="row share-skill-row">
-                      <div className="col-xs-12">
-                        <button
-                          type="button"
-                          className="btn btn-default btn-sm skills-select-box add-session-button"
-                          onClick={this.addRow}
-                          disabled={!editable}
-                          style={{ borderRadius: "17px" }}
-                        >
-                          <span
-                            className="glyphicon glyphicon-plus"
-                            style={{ fontSize: "15px" }}
-                          />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
                 </div>
                 <div className="row share-skill-row">
                   <div className="col-xs-12 skills-form-label">
@@ -659,18 +667,32 @@ const ScheduleWorkshop = props => {
           />
         </div>
         <div className="col-xs-1">
-          <button
-            type="button"
-            className="btn btn-default btn-sm add-session-button"
-            onClick={props.onDeletePressed}
-            disabled={props.disabled}
-            style={{ borderRadius: "17px" }}
-          >
-            <span
-              className="glyphicon glyphicon-minus"
-              style={{ fontSize: "15px" }}
-            />
-          </button>
+          {props.session.id ? (
+            <button
+              type="button"
+              className="btn btn-default btn-sm add-session-button"
+              onClick={props.onDeleteWorkshopSession}
+              disabled={props.disabled}
+              style={{ borderRadius: "17px" }}
+            >
+              <span
+                className="glyphicon glyphicon-minus"
+                style={{ fontSize: "15px" }}
+              />
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="btn btn-default btn-sm skills-select-box add-session-button"
+              onClick={props.onReallySaveSession}
+              style={{ borderRadius: "17px" }}
+            >
+              <span
+                className="glyphicon glyphicon-plus"
+                style={{ fontSize: "15px" }}
+              />
+            </button>
+          )}
         </div>
       </div>
     </div>

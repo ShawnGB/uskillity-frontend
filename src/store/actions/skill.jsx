@@ -205,7 +205,7 @@ export const saveWorkshopSession = (workshopId, session) => {
       .then((resp) => service.handleResponse(resp, dispatch))
       .then(
         response => {
-          dispatch({ type: WORKSHOP_SESSION_SAVED });
+          dispatch({ type: WORKSHOP_SESSION_SAVED, session: response, workshopId: workshopId  });
         },
         error => {
           error.json().then(e => {
