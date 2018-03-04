@@ -140,7 +140,7 @@ export default (state = initialState, action) => {
     }
 
     case skillActions.WORKSHOP_SESSION_SAVED: {
-      const { workshopId, session, dummy } = action;
+      const { workshopId, session } = action;
       let workshops = state.workshops;
 
       let index = _.findIndex(workshops, workshop => {
