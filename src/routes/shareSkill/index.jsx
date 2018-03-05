@@ -188,20 +188,6 @@ class ShareSkill extends Component {
     };
   }
 
-  saveWorkshopCover() {
-    this.setState({
-      loading: !this.state.loading,
-      progress: 0.5
-    });
-
-    dropzoneRef.open();
-
-    //const { dispatch } = this.props;
-    //dispatch(
-    //skillActions.saveWorkshopCover(this.state.file, this.state.workshopId)
-    //);
-  }
-
   handleSubmit(e) {
     e.preventDefault();
     const { dispatch } = this.props;
@@ -223,20 +209,30 @@ class ShareSkill extends Component {
     this.props.dispatch(skillActions.publishWorkshop(this.state.workshopId));
   }
 
+  uploadWorkshopImg(files) {
+    files.forEach(file => {
+      this.props.dispatch(
+        skillActions.uploadWorkshopImg(file, this.state.workshopId)
+      );
+    });
+  }
+
   onDrop(acceptedFiles, rejectedFiles) {
     this.setState({
       files: acceptedFiles
     });
-    console.log(acceptedFiles);
-    console.log(rejectedFiles);
+    this.uploadWorkshopImg(acceptedFiles);
   }
 
   render() {
     const { skills, session, t, editable } = this.props;
     const levels = skills.levels;
     const categories = skills.categories;
+    const loading = skills.loading;
     const isLoggedIn = session && session.isLoggedIn;
     const workshop = this.state.workshop;
+
+    const images = workshop.images || [];
 
     return (
       <div>
@@ -569,48 +565,43 @@ class ShareSkill extends Component {
                   <div className="col-xs-12 skills-form-label">
                     <span className="skills-form-title">Photo</span>
                   </div>
-                  <div className="col-xs-12">
-                    <form name="form">
-                      <div className="form-group">
-                        <Dropzone
-                          ref={node => {
-                            dropzoneRef = node;
-                          }}
-                          className="share-skill-dropzone"
-                          onDrop={files => this.onDrop(files)}
-                          disableClick
-                        />
-
-                        <aside>
-                          <div>
-                            {this.state.files.map(f => (
-                              <img
-                                alt={f.name}
-                                key={f.name}
-                                src={f.preview}
-                                height={80}
-                                style={{ paddingRight: "10px" }}
-                              />
-                            ))}
-                            {workshop.images ||
-                              [].map((img, index) => (
-                                <img
-                                  alt={index}
-                                  key={index}
-                                  src={img}
-                                  height={80}
-                                  style={{ paddingRight: "10px" }}
-                                />
-                              ))}
-                          </div>
-                        </aside>
-
+                  <div>
+                    <div className="col-xs-11">
+                      <Dropzone
+                        ref={node => {
+                          dropzoneRef = node;
+                        }}
+                        className="share-skill-dropzone"
+                        onDrop={files => this.onDrop(files)}
+                        disableClick
+                      />
+                      <aside>
+                        {this.state.files.map(f => (
+                          <img
+                            alt={f.name}
+                            key={f.name}
+                            src={f.preview}
+                            height={80}
+                            style={{ paddingRight: "10px" }}
+                          />
+                        ))}
+                        {images.map((img, index) => (
+                          <img
+                            alt={index}
+                            src={img}
+                            height={80}
+                            style={{ paddingRight: "10px" }}
+                          />
+                        ))}
+                      </aside>
+                    </div>
+                    {editable && (
+                      <div className="col-xs-1">
                         <LaddaButton
                           disabled={!editable}
-                          style={{ float: "right" }}
-                          onClick={this.saveWorkshopCover.bind(this)}
+                          onClick={() => dropzoneRef.open()}
                           className="btn-default  share-skill-ladda-button"
-                          loading={this.state.loading}
+                          loading={loading}
                           data-color="#eee"
                           data-size={S}
                           data-style={ZOOM_OUT}
@@ -624,7 +615,7 @@ class ShareSkill extends Component {
                           />
                         </LaddaButton>
                       </div>
-                    </form>
+                    )}
                   </div>
                 </div>
                 {!this.state.isPublished && (

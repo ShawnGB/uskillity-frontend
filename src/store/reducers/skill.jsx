@@ -193,6 +193,30 @@ export default (state = initialState, action) => {
       break;
     }
 
+    case skillActions.WORKSHOP_IMG_UPLOAD_PENDING: {
+      nextState = {
+        ...state,
+        loading: true
+      };
+      break;
+    }
+
+    case skillActions.WORKSHOP_IMG_UPLOAD_REJECTED: {
+      nextState = {
+        ...state,
+        loading: false
+      };
+      break;
+    }
+
+    case skillActions.WORKSHOP_IMG_UPLOAD_FULFILLED: {
+      nextState = {
+        ...state,
+        loading: false
+      };
+      break;
+    }
+
     case skillActions.USER_WORKSHOPS_FETCH_PENDING: {
       break;
     }
