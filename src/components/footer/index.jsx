@@ -31,13 +31,15 @@ class Footer extends Component {
                   <div className="opacity">
                     <Facebook
                       onClick={() =>
-                        openInNewTab("https://www.facebook.com/uskillity/")}
+                        openInNewTab("https://www.facebook.com/uskillity/")
+                      }
                       size={36}
                       className="footer-social-media-link"
                     />
                     <Instagram
                       onClick={() =>
-                        openInNewTab("https://www.instagram.com/uskillity/")}
+                        openInNewTab("https://www.instagram.com/uskillity/")
+                      }
                       size={36}
                       className="footer-social-media-link"
                     />
@@ -50,30 +52,46 @@ class Footer extends Component {
             <div className="row">
               <div className="col-sm-6 col-xs-6 center">
                 <p className="footer-item">
-                  <Trans i18nKey="footer.vision">Vision</Trans>
+                  <Link to="/about">
+                    <Trans i18nKey="footer.vision">Vision</Trans>
+                  </Link>
                 </p>
                 <p className="footer-item">
-                  <Trans i18nKey="footer.team">Team</Trans>
+                  <Link to="/team">
+                    <Trans i18nKey="footer.team">Team</Trans>
+                  </Link>
                 </p>
                 <p className="footer-item">
                   <Trans i18nKey="footer.press">Press</Trans>
                 </p>
                 <p className="footer-item">
-                  <Trans i18nKey="footer.guidelines">Guidelines</Trans>
+                  <Link to="/guidelines">
+                    <Trans i18nKey="footer.guidelines">Guidelines</Trans>
+                  </Link>
                 </p>
               </div>
               <div className="col-sm-5 col-xs-5 center">
                 <p className="footer-item">
-                  <Trans i18nKey="footer.help">Help</Trans>
-                </p>
-                <p className="footer-item">
-                  <Trans i18nKey="footer.impressum">Impressum</Trans>
+                  <Link to="/help">
+                    <Trans i18nKey="footer.help">Help</Trans>
+                  </Link>
                 </p>
                 <p className="footer-item">
                   <Link to="/terms">
                     <Trans i18nKey="footer.termsandconditions">
-                      Terms and Conditions
+                      {" "}
+                      Terms and Conditions{" "}
                     </Trans>
+                  </Link>
+                </p>
+                <p className="footer-item">
+                  <Link to="/impressum">
+                    <Trans i18nKey="footer.impressum">Impressum</Trans>
+                  </Link>
+                </p>
+                <p className="footer-item">
+                  <Link to="/datenshutz">
+                    <Trans i18nKey="footer.datenshutz">DatenShutz</Trans>
                   </Link>
                 </p>
               </div>

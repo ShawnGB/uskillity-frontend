@@ -14,6 +14,8 @@ import Workshop from "app:routes/workshop";
 import ShareSkill from "app:routes/shareSkill";
 import LearnSkill from "app:routes/learnSkill";
 import Version from "app:routes/version";
+import Impressum from "app:routes/impressum";
+import Datenshutz from "app:routes/datenshutz";
 
 import { ToastContainer } from "react-toastify";
 
@@ -28,6 +30,12 @@ export default () => (
           <Route exact path="/" component={Home} />
           <Route path="/about" render={props => <About subpath="vision" />} />
           <Route path="/terms" render={props => <About subpath="terms" />} />
+          <Route path="/help" render={props => <About subpath="help" />} />
+          <Route
+            path="/guidelines"
+            render={props => <About subpath="guidelines" />}
+          />
+          <Route path="/team" render={props => <About subpath="team" />} />
           <Route path="/courses" component={Courses} />
           <Route exact path="/profile/:id" component={Profile} />
           <Route path="/workshop/:id" component={Workshop} />
@@ -43,6 +51,8 @@ export default () => (
           <Route exact path="/learnskill" component={LearnSkill} />
           <Route path="/learnskill/:id" component={LearnSkill} />
           <Route path="/version" component={Version} />
+          <Route path="/impressum" component={Impressum} />
+          <Route path="/datenshutz" component={Datenshutz} />
         </div>
       </div>
       <Footer />
