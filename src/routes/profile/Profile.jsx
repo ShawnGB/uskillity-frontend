@@ -19,7 +19,7 @@ class Profile extends React.Component {
       showCancelBtn: false,
       showSaveBtn: false,
       isEligible: false, // If the user is eligble to edit this profile
-      provider: null
+      files: null
     };
   }
 
@@ -47,13 +47,11 @@ class Profile extends React.Component {
     if (this.isEligible(pId)) {
       this.setState({
         isEligible: true,
-        provider: session.user,
         profile: { ...session.user }
       });
     } else {
       this.setState({
-        isEligible: false,
-        provider: null
+        isEligible: false
       });
       this.props.dispatch(profileActions.fetchProvider(pId));
     }
@@ -85,15 +83,16 @@ class Profile extends React.Component {
 
   onDrop(acceptedFiles, rejectedFiles) {
     const { session, dispatch } = this.props;
-    const { user } = session;
-    const userId = user.id;
-    dispatch(profileActions.saveUserPic(acceptedFiles[0], userId));
+    this.setState({ file: acceptedFiles[0] });
+    dispatch(profileActions.saveUserPic(acceptedFiles[0], session.user.id));
   }
 
   render() {
     const { profile, t } = this.props;
     const provider = this.state.profile || profile.provider;
     const isEligible = this.isEligible(this.props.match.params.id);
+    const isEditing = this.state.isEditing;
+    const imgUrl = this.state.file ? this.state.file.preview : provider.image;
 
     return (
       <div className="container container-profile">
@@ -101,7 +100,7 @@ class Profile extends React.Component {
           <div className="col-xs-12">
             <div style={{ float: "right" }}>
               {isEligible &&
-                (!this.state.isEditing ? (
+                (!isEditing ? (
                   <button
                     className="btn btn-primary btn-margin"
                     type="button"
@@ -144,14 +143,16 @@ class Profile extends React.Component {
               className="dropzone-style"
               onDrop={files => this.onDrop(files)}
               disableClick={!isEligible}
+              style={isEligible && { cursor: "pointer" }}
+              multiple={false}
             >
               <div
                 className="profile-img-container"
-                style={{ backgroundImage: `url(${provider.image})` }}
+                style={{ backgroundImage: `url(${imgUrl})` }}
               />
             </Dropzone>
           </div>
-          {isEligible && this.state.isEditing ? (
+          {isEligible && isEditing ? (
             <ProfileEditable
               provider={provider}
               handleEdit={e => this.handleEdit(e)}
@@ -161,13 +162,7 @@ class Profile extends React.Component {
             <ProfileNormal provider={provider} />
           )}
         </div>
-        <ProfileCourses
-          providerId={
-            this.state.provider
-              ? this.state.provider.id
-              : this.props.match.params.id
-          }
-        />
+        <ProfileCourses providerId={provider.id} />
       </div>
     );
   }
