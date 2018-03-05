@@ -11,11 +11,10 @@ version: src/routes/version/index.jsx
 
 deploy: version
 	sed -i"" 's/staging/production/g' .circleci/config.yml
-	sed -i"" 's/E4HKCMC6NWB8/XXXXXXXXXXXX/g' .circleci/config.yml
+	sed -i"" 's/E1PP4JQQ9FXBKM/E18XR0TWKTKYBZ/g' .circleci/config.yml
 	git add .circleci/config.yml
 	git add src/routes/version/index.jsx
 	git commit -m "deploy to production"
-	#git push
+	git push
 	git revert `git rev-parse HEAD`
 	git commit --amend -m "point back the deployment to staging"
-
