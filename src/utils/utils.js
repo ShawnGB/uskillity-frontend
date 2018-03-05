@@ -85,3 +85,8 @@ export const validateFeesLimit = (content, min, max) => {
     return { color: "green", message: "☑" };
   }
 };
+
+export const openInNewTab = url => {
+  const win = window.open(url, "_blank");
+  win.focus();
+};

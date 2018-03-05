@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { translate, Trans } from "react-i18next";
-import logo from "../../images/logo.png";
 import { Link } from "react-router-dom";
-import "./style.css";
 import Facebook from "react-icons/lib/fa/facebook";
 import Instagram from "react-icons/lib/fa/instagram";
+import logo from "../../images/logo.png";
+import { openInNewTab } from "app:utils/utils";
+import "./style.css";
 
 class Footer extends Component {
   render() {
@@ -24,12 +25,23 @@ class Footer extends Component {
 
               <div className="col-sm-6 col-xs-6 center">
                 <div>
-                  <p className="footer-item" style={{marginLeft: "20px"}}>
-                  <Trans i18nKey="footer.email">office@uskillity.de</Trans></p>
+                  <p className="footer-item" style={{ marginLeft: "20px" }}>
+                    <Trans i18nKey="footer.email">office@uskillity.de</Trans>
+                  </p>
                   <div className="opacity">
-                    <Facebook size={36}  style={{  margin: "10px 8px" }}/>
-                    <Instagram size={36} style={{  margin: "10px 8px" }}/>
-                    </div>
+                    <Facebook
+                      onClick={() =>
+                        openInNewTab("https://www.facebook.com/uskillity/")}
+                      size={36}
+                      className="footer-social-media-link"
+                    />
+                    <Instagram
+                      onClick={() =>
+                        openInNewTab("https://www.instagram.com/uskillity/")}
+                      size={36}
+                      className="footer-social-media-link"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
