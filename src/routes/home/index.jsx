@@ -17,6 +17,7 @@ class Home extends React.Component {
       workshops: []
     };
   }
+  //<div className="about-provider"> </div>
 
   componentDidMount() {
     fetch(service.getServerEndpoint("/workshops/random.json"))
@@ -27,15 +28,22 @@ class Home extends React.Component {
         data.map(ws => {
           return workshops.push(
             <Link to={`/workshop/${ws.id}`}>
-              <div className="home-random-workshop" key={ws.id}>
-                <img
-                  src={ws.images[0]}
-                  alt="img"
-                  className="home-random-workshop-img"
-                />
-                <span className="home-random-workshop-img-text">
-                  {ws.title}
-                </span>
+              <div
+                className="home-random-workshop"
+                key={ws.id}
+                style={{ backgroundImage: `url(${ws.images[0]})` }}
+              >
+                <div className="home-workshop-info">
+                  <h1 style={{marginTop: "0px"}}>{ws.title}</h1>
+
+                  <div className="about-provider">
+                    <h4 className="about-provider-p">...{ws.provider.about.substring(0,200)} ...</h4>
+                  </div>
+
+                  <div className="see-more">
+                    <h3 style={{margin: "10px"}}>See More...</h3>
+                  </div>
+                </div>
               </div>
             </Link>
           );
