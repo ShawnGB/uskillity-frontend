@@ -16,8 +16,9 @@ import TermsConditions from "app:components/about/TermsConditions";
 class About extends React.Component {
   render() {
     return (
+
       <Tab.Container id="left-tabs" defaultActiveKey={this.props.subpath}>
-        <Row className="clearfix">
+        <Row className="clearfix verAlling">
           <Col xs={12} smHidden mdHidden lgHidden>
             <Nav justified>
               <NavItem style={{float: "left"}} eventKey="vision">
