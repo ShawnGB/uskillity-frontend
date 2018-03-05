@@ -2,7 +2,7 @@ import React from "react";
 import { CustomCarousel } from "app:components/carousel";
 import { withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
-import { translate, Trans } from "react-i18next";
+import { translate } from "react-i18next";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
 import * as service from "app:utils/service";
