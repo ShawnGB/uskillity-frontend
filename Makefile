@@ -13,6 +13,7 @@ deploy: version
 	sed -i"" 's/staging/production/g' .circleci/config.yml
 	sed -i"" 's/E4HKCMC6NWB8/XXXXXXXXXXXX/g' .circleci/config.yml
 	git add .circleci/config.yml
+	git add src/routes/version/index.jsx
 	git commit -m "deploy to production"
 	#git push
 	git revert `git rev-parse HEAD`
