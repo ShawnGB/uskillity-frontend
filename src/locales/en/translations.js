@@ -15,7 +15,7 @@ export const en = {
       header: "Contact",
       body_0: "We would love to hear from you!",
       body_1:
-        "We would love to hear from you! Do you have any questions for us? Suggestions perhaps? Or do you maybe want to collaborate? Send us an email with you query on: office@uskillity.de",
+        "Do you have any questions for us? Suggestions perhaps? Or do you maybe want to collaborate? Send us an email with you query on: office@uskillity.de",
       body_2:
         "If you have general questions look at our help section on the left or check our posts on Facebook or Instagram."
     },
@@ -80,39 +80,39 @@ export const en = {
         "2. For some reason I have to cancel my workshop/tutoring? What do I do?",
       body_4:
         "You can cancel your workshop/tutoring up to 72h before the due date. If you comply with the adequate conditions money will be sent back to the learners and we will cover the fee for the payment provider. If by any chance you do not comply with the adequate conditions or cancel shortly before the workshop/tutoring-or after the 72h, then you have to cover the fee for the payment provider.",
-      body_5: "What do I do if a student behaves inappropriately?",
+      body_5: "3. What do I do if a student behaves inappropriately?",
       body_6:
         "If by any chance you encounter a student who is being vulgar, inappropriate, discriminatory or breaks any of u/skillity’s guidelines, please report that individual to us and we will take appropriate measures.",
-      body_7: "When do I receive my payment?",
+      body_7: "4. When do I receive my payment?",
       body_8:
         "The payment is going to be send to you right after the conclusion of your workshop.",
       body_9:
-        "I want to conduct a workshop only if its fully booked. What do I do?",
+        "5. I want to conduct a workshop only if its fully booked. What do I do?",
       body_10:
         "You have to state in the description that you only plan to conduct the workshop if it’s fully booked. In this case you have to make your decision 72h before the workshop is to take place otherwise, you have to cover the cost for the payment provider.",
-      body_11: "Can I announce a workshop without stating the location yet?",
+      body_11: "6. Can I announce a workshop without stating the location yet?",
       body_12:
         "If you are still searching for a location, but you want to announce your workshop so people can plan their attendance, you can state in the description that the exact address will be announced in a later time. However, you do have to name the city the workshop is taking place.",
       body_13:
         "Tip from us: It is always better to have the location as early as possible because for some learners the decision to book a workshop might lie in the location itself.",
       body_14: "For Learners",
-      body_15: "I bought a ticket but I cannot attend. What do I do?",
+      body_15: "1. I bought a ticket but I cannot attend. What do I do?",
       body_16:
         "You have a chance to give the ticket back a week before the Workshop due date. Then you get your money back, but unfortunately without the fees for the payment provider. If you have to cancel the workshop after the due date you unfortunately will not be eligible for a refund, but you can always give your ticket to your best friend.",
-      body_17: "How can I ask the Instructor something?",
+      body_17: "2. How can I ask the Instructor something?",
       body_18:
         "If you have any question about the workshop/tutoring or instructor you can contact us on office@uskillity.de and we will inform you of everything that you need to know.",
       body_19:
-        "I wasn’t satisfied by a workshop or instructor, what shall I do?",
+        "3. I wasn’t satisfied by a workshop or instructor, what shall I do?",
       body_20:
         "We are very sorry you weren’t satisfied by a workshop or Instructor. You can write a review and also give the Instructor a rating. If you feel that the workshop or Instructor was inappropriate or he/she was breaking any u/skillity guidelines, please report the individual to us and we will take appropriate measures.",
-      body_21: "What methods of payment does u/skillity accept?",
+      body_21: "4. What methods of payment does u/skillity accept?",
       body_22:
         "The payment methods we offer at the moment are Credit Card, Sofort Überweisung and Giro Pay.",
-      body_23: "How is the price determined for the workshops?",
+      body_23: "5. How is the price determined for the workshops?",
       body_24:
         "The price is determined by the workshop Instructors themselves. u/skillity does not give any limitations or guidelines of how much a workshop or tutoring should cost.",
-      body_25: "What happens if a workshop is canceled?",
+      body_25: "6. What happens if a workshop is canceled?",
       body_26:
         "We are very sorry that the workshop/tutoring got canceled. If a workshop is canceled you get your money back and will be informed if the workshop will take place on another date.",
       body_27:
@@ -145,7 +145,7 @@ export const en = {
       body_4:
         "Taking that notion in hand and combining it with a burning entrepreneurial sensation, Shawn and Irina decided to embark on a journey and build an environment where learning and teaching a skill is open for everyone, where learning and teaching is individualised, where a strong community of people willing to learn and share what they know strive.",
       body_5:
-        "Sandeep & Andreas are not only responsible for the programming and technical side of u/skillity, but have also been a great support to the development of the overall project. Sandeep’s expertise on complex algorithms, and data analysis, and Andreas’ proficiency in turning an idea to a business model, with code infrastructure and agile culture, brought u/skillity from a mere vision to a structured realisation.",
+        "Sandeep & Andreas are not only responsible for the programming and technical side of u/skillity, but have also been a great support to the development of the overall project. Sandeep’s expertise on complex algorithms and data analysis, and Andreas’ proficiency in turning an idea into a business model with code infrastructure and agile culture brought u/skillity from a mere vision to a structured realisation.",
       body_6:
         "Coming from more open education in the creative field, Marija has had the opportunity to learn in an environment where experimentation and exploration of individual skills were encouraged. Having the opportunity to explore a variety of mediums of visual communication helped her to gain better understanding of her strengths and weaknesses. To her, having the opportunity to learn in a community of people who are passionate about what they do is an indispensable experience and inspiration in life.",
       body_7:
@@ -229,7 +229,7 @@ export const en = {
     }
   },
   home: {
-    header: "ABOUT US",
+    header: "WELCOME TO u/skillity",
     body_0:
       "u/skillity is a community of learners and instructors who envision a world where learning and teaching are much more accessible, people-centred and inspiring.",
     body_1:
@@ -238,7 +238,7 @@ export const en = {
   profile: {
     header_skill: "Profile Skill",
     header_about_me: "About Me",
-    header_educational_background: "Educational Background",
+    header_educational_background: "Background",
     courses: {
       header: "My Shared Skills"
     },
@@ -262,10 +262,9 @@ export const en = {
     participant_number_placeholder: "Number of participants",
     price_placeholder: "How much will it cost?",
     header_0: "Share your skill with us",
-    header_1:
-      "We are so glad you want to share your skill with us. Simply by sharing your skill you are helping us make the world a better place.",
+    header_1: "We are so glad you want to share your skill with us",
     header_2:
-      'It might take up to two days for us to process your application. We do this only to avoid vulgarities and inappropriate posts. We also give feedback towards the presentation of your skill, so you can have more success conducting it.<1>{" "}</1>',
+      'It might take up to two days for us to process your application. We do this only to avoid vulgarities and inappropriate posts. We also give feedback towards the presentation of your skill so you can have more success conducting it.<1>{" "}</1>',
     title_label: "Title of skill",
     category_label: "Category",
     description_label: "Description",
@@ -282,7 +281,7 @@ export const en = {
     button_add_another_date: "Add another day to the same course",
     button_upload_picture: "Upload a cover photo",
     checkbox_agreement:
-      "I herby declare that I read the the terms and conditions as stated on this website and agree with them",
+      "I herby declare that I read the terms and conditions as stated on this website and agree with them",
     button_sumbit: "Submit"
   },
   workshop: {
