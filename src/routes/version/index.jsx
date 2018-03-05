@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 
-class Version extends React.Component {
+class Version extends Component {
   render() {
     return (
       <div>
