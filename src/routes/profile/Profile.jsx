@@ -14,14 +14,7 @@ class Profile extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      profile: {
-        about: "",
-        edu_bg: "",
-        first_name: "",
-        name: "",
-        location: "",
-        profession: ""
-      },
+      profile: null,
       isEditing: false, // Default is false, false = pre-edit state, so edit button will appear
       showCancelBtn: false,
       showSaveBtn: false,
@@ -34,23 +27,28 @@ class Profile extends React.Component {
     this.setProvider(this.props.match.params.id);
   }
 
-  componentWillReceiveProps = nextProps => {
-    // TODO: should check if nextProps has id ?
+  componentWillReceiveProps(nextProps) {
     if (this.props.match.params.id !== nextProps.match.params.id) {
       this.setProvider(nextProps.match.params.id);
     }
-  };
+  }
 
-  setProvider = pId => {
+  isEligible(pId) {
     const { session } = this.props;
-    const { isLoggedIn } = session;
+    const { isLoggedIn, user } = session;
+    return isLoggedIn && user.id === +pId;
+  }
+
+  setProvider(pId) {
+    const { session } = this.props;
 
     this.props.dispatch(skillActions.fetchUserWorkshops(pId));
 
-    if (isLoggedIn && session.user.id === +pId) {
+    if (this.isEligible(pId)) {
       this.setState({
         isEligible: true,
-        provider: session.user
+        provider: session.user,
+        profile: { ...session.user }
       });
     } else {
       this.setState({
@@ -59,46 +57,32 @@ class Profile extends React.Component {
       });
       this.props.dispatch(profileActions.fetchProvider(pId));
     }
-  };
+  }
 
-  toggleEdit = () => {
+  toggleEdit() {
     this.setState({
-      isEditing: true,
-      showSaveBtn: true
+      isEditing: !this.state.isEditing
     });
-    this.toggleCancelBtn();
-  };
+  }
 
-  toggleCancelBtn = () => {
-    this.setState({ showCancelBtn: true });
-  };
-
-  handleEdit = e => {
+  handleEdit(e) {
     let profile = this.state.profile;
     profile[e.target.name] = e.target.value;
     this.setState({ profile });
-  };
+  }
 
-  saveEdit = () => {
+  saveEdit() {
     const { dispatch, session } = this.props;
-    const { user } = session;
-    let userId = user.id;
-    this.toggleButtons();
-    dispatch(profileActions.updateUser(this.state.profile, userId));
-  };
+    this.toggleEdit();
+    dispatch(profileActions.updateUser(this.state.profile, session.user.id));
+  }
 
-  onCancel = () => {
-    this.toggleButtons();
-  };
+  onCancel() {
+    this.toggleEdit();
 
-  toggleButtons = () => {
-    this.setState({
-      showCancelBtn: false,
-      showSaveBtn: false,
-      isEditing: false
-    });
-  };
-  // React Dropzone requires onDrop to be implemented
+    this.setProvider(this.props.match.params.id);
+  }
+
   onDrop(acceptedFiles, rejectedFiles) {
     const { session, dispatch } = this.props;
     const { user } = session;
@@ -108,33 +92,42 @@ class Profile extends React.Component {
 
   render() {
     const { profile, t } = this.props;
-    let provider = {};
-    provider = this.state.provider || profile.provider;
+    const provider = this.state.profile || profile.provider;
+    const isEligible = this.isEligible(this.props.match.params.id);
+
     return (
       <div className="container container-profile">
         <div className="row">
           <div className="col-xs-12">
             <div style={{ float: "right" }}>
-              {this.state.isEligible && !this.state.isEditing ? (
-                <button
-                  className="btn btn-primary btn-margin"
-                  type="button"
-                  onClick={this.toggleEdit}
-                >
-                  Edit
-                </button>
-              ) : this.state.isEligible && this.state.showSaveBtn ? (
-                <button
-                  className="btn btn-primary btn-margin"
-                  type="button"
-                  onClick={this.saveEdit}
-                >
-                  Save
-                </button>
-              ) : null}
-              {this.state.showCancelBtn ? (
-                <CancelButton onCancel={this.onCancel} />
-              ) : null}
+              {isEligible &&
+                (!this.state.isEditing ? (
+                  <button
+                    className="btn btn-primary btn-margin"
+                    type="button"
+                    onClick={() => this.toggleEdit()}
+                  >
+                    Edit
+                  </button>
+                ) : (
+                  <div>
+                    <button
+                      className="btn btn-primary btn-margin"
+                      type="button"
+                      onClick={() => this.saveEdit()}
+                    >
+                      Save
+                    </button>
+
+                    <button
+                      className="btn btn-primary btn-margin"
+                      type="button"
+                      onClick={() => this.onCancel()}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                ))}
             </div>
           </div>
         </div>
@@ -150,7 +143,7 @@ class Profile extends React.Component {
             <Dropzone
               className="dropzone-style"
               onDrop={files => this.onDrop(files)}
-              disableClick={!this.state.isEligible}
+              disableClick={!isEligible}
             >
               <div
                 className="profile-img-container"
@@ -158,10 +151,10 @@ class Profile extends React.Component {
               />
             </Dropzone>
           </div>
-          {this.state.isEligible && this.state.showCancelBtn ? (
+          {isEligible && this.state.isEditing ? (
             <ProfileEditable
               provider={provider}
-              handleEdit={this.handleEdit}
+              handleEdit={e => this.handleEdit(e)}
               t={t}
             />
           ) : (
@@ -288,16 +281,6 @@ const ProfileEditable = props => (
       }}
     />
   </div>
-);
-
-const CancelButton = props => (
-  <button
-    className="btn btn-primary btn-margin"
-    type="button"
-    onClick={props.onCancel}
-  >
-    Cancel
-  </button>
 );
 
 const mapStateToProps = state => ({
