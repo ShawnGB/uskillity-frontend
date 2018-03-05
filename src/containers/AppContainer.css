@@ -7,6 +7,18 @@
 @font-face {
   font-family: 'CalibreWeb';
   font-style: normal;
+  font-weight: lighter;
+  src:
+  local('CalibreWeb Regular'),
+  local('CalibreWeb-Regular'),
+  url(../fonts/cw/CalibreWeb-Regular.woff) format('woff')
+  /*url(../fonts/cw/CalibreWeb-Regular.eot) format('embedded-opentype')*/
+  /*url(../fonts/cw/CalibreWeb-Regular.woff2) format('woff2'),*/
+}
+
+@font-face {
+  font-family: 'CalibreWeb-Medium';
+  font-style: normal;
   font-weight: normal;
   src:
   local('CalibreWeb Medium'),
