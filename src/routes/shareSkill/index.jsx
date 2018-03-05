@@ -341,7 +341,7 @@ class ShareSkill extends Component {
                       demand={"☒"}
                       hint={""}
                       validate={c => {
-                        return validateContentByValue(c, 0, 120);
+                        return validateContentByValue(c, 13, 119);
                       }}
                       style={{ maxWidth: "70px", float: "left" }}
                     />
@@ -362,7 +362,7 @@ class ShareSkill extends Component {
                       demand={"☒"}
                       hint={""}
                       validate={c => {
-                        return validateContentByValue(c, 0, 120);
+                        return validateContentByValue(c, 14, 120);
                       }}
                       style={{ maxWidth: "70px", float: "left" }}
                     />
@@ -463,7 +463,7 @@ class ShareSkill extends Component {
                       demand={"☒"}
                       hint={""}
                       validate={c => {
-                        return validateContentByValue(c, 0, 120);
+                        return validateContentByValue(c, 1, 100);
                       }}
                       style={{ maxWidth: "100px", float: "right" }}
                     />
@@ -495,7 +495,7 @@ class ShareSkill extends Component {
                       demand={"Low"}
                       hint={""}
                       validate={c => {
-                        return validateFeesLimit(c, 0, 250);
+                        return validateFeesLimit(c, 1, 250);
                       }}
                       style={{ maxWidth: "100px", float: "right" }}
                     />
