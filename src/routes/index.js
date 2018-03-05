@@ -13,6 +13,7 @@ import Courses from "app:routes/courses";
 import Workshop from "app:routes/workshop";
 import ShareSkill from "app:routes/shareSkill";
 import LearnSkill from "app:routes/learnSkill";
+import Version from "app:routes/version";
 
 import { ToastContainer } from "react-toastify";
 
@@ -41,6 +42,7 @@ export default () => (
           />
           <Route exact path="/learnskill" component={LearnSkill} />
           <Route path="/learnskill/:id" component={LearnSkill} />
+          <Route path="/version" component={Version} />
         </div>
       </div>
       <Footer />
