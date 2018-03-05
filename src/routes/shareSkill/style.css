@@ -153,3 +153,30 @@
   }
 }
 
+.share-skill-ladda-button {
+    border-radius: 17px;
+    width: 34px;
+    height: 34px;
+    background-color: #fff;
+    padding: 3px 6px !important;
+    border-color: #ccc;
+    font-size: 12px;
+}
+
+.ladda-button[disabled], .ladda-button[disabled]:hover, .ladda-button[data-loading], .ladda-button[data-loading]:hover {
+    cursor: default;
+    background-color: #fff;
+}
+
+.share-skill-dropzone {
+    height: 0px;
+    width: 0px;
+
+
+    /*border: dotted;*/
+    /*height: 80px;*/
+    /*width: 80px;*/
+    /*cursor: pointer;*/
+
+    /*width: 100%;*/
+}

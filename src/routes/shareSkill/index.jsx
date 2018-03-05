@@ -12,7 +12,10 @@ import {
 } from "app:utils/utils";
 import CleverInputReader from "app:components/clever-input-reader";
 import moment from "moment";
+import Dropzone from "react-dropzone";
+import LaddaButton, { S, ZOOM_OUT } from "react-ladda";
 import "./style.css";
+let dropzoneRef;
 
 class ShareSkill extends Component {
   constructor(props) {
@@ -27,7 +30,9 @@ class ShareSkill extends Component {
       },
       level_id: "",
       file: {},
-      imagePreviewUrl: ""
+      imagePreviewUrl: "",
+      loading: false,
+      files: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -91,7 +96,7 @@ class ShareSkill extends Component {
   }
 
   dummySession() {
-  return {
+    return {
       dateAndTime: parseSessionDateTime(moment(), "YYYY-MM-DD"),
       starts_at: parseSessionDateTime(
         moment()
@@ -104,7 +109,7 @@ class ShareSkill extends Component {
           .add(12, "hours")
       ),
       id: null
-    }
+    };
   }
 
   addEmptySession(sessions) {
@@ -184,10 +189,17 @@ class ShareSkill extends Component {
   }
 
   saveWorkshopCover() {
-    const { dispatch } = this.props;
-    dispatch(
-      skillActions.saveWorkshopCover(this.state.file, this.state.workshopId)
-    );
+    this.setState({
+      loading: !this.state.loading,
+      progress: 0.5
+    });
+
+    dropzoneRef.open();
+
+    //const { dispatch } = this.props;
+    //dispatch(
+    //skillActions.saveWorkshopCover(this.state.file, this.state.workshopId)
+    //);
   }
 
   handleSubmit(e) {
@@ -209,6 +221,14 @@ class ShareSkill extends Component {
       return;
     }
     this.props.dispatch(skillActions.publishWorkshop(this.state.workshopId));
+  }
+
+  onDrop(acceptedFiles, rejectedFiles) {
+    this.setState({
+      files: acceptedFiles
+    });
+    console.log(acceptedFiles);
+    console.log(rejectedFiles);
   }
 
   render() {
@@ -552,22 +572,57 @@ class ShareSkill extends Component {
                   <div className="col-xs-12">
                     <form name="form">
                       <div className="form-group">
-                        <SkillInputSingle
-                          type="file"
-                          disabled={!editable}
-                          onChange={this.handleImageChange.bind(this)}
+                        <Dropzone
+                          ref={node => {
+                            dropzoneRef = node;
+                          }}
+                          className="share-skill-dropzone"
+                          onDrop={files => this.onDrop(files)}
+                          disableClick
                         />
-                        <button
-                          onClick={this.saveWorkshopCover.bind(this)}
-                          type="button"
-                          className="btn btn-default btn-sm skills-select-box"
+
+                        <aside>
+                          <div>
+                            {this.state.files.map(f => (
+                              <img
+                                alt={f.name}
+                                key={f.name}
+                                src={f.preview}
+                                height={80}
+                                style={{ paddingRight: "10px" }}
+                              />
+                            ))}
+                            {workshop.images ||
+                              [].map((img, index) => (
+                                <img
+                                  alt={index}
+                                  key={index}
+                                  src={img}
+                                  height={80}
+                                  style={{ paddingRight: "10px" }}
+                                />
+                              ))}
+                          </div>
+                        </aside>
+
+                        <LaddaButton
                           disabled={!editable}
-                          style={{ width: "140px", float: "right" }}
+                          style={{ float: "right" }}
+                          onClick={this.saveWorkshopCover.bind(this)}
+                          className="btn-default  share-skill-ladda-button"
+                          loading={this.state.loading}
+                          data-color="#eee"
+                          data-size={S}
+                          data-style={ZOOM_OUT}
+                          data-spinner-size={20}
+                          data-spinner-color="#ddd"
+                          data-spinner-lines={12}
                         >
-                          <Trans i18nKey="share_skill.button_upload_picture">
-                            Upload a cover photo
-                          </Trans>
-                        </button>
+                          <span
+                            className="my-glyphicon glyphicon-plus"
+                            style={{ color: "#9b9b9b" }}
+                          />
+                        </LaddaButton>
                       </div>
                     </form>
                   </div>
@@ -675,9 +730,7 @@ const ScheduleWorkshop = props => {
               disabled={props.disabled}
               style={{ borderRadius: "17px" }}
             >
-              <span
-                className="my-glyphicon glyphicon-minus"
-              />
+              <span className="my-glyphicon glyphicon-minus" />
             </button>
           ) : (
             <button
@@ -687,7 +740,8 @@ const ScheduleWorkshop = props => {
               style={{ borderRadius: "17px" }}
             >
               <span
-                className="my-glyphicon glyphicon-plus" style={{color: "green"}}
+                className="my-glyphicon glyphicon-plus"
+                style={{ color: "green" }}
               />
             </button>
           )}
