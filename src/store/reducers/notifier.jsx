@@ -50,7 +50,7 @@ export default (state = initialState, action) => {
       blankSlate = { ...blankSlate, success: "Session updated" };
       break;
     }
-    case skill.UPLOAD_IMG_FULFILLED: {
+    case skill.WORKSHOP_IMG_UPLOAD_FULFILLED: {
       blankSlate = { ...blankSlate, success: "Image uploaded successfully" };
       break;
     }
@@ -71,7 +71,7 @@ export default (state = initialState, action) => {
        *case skill.LEVELS_REJECTED : { break; }
        */
 
-    case skill.UPLOAD_IMG_REJECTED: {
+    case skill.WORKSHOP_IMG_UPLOAD_REJECTED: {
       blankSlate = {
         ...blankSlate,
         errors: utils.ErrorsToList(action.payload)

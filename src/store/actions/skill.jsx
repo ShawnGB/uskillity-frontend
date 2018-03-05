@@ -40,9 +40,9 @@ export const WORKSHOP_FETCHED_REJECTED = "skill/WORKSHOP_FETCHED_REJECTED";
 export const WORKSHOP_PUBLISHED = "skill/WORKSHOP_PUBLISHED";
 export const WORKSHOP_PUBLISH_PENDING = "skill/WORKSHOP_PUBLISH_PENDING";
 export const WORKSHOP_PUBLISH_REJECTED = "skill/WORKSHOP_PUBLISH_REJECTED";
-export const UPLOAD_IMG_PENDING = "skill/UPLOAD_IMG_PENDING";
-export const UPLOAD_IMG_FULFILLED = "skill/UPLOAD_IMG_FULFILLED";
-export const UPLOAD_IMG_REJECTED = "skill/UPLOAD_IMG_REJECTED";
+export const WORKSHOP_IMG_UPLOAD_PENDING = "skill/WORKSHOP_IMG_UPLOAD_PENDING";
+export const WORKSHOP_IMG_UPLOAD_FULFILLED = "skill/WORKSHOP_IMG_UPLOAD_FULFILLED";
+export const WORKSHOP_IMG_UPLOAD_REJECTED = "skill/WORKSHOP_IMG_UPLOAD_REJECTED";
 
 export const fetchLevels = () => {
   return function(dispatch) {
@@ -160,13 +160,12 @@ export const fetchUserWorkshops = userId => {
   };
 };
 
-//TODO: need to pass workshop id as well
-export const saveWorkshopCover = (file, id) => {
+export const uploadWorkshopImg = (file, workshopId) => {
   return function(dispatch) {
-    dispatch({ type: UPLOAD_IMG_PENDING });
+    dispatch({ type: WORKSHOP_IMG_UPLOAD_PENDING });
     const data = new FormData();
     data.append("url", file, file.name);
-    fetch(service.getServerEndpoint(`/workshops/${id}/images`), {
+    fetch(service.getServerEndpoint(`/workshops/${workshopId}/images`), {
       method: "POST",
       headers: service.getAuthHeaders(),
       body: data
@@ -174,11 +173,11 @@ export const saveWorkshopCover = (file, id) => {
       .then((resp) => service.handleResponse(resp, dispatch))
       .then(
         data => {
-          dispatch({ type: UPLOAD_IMG_FULFILLED, payload: data });
+          dispatch({ type: WORKSHOP_IMG_UPLOAD_FULFILLED, payload: data });
         },
         error => {
           error.json().then(e => {
-            dispatch({ type: UPLOAD_IMG_REJECTED, payload: e });
+            dispatch({ type: WORKSHOP_IMG_UPLOAD_REJECTED, payload: e });
           });
         }
       );

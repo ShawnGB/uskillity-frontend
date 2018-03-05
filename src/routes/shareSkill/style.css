@@ -153,3 +153,47 @@
   }
 }
 
+.share-skill-ladda-button {
+    border-radius: 17px;
+    width: 34px;
+    height: 34px;
+    background-color: #fff;
+    padding: 3px 6px !important;
+    border-color: #ccc;
+    font-size: 12px;
+}
+
+.ladda-button[disabled], .ladda-button[disabled]:hover, .ladda-button[data-loading], .ladda-button[data-loading]:hover {
+    cursor: default;
+    background-color: #fff;
+}
+
+.share-skill-dropzone {
+    height: 0px;
+    width: 0px;
+}
+
+.share-skill-workshop-img-containter {
+    position: relative;
+    width: 100%;
+    height: 80;
+}
+
+.share-skill-workshop-img-button {
+    position: absolute;
+    width: 50%;
+    left:0;
+    top: 50%;
+    text-align: center;
+    opacity: 0;
+    transition: opacity .35s ease;
+    cursor: pointer;
+}
+
+.share-skill-workshop-img-containter:hover .share-skill-workshop-img-button {
+    opacity: 1;
+}
+
+.share-skill-workshop-images {
+    display: flex;
+}

@@ -12,7 +12,10 @@ import {
 } from "app:utils/utils";
 import CleverInputReader from "app:components/clever-input-reader";
 import moment from "moment";
+import Dropzone from "react-dropzone";
+import LaddaButton, { S, ZOOM_OUT } from "react-ladda";
 import "./style.css";
+let dropzoneRef;
 
 class ShareSkill extends Component {
   constructor(props) {
@@ -27,7 +30,9 @@ class ShareSkill extends Component {
       },
       level_id: "",
       file: {},
-      imagePreviewUrl: ""
+      imagePreviewUrl: "",
+      loading: false,
+      files: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -91,7 +96,7 @@ class ShareSkill extends Component {
   }
 
   dummySession() {
-  return {
+    return {
       dateAndTime: parseSessionDateTime(moment(), "YYYY-MM-DD"),
       starts_at: parseSessionDateTime(
         moment()
@@ -104,7 +109,7 @@ class ShareSkill extends Component {
           .add(12, "hours")
       ),
       id: null
-    }
+    };
   }
 
   addEmptySession(sessions) {
@@ -183,13 +188,6 @@ class ShareSkill extends Component {
     };
   }
 
-  saveWorkshopCover() {
-    const { dispatch } = this.props;
-    dispatch(
-      skillActions.saveWorkshopCover(this.state.file, this.state.workshopId)
-    );
-  }
-
   handleSubmit(e) {
     e.preventDefault();
     const { dispatch } = this.props;
@@ -211,12 +209,30 @@ class ShareSkill extends Component {
     this.props.dispatch(skillActions.publishWorkshop(this.state.workshopId));
   }
 
+  uploadWorkshopImg(files) {
+    files.forEach(file => {
+      this.props.dispatch(
+        skillActions.uploadWorkshopImg(file, this.state.workshopId)
+      );
+    });
+  }
+
+  onDrop(acceptedFiles, rejectedFiles) {
+    this.setState({
+      files: acceptedFiles
+    });
+    this.uploadWorkshopImg(acceptedFiles);
+  }
+
   render() {
     const { skills, session, t, editable } = this.props;
     const levels = skills.levels;
     const categories = skills.categories;
+    const loading = skills.loading;
     const isLoggedIn = session && session.isLoggedIn;
     const workshop = this.state.workshop;
+
+    const images = workshop.images || [];
 
     return (
       <div>
@@ -549,27 +565,57 @@ class ShareSkill extends Component {
                   <div className="col-xs-12 skills-form-label">
                     <span className="skills-form-title">Photo</span>
                   </div>
-                  <div className="col-xs-12">
-                    <form name="form">
-                      <div className="form-group">
-                        <SkillInputSingle
-                          type="file"
+                  <div>
+                    <div className="col-xs-11">
+                      <Dropzone
+                        ref={node => {
+                          dropzoneRef = node;
+                        }}
+                        className="share-skill-dropzone"
+                        onDrop={files => this.onDrop(files)}
+                        disableClick
+                      />
+                      <aside>
+                        {this.state.files.map(f => (
+                          <img
+                            alt={f.name}
+                            key={f.name}
+                            src={f.preview}
+                            height={80}
+                            style={{ paddingRight: "10px" }}
+                          />
+                        ))}
+                        {images.map((img, index) => (
+                          <img
+                            alt={index}
+                            src={img}
+                            height={80}
+                            style={{ paddingRight: "10px" }}
+                          />
+                        ))}
+                      </aside>
+                    </div>
+                    {editable && (
+                      <div className="col-xs-1">
+                        <LaddaButton
                           disabled={!editable}
-                          onChange={this.handleImageChange.bind(this)}
-                        />
-                        <button
-                          onClick={this.saveWorkshopCover.bind(this)}
-                          type="button"
-                          className="btn btn-default btn-sm skills-select-box"
-                          disabled={!editable}
-                          style={{ width: "140px", float: "right" }}
+                          onClick={() => dropzoneRef.open()}
+                          className="btn-default  share-skill-ladda-button"
+                          loading={loading}
+                          data-color="#eee"
+                          data-size={S}
+                          data-style={ZOOM_OUT}
+                          data-spinner-size={20}
+                          data-spinner-color="#ddd"
+                          data-spinner-lines={12}
                         >
-                          <Trans i18nKey="share_skill.button_upload_picture">
-                            Upload a cover photo
-                          </Trans>
-                        </button>
+                          <span
+                            className="my-glyphicon glyphicon-plus"
+                            style={{ color: "#9b9b9b" }}
+                          />
+                        </LaddaButton>
                       </div>
-                    </form>
+                    )}
                   </div>
                 </div>
                 {!this.state.isPublished && (
@@ -675,9 +721,7 @@ const ScheduleWorkshop = props => {
               disabled={props.disabled}
               style={{ borderRadius: "17px" }}
             >
-              <span
-                className="my-glyphicon glyphicon-minus"
-              />
+              <span className="my-glyphicon glyphicon-minus" />
             </button>
           ) : (
             <button
@@ -687,7 +731,8 @@ const ScheduleWorkshop = props => {
               style={{ borderRadius: "17px" }}
             >
               <span
-                className="my-glyphicon glyphicon-plus" style={{color: "green"}}
+                className="my-glyphicon glyphicon-plus"
+                style={{ color: "green" }}
               />
             </button>
           )}
