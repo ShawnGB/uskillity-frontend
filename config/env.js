@@ -8,7 +8,7 @@ const paths = require('./paths');
 delete require.cache[require.resolve('./paths')];
 
 const NODE_ENV = process.env.NODE_ENV;
-const REACT_APP_SERVER = process.env.REACT_APP_SERVER || "https://bluecarbuncle-staging.herokuapp.com"
+const REACT_APP_SERVER = process.env.REACT_APP_SERVER || "https://bluecarbuncle-production.herokuapp.com"
 const GA_TRACKING_ID = process.env.GA_TRACKING_ID;
 
 if (!NODE_ENV) {
@@ -73,7 +73,7 @@ function getClientEnvironment(publicUrl) {
         // Most importantly, it switches React into the correct mode.
         NODE_ENV: process.env.NODE_ENV || 'development',
         GA_TRACKING_ID: process.env.GA_TRACKING_ID,
-        REACT_APP_SERVER: process.env.REACT_APP_SERVER || "https://bluecarbuncle-staging.herokuapp.com",
+        REACT_APP_SERVER: process.env.REACT_APP_SERVER || "https://bluecarbuncle-production.herokuapp.com",
         // Useful for resolving the correct path to static assets in `public`.
         // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
         // This should only be used as an escape hatch. Normally you would put
