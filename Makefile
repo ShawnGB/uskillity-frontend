@@ -6,7 +6,7 @@ all: deploy
 
 version: src/routes/version/index.jsx
 	@echo $(CHANGES)
-	if [ "$(CHANGES)" == "" ]; then sh bin/version.sh; fi
+	if [ "$(CHANGES)" == "" ]; then sh scripts/version.sh; fi
 	if [ "$(CHANGES)" != "" ]; then exit 1; fi
 
 deploy: version
