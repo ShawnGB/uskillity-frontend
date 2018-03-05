@@ -20,23 +20,24 @@ class MenuBar extends React.Component {
         <Navbar collapseOnSelect>
           <Navbar.Header className="menubar-header" style={{ height: "50px" }}>
             <Link to="/">
-              <img src={logo} width="110" height="40" alt="" style={{marginTop: "6px"}}/>
+              <img src={logo} className="logo" alt="" />
             </Link>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav pullRight className="collapse-nav menubar-menu-collection">
-              <NavItem onClick={e => history.push("/about")}>
-                <Trans i18nKey="navbar.button_about">u/about</Trans>
+              <NavItem onClick={e => history.push("/shareyourskill")}>
+                <Trans i18nKey="navbar.button_share_skill">Share a skill</Trans>
               </NavItem>
+
               <NavItem onClick={e => history.push("/learnskill")}>
                 <Trans i18nKey="navbar.button_learn_skill">Learn a Skill</Trans>
               </NavItem>
-              <NavItem onClick={e => history.push("/shareyourskill")}>
-                <Trans i18nKey="navbar.button_share_skill">
-                  Share your skill
-                </Trans>
+
+              <NavItem onClick={e => history.push("/about")}>
+                <Trans i18nKey="navbar.button_about">u/about</Trans>
               </NavItem>
+
               {!isLoggedIn ? (
                 <NavItem
                   onClick={() =>

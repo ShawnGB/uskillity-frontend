@@ -12,15 +12,18 @@
   margin-bottom: 12px;
 }
 
+.logo {
+  margin-top: 7px;
+  max-width: 99px;
+  max-height: 36px;
+}
+
 .navbar.navbar-default .navbar-collapse {
   border: 0;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
 
-.menubar-menu-collection {
-  font-size: 20px;
-}
 
 .menubar-menu-collection > li {
   float: right;
