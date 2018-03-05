@@ -8,6 +8,7 @@ class Version extends Component {
         <h4>Revision: $(git rev-parse HEAD)</h4>
         <h4>Version count: $(git rev-list HEAD --count)</h4>
         <h4>Built on: $(date '+%Y-%m-%d (%H:%M:%S)'), @ $(uname -n)</h4>
+        <h4>Running against: ${REACT_APP_SERVER}</h4>
       </div>
     );
   }
