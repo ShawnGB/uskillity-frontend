@@ -16,7 +16,8 @@ export default (state = initialState, action) => {
     success: null,
     errors: null,
     warning: null,
-    info: null
+    info: null,
+    showLoginModal: false
   };
 
   switch (action.type) {
@@ -214,7 +215,8 @@ export default (state = initialState, action) => {
     case http.STATUS_UNAUTHORIZED: {
       blankSlate = {
         ...blankSlate,
-        errors: ["You seem to be logged out, Try to login again?"]
+        errors: ["You seem to be logged out, Try to login again?"],
+        showLoginModal: true
       };
       break;
     }
