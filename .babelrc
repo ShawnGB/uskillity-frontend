@@ -12,6 +12,11 @@
                 "app:store": "./store",
             },
             "extensions": [".jsx"]
-        }]
-    ],
+        }],
+        ],
+    "env": {
+      "production": {
+        "plugins": ["transform-remove-console"],
+      }
+    }
 }

@@ -4,6 +4,8 @@ import { reactI18nextModule } from "react-i18next";
 import { en } from "./locales/en/translations.js";
 import { de } from "./locales/de/translations.js";
 
+const __DEV__ = process.env.NODE_ENV !== "production";
+
 const instance = i18n
   .use(LanguageDetector)
   .use(reactI18nextModule)
@@ -21,7 +23,7 @@ const instance = i18n
       }
     },
     fallbackLng: "en",
-    debug: true,
+    debug: __DEV__,
     // have a common namespace used around the full app
     ns: ["translations"],
     defaultNS: "translations",
