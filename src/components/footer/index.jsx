@@ -90,8 +90,8 @@ class Footer extends Component {
                   </Link>
                 </p>
                 <p className="footer-item">
-                  <Link to="/datenshutz">
-                    <Trans i18nKey="footer.datenshutz">DatenShutz</Trans>
+                  <Link to="/datenschutz">
+                    <Trans i18nKey="footer.datenschutz">Datenschutz</Trans>
                   </Link>
                 </p>
               </div>

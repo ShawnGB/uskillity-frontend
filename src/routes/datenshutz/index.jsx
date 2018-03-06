@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class Datenshutz extends Component {
+class Datenschutz extends Component {
   render() {
     return (
       <div>
@@ -314,4 +314,4 @@ class Datenshutz extends Component {
   }
 }
 
-export default Datenshutz;
+export default Datenschutz;

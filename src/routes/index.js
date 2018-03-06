@@ -15,7 +15,7 @@ import ShareSkill from "app:routes/shareSkill";
 import LearnSkill from "app:routes/learnSkill";
 import Version from "app:routes/version";
 import Impressum from "app:routes/impressum";
-import Datenshutz from "app:routes/datenshutz";
+import Datenschutz from "app:routes/datenshutz";
 
 import { ToastContainer } from "react-toastify";
 
@@ -52,7 +52,7 @@ export default () => (
           <Route path="/learnskill/:id" component={LearnSkill} />
           <Route path="/version" component={Version} />
           <Route path="/impressum" component={Impressum} />
-          <Route path="/datenshutz" component={Datenshutz} />
+          <Route path="/datenschutz" component={Datenschutz} />
         </div>
       </div>
       <Footer />
