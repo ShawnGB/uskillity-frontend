@@ -12,7 +12,8 @@ class RegisterForm extends Component {
         name: "",
         first_name: "",
         password: "",
-        password_confirmation: ""
+        password_confirmation: "",
+        is_above_13: false
       },
       error: {
         message: ""
@@ -93,6 +94,21 @@ class RegisterForm extends Component {
                 value={this.state.user.password_confirmation}
               />
             </div>
+            <div className="checkbox">
+              <label>
+                <input
+                  type="checkbox"
+                  value={this.state.user.is_above_13}
+                  name="is_above_13"
+                  onChange={this.onChange}
+                />
+                <p style={{ fontSize: "14px" }}>
+                  <Trans i18nKey="register.form.older_than_13">
+                    I am older than 12 years of age.
+                  </Trans>
+                </p>
+              </label>
+            </div>
             <div className="form-group">
               <button
                 className="btn btn-lg btn-primary btn-block"
@@ -101,12 +117,13 @@ class RegisterForm extends Component {
                   !this.state.user.name ||
                   !this.state.user.first_name ||
                   !this.state.user.password ||
-                  !this.state.user.password_confirmation
+                  !this.state.user.password_confirmation ||
+                  !this.state.user.is_above_13
                 }
               >
                 <Trans i18nKey="register.form.button_register">Register</Trans>
               </button>
-              <div className="form-group" style={{marginTop: "15px"}}>
+              <div className="form-group" style={{ marginTop: "15px" }}>
                 <button
                   className="btn btn-lg btn-facebook btn-block"
                   type="button"
