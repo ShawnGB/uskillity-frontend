@@ -91,10 +91,8 @@ class Home extends React.Component {
       <div>
         <CustomCarousel items={this.state.workshops}/>
 
-        <div className="row centerh">
-          <div className="banner">
-            <p> Learn what you Love, share what you love</p>
-          </div>
+        <div className="row">
+          <p id="banner"> Learn what you love, share what you love</p>
         </div>
 
         <div className="row row-home category-collection">

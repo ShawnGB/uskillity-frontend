@@ -1,8 +1,13 @@
-.verAllingHome {
-  padding-top: 160px;
+h1 {
+  font-size: 30px !important;
+  font-weight: bold !important;
+  max-width: 400px;
 }
 
-/* clasName="verAllingHome" */
+h2 {
+  font-size: 20px !important;
+  color: #ff433a !important;
+}
 
 .home-heading {
 	font-size: 36px;
@@ -12,7 +17,7 @@
 	line-height: normal;
 	letter-spacing: normal;
 	text-align: center;
-	color: #ff433a;
+
 }
 
 .home-category-img {
@@ -20,47 +25,20 @@
 	position: relative;
 	object-fit: scale-down;
 }
-.centerh {
-  width:100%;
-  text-align: center;
 
-}
-
-.banner {
-  font-size: 30px;
-  letter-spacing: 1.3;
-  margin-top: 20px;
+#banner {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  width: 100%;
+  font-size: 32px;
+  letter-spacing: 2.5;
   color: #717171;
-}
-
-@media (max-width: 768px) {
-	.home-category-wrapper {
-		height: 240px;
-	}
-}
-
-@media (min-width: 769px) {
-	.home-category-wrapper {
-		height: 240px;
-	}
-}
-
-@media (min-width: 993px) {
-	.home-category-wrapper {
-		height: 240px;
-	}
-}
-
-@media (min-width: 1201px) {
-	.home-category-wrapper {
-		height: 240px;
-	}
+  text-align: center;
 }
 
 .home-category-wrapper {
 	margin-top: 16px;
 }
-
 
 .home-category {
 	background-image: url(https://s3.amazonaws.com/uskillity-assets-staging/static/images/categories/robot-507811_1920.png);
@@ -72,13 +50,10 @@
 	background-position-x: center;
 	background-position-y: center;
 	height: 100%;
-
-
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	color: white;
-
 	cursor: pointer;
 }
 
@@ -109,7 +84,6 @@
 	padding-top: 60%;
 	/*height: 100%;*/
 
-
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -117,13 +91,11 @@
 	cursor: pointer;
 }
 
-
 .home-workshop-info {
 	height: 33%;
 	width: 75%;
 	top: 33%;
 	position: absolute;
-  font-weight: bold;
 }
 
 .home-random-workshop-img {
@@ -131,31 +103,9 @@
 	width: 100%;
 }
 
-.home-random-workshop-img-text {
-	font-weight: 900;
-	left: 35%;
-	top: 40%;
-	position: absolute;
-	/*width: 100%;*/
-	width: 372.3px;
-	height: 35px;
-	font-size: 48px;
-	font-weight: 600;
-	font-style: normal;
-	font-stretch: normal;
-	line-height: normal;
-	letter-spacing: normal;
-	text-align: center;
-	color: white;
-}
-
 .carousel-indicators .active {
 	background-color: rgba(0, 0, 0, 0) !important;
 	border: solid 2px #ff433a !important;
-}
-
-.category-collection {
-	margin-top: 20px;
 }
 
 .about-provider {
@@ -173,5 +123,48 @@
 .see-more {
   margin-top: 3%;
   width: 140px;
-  border: 1px solid grey;
+  border: 1px solid white;
+}
+
+@media (max-width: 768px) {
+	.home-category-wrapper {
+		height: 240px;
+	}
+
+  .about-provider-p {
+    max-width: 240px;
+    max-height: 100px;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    background-color: rgba(255, 67, 58, 0.5);
+    display: border-box;
+    margin: 16px 0 16px 0;
+    padding: 10px;
+  }
+
+  .home-workshop-info {
+  	width: 75%;
+  	top: 25%;
+  	position: absolute;
+  }
+
+}
+
+@media (min-width: 769px) {
+	.home-category-wrapper {
+		height: 240px;
+	}
+}
+
+@media (min-width: 993px) {
+	.home-category-wrapper {
+		height: 240px;
+	}
+}
+
+@media (min-width: 1201px) {
+	.home-category-wrapper {
+		height: 240px;
+	}
 }

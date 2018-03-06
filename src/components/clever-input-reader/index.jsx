@@ -99,7 +99,7 @@ class CleverInputReader extends React.Component {
                 data-score={this.state.score}
               />
             ) : (
-              <p className="validation float-right">{this.state.demand}</p>
+              <h5 className="validation">{this.state.demand}</h5>
             )}
           </Col>
         </Row>
