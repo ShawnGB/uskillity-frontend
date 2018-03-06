@@ -10,6 +10,7 @@ delete require.cache[require.resolve('./paths')];
 const NODE_ENV = process.env.NODE_ENV;
 const REACT_APP_SERVER = process.env.REACT_APP_SERVER || "https://bluecarbuncle-staging.herokuapp.com"
 const GA_TRACKING_ID = process.env.GA_TRACKING_ID;
+const FB_APP_ID = process.env.FB_APP_ID;
 
 if (!NODE_ENV) {
   throw new Error(
@@ -73,6 +74,7 @@ function getClientEnvironment(publicUrl) {
         // Most importantly, it switches React into the correct mode.
         NODE_ENV: process.env.NODE_ENV || 'development',
         GA_TRACKING_ID: process.env.GA_TRACKING_ID,
+        FB_APP_ID: process.env.FB_APP_ID || '618914508265405',
         REACT_APP_SERVER: process.env.REACT_APP_SERVER || "https://bluecarbuncle-staging.herokuapp.com",
         // Useful for resolving the correct path to static assets in `public`.
         // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
