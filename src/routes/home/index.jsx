@@ -36,7 +36,7 @@ class Home extends React.Component {
                   <h1 style={{marginTop: "0px"}}>{ws.title}</h1>
 
                   <div className="about-provider">
-                    <h4 className="about-provider-p">...{ws.provider.about.substring(0,200)} ...</h4>
+                    <h4 className="about-provider-p">...{(ws.provider.about || "").substring(0,200)} ...</h4>
                   </div>
 
                   <div className="see-more">
