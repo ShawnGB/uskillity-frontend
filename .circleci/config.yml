@@ -12,7 +12,7 @@ jobs:
 
     environment:
       - REACT_APP_SERVER: https://bluecarbuncle-staging.herokuapp.com
-      - FB_APP_ID: 617994471690742
+      - FB_APP_ID: "618914508265405"
       - GA_TRACKING_ID: GA_TRACKING_ID_PLACEHOLDER
 
     steps:
