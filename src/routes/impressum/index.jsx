@@ -7,7 +7,7 @@ class Impressum extends Component {
         <h1>Impressum</h1>
         <h2>Angaben gem&auml;&szlig; &sect; 5 TMG:</h2>
         <p>
-          Nikolocska Becker UG
+          Nikolovska Becker UG
           <br /> Glasbl&auml;serallee 10
           <br /> 10245 Berlin
         </p>
@@ -15,7 +15,7 @@ class Impressum extends Component {
         <p>Shawn Gordon Becker </p>
         <h2>Kontakt:</h2>
         <p>
-          Telefon: ?+49 151 2919739
+          Telefon: +49 151 2919739
           <br /> E-Mail: office@uskillity.de
         </p>
         <h2>Registereintrag:</h2>
