@@ -1,5 +1,5 @@
 import React from "react";
-import { translate, Trans } from "react-i18next";
+import { translate } from "react-i18next";
 import "./style.css";
 
 class TermsConditions extends React.Component {
