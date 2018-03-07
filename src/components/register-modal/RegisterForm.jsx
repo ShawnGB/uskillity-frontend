@@ -126,6 +126,7 @@ class RegisterForm extends Component {
               <div className="form-group" style={{ marginTop: "15px" }}>
                 <button
                   className="btn btn-lg btn-facebook btn-block"
+                  onClick={() => this.props.handleFBbuttonClick()}
                   type="button"
                 >
                   <Trans i18nKey="register.form.button_register_facebook">

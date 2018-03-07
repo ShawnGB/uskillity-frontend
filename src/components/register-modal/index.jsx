@@ -10,6 +10,7 @@ const RegisterModal = props => {
         <RegisterForm
           handleSubmit={props.handleSubmit}
           jumpToModal={props.jumpToModal}
+          handleFBbuttonClick={props.handleFBbuttonClick}
         />
       </Modal.Body>
     </Modal>
