@@ -20,15 +20,15 @@
   margin-top: 0px;
 }
 
-ol {
+.about-content ol {
   counter-reset: item;
 }
 
-li {
+.about-content li {
   display: block;
 }
 
-li:before {
+.about-content li:before {
   content: counters(item, ".") " ";
   counter-increment: item;
 }
