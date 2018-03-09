@@ -5,10 +5,10 @@ class Version extends Component {
   render() {
     return (
       <div>
-        <h4>Revision: 507d2c4793f02eb50d8333b6b566de65118039cc</h4>
-        <h4>Version count: 446</h4>
-        <h4>Built on: 2018-03-09 (16:15:04), @ birdOfPrey.local</h4>
-        <h4>Running against: </h4>
+        <h4>Revision: 7423048bd3d9b3db5b4e505badff9052584b9e56</h4>
+        <h4>Version count: 388</h4>
+        <h4>Built on: 2018-03-05 (12:19:45), @ orion-syndicate</h4>
+        <h4>Running against: https://bluecarbuncle-staging.herokuapp.com</h4>
       </div>
     );
   }
