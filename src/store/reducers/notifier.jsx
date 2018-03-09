@@ -1,15 +1,15 @@
-import * as skill from "app:store/actions/skill";
-import * as session from "app:store/actions/session";
-import * as profile from "app:store/actions/profile";
-import * as http from "app:store/actions/errors";
-import * as utils from "app:utils/utils";
+import * as skill from 'app:store/actions/skill'
+import * as session from 'app:store/actions/session'
+import * as profile from 'app:store/actions/profile'
+import * as http from 'app:store/actions/errors'
+import * as utils from 'app:utils/utils'
 
 const initialState = {
   success: null,
   errors: null,
   warning: null,
   info: null
-};
+}
 
 export default (state = initialState, action) => {
   let blankSlate = {
@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
     warning: null,
     info: null,
     showLoginModal: false
-  };
+  }
 
   switch (action.type) {
     /*
@@ -36,32 +36,36 @@ export default (state = initialState, action) => {
       */
 
     case session.REGISTER_FULFILLED: {
-      blankSlate = { ...blankSlate, info: "Welcome to the portal" };
-      break;
+      blankSlate = { ...blankSlate, info: 'Welcome to the portal' }
+      break
     }
     case skill.WORKSHOP_UPDATED: {
-      blankSlate = { ...blankSlate, success: "Workshop updated" };
-      break;
+      blankSlate = { ...blankSlate, success: 'Workshop updated' }
+      break
     }
     case skill.WORKSHOP_PUBLISHED: {
-      blankSlate = { ...blankSlate, success: "Workshop is published" };
-      break;
+      blankSlate = { ...blankSlate, success: 'Workshop is published' }
+      break
+    }
+    case skill.CREATE_PARTICIPATION_SUCCESS: {
+      blankSlate = { ...blankSlate, success: 'Ticket reservation completed' }
+      break
     }
     case skill.WORKSHOP_SESSION_UPDATED: {
-      blankSlate = { ...blankSlate, success: "Session updated" };
-      break;
+      blankSlate = { ...blankSlate, success: 'Session updated' }
+      break
     }
     case skill.WORKSHOP_IMG_UPLOAD_FULFILLED: {
-      blankSlate = { ...blankSlate, success: "Image uploaded successfully" };
-      break;
+      blankSlate = { ...blankSlate, success: 'Image uploaded successfully' }
+      break
     }
     case skill.WORKSHOP_SESSION_SAVED: {
-      blankSlate = { ...blankSlate, success: "Created new workshop session" };
-      break;
+      blankSlate = { ...blankSlate, success: 'Created new workshop session' }
+      break
     }
     case skill.WORKSHOP_SAVED: {
-      blankSlate = { ...blankSlate, success: "Workshop created" };
-      break;
+      blankSlate = { ...blankSlate, success: 'Workshop created' }
+      break
     }
 
     /*
@@ -76,43 +80,50 @@ export default (state = initialState, action) => {
       blankSlate = {
         ...blankSlate,
         errors: utils.ErrorsToList(action.payload)
-      };
-      break;
+      }
+      break
     }
     case skill.WORKSHOP_PUBLISH_REJECTED: {
       blankSlate = {
         ...blankSlate,
         errors: utils.ErrorsToList(action.payload)
-      };
-      break;
+      }
+      break
+    }
+    case skill.CREATE_PARTICIPATION_REJECTED: {
+      blankSlate = {
+        ...blankSlate,
+        errors: utils.ErrorsToList(action.payload)
+      }
+      break
     }
     case skill.WORKSHOP_SAVE_REJECTED: {
       blankSlate = {
         ...blankSlate,
         errors: utils.ErrorsToList(action.payload)
-      };
-      break;
+      }
+      break
     }
     case skill.WORKSHOP_SESSION_SAVE_REJECTED: {
       blankSlate = {
         ...blankSlate,
         errors: utils.ErrorsToList(action.payload)
-      };
-      break;
+      }
+      break
     }
     case skill.WORKSHOP_SESSION_UPDATE_REJECTED: {
       blankSlate = {
         ...blankSlate,
         errors: utils.ErrorsToList(action.payload)
-      };
-      break;
+      }
+      break
     }
     case skill.WORKSHOP_UPDATE_REJECTED: {
       blankSlate = {
         ...blankSlate,
         errors: utils.ErrorsToList(action.payload)
-      };
-      break;
+      }
+      break
     }
 
     /*
@@ -124,16 +135,16 @@ export default (state = initialState, action) => {
       blankSlate = {
         ...blankSlate,
         errors: utils.ErrorsToList(action.payload)
-      };
-      break;
+      }
+      break
     }
 
     case session.REGISTER_REJECTED: {
       blankSlate = {
         ...blankSlate,
         errors: utils.ErrorsToList(action.payload)
-      };
-      break;
+      }
+      break
     }
 
     /*
@@ -161,34 +172,34 @@ export default (state = initialState, action) => {
        */
 
     case profile.UPLOAD_USER_PIC_FULFILLED: {
-      blankSlate = { ...blankSlate, success: "Image uploaded successfully" };
-      break;
+      blankSlate = { ...blankSlate, success: 'Image uploaded successfully' }
+      break
     }
     case profile.UPDATE_USER_FULFILLED: {
-      blankSlate = { ...blankSlate, success: "Profile updated successfully" };
-      break;
+      blankSlate = { ...blankSlate, success: 'Profile updated successfully' }
+      break
     }
 
     case profile.UPLOAD_USER_PIC_REJECTED: {
       blankSlate = {
         ...blankSlate,
         errors: utils.ErrorsToList(action.payload)
-      };
-      break;
+      }
+      break
     }
     case profile.PROVIDER_FETCH_REJECTED: {
       blankSlate = {
         ...blankSlate,
         errors: utils.ErrorsToList(action.payload)
-      };
-      break;
+      }
+      break
     }
     case profile.UPDATE_USER_REJECTED: {
       blankSlate = {
         ...blankSlate,
         errors: utils.ErrorsToList(action.payload)
-      };
-      break;
+      }
+      break
     }
 
     /*
@@ -198,78 +209,78 @@ export default (state = initialState, action) => {
        */
 
     case http.STATUS_OK: {
-      break;
+      break
     }
     case http.STATUS_CREATED: {
-      break;
+      break
     }
     case http.STATUS_ACCEPTED: {
-      break;
+      break
     }
     case http.STATUS_NOCONTENT: {
-      break;
+      break
     }
     case http.STATUS_BADREQUEST: {
-      break;
+      break
     }
     case http.STATUS_UNAUTHORIZED: {
       blankSlate = {
         ...blankSlate,
-        errors: ["You seem to be logged out, Try to login again?"],
+        errors: ['You seem to be logged out, Try to login again?'],
         showLoginModal: true
-      };
-      break;
+      }
+      break
     }
     case http.STATUS_FORBIDDEN: {
       blankSlate = {
         ...blankSlate,
         errors: ["You don't have the access to do that"]
-      };
-      break;
+      }
+      break
     }
     case http.STATUS_NOTFOUND: {
       blankSlate = {
         ...blankSlate,
         errors: ["What you're looking for is missing"]
-      };
-      break;
+      }
+      break
     }
     case http.STATUS_INTERNALSERVERERROR: {
       blankSlate = {
         ...blankSlate,
         warning: "Oh, you've broken the server"
-      };
-      break;
+      }
+      break
     }
     case http.STATUS_BADGATEWAY: {
       blankSlate = {
         ...blankSlate,
-        warning: "The network is facing some problems. Try later?"
-      };
-      break;
+        warning: 'The network is facing some problems. Try later?'
+      }
+      break
     }
     case http.STATUS_SERVICEUNAVAILABLE: {
       blankSlate = {
         ...blankSlate,
-        warning: "The server seems to be momentarily down. Try later?"
-      };
-      break;
+        warning: 'The server seems to be momentarily down. Try later?'
+      }
+      break
     }
     case http.STATUS_IHAVENOCLUE: {
       blankSlate = {
         ...blankSlate,
-        warning: "Something is acting weird. Try later?"
-      };
-      break;
+        warning: 'Something is acting weird. Try later?'
+      }
+      break
     }
 
     default: {
-      break;
+      break
     }
   }
 
-  const { success, warning, errors, info } = blankSlate;
-  utils.NotifyUser(errors, warning, info, success);
+  const { success, warning, errors, info } = blankSlate
+  utils.NotifyUser(errors, warning, info, success)
 
-  return Object.assign({}, state, blankSlate);
-};
+  return Object.assign({}, state, blankSlate)
+}

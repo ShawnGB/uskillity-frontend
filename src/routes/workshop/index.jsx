@@ -104,7 +104,7 @@ class Workshop extends React.Component {
           </div>
           <div className="col-xs-4 hidden-sm hidden-md hidden-lg" />
           <div className="col-sm-4 col-md-3 col-xs-4">
-            <Sidebar workshop={workshop} />
+            <Sidebar workshop={workshop} dispatch={this.props.dispatch}/>
           </div>
         </div>
       </div>

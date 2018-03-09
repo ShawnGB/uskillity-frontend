@@ -156,6 +156,37 @@ export default (state = initialState, action) => {
       }
       break;
     }
+    case skillActions.CREATE_PARTICIPATION_SUCCESS: {
+      const { wid, sid, ps } = action;
+      let workshops = state.workshops;
+
+      let index = _.findIndex(workshops, workshop => {
+        return workshop.id === +wid;
+      });
+
+      if (index < 0) {
+        break;
+      }
+
+      let index2 = _.findIndex(workshops[index].sessions, ws => {
+        return ws.id === +sid;
+      });
+
+      if (index2 < 0) {
+        break;
+      }
+
+      if (!workshops[index].sessions[index2].participations) {
+        workshops[index].sessions[index2].participations = [];
+      }
+      workshops[index].sessions[index2].participations.concat(ps);
+
+      nextState = {
+        ...state,
+        workshops: workshops
+      };
+      break;
+    }
 
     case skillActions.WORKSHOPS_FETCHED_REJECTED: {
       break;
