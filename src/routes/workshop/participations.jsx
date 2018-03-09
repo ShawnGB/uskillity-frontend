@@ -52,7 +52,6 @@ class Participations extends React.Component {
   }
 
   render() {
-    debugger
     const available =
       this.props.workshop.maximum_workshop_registration_count || 999;
     return (
