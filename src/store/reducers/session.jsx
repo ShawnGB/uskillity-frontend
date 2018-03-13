@@ -3,7 +3,8 @@ import * as localStorageManager from "app:utils/localStorageManager";
 
 const initialState = {
   isLoggedIn: false,
-  user: []
+  user: [],
+  paymentMethod: {},
 };
 // TODO: In case or rejected , set error message
 export default (state = initialState, action) => {
@@ -47,7 +48,7 @@ export default (state = initialState, action) => {
     }
 
     case sessionActions.USER_PAYMENT_METHOD_FETCHED: {
-      nextState = { ...state, isLoggedIn: true, user: { ...state.user, paymentMethod: action.payload } };
+      nextState = { ...state, isLoggedIn: true, paymentMethod: action.payload };
       break;
     }
 

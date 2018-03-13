@@ -4,8 +4,6 @@ import * as util from "app:utils/utils";
 import "./style.css";
 import { toast } from "react-toastify";
 import * as skillActions from "app:store/actions/skill";
-import CardSection from "app:components/card-section";
-import {injectStripe} from 'react-stripe-elements';
 import CleverInputReader from "app:components/clever-input-reader";
 import { validateContentByLength } from "app:utils/utils";
 
@@ -15,8 +13,7 @@ class ParticipationForm extends React.Component {
     super(props);
     this.state = {
       session_id: 0,
-      ticket_count: 0,
-      cardholder: this.props.cardholder || "",
+      ticket_count: 0
     };
     this.handleChange = this.handleChange.bind(this);
     this.sessionString = this.sessionString.bind(this);
@@ -37,17 +34,13 @@ class ParticipationForm extends React.Component {
       toast.warning("Please choose the session and ticket count");
       return;
     }
-    this.props.stripe.createToken({name: this.state.cardholder}).then(({token}) => {
-      console.log('Received Stripe token:', token);
-      dispatch(
-        skillActions.reserveTickets(
-          this.props.workshop.id,
-          this.state.session_id,
-          this.state.ticket_count
-        )
+    dispatch(
+      skillActions.reserveTickets(
+        this.props.workshop.id,
+        this.state.session_id,
+        this.state.ticket_count
       )
-    });
-
+    )
   }
 
   sessionString(session) {
@@ -95,20 +88,6 @@ class ParticipationForm extends React.Component {
                 </option>
               ))}
             </select>
-            <CardSection />
-              <CleverInputReader
-                componentClass={"input"}
-                type={"input"}
-                name={"cardholder"}
-                placeholder={"Cardholder Name"}
-                value={this.state.cardholder || ""}
-                onChange={this.handleChange}
-                demand={"Too short"}
-                hint={""}
-                validate={c => {
-                  return validateContentByLength(c, 2, 99);
-                }}
-              />
             <button style={{margin: "8px auto", width: "100%"}}
               className="btn btn-primary uski-button-style"
               type="button"
@@ -121,4 +100,4 @@ class ParticipationForm extends React.Component {
   }
 }
 
-export default translate("translations")(injectStripe(ParticipationForm));
+export default translate("translations")(ParticipationForm);

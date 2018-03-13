@@ -112,6 +112,7 @@ class Profile extends React.Component {
     const isEditing = this.state.isEditing;
     const imgUrl = this.state.file ? this.state.file.preview : provider.image;
 
+console.log("render", this.props);
     return (
       <div className="container container-profile">
         <div className="row">
@@ -177,6 +178,7 @@ class Profile extends React.Component {
               t={t}
               stripe_connect_url={this.props.profile.stripe_connect_url}
               deletePaymentMethod={this.deletePaymentMethod}
+              paymentMethod={this.props.session.paymentMethod}
             />
           ) : (
             <ProfileNormal provider={provider} />
@@ -211,7 +213,9 @@ const ProfileNormal = props => (
   </div>
 );
 
-const ProfileEditable = props => (
+const ProfileEditable = props => {
+  console.log("EDITABLE::::", props);
+  return (
   <div className="col-sm-8 col-md-9" style={{ marginTop: "16px" }}>
     <div className="row">
       <div className="col-xs-6">
@@ -300,9 +304,9 @@ const ProfileEditable = props => (
         Payment Details
       </Trans>
     </h3>
-    {props.provider.paymentMethod && props.provider.paymentMethod.brand &&
+    {props.paymentMethod && props.paymentMethod.brand &&
       <div>
-        <p>You have registered a {props.provider.paymentMethod.brand} card, ending with {props.provider.paymentMethod.last4}</p>
+        <p>You have registered a {props.paymentMethod.brand} card, ending with {props.paymentMethod.last4}</p>
         <button style={{margin: "8px auto"}}
           className="btn btn-default uski-button-style"
           type="button"
@@ -312,7 +316,7 @@ const ProfileEditable = props => (
           </button>
       </div>
     }
-    {(!props.provider.paymentMethod || !props.provider.paymentMethod.brand) &&
+    {(!props.paymentMethod || !props.paymentMethod.brand) &&
       <Elements>
         <PaymentMethodForm cardholder={props.provider.first_name + ' ' + props.provider.name} dispatch={props.dispatch}/>
       </Elements>
@@ -342,7 +346,7 @@ const ProfileEditable = props => (
       </div>
     }
   </div>
-);
+)};
 
 const openInNewTab = (url) => {
   var win = window.open(url, '_blank');
