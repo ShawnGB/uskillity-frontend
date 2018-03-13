@@ -112,7 +112,6 @@ class Profile extends React.Component {
     const isEditing = this.state.isEditing;
     const imgUrl = this.state.file ? this.state.file.preview : provider.image;
 
-console.log("render", this.props);
     return (
       <div className="container container-profile">
         <div className="row">
@@ -214,7 +213,6 @@ const ProfileNormal = props => (
 );
 
 const ProfileEditable = props => {
-  console.log("EDITABLE::::", props);
   return (
   <div className="col-sm-8 col-md-9" style={{ marginTop: "16px" }}>
     <div className="row">

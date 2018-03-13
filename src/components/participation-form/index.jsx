@@ -1,4 +1,6 @@
 import React from "react";
+import { compose } from "redux";
+import { connect } from "react-redux";
 import { translate, Trans } from "react-i18next";
 import * as util from "app:utils/utils";
 import "./style.css";
@@ -6,7 +8,6 @@ import { toast } from "react-toastify";
 import * as skillActions from "app:store/actions/skill";
 import CleverInputReader from "app:components/clever-input-reader";
 import { validateContentByLength } from "app:utils/utils";
-
 
 class ParticipationForm extends React.Component {
   constructor(props) {
@@ -88,16 +89,33 @@ class ParticipationForm extends React.Component {
                 </option>
               ))}
             </select>
-            <button style={{margin: "8px auto", width: "100%"}}
-              className="btn btn-primary uski-button-style"
-              type="button"
-              onClick={this.handleSubmit}
-              >
-                <Trans>Reserve</Trans>
-              </button>
+            {this.props.session.paymentMethod &&
+              <div>
+                <p>You will pay for the workshop using your {this.props.session.paymentMethod.brand} card, ending in {this.props.session.paymentMethod.last4} </p>
+                <p> To change your payment method, go to your profile page</p>
+                <button style={{margin: "8px auto", width: "100%"}}
+                  className="btn btn-primary uski-button-style"
+                  type="button"
+                  onClick={this.handleSubmit}
+                  >
+                    <Trans>Reserve</Trans>
+                  </button>
+                </div>
+            }
+            {!this.props.session.paymentMethod &&
+              <div>
+                <p>Please add a payment method in your profile first.</p>
+              </div>
+            }
             </div>
           );
   }
 }
+export const mapStateToProps = state => ({
+  session: state.session
+});
 
-export default translate("translations")(ParticipationForm);
+export default compose(
+  translate("translations"),
+  connect(mapStateToProps)
+)(ParticipationForm);
