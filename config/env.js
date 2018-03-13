@@ -11,6 +11,7 @@ const NODE_ENV = process.env.NODE_ENV;
 const REACT_APP_SERVER = process.env.REACT_APP_SERVER || "https://bluecarbuncle-staging.herokuapp.com"
 const GA_TRACKING_ID = process.env.GA_TRACKING_ID;
 const FB_APP_ID = process.env.FB_APP_ID;
+const STRIPE_API_KEY = process.env.STRIPE_API_KEY;
 
 if (!NODE_ENV) {
   throw new Error(
@@ -76,6 +77,7 @@ function getClientEnvironment(publicUrl) {
         GA_TRACKING_ID: process.env.GA_TRACKING_ID,
         FB_APP_ID: process.env.FB_APP_ID || '618914508265405',
         REACT_APP_SERVER: process.env.REACT_APP_SERVER || "https://bluecarbuncle-staging.herokuapp.com",
+        STRIPE_API_KEY: process.env.STRIPE_API_KEY || "pk_test_ODYN77TcYpawv8oWmxfMHk0r",
         // Useful for resolving the correct path to static assets in `public`.
         // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
         // This should only be used as an escape hatch. Normally you would put
