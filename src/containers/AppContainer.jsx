@@ -19,7 +19,6 @@ class AppContainer extends React.Component {
 
   render() {
     const { store, persistor } = this.props;
-    console.log(process.env);
 
     return (
       <Provider store={store}>
