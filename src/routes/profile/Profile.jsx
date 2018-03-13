@@ -4,6 +4,7 @@ import { compose } from "redux";
 import ProfileCourses from "./ProfileCourses";
 import * as profileActions from "app:store/actions/profile";
 import * as skillActions from "app:store/actions/skill";
+import * as sessionActions from "app:store/actions/session";
 import Dropzone from "react-dropzone";
 import { connect } from "react-redux";
 import CleverInputReader from "app:components/clever-input-reader";
@@ -58,6 +59,12 @@ class Profile extends React.Component {
   }
 
   toggleEdit() {
+    const { session } = this.props;
+    const { user } = session;
+    this.props.dispatch(sessionActions.fetchUser(user.id));
+    if (!user.stripe_provider || user.stripe_provider === "") {
+      this.props.dispatch(profileActions.connectStripe(user.id));
+    }
     this.setState({
       isEditing: !this.state.isEditing
     });
@@ -157,6 +164,7 @@ class Profile extends React.Component {
               provider={provider}
               handleEdit={e => this.handleEdit(e)}
               t={t}
+              stripe_connect_url={this.props.profile.stripe_connect_url}
             />
           ) : (
             <ProfileNormal provider={provider} />
@@ -275,8 +283,29 @@ const ProfileEditable = props => (
         return validateContentByLength(c, 0, 1000);
       }}
     />
+    {props.provider.stripe_provider === "stripe" &&
+      <div>
+        Stripe is connected
+      </div>
+    }
+    {(!props.provider.stripe_provider || props.provider.stripe_provider === "") &&
+      <div>
+        <button
+          className="btn btn-margin"
+          type="button"
+          onClick={() => openInNewTab(props.stripe_connect_url)}
+        >
+          Connect Stripe
+        </button>
+      </div>
+    }
   </div>
 );
+
+const openInNewTab = (url) => {
+  var win = window.open(url, '_blank');
+  win.focus();
+}
 
 const mapStateToProps = state => ({
   session: state.session,

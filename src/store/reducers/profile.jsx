@@ -2,7 +2,8 @@ import * as userActions from "app:store/actions/profile";
 
 const initialState = {
   user_workshops: [],
-  provider: {}
+  provider: {},
+  stripe_connect_url: ""
 };
 
 export default (state = initialState, action) => {
@@ -38,6 +39,14 @@ export default (state = initialState, action) => {
       nextState = {
         ...state,
         provider: {}
+      };
+      break;
+    }
+
+    case userActions.CONNECT_STRIPE_FETCHED: {
+      nextState = {
+        ...state,
+        stripe_connect_url: action.payload.redirect_url
       };
       break;
     }
