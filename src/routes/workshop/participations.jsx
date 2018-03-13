@@ -1,5 +1,5 @@
 import React from "react";
-import { translate, Trans } from "react-i18next";
+import { translate } from "react-i18next";
 import {Elements} from 'react-stripe-elements';
 import { compose } from "redux";
 import { connect } from "react-redux";

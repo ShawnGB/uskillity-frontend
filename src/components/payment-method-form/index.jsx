@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { translate, Trans } from "react-i18next";
-import * as util from "app:utils/utils";
-import { toast } from "react-toastify";
 import CardSection from "app:components/card-section";
 import * as profileActions from "app:store/actions/profile";
 import {injectStripe} from 'react-stripe-elements';
@@ -27,8 +25,6 @@ class PaymentMethodForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-
-    const { dispatch } = this.props;
 
     // if (this.state.ticket_count <= 0 || this.state.session_id === 0) {
     //   toast.warning("Please choose the session and ticket count");
