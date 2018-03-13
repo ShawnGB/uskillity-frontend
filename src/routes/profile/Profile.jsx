@@ -290,6 +290,9 @@ const ProfileEditable = props => (
     }
     {(!props.provider.stripe_provider || props.provider.stripe_provider === "") &&
       <div>
+        You won't be able to offer workshops until you connect your Stripe account.
+        By clicking this button, you will be redirected to Stripe, to connect your stripe account.
+        In case you do not have a stripe account yet, please create a stripe account.
         <button
           className="btn btn-margin"
           type="button"
