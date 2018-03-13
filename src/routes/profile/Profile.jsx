@@ -1,6 +1,7 @@
 import React from "react";
 import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
+import {Elements} from 'react-stripe-elements';
 import ProfileCourses from "./ProfileCourses";
 import * as profileActions from "app:store/actions/profile";
 import * as skillActions from "app:store/actions/skill";
@@ -8,6 +9,7 @@ import * as sessionActions from "app:store/actions/session";
 import Dropzone from "react-dropzone";
 import { connect } from "react-redux";
 import CleverInputReader from "app:components/clever-input-reader";
+import PaymentMethodForm from "app:components/payment-method-form";
 import { validateContentByLength } from "app:utils/utils";
 import "./style.css";
 
@@ -22,6 +24,7 @@ class Profile extends React.Component {
       isEligible: false, // If the user is eligble to edit this profile
       files: null
     };
+    this.deletePaymentMethod = this.deletePaymentMethod.bind(this);
   }
 
   componentWillMount() {
@@ -58,10 +61,18 @@ class Profile extends React.Component {
     }
   }
 
+  deletePaymentMethod() {
+    const { session } = this.props;
+    const { user } = session;
+    this.props.dispatch(sessionActions.deletePaymentMethod(user.id));
+    this.toggleEdit();
+  }
+
   toggleEdit() {
     const { session } = this.props;
     const { user } = session;
     this.props.dispatch(sessionActions.fetchUser(user.id));
+    this.props.dispatch(sessionActions.fetchUserPaymentMethods(user.id));
     if (!user.stripe_provider || user.stripe_provider === "") {
       this.props.dispatch(profileActions.connectStripe(user.id));
     }
@@ -165,6 +176,7 @@ class Profile extends React.Component {
               handleEdit={e => this.handleEdit(e)}
               t={t}
               stripe_connect_url={this.props.profile.stripe_connect_url}
+              deletePaymentMethod={this.deletePaymentMethod}
             />
           ) : (
             <ProfileNormal provider={provider} />
@@ -283,6 +295,33 @@ const ProfileEditable = props => (
         return validateContentByLength(c, 0, 1000);
       }}
     />
+    <h3>
+      <Trans>
+        Payment Details
+      </Trans>
+    </h3>
+    {props.provider.paymentMethod && props.provider.paymentMethod.brand &&
+      <div>
+        <p>You have registered a {props.provider.paymentMethod.brand} card, ending with {props.provider.paymentMethod.last4}</p>
+        <button style={{margin: "8px auto"}}
+          className="btn btn-default uski-button-style"
+          type="button"
+          onClick={() => props.deletePaymentMethod()}
+          >
+            <Trans>Delete Payment Method</Trans>
+          </button>
+      </div>
+    }
+    {(!props.provider.paymentMethod || !props.provider.paymentMethod.brand) &&
+      <Elements>
+        <PaymentMethodForm cardholder={props.provider.first_name + ' ' + props.provider.name} dispatch={props.dispatch}/>
+      </Elements>
+    }
+    <h3>
+      <Trans>
+        Course Provider - Connect your Stripe Account
+      </Trans>
+    </h3>
     {props.provider.stripe_provider === "stripe" &&
       <div>
         Stripe is connected
@@ -294,7 +333,7 @@ const ProfileEditable = props => (
         By clicking this button, you will be redirected to Stripe, to connect your stripe account.
         In case you do not have a stripe account yet, please create a stripe account.
         <button
-          className="btn btn-margin"
+          className="btn btn-default btn-margin"
           type="button"
           onClick={() => openInNewTab(props.stripe_connect_url)}
         >

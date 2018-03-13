@@ -34,7 +34,7 @@ class Workshop extends React.Component {
           style={{ backgroundImage: `url(${workshop.images[0]})` }}
         />
         <div className="row">
-          <div className="col-sm-8 col-md-9">
+          <div className="col-sm-7 col-md-8">
             <h2 className="hdr-type" style={{ marginBottom: "0px" }}>
               {workshop.title}
             </h2>
@@ -103,7 +103,7 @@ class Workshop extends React.Component {
             <p>{workshop.about}</p>
           </div>
           <div className="col-xs-4 hidden-sm hidden-md hidden-lg" />
-          <div className="col-sm-4 col-md-3 col-xs-4">
+          <div className="col-sm-5 col-md-4 col-xs-4">
             <Sidebar workshop={workshop} dispatch={this.props.dispatch}/>
           </div>
         </div>
