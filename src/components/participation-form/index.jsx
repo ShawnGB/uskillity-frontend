@@ -6,8 +6,6 @@ import * as util from "app:utils/utils";
 import "./style.css";
 import { toast } from "react-toastify";
 import * as skillActions from "app:store/actions/skill";
-import CleverInputReader from "app:components/clever-input-reader";
-import { validateContentByLength } from "app:utils/utils";
 
 class ParticipationForm extends React.Component {
   constructor(props) {
