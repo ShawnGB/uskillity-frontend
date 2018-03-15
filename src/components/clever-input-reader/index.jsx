@@ -1,8 +1,9 @@
 import React from "react";
-import { translate} from "react-i18next";
+import { translate } from "react-i18next";
 import { Row, Col, FormControl } from "react-bootstrap";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import "./style.css";
 
 class CleverInputReader extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class CleverInputReader extends React.Component {
   }
 
   componentWillMount() {
-    this.setDemandAndColor(this.props.value || this.props.defaultValue)
+    this.setDemandAndColor(this.props.value || this.props.defaultValue);
   }
 
   showHide(e) {
@@ -31,27 +32,30 @@ class CleverInputReader extends React.Component {
     });
   }
 
-  zxcvbn(dummy) {
-    return 100;
-  }
+  //zxcvbn(dummy) {
+  //return { score: 100 };
+  //}
 
-  /*  passwordStrength(e) {*/
-  //if (e.target.value === "") {
+  //passwordStrength(value) {
+  //if (value === "") {
   //this.setState({
   //score: "null"
   //});
   //} else {
-  //let pw = this.zxcvbn(e.target.value);
+  //let pw = this.zxcvbn(value);
   //this.setState({
   //score: pw.score
   //});
   //}
-
-  //this.props.handlePasswordChange(e);
-  /*}*/
+  //}
 
   setDemandAndColor(value) {
-    if (this.props.hintless) { return }
+    if (this.props.hintless) {
+      return;
+    }
+    //if (this.state.isPwd) {
+    //return this.passwordStrength(value);
+    //}
     let validations = this.props.validate(value);
     if (validations) {
       this.setState({
@@ -62,7 +66,7 @@ class CleverInputReader extends React.Component {
   }
 
   onContentChange(e) {
-    this.setDemandAndColor(e.target.value)
+    this.setDemandAndColor(e.target.value);
     this.props.onChange(e);
   }
 
@@ -87,33 +91,29 @@ class CleverInputReader extends React.Component {
             </span>
           ) : null}
         </div>
-      {this.props.hintless ? null :
-        <Row>
-          <Col xs={6}>
-            <p className="validation">{this.props.hint}</p>
-          </Col>
-          <Col xs={6} style={{ color: `${this.state.demandColor}` }}>
-            {this.state.isPwd ? (
-              <span
-                className="password__strength"
-                data-score={this.state.score}
-              />
-            ) : (
-              <h5 className="validation">{this.state.demand}</h5>
-            )}
-          </Col>
-        </Row>
-      }
+        {this.props.hintless ? null : (
+          <Row>
+            <Col xs={6}>
+              <p className="validation">{this.props.hint}</p>
+            </Col>
+            <Col xs={6} style={{ color: `${this.state.demandColor}` }}>
+              {this.state.isPwd ? (
+                <h5 className="validation">{this.state.demand}</h5>
+              ) : (
+                <h5 className="validation">{this.state.demand}</h5>
+              )}
+            </Col>
+          </Row>
+        )}
       </div>
     );
   }
 }
-
 
 const mapStateToProps = state => ({
   session: state.session
 });
 
 export default compose(translate("translations"), connect(mapStateToProps))(
- CleverInputReader
+  CleverInputReader
 );
