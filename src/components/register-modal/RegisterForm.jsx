@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { translate, Trans } from "react-i18next";
 import { Link } from "react-router-dom";
+import CleverInputReader from "app:components/clever-input-reader";
+import { validateContentByLength } from "app:utils/utils";
 import "./style.css";
 
 class RegisterForm extends Component {
@@ -75,13 +77,18 @@ class RegisterForm extends Component {
               />
             </div>
             <div className="form-group">
-              <input
-                className="form-control"
-                placeholder={t("register.form.placehodler_password")}
-                name="password"
+              <CleverInputReader
+                componentClass={"input"}
                 type="password"
-                onChange={this.onChange}
+                name="password"
+                placeholder={t("register.form.placehodler_password")}
                 value={this.state.user.password}
+                onChange={this.onChange}
+                demand={"Too short"}
+                hint={""}
+                validate={c => {
+                  return validateContentByLength(c, 8, 999);
+                }}
               />
             </div>
             <div className="form-group">
