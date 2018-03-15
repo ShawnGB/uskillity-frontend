@@ -12,7 +12,7 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-  let blankSlate = {
+  let blankState = {
     success: null,
     errors: null,
     warning: null,
@@ -36,35 +36,35 @@ export default (state = initialState, action) => {
       */
 
     case session.REGISTER_FULFILLED: {
-      blankSlate = { ...blankSlate, info: 'Welcome to the portal' }
+      blankState = { ...blankState, info: 'Welcome to the portal' }
       break
     }
     case skill.WORKSHOP_UPDATED: {
-      blankSlate = { ...blankSlate, success: 'Workshop updated' }
+      blankState = { ...blankState, success: 'Workshop updated' }
       break
     }
     case skill.WORKSHOP_PUBLISHED: {
-      blankSlate = { ...blankSlate, success: 'Workshop is published' }
+      blankState = { ...blankState, success: 'Workshop is published' }
       break
     }
     case skill.CREATE_PARTICIPATION_SUCCESS: {
-      blankSlate = { ...blankSlate, success: 'Ticket reservation completed' }
+      blankState = { ...blankState, success: 'Ticket reservation completed' }
       break
     }
     case skill.WORKSHOP_SESSION_UPDATED: {
-      blankSlate = { ...blankSlate, success: 'Session updated' }
+      blankState = { ...blankState, success: 'Session updated' }
       break
     }
     case skill.WORKSHOP_IMG_UPLOAD_FULFILLED: {
-      blankSlate = { ...blankSlate, success: 'Image uploaded successfully' }
+      blankState = { ...blankState, success: 'Image uploaded successfully' }
       break
     }
     case skill.WORKSHOP_SESSION_SAVED: {
-      blankSlate = { ...blankSlate, success: 'Created new workshop session' }
+      blankState = { ...blankState, success: 'Created new workshop session' }
       break
     }
     case skill.WORKSHOP_SAVED: {
-      blankSlate = { ...blankSlate, success: 'Workshop created' }
+      blankState = { ...blankState, success: 'Workshop created' }
       break
     }
 
@@ -77,50 +77,50 @@ export default (state = initialState, action) => {
        */
 
     case skill.WORKSHOP_IMG_UPLOAD_REJECTED: {
-      blankSlate = {
-        ...blankSlate,
+      blankState = {
+        ...blankState,
         errors: utils.ErrorsToList(action.payload)
       }
       break
     }
     case skill.WORKSHOP_PUBLISH_REJECTED: {
-      blankSlate = {
-        ...blankSlate,
+      blankState = {
+        ...blankState,
         errors: utils.ErrorsToList(action.payload)
       }
       break
     }
     case skill.CREATE_PARTICIPATION_REJECTED: {
-      blankSlate = {
-        ...blankSlate,
+      blankState = {
+        ...blankState,
         errors: utils.ErrorsToList(action.payload)
       }
       break
     }
     case skill.WORKSHOP_SAVE_REJECTED: {
-      blankSlate = {
-        ...blankSlate,
+      blankState = {
+        ...blankState,
         errors: utils.ErrorsToList(action.payload)
       }
       break
     }
     case skill.WORKSHOP_SESSION_SAVE_REJECTED: {
-      blankSlate = {
-        ...blankSlate,
+      blankState = {
+        ...blankState,
         errors: utils.ErrorsToList(action.payload)
       }
       break
     }
     case skill.WORKSHOP_SESSION_UPDATE_REJECTED: {
-      blankSlate = {
-        ...blankSlate,
+      blankState = {
+        ...blankState,
         errors: utils.ErrorsToList(action.payload)
       }
       break
     }
     case skill.WORKSHOP_UPDATE_REJECTED: {
-      blankSlate = {
-        ...blankSlate,
+      blankState = {
+        ...blankState,
         errors: utils.ErrorsToList(action.payload)
       }
       break
@@ -132,16 +132,16 @@ export default (state = initialState, action) => {
        */
 
     case session.LOGIN_REJECTED: {
-      blankSlate = {
-        ...blankSlate,
+      blankState = {
+        ...blankState,
         errors: utils.ErrorsToList(action.payload)
       }
       break
     }
 
     case session.REGISTER_REJECTED: {
-      blankSlate = {
-        ...blankSlate,
+      blankState = {
+        ...blankState,
         errors: utils.ErrorsToList(action.payload)
       }
       break
@@ -172,31 +172,31 @@ export default (state = initialState, action) => {
        */
 
     case profile.UPLOAD_USER_PIC_FULFILLED: {
-      blankSlate = { ...blankSlate, success: 'Image uploaded successfully' }
+      blankState = { ...blankState, success: 'Image uploaded successfully' }
       break
     }
     case profile.UPDATE_USER_FULFILLED: {
-      blankSlate = { ...blankSlate, success: 'Profile updated successfully' }
+      blankState = { ...blankState, success: 'Profile updated successfully' }
       break
     }
 
     case profile.UPLOAD_USER_PIC_REJECTED: {
-      blankSlate = {
-        ...blankSlate,
+      blankState = {
+        ...blankState,
         errors: utils.ErrorsToList(action.payload)
       }
       break
     }
     case profile.PROVIDER_FETCH_REJECTED: {
-      blankSlate = {
-        ...blankSlate,
+      blankState = {
+        ...blankState,
         errors: utils.ErrorsToList(action.payload)
       }
       break
     }
     case profile.UPDATE_USER_REJECTED: {
-      blankSlate = {
-        ...blankSlate,
+      blankState = {
+        ...blankState,
         errors: utils.ErrorsToList(action.payload)
       }
       break
@@ -224,51 +224,51 @@ export default (state = initialState, action) => {
       break
     }
     case http.STATUS_UNAUTHORIZED: {
-      blankSlate = {
-        ...blankSlate,
+      blankState = {
+        ...blankState,
         errors: ['You seem to be logged out, Try to login again?'],
         showLoginModal: true
       }
       break
     }
     case http.STATUS_FORBIDDEN: {
-      blankSlate = {
-        ...blankSlate,
+      blankState = {
+        ...blankState,
         errors: ["You don't have the access to do that"]
       }
       break
     }
     case http.STATUS_NOTFOUND: {
-      blankSlate = {
-        ...blankSlate,
+      blankState = {
+        ...blankState,
         errors: ["What you're looking for is missing"]
       }
       break
     }
     case http.STATUS_INTERNALSERVERERROR: {
-      blankSlate = {
-        ...blankSlate,
+      blankState = {
+        ...blankState,
         warning: "Oh, you've broken the server"
       }
       break
     }
     case http.STATUS_BADGATEWAY: {
-      blankSlate = {
-        ...blankSlate,
+      blankState = {
+        ...blankState,
         warning: 'The network is facing some problems. Try later?'
       }
       break
     }
     case http.STATUS_SERVICEUNAVAILABLE: {
-      blankSlate = {
-        ...blankSlate,
+      blankState = {
+        ...blankState,
         warning: 'The server seems to be momentarily down. Try later?'
       }
       break
     }
     case http.STATUS_IHAVENOCLUE: {
-      blankSlate = {
-        ...blankSlate,
+      blankState = {
+        ...blankState,
         warning: 'Something is acting weird. Try later?'
       }
       break
@@ -279,8 +279,8 @@ export default (state = initialState, action) => {
     }
   }
 
-  const { success, warning, errors, info } = blankSlate
+  const { success, warning, errors, info } = blankState
   utils.NotifyUser(errors, warning, info, success)
 
-  return Object.assign({}, state, blankSlate)
+  return Object.assign({}, state, blankState)
 }
