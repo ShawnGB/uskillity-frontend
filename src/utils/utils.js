@@ -51,6 +51,13 @@ export const NotifyUser = (errors, warning, info, success) => {
 };
 
 export const ErrorsToList = errors => {
+  const fullMessages = errors.errors ? errors.errors.full_messages : null;
+  if (fullMessages) {
+    return fullMessages.map(message => {
+      return message;
+    });
+  }
+
   return Object.keys(errors).map(key => {
     return key.charAt(0).toUpperCase() + key.slice(1) + " " + errors[key];
   });
