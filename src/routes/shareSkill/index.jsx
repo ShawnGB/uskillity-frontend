@@ -14,7 +14,9 @@ import CleverInputReader from "app:components/clever-input-reader";
 import moment from "moment";
 import Dropzone from "react-dropzone";
 import LaddaButton, { S, ZOOM_OUT } from "react-ladda";
+import Datetime from 'react-datetime';
 import "./style.css";
+import "./react-datetime.css";
 let dropzoneRef;
 
 class ShareSkill extends Component {
@@ -222,6 +224,12 @@ class ShareSkill extends Component {
       files: acceptedFiles
     });
     this.uploadWorkshopImg(acceptedFiles);
+  }
+
+  onDateAndTimeChange(index,e){
+    let sessions = this.state.sessions;
+    sessions[index]["dateAndTime"] = parseSessionDateTime(e._d,"YYYY-MM-DD");
+    this.setState({ sessions });
   }
 
   render() {
@@ -539,6 +547,7 @@ class ShareSkill extends Component {
                   </div>
                   {this.state.sessions.map((session, index) => (
                     <ScheduleWorkshop
+                      onDateAndTimeChange={this.onDateAndTimeChange.bind(this, index)}
                       onChange={this.onChangeWorkshopSession.bind(this, index)}
                       onBlur={this.updateWorkshopSession.bind(
                         this,
@@ -675,14 +684,13 @@ const ScheduleWorkshop = props => {
     <div className="col-xs-12">
       <div className="row share-skill-row">
         <div className="col-xs-3">
-          <SkillInputSingle
-            name={"dateAndTime"}
-            type="date"
-            onChange={props.onChange}
+          <Datetime timeFormat={false}
+            utc={true}
+            onChange={props.onDateAndTimeChange}
             onBlur={props.onBlur}
             disabled={props.disabled}
             value={props.session.dateAndTime}
-          />
+            />
         </div>
         <div className="col-xs-1">
           <span className="skills-form-title">From</span>
