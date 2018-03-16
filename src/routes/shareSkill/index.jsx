@@ -80,7 +80,7 @@ class ShareSkill extends Component {
     let sessions = [];
     wrkShop.sessions.forEach(session =>
       sessions.push({
-        dateAndTime: parseSessionDateTime(session.starts_at, "YYYY-MM-DD"),
+        dateAndTime: parseSessionDateTime(session.starts_at, "DD-MM-YYYY"),
         starts_at: parseSessionDateTime(session.starts_at),
         ends_at: parseSessionDateTime(session.ends_at),
         id: session.id
@@ -99,7 +99,7 @@ class ShareSkill extends Component {
 
   dummySession() {
     return {
-      dateAndTime: parseSessionDateTime(moment(), "YYYY-MM-DD"),
+      dateAndTime: parseSessionDateTime(moment(), "DD-MM-YYYY"),
       starts_at: parseSessionDateTime(
         moment()
           .startOf("day")
@@ -228,7 +228,7 @@ class ShareSkill extends Component {
 
   onDateAndTimeChange(index, e) {
     let sessions = this.state.sessions;
-    sessions[index]["dateAndTime"] = parseSessionDateTime(e._d, "YYYY-MM-DD");
+    sessions[index]["dateAndTime"] = parseSessionDateTime(e._d, "DD-MM-YYYY");
     this.setState({ sessions });
   }
 
