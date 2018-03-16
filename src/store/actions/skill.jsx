@@ -116,9 +116,12 @@ export const saveWorkshop = (workshop, router) => {
 };
 
 export const fetchWorkshops = () => {
-  return function(dispatch) {
+  return dispatch => {
     dispatch({ type: WORKSHOPS_FETCHED_PENDING });
-    fetch(service.getServerEndpoint("/workshops.json"))
+    fetch(service.getServerEndpoint("/workshops"), {
+      method: "GET",
+      headers: service.getRequestHeaders()
+    })
       .then(resp => service.handleResponse(resp, dispatch))
       .then(
         data => {
@@ -134,9 +137,14 @@ export const fetchWorkshops = () => {
 };
 
 export const fetchWorkshop = id => {
-  return function(dispatch) {
+  return dispatch => {
     dispatch({ type: WORKSHOP_FETCHED_PENDING });
-    fetch(service.getServerEndpoint(`/workshops/${id}`))
+    fetch(
+      service.getServerEndpoint(`/workshops/${id}`, {
+        method: "GET",
+        headers: service.getRequestHeaders()
+      })
+    )
       .then(resp => service.handleResponse(resp, dispatch))
       .then(
         data => {
