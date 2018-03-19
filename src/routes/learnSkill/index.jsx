@@ -108,7 +108,7 @@ const NextArrow = props => {
 const CategoryRow = props => {
   var settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -120,7 +120,7 @@ const CategoryRow = props => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          infinite: true,
+          infinite: false,
           dots: true
         }
       },
