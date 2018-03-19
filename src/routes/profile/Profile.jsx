@@ -116,6 +116,9 @@ class Profile extends React.Component {
                       className="btn btn-primary btn-margin"
                       type="button"
                       onClick={() => this.saveEdit()}
+                      disabled={
+                        !provider.first_name
+                      }
                     >
                       Save
                     </button>
@@ -204,7 +207,11 @@ const ProfileEditable = props => (
           defaultValue={props.provider.first_name}
           placeholder={props.t("profile.first_name_placeholder")}
           onChange={props.handleEdit}
-          hintless
+          demand={"Too short"}
+          hint={props.t("profile.first_name_hint_text")}
+          validate={c => {
+            return validateContentByLength(c, 4, 32);
+          }}
         />
       </div>
       <div className="col-xs-6">
