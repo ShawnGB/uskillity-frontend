@@ -33,22 +33,36 @@ export const isGermanNavigator = () => {
 };
 
 export const NotifyUser = (errors, warnings, infos, successes) => {
-  successes && successes.forEach(success => toast.success(success));
-  warnings && warnings.forEach(warning => toast.warning(warning));
-  infos && infos.forEach(info => toast.info(info));
-  errors && errors.forEach(error => toast.error(error));
+  successes &&
+    successes.forEach(success =>
+      toast.success(success.message, { autoClose: success.autoClose })
+    );
+  warnings &&
+    warnings.forEach(warning =>
+      toast.warning(warning.message, { autoClose: warning.autoClose })
+    );
+  infos &&
+    infos.forEach(info =>
+      toast.info(info.message, { autoClose: info.autoClose })
+    );
+  errors &&
+    errors.forEach(error =>
+      toast.error(error.message, { autoClose: error.autoClose })
+    );
 };
 
 export const ErrorsToList = errors => {
   const fullMessages = errors.errors ? errors.errors.full_messages : null;
   if (fullMessages) {
     return fullMessages.map(message => {
-      return message;
+      return { message };
     });
   }
 
   return Object.keys(errors).map(key => {
-    return key.charAt(0).toUpperCase() + key.slice(1) + " " + errors[key];
+    return {
+      message: key.charAt(0).toUpperCase() + key.slice(1) + " " + errors[key]
+    };
   });
 };
 
