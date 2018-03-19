@@ -111,7 +111,9 @@ class Profile extends React.Component {
     const isEligible = this.isEligible(this.props.match.params.id);
     const isEditing = this.state.isEditing;
     const imgUrl = this.state.file ? this.state.file.preview : provider.image;
-
+    const dropzoneStyle = {
+      cursor: isEligible ? "pointer" : ""
+    };
     return (
       <div className="container container-profile">
         <div className="row">
@@ -161,7 +163,7 @@ class Profile extends React.Component {
               className="dropzone-style"
               onDrop={files => this.onDrop(files)}
               disableClick={!isEligible}
-              style={isEligible && { cursor: "pointer" }}
+              style={dropzoneStyle}
               multiple={false}
             >
               <div
