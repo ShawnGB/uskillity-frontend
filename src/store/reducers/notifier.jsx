@@ -8,36 +8,19 @@ const initialState = {
   successes: null,
   errors: null,
   warnings: null,
-  infos: null
+  infos: null,
+  loginRequired: false
 };
 
 export default (state = initialState, action) => {
-  let blankState = {
-    successes: null,
-    errors: null,
-    warnings: null,
-    infos: null,
-    loginRequired: false
-  };
+  let nextState = initialState;
 
   switch (action.type) {
-    /*
-       *case skill.CATEGORIES_FETCHED : { break; }
-       *case skill.LEVELS_FETCHED : { break; }
-       *case skill.USER_WORKSHOPS_FETCHED : { break; }
-       *case skill.WORKSHOP_FETCHED : { break; }
-       *case skill.WORKSHOPS_FETCHED : { break; }
-       */
-
-    /*
-      *case session.LOGIN_FULFILLED : { break; }
-      *case session.LOGOUT_FULFILLED : { break; }
-      *case session.USER_FETCHED : { break; }
-      */
-
-      case session.REGISTER_FULFILLED: {
-      blankState = {
-        ...blankState,
+    //TODO: revert that
+    case session.LOGIN_FULFILLED: {
+      //case session.REGISTER_FULFILLED: {
+      nextState = {
+        ...nextState,
         infos: [
           { message: "Welcome to the portal" },
           {
@@ -48,51 +31,58 @@ export default (state = initialState, action) => {
       };
       break;
     }
+
     case skill.WORKSHOP_UPDATED: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         successes: [{ message: "Workshop updated" }]
       };
       break;
     }
+
     case skill.WORKSHOP_PUBLISHED: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         successes: [{ message: "Workshop is published" }]
       };
       break;
     }
+
     case skill.CREATE_PARTICIPATION_SUCCESS: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         successes: [{ message: "Ticket reservation completed" }]
       };
       break;
     }
+
     case skill.WORKSHOP_SESSION_UPDATED: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         successes: [{ message: "Session updated" }]
       };
       break;
     }
+
     case skill.WORKSHOP_IMG_UPLOAD_FULFILLED: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         successes: [{ message: "Image uploaded successfully" }]
       };
       break;
     }
+
     case skill.WORKSHOP_SESSION_SAVED: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         successes: [{ message: "Created new workshop session" }]
       };
       break;
     }
+
     case skill.WORKSHOP_SAVED: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         successes: [{ message: "Workshop created" }],
         infos: [
           {
@@ -105,225 +95,202 @@ export default (state = initialState, action) => {
       break;
     }
 
-    /*
-       *case skill.CATEGORIES_FETCHED_REJECTED : { break; }
-       *case skill.WORKSHOPS_FETCHED_REJECTED : { break; }
-       *case skill.USER_WORKSHOPS_FETCH_REJECTED : { break; }
-       *case skill.WORKSHOP_FETCHED_REJECTED : { break; }
-       *case skill.LEVELS_REJECTED : { break; }
-       */
-
     case skill.WORKSHOP_IMG_UPLOAD_REJECTED: {
-      blankState = {
-        ...blankState,
-        errors: utils.ErrorsToList(action.payload)
-      };
-      break;
-    }
-    case skill.WORKSHOP_PUBLISH_REJECTED: {
-      blankState = {
-        ...blankState,
-        errors: utils.ErrorsToList(action.payload)
-      };
-      break;
-    }
-    case skill.CREATE_PARTICIPATION_REJECTED: {
-      blankState = {
-        ...blankState,
-        errors: utils.ErrorsToList(action.payload)
-      };
-      break;
-    }
-    case skill.WORKSHOP_SAVE_REJECTED: {
-      blankState = {
-        ...blankState,
-        errors: utils.ErrorsToList(action.payload)
-      };
-      break;
-    }
-    case skill.WORKSHOP_SESSION_SAVE_REJECTED: {
-      blankState = {
-        ...blankState,
-        errors: utils.ErrorsToList(action.payload)
-      };
-      break;
-    }
-    case skill.WORKSHOP_SESSION_UPDATE_REJECTED: {
-      blankState = {
-        ...blankState,
-        errors: utils.ErrorsToList(action.payload)
-      };
-      break;
-    }
-    case skill.WORKSHOP_UPDATE_REJECTED: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         errors: utils.ErrorsToList(action.payload)
       };
       break;
     }
 
-    /*
-       *case session.USER_FETCH_REJECTED : { break; }
-       *case session.LOGOUT_REJECTED : { break; }
-       */
+    case skill.WORKSHOP_PUBLISH_REJECTED: {
+      nextState = {
+        ...nextState,
+        errors: utils.ErrorsToList(action.payload)
+      };
+      break;
+    }
+
+    case skill.CREATE_PARTICIPATION_REJECTED: {
+      nextState = {
+        ...nextState,
+        errors: utils.ErrorsToList(action.payload)
+      };
+      break;
+    }
+
+    case skill.WORKSHOP_SAVE_REJECTED: {
+      nextState = {
+        ...nextState,
+        errors: utils.ErrorsToList(action.payload)
+      };
+      break;
+    }
+
+    case skill.WORKSHOP_SESSION_SAVE_REJECTED: {
+      nextState = {
+        ...nextState,
+        errors: utils.ErrorsToList(action.payload)
+      };
+      break;
+    }
+
+    case skill.WORKSHOP_SESSION_UPDATE_REJECTED: {
+      nextState = {
+        ...nextState,
+        errors: utils.ErrorsToList(action.payload)
+      };
+      break;
+    }
+
+    case skill.WORKSHOP_UPDATE_REJECTED: {
+      nextState = {
+        ...nextState,
+        errors: utils.ErrorsToList(action.payload)
+      };
+      break;
+    }
 
     case session.LOGIN_REJECTED: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         errors: utils.ErrorsToList(action.payload)
       };
       break;
     }
 
     case session.REGISTER_REJECTED: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         errors: utils.ErrorsToList(action.payload)
       };
       break;
     }
 
-    /*
-       *case skill.CATEGORIES_FETCHED_PENDING : { break; }
-       *case skill.LEVELS_PENDING : { break; }
-       *case skill.UPLOAD_IMG_PENDING : { break; }
-       *case skill.USER_WORKSHOPS_FETCH_PENDING : { break; }
-       *case skill.WORKSHOP_FETCHED_PENDING : { break; }
-       *case skill.WORKSHOP_PUBLISH_PENDING : { break; }
-       *case skill.WORKSHOP_SESSION_SAVE_PENDING : { break; }
-       *case skill.WORKSHOP_SESSION_UPDATE_PENDING : { break; }
-       *case skill.WORKSHOPS_FETCHED_PENDING : { break; }
-       *case skill.WORKSHOP_UPDATE_PENDING : { break; }
-       */
-
-    /*
-       *case session.USER_FETCHED_PENDING : { break; }
-       *case session.LOGIN_PENDING : { break; }
-       *case session.REGISTER_PENDING : { break; }
-       *case session.LOGOUT_PENDING : { break; }
-       */
-
-    /*
-       *case profile.PROVIDER_FETCHED : { break; }
-       */
-
     case profile.UPLOAD_USER_PIC_FULFILLED: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         successes: [{ message: "Image uploaded successfully" }]
       };
       break;
     }
+
     case profile.UPDATE_USER_FULFILLED: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         successes: [{ message: "Profile updated successfully" }]
       };
       break;
     }
 
     case profile.UPLOAD_USER_PIC_REJECTED: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         errors: utils.ErrorsToList(action.payload)
       };
       break;
     }
+
     case profile.PROVIDER_FETCH_REJECTED: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         errors: utils.ErrorsToList(action.payload)
       };
       break;
     }
+
     case profile.UPDATE_USER_REJECTED: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         errors: utils.ErrorsToList(action.payload)
       };
       break;
     }
 
     case "LOGIN_REQUIRED": {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         loginRequired: { onHide: action.onHide }
       };
       break;
     }
 
-    /*
-       *case profile.UPLOAD_USER_PIC_PENDING : { break; }
-       *case profile.PROVIDER_FETCH_PENDING : { break; }
-       *case profile.UPDATE_USER_PENDING : { break; }
-       */
-
     case http.STATUS_OK: {
       break;
     }
+
     case http.STATUS_CREATED: {
       break;
     }
+
     case http.STATUS_ACCEPTED: {
       break;
     }
+
     case http.STATUS_NOCONTENT: {
       break;
     }
+
     case http.STATUS_BADREQUEST: {
       break;
     }
+
     case http.STATUS_UNAUTHORIZED: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         errors: [{ message: "You seem to be logged out, Try to login again?" }],
         loginRequired: true
       };
       break;
     }
+
     case http.STATUS_FORBIDDEN: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         errors: [{ message: "You don't have the access to do that" }]
       };
       break;
     }
+
     case http.STATUS_NOTFOUND: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         errors: [{ message: "What you're looking for is missing" }]
       };
       break;
     }
+
     case http.STATUS_INTERNALSERVERERROR: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         warnings: [{ message: "Oh, you've broken the server" }]
       };
       break;
     }
+
     case http.STATUS_BADGATEWAY: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         warnings: [
           { message: "The network is facing some problems. Try later?" }
         ]
       };
       break;
     }
+
     case http.STATUS_SERVICEUNAVAILABLE: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         warnings: [
           { message: "The server seems to be momentarily down. Try later?" }
         ]
       };
       break;
     }
+
     case http.STATUS_IHAVENOCLUE: {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         warnings: [{ message: "Something is acting weird. Try later?" }]
       };
       break;
@@ -334,8 +301,8 @@ export default (state = initialState, action) => {
     }
   }
 
-  const { successes, warnings, errors, infos } = blankState;
+  const { successes, warnings, errors, infos } = nextState;
   utils.NotifyUser(errors, warnings, infos, successes);
 
-  return Object.assign({}, state, blankState);
+  return Object.assign({}, state, nextState);
 };
