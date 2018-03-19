@@ -9,7 +9,7 @@ class RootNotifier extends React.Component {
   notifyUser(toasts) {
     const { t } = this.props;
     toasts &&
-      toasts.forEach(({ message, type, stringKey, autoClose }) => {
+      toasts.forEach(({ type, stringKey, message, autoClose }) => {
         const msg = stringKey ? t(stringKey) : message;
         toast[type](msg, { autoClose });
       });
@@ -35,6 +35,6 @@ const mapStateToProps = state => ({
 
 export default compose(
   withRouter,
-  translate("translations"),
+  translate("toasts"),
   connect(mapStateToProps)
 )(RootNotifier);

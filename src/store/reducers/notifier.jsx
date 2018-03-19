@@ -15,7 +15,12 @@ const initialState = {
   loginRequired: false
 };
 
-const createToast = (message, type, stringKey = null, autoClose = null) => ({
+const createToast = (
+  type,
+  stringKey = null,
+  message = "",
+  autoClose = null
+) => ({
   message,
   type,
   stringKey,
@@ -27,14 +32,15 @@ const ErrorsToList = errors => {
   const { ERROR } = toastType;
   if (fullMessages) {
     return fullMessages.map(message => {
-      return createToast(message, ERROR);
+      return createToast(ERROR, null, message);
     });
   }
 
   return Object.keys(errors).map(key => {
     return createToast(
-      key.charAt(0).toUpperCase() + key.slice(1) + " " + errors[key],
-      ERROR
+      ERROR,
+      null,
+      key.charAt(0).toUpperCase() + key.slice(1) + " " + errors[key]
     );
   });
 };
@@ -49,11 +55,8 @@ export default (state = initialState, action) => {
       nextState = {
         ...nextState,
         toasts: [
-          createToast("Welcome to the portal", INFO),
-          createToast(
-            "We have send you a verification email. Please verify your email before you proceed. If you don't see the email please check your spam folder.",
-            INFO
-          )
+          createToast(INFO, "info.welcome_to_portal"),
+          createToast(INFO, "info.email_verification")
         ]
       };
       break;
@@ -62,7 +65,7 @@ export default (state = initialState, action) => {
     case skill.WORKSHOP_UPDATED: {
       nextState = {
         ...nextState,
-        toasts: [createToast("Workshop updated", SUCCESS)]
+        toasts: [createToast(SUCCESS, "success.workshop_updated")]
       };
       break;
     }
@@ -70,7 +73,7 @@ export default (state = initialState, action) => {
     case skill.WORKSHOP_PUBLISHED: {
       nextState = {
         ...nextState,
-        toasts: [createToast("Workshop published", SUCCESS)]
+        toasts: [createToast(SUCCESS, "success.workshop_published")]
       };
       break;
     }
@@ -78,7 +81,7 @@ export default (state = initialState, action) => {
     case skill.CREATE_PARTICIPATION_SUCCESS: {
       nextState = {
         ...nextState,
-        toasts: [createToast("Ticket reservation completed", SUCCESS)]
+        toasts: [createToast(SUCCESS, "success.create_participation")]
       };
       break;
     }
@@ -86,7 +89,9 @@ export default (state = initialState, action) => {
     case skill.WORKSHOP_SESSION_UPDATED: {
       nextState = {
         ...nextState,
-        toasts: [createToast("Session updated", SUCCESS)]
+        toasts: [
+          createToast(SUCCESS, "success.workshop_session_updated")
+        ]
       };
       break;
     }
@@ -94,7 +99,7 @@ export default (state = initialState, action) => {
     case skill.WORKSHOP_IMG_UPLOAD_FULFILLED: {
       nextState = {
         ...nextState,
-        toasts: [createToast("Image uploaded successfully", SUCCESS)]
+        toasts: [createToast(SUCCESS, "success.workshop_img_uploaded")]
       };
       break;
     }
@@ -102,7 +107,7 @@ export default (state = initialState, action) => {
     case skill.WORKSHOP_SESSION_SAVED: {
       nextState = {
         ...nextState,
-        toasts: [createToast("Created new workshop session", SUCCESS)]
+        toasts: [createToast(SUCCESS, "success.workshop_session_added")]
       };
       break;
     }
@@ -111,11 +116,8 @@ export default (state = initialState, action) => {
       nextState = {
         ...nextState,
         toasts: [
-          createToast("Workshop created", SUCCESS),
-          createToast(
-            "Your workshop has been submitted for approval. It might take couple of hours for us to process it. We will inform you once it has been published. Thank you.",
-            INFO
-          ),
+          createToast(SUCCESS, "success.workshop_created"),
+          createToast(INFO, "success.workshop_created_msg"),
           null,
           false
         ]
@@ -198,7 +200,7 @@ export default (state = initialState, action) => {
     case profile.UPLOAD_USER_PIC_FULFILLED: {
       nextState = {
         ...nextState,
-        toasts: [createToast("Image uploaded successfully", SUCCESS)]
+        toasts: [createToast(SUCCESS, "success.user_img_uploaded")]
       };
       break;
     }
@@ -206,7 +208,7 @@ export default (state = initialState, action) => {
     case profile.UPDATE_USER_FULFILLED: {
       nextState = {
         ...nextState,
-        toasts: [createToast("Profile updated successfully", SUCCESS)]
+        toasts: [createToast(SUCCESS, "success.user_profile_updated")]
       };
       break;
     }
@@ -266,7 +268,7 @@ export default (state = initialState, action) => {
     case http.STATUS_UNAUTHORIZED: {
       nextState = {
         ...nextState,
-        toasts: [{ message: "You seem to be logged out, Try to login again?" }],
+        toasts: [createToast(ERROR, "error.unauthorized")],
         loginRequired: true
       };
       break;
@@ -275,7 +277,7 @@ export default (state = initialState, action) => {
     case http.STATUS_FORBIDDEN: {
       nextState = {
         ...nextState,
-        toasts: [{ message: "You don't have the access to do that" }]
+        toasts: [createToast(ERROR, "error.forbidden")]
       };
       break;
     }
@@ -283,7 +285,7 @@ export default (state = initialState, action) => {
     case http.STATUS_NOTFOUND: {
       nextState = {
         ...nextState,
-        toasts: [{ message: "What you're looking for is missing" }]
+        toasts: [createToast(ERROR, "error.not_found")]
       };
       break;
     }
@@ -291,7 +293,7 @@ export default (state = initialState, action) => {
     case http.STATUS_INTERNALSERVERERROR: {
       nextState = {
         ...nextState,
-        toasts: [createToast("Oh, you've broken the server", WARNING)]
+        toasts: [createToast(WARNING, "warning.internal_server_error")]
       };
       break;
     }
@@ -299,12 +301,7 @@ export default (state = initialState, action) => {
     case http.STATUS_BADGATEWAY: {
       nextState = {
         ...nextState,
-        toasts: [
-          createToast(
-            "The network is facing some problems. Try later?",
-            WARNING
-          )
-        ]
+        toasts: [createToast(WARNING, "warning.bad_gateway")]
       };
       break;
     }
@@ -312,12 +309,7 @@ export default (state = initialState, action) => {
     case http.STATUS_SERVICEUNAVAILABLE: {
       nextState = {
         ...nextState,
-        toasts: [
-          createToast(
-            "The server seems to be momentarily down. Try later?",
-            WARNING
-          )
-        ]
+        toasts: [createToast(WARNING, "warning.service_unavailable")]
       };
       break;
     }
@@ -325,7 +317,7 @@ export default (state = initialState, action) => {
     case http.STATUS_IHAVENOCLUE: {
       nextState = {
         ...nextState,
-        toasts: [createToast("Something is acting weird. Try later?", WARNING)]
+        toasts: [createToast(WARNING, "warning.unknown_problem")]
       };
       break;
     }
