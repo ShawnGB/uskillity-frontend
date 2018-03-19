@@ -4,7 +4,7 @@ import { HashRouter as Router, Route } from "react-router-dom";
 import MenuBar from "app:components/nav-bar";
 import Footer from "app:components/footer";
 import ModalRoot from "app:components/modal-root";
-import AuthRoot from "app:components/auth-root";
+import RootNotifier from "app:components/root-notifier";
 
 import About from "app:routes/about";
 import Home from "app:routes/home";
@@ -57,7 +57,7 @@ export default () => (
       </div>
       <Footer />
       <ModalRoot />
-      <AuthRoot />
+      <RootNotifier />
     </div>
   </Router>
 );
