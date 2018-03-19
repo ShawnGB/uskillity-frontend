@@ -32,22 +32,11 @@ export const isGermanNavigator = () => {
   return navigator.language.includes("de");
 };
 
-export const NotifyUser = (errors, warning, info, success) => {
-  if (success) {
-    toast.success(success);
-  }
-
-  if (warning) {
-    toast.warning(warning);
-  }
-
-  if (info) {
-    toast.info(info);
-  }
-
-  if (errors) {
-    errors.forEach(error => toast.error(error));
-  }
+export const NotifyUser = (errors, warnings, infos, successes) => {
+  successes && successes.forEach(success => toast.success(success));
+  warnings && warnings.forEach(warning => toast.warning(warning));
+  infos && infos.forEach(info => toast.info(info));
+  errors && errors.forEach(error => toast.error(error));
 };
 
 export const ErrorsToList = errors => {
