@@ -43,7 +43,19 @@ class ShareSkill extends Component {
   }
 
   componentWillMount() {
-    const { dispatch } = this.props;
+    const { dispatch, session, history } = this.props;
+    if (!session.isLoggedIn) {
+      setTimeout(() => {
+        dispatch({
+          type: "LOGIN_REQUIRED",
+          onHide: () => {
+            setTimeout(() => {
+              history.goBack();
+            }, 1000);
+          }
+        });
+      }, 2000);
+    }
     if (this.state.workshopId) {
       dispatch(skillActions.fetchWorkshop(this.state.workshopId));
     }
