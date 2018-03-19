@@ -3,6 +3,8 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import { reactI18nextModule } from "react-i18next";
 import { en } from "./locales/en/translations.js";
 import { de } from "./locales/de/translations.js";
+import { toastsEN } from "./locales/en/toasts.js";
+import { toastsDE } from "./locales/de/toasts.js";
 
 const __DEV__ = process.env.NODE_ENV !== "production";
 
@@ -14,18 +16,23 @@ const instance = i18n
       en: {
         translations: {
           ...en
+        },
+        toasts: {
+          ...toastsEN
         }
       },
       de: {
         translations: {
           ...de
+        },
+        toasts: {
+          ...toastsDE
         }
       }
     },
     fallbackLng: "en",
     debug: __DEV__,
-    // have a common namespace used around the full app
-    ns: ["translations"],
+    ns: ["translations", "toasts"],
     defaultNS: "translations",
 
     // wait 	  | 'false' 	             | assert all provided namespaces are loaded before rendering
