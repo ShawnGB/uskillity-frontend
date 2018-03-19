@@ -14,7 +14,9 @@ import CleverInputReader from "app:components/clever-input-reader";
 import moment from "moment";
 import Dropzone from "react-dropzone";
 import LaddaButton, { S, ZOOM_OUT } from "react-ladda";
+import Datetime from "react-datetime";
 import "./style.css";
+import "./react-datetime.css";
 let dropzoneRef;
 
 class ShareSkill extends Component {
@@ -78,7 +80,7 @@ class ShareSkill extends Component {
     let sessions = [];
     wrkShop.sessions.forEach(session =>
       sessions.push({
-        dateAndTime: parseSessionDateTime(session.starts_at, "YYYY-MM-DD"),
+        dateAndTime: parseSessionDateTime(session.starts_at, "DD-MM-YYYY"),
         starts_at: parseSessionDateTime(session.starts_at),
         ends_at: parseSessionDateTime(session.ends_at),
         id: session.id
@@ -97,7 +99,7 @@ class ShareSkill extends Component {
 
   dummySession() {
     return {
-      dateAndTime: parseSessionDateTime(moment(), "YYYY-MM-DD"),
+      dateAndTime: parseSessionDateTime(moment(), "DD-MM-YYYY"),
       starts_at: parseSessionDateTime(
         moment()
           .startOf("day")
@@ -222,6 +224,12 @@ class ShareSkill extends Component {
       files: acceptedFiles
     });
     this.uploadWorkshopImg(acceptedFiles);
+  }
+
+  onDateAndTimeChange(index, e) {
+    let sessions = this.state.sessions;
+    sessions[index]["dateAndTime"] = parseSessionDateTime(e._d, "DD-MM-YYYY");
+    this.setState({ sessions });
   }
 
   render() {
@@ -539,6 +547,10 @@ class ShareSkill extends Component {
                   </div>
                   {this.state.sessions.map((session, index) => (
                     <ScheduleWorkshop
+                      onDateAndTimeChange={this.onDateAndTimeChange.bind(
+                        this,
+                        index
+                      )}
                       onChange={this.onChangeWorkshopSession.bind(this, index)}
                       onBlur={this.updateWorkshopSession.bind(
                         this,
@@ -675,10 +687,10 @@ const ScheduleWorkshop = props => {
     <div className="col-xs-12">
       <div className="row share-skill-row">
         <div className="col-xs-3">
-          <SkillInputSingle
-            name={"dateAndTime"}
-            type="date"
-            onChange={props.onChange}
+          <Datetime
+            timeFormat={false}
+            utc={true}
+            onChange={props.onDateAndTimeChange}
             onBlur={props.onBlur}
             disabled={props.disabled}
             value={props.session.dateAndTime}
