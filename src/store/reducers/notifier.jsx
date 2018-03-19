@@ -35,52 +35,73 @@ export default (state = initialState, action) => {
       *case session.USER_FETCHED : { break; }
       */
 
-    //case session.LOGIN_FULFILLED: {
-    case session.REGISTER_FULFILLED: {
+      case session.REGISTER_FULFILLED: {
       blankState = {
         ...blankState,
         infos: [
-          "Welcome to the portal",
-          "We have send you a verification email. Please verify your email before you proceed. If you don't see the email please check your spam folder."
+          { message: "Welcome to the portal" },
+          {
+            message:
+              "We have send you a verification email. Please verify your email before you proceed. If you don't see the email please check your spam folder."
+          }
         ]
       };
       break;
     }
     case skill.WORKSHOP_UPDATED: {
-      blankState = { ...blankState, successes: ["Workshop updated"] };
+      blankState = {
+        ...blankState,
+        successes: [{ message: "Workshop updated" }]
+      };
       break;
     }
     case skill.WORKSHOP_PUBLISHED: {
-      blankState = { ...blankState, successes: ["Workshop is published"] };
+      blankState = {
+        ...blankState,
+        successes: [{ message: "Workshop is published" }]
+      };
       break;
     }
     case skill.CREATE_PARTICIPATION_SUCCESS: {
       blankState = {
         ...blankState,
-        successes: ["Ticket reservation completed"]
+        successes: [{ message: "Ticket reservation completed" }]
       };
       break;
     }
     case skill.WORKSHOP_SESSION_UPDATED: {
-      blankState = { ...blankState, successes: ["Session updated"] };
+      blankState = {
+        ...blankState,
+        successes: [{ message: "Session updated" }]
+      };
       break;
     }
     case skill.WORKSHOP_IMG_UPLOAD_FULFILLED: {
       blankState = {
         ...blankState,
-        successes: ["Image uploaded successfully"]
+        successes: [{ message: "Image uploaded successfully" }]
       };
       break;
     }
     case skill.WORKSHOP_SESSION_SAVED: {
       blankState = {
         ...blankState,
-        successes: ["Created new workshop session"]
+        successes: [{ message: "Created new workshop session" }]
       };
       break;
     }
     case skill.WORKSHOP_SAVED: {
-      blankState = { ...blankState, successes: [ "Workshop created" ] };
+      blankState = {
+        ...blankState,
+        successes: [{ message: "Workshop created" }],
+        infos: [
+          {
+            message:
+              "Your workshop has been submitted for approval. It might take couple of hours for us to process it. We will inform you once it has been published. Thank you.",
+            autoClose: false
+          }
+        ]
+      };
       break;
     }
 
@@ -190,14 +211,14 @@ export default (state = initialState, action) => {
     case profile.UPLOAD_USER_PIC_FULFILLED: {
       blankState = {
         ...blankState,
-        successes: ["Image uploaded successfully"]
+        successes: [{ message: "Image uploaded successfully" }]
       };
       break;
     }
     case profile.UPDATE_USER_FULFILLED: {
       blankState = {
         ...blankState,
-        successes: ["Profile updated successfully"]
+        successes: [{ message: "Profile updated successfully" }]
       };
       break;
     }
@@ -256,7 +277,7 @@ export default (state = initialState, action) => {
     case http.STATUS_UNAUTHORIZED: {
       blankState = {
         ...blankState,
-        errors: ["You seem to be logged out, Try to login again?"],
+        errors: [{ message: "You seem to be logged out, Try to login again?" }],
         loginRequired: true
       };
       break;
@@ -264,42 +285,46 @@ export default (state = initialState, action) => {
     case http.STATUS_FORBIDDEN: {
       blankState = {
         ...blankState,
-        errors: ["You don't have the access to do that"]
+        errors: [{ message: "You don't have the access to do that" }]
       };
       break;
     }
     case http.STATUS_NOTFOUND: {
       blankState = {
         ...blankState,
-        errors: ["What you're looking for is missing"]
+        errors: [{ message: "What you're looking for is missing" }]
       };
       break;
     }
     case http.STATUS_INTERNALSERVERERROR: {
       blankState = {
         ...blankState,
-        warnings: ["Oh, you've broken the server"]
+        warnings: [{ message: "Oh, you've broken the server" }]
       };
       break;
     }
     case http.STATUS_BADGATEWAY: {
       blankState = {
         ...blankState,
-        warnings: ["The network is facing some problems. Try later?"]
+        warnings: [
+          { message: "The network is facing some problems. Try later?" }
+        ]
       };
       break;
     }
     case http.STATUS_SERVICEUNAVAILABLE: {
       blankState = {
         ...blankState,
-        warnings: ["The server seems to be momentarily down. Try later?"]
+        warnings: [
+          { message: "The server seems to be momentarily down. Try later?" }
+        ]
       };
       break;
     }
     case http.STATUS_IHAVENOCLUE: {
       blankState = {
         ...blankState,
-        warnings: ["Something is acting weird. Try later?"]
+        warnings: [{ message: "Something is acting weird. Try later?" }]
       };
       break;
     }
