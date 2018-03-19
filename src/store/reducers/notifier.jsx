@@ -2,31 +2,58 @@ import * as skill from "app:store/actions/skill";
 import * as session from "app:store/actions/session";
 import * as profile from "app:store/actions/profile";
 import * as http from "app:store/actions/errors";
-import * as utils from "app:utils/utils";
+
+const toastType = {
+  INFO: "info",
+  SUCCESS: "success",
+  WARNING: "warning",
+  ERROR: "error"
+};
 
 const initialState = {
-  successes: null,
-  errors: null,
-  warnings: null,
-  infos: null,
+  toasts: null,
   loginRequired: false
 };
 
+const createToast = (message, type, stringKey = null, autoClose = null) => ({
+  message,
+  type,
+  stringKey,
+  autoClose
+});
+
+const ErrorsToList = errors => {
+  const fullMessages = errors.errors ? errors.errors.full_messages : null;
+  const { ERROR } = toastType;
+  if (fullMessages) {
+    return fullMessages.map(message => {
+      return createToast(message, ERROR);
+    });
+  }
+
+  return Object.keys(errors).map(key => {
+    return createToast(
+      key.charAt(0).toUpperCase() + key.slice(1) + " " + errors[key],
+      ERROR
+    );
+  });
+};
+
 export default (state = initialState, action) => {
+  // eslint-disable-next-line
+  const { INFO, SUCCESS, WARNING, ERROR } = toastType;
   let nextState = initialState;
 
   switch (action.type) {
-    //TODO: revert that
-    case session.LOGIN_FULFILLED: {
-      //case session.REGISTER_FULFILLED: {
+    case session.REGISTER_FULFILLED: {
       nextState = {
         ...nextState,
-        infos: [
-          { message: "Welcome to the portal" },
-          {
-            message:
-              "We have send you a verification email. Please verify your email before you proceed. If you don't see the email please check your spam folder."
-          }
+        toasts: [
+          createToast("Welcome to the portal", INFO),
+          createToast(
+            "We have send you a verification email. Please verify your email before you proceed. If you don't see the email please check your spam folder.",
+            INFO
+          )
         ]
       };
       break;
@@ -35,7 +62,7 @@ export default (state = initialState, action) => {
     case skill.WORKSHOP_UPDATED: {
       nextState = {
         ...nextState,
-        successes: [{ message: "Workshop updated" }]
+        toasts: [createToast("Workshop updated", SUCCESS)]
       };
       break;
     }
@@ -43,7 +70,7 @@ export default (state = initialState, action) => {
     case skill.WORKSHOP_PUBLISHED: {
       nextState = {
         ...nextState,
-        successes: [{ message: "Workshop is published" }]
+        toasts: [createToast("Workshop published", SUCCESS)]
       };
       break;
     }
@@ -51,7 +78,7 @@ export default (state = initialState, action) => {
     case skill.CREATE_PARTICIPATION_SUCCESS: {
       nextState = {
         ...nextState,
-        successes: [{ message: "Ticket reservation completed" }]
+        toasts: [createToast("Ticket reservation completed", SUCCESS)]
       };
       break;
     }
@@ -59,7 +86,7 @@ export default (state = initialState, action) => {
     case skill.WORKSHOP_SESSION_UPDATED: {
       nextState = {
         ...nextState,
-        successes: [{ message: "Session updated" }]
+        toasts: [createToast("Session updated", SUCCESS)]
       };
       break;
     }
@@ -67,7 +94,7 @@ export default (state = initialState, action) => {
     case skill.WORKSHOP_IMG_UPLOAD_FULFILLED: {
       nextState = {
         ...nextState,
-        successes: [{ message: "Image uploaded successfully" }]
+        toasts: [createToast("Image uploaded successfully", SUCCESS)]
       };
       break;
     }
@@ -75,7 +102,7 @@ export default (state = initialState, action) => {
     case skill.WORKSHOP_SESSION_SAVED: {
       nextState = {
         ...nextState,
-        successes: [{ message: "Created new workshop session" }]
+        toasts: [createToast("Created new workshop session", SUCCESS)]
       };
       break;
     }
@@ -83,13 +110,14 @@ export default (state = initialState, action) => {
     case skill.WORKSHOP_SAVED: {
       nextState = {
         ...nextState,
-        successes: [{ message: "Workshop created" }],
-        infos: [
-          {
-            message:
-              "Your workshop has been submitted for approval. It might take couple of hours for us to process it. We will inform you once it has been published. Thank you.",
-            autoClose: false
-          }
+        toasts: [
+          createToast("Workshop created", SUCCESS),
+          createToast(
+            "Your workshop has been submitted for approval. It might take couple of hours for us to process it. We will inform you once it has been published. Thank you.",
+            INFO
+          ),
+          null,
+          false
         ]
       };
       break;
@@ -98,7 +126,7 @@ export default (state = initialState, action) => {
     case skill.WORKSHOP_IMG_UPLOAD_REJECTED: {
       nextState = {
         ...nextState,
-        errors: utils.ErrorsToList(action.payload)
+        toasts: ErrorsToList(action.payload)
       };
       break;
     }
@@ -106,7 +134,7 @@ export default (state = initialState, action) => {
     case skill.WORKSHOP_PUBLISH_REJECTED: {
       nextState = {
         ...nextState,
-        errors: utils.ErrorsToList(action.payload)
+        toasts: ErrorsToList(action.payload)
       };
       break;
     }
@@ -114,7 +142,7 @@ export default (state = initialState, action) => {
     case skill.CREATE_PARTICIPATION_REJECTED: {
       nextState = {
         ...nextState,
-        errors: utils.ErrorsToList(action.payload)
+        toasts: ErrorsToList(action.payload)
       };
       break;
     }
@@ -122,7 +150,7 @@ export default (state = initialState, action) => {
     case skill.WORKSHOP_SAVE_REJECTED: {
       nextState = {
         ...nextState,
-        errors: utils.ErrorsToList(action.payload)
+        toasts: ErrorsToList(action.payload)
       };
       break;
     }
@@ -130,7 +158,7 @@ export default (state = initialState, action) => {
     case skill.WORKSHOP_SESSION_SAVE_REJECTED: {
       nextState = {
         ...nextState,
-        errors: utils.ErrorsToList(action.payload)
+        toasts: ErrorsToList(action.payload)
       };
       break;
     }
@@ -138,7 +166,7 @@ export default (state = initialState, action) => {
     case skill.WORKSHOP_SESSION_UPDATE_REJECTED: {
       nextState = {
         ...nextState,
-        errors: utils.ErrorsToList(action.payload)
+        toasts: ErrorsToList(action.payload)
       };
       break;
     }
@@ -146,7 +174,7 @@ export default (state = initialState, action) => {
     case skill.WORKSHOP_UPDATE_REJECTED: {
       nextState = {
         ...nextState,
-        errors: utils.ErrorsToList(action.payload)
+        toasts: ErrorsToList(action.payload)
       };
       break;
     }
@@ -154,7 +182,7 @@ export default (state = initialState, action) => {
     case session.LOGIN_REJECTED: {
       nextState = {
         ...nextState,
-        errors: utils.ErrorsToList(action.payload)
+        toasts: ErrorsToList(action.payload)
       };
       break;
     }
@@ -162,7 +190,7 @@ export default (state = initialState, action) => {
     case session.REGISTER_REJECTED: {
       nextState = {
         ...nextState,
-        errors: utils.ErrorsToList(action.payload)
+        toasts: ErrorsToList(action.payload)
       };
       break;
     }
@@ -170,7 +198,7 @@ export default (state = initialState, action) => {
     case profile.UPLOAD_USER_PIC_FULFILLED: {
       nextState = {
         ...nextState,
-        successes: [{ message: "Image uploaded successfully" }]
+        toasts: [createToast("Image uploaded successfully", SUCCESS)]
       };
       break;
     }
@@ -178,7 +206,7 @@ export default (state = initialState, action) => {
     case profile.UPDATE_USER_FULFILLED: {
       nextState = {
         ...nextState,
-        successes: [{ message: "Profile updated successfully" }]
+        toasts: [createToast("Profile updated successfully", SUCCESS)]
       };
       break;
     }
@@ -186,7 +214,7 @@ export default (state = initialState, action) => {
     case profile.UPLOAD_USER_PIC_REJECTED: {
       nextState = {
         ...nextState,
-        errors: utils.ErrorsToList(action.payload)
+        toasts: ErrorsToList(action.payload)
       };
       break;
     }
@@ -194,7 +222,7 @@ export default (state = initialState, action) => {
     case profile.PROVIDER_FETCH_REJECTED: {
       nextState = {
         ...nextState,
-        errors: utils.ErrorsToList(action.payload)
+        toasts: ErrorsToList(action.payload)
       };
       break;
     }
@@ -202,7 +230,7 @@ export default (state = initialState, action) => {
     case profile.UPDATE_USER_REJECTED: {
       nextState = {
         ...nextState,
-        errors: utils.ErrorsToList(action.payload)
+        toasts: ErrorsToList(action.payload)
       };
       break;
     }
@@ -238,7 +266,7 @@ export default (state = initialState, action) => {
     case http.STATUS_UNAUTHORIZED: {
       nextState = {
         ...nextState,
-        errors: [{ message: "You seem to be logged out, Try to login again?" }],
+        toasts: [{ message: "You seem to be logged out, Try to login again?" }],
         loginRequired: true
       };
       break;
@@ -247,7 +275,7 @@ export default (state = initialState, action) => {
     case http.STATUS_FORBIDDEN: {
       nextState = {
         ...nextState,
-        errors: [{ message: "You don't have the access to do that" }]
+        toasts: [{ message: "You don't have the access to do that" }]
       };
       break;
     }
@@ -255,7 +283,7 @@ export default (state = initialState, action) => {
     case http.STATUS_NOTFOUND: {
       nextState = {
         ...nextState,
-        errors: [{ message: "What you're looking for is missing" }]
+        toasts: [{ message: "What you're looking for is missing" }]
       };
       break;
     }
@@ -263,7 +291,7 @@ export default (state = initialState, action) => {
     case http.STATUS_INTERNALSERVERERROR: {
       nextState = {
         ...nextState,
-        warnings: [{ message: "Oh, you've broken the server" }]
+        toasts: [createToast("Oh, you've broken the server", WARNING)]
       };
       break;
     }
@@ -271,8 +299,11 @@ export default (state = initialState, action) => {
     case http.STATUS_BADGATEWAY: {
       nextState = {
         ...nextState,
-        warnings: [
-          { message: "The network is facing some problems. Try later?" }
+        toasts: [
+          createToast(
+            "The network is facing some problems. Try later?",
+            WARNING
+          )
         ]
       };
       break;
@@ -281,8 +312,11 @@ export default (state = initialState, action) => {
     case http.STATUS_SERVICEUNAVAILABLE: {
       nextState = {
         ...nextState,
-        warnings: [
-          { message: "The server seems to be momentarily down. Try later?" }
+        toasts: [
+          createToast(
+            "The server seems to be momentarily down. Try later?",
+            WARNING
+          )
         ]
       };
       break;
@@ -291,7 +325,7 @@ export default (state = initialState, action) => {
     case http.STATUS_IHAVENOCLUE: {
       nextState = {
         ...nextState,
-        warnings: [{ message: "Something is acting weird. Try later?" }]
+        toasts: [createToast("Something is acting weird. Try later?", WARNING)]
       };
       break;
     }
@@ -300,9 +334,6 @@ export default (state = initialState, action) => {
       break;
     }
   }
-
-  const { successes, warnings, errors, infos } = nextState;
-  utils.NotifyUser(errors, warnings, infos, successes);
 
   return Object.assign({}, state, nextState);
 };
