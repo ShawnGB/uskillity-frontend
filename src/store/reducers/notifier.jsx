@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
     errors: null,
     warning: null,
     info: null,
-    showLoginModal: false
+    loginRequired: false
   }
 
   switch (action.type) {
@@ -202,6 +202,14 @@ export default (state = initialState, action) => {
       break
     }
 
+    case "LOGIN_REQUIRED": {
+      blankState = {
+        ...blankState,
+        loginRequired: {onHide: action.onHide}
+      }
+      break
+    }
+
     /*
        *case profile.UPLOAD_USER_PIC_PENDING : { break; }
        *case profile.PROVIDER_FETCH_PENDING : { break; }
@@ -227,7 +235,7 @@ export default (state = initialState, action) => {
       blankState = {
         ...blankState,
         errors: ['You seem to be logged out, Try to login again?'],
-        showLoginModal: true
+        loginRequired: true
       }
       break
     }

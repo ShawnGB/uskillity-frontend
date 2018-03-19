@@ -92,29 +92,36 @@ class AuthModals extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.showLoginModal) {
-      this.onLoginClicked();
+    const { loginRequired } = nextProps;
+    if (loginRequired) {
+      this.onLoginClicked(loginRequired.onHide);
     }
   }
 
-  onLoginClicked() {
+  onLoginClicked(onHide) {
     this.props.dispatch(
       modalActions.showModal("MODAL_LOGIN", {
         handleSubmit: (email, password) => this.handleLogin(email, password),
         handleFBbuttonClick: data => this.handleFBbuttonClick(),
-        jumpToModal: () => this.onRegisteredClicked(),
-        hideModal: () => this.hideModal("MODAL_LOGIN")
+        jumpToModal: () => this.onRegisteredClicked(onHide),
+        hideModal: () => {
+          this.hideModal("MODAL_LOGIN");
+          onHide && onHide();
+        }
       })
     );
   }
 
-  onRegisteredClicked() {
+  onRegisteredClicked(onHide) {
     this.props.dispatch(
       modalActions.showModal("MODAL_REGISTER", {
         handleSubmit: user => this.handleRegister(user),
         handleFBbuttonClick: data => this.handleFBbuttonClick(),
-        jumpToModal: () => this.onLoginClicked(),
-        hideModal: () => this.hideModal("MODAL_REGISTER")
+        jumpToModal: () => this.onLoginClicked(onHide),
+        hideModal: () => {
+          this.hideModal("MODAL_REGISTER");
+          onHide && onHide();
+        }
       })
     );
   }
@@ -141,7 +148,7 @@ class AuthModals extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  showLoginModal: state.notifier.showLoginModal
+  loginRequired: state.notifier.loginRequired
 });
 
 export default connect(mapStateToProps, null, null, { withRef: true })(
