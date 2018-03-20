@@ -1,5 +1,4 @@
 import moment from "moment";
-import { toast } from "react-toastify";
 
 export const replacer = (key, value) => {
   if (value === "") return undefined;
@@ -30,40 +29,6 @@ export const parseToLocalTime = (d, t, f) => {
 // Let's only go with German for now
 export const isGermanNavigator = () => {
   return navigator.language.includes("de");
-};
-
-export const NotifyUser = (errors, warnings, infos, successes) => {
-  successes &&
-    successes.forEach(success =>
-      toast.success(success.message, { autoClose: success.autoClose })
-    );
-  warnings &&
-    warnings.forEach(warning =>
-      toast.warning(warning.message, { autoClose: warning.autoClose })
-    );
-  infos &&
-    infos.forEach(info =>
-      toast.info(info.message, { autoClose: info.autoClose })
-    );
-  errors &&
-    errors.forEach(error =>
-      toast.error(error.message, { autoClose: error.autoClose })
-    );
-};
-
-export const ErrorsToList = errors => {
-  const fullMessages = errors.errors ? errors.errors.full_messages : null;
-  if (fullMessages) {
-    return fullMessages.map(message => {
-      return { message };
-    });
-  }
-
-  return Object.keys(errors).map(key => {
-    return {
-      message: key.charAt(0).toUpperCase() + key.slice(1) + " " + errors[key]
-    };
-  });
 };
 
 export const validateContentByLength = (content, min, max) => {

@@ -2,329 +2,322 @@ import * as skill from "app:store/actions/skill";
 import * as session from "app:store/actions/session";
 import * as profile from "app:store/actions/profile";
 import * as http from "app:store/actions/errors";
-import * as utils from "app:utils/utils";
+
+const toastType = {
+  INFO: "info",
+  SUCCESS: "success",
+  WARNING: "warning",
+  ERROR: "error"
+};
 
 const initialState = {
-  successes: null,
-  errors: null,
-  warnings: null,
-  infos: null
+  toasts: null,
+  loginRequired: false
+};
+
+const createToast = (
+  type,
+  stringKey = null,
+  message = "",
+  autoClose = null
+) => ({
+  message,
+  type,
+  stringKey,
+  autoClose
+});
+
+const ErrorsToList = errors => {
+  const fullMessages = errors.errors ? errors.errors.full_messages : null;
+  const { ERROR } = toastType;
+  if (fullMessages) {
+    return fullMessages.map(message => {
+      return createToast(ERROR, null, message);
+    });
+  }
+
+  return Object.keys(errors).map(key => {
+    return createToast(
+      ERROR,
+      null,
+      key.charAt(0).toUpperCase() + key.slice(1) + " " + errors[key]
+    );
+  });
 };
 
 export default (state = initialState, action) => {
-  let blankState = {
-    successes: null,
-    errors: null,
-    warnings: null,
-    infos: null,
-    loginRequired: false
-  };
+  // eslint-disable-next-line
+  const { INFO, SUCCESS, WARNING, ERROR } = toastType;
+  let nextState = initialState;
 
   switch (action.type) {
-    /*
-       *case skill.CATEGORIES_FETCHED : { break; }
-       *case skill.LEVELS_FETCHED : { break; }
-       *case skill.USER_WORKSHOPS_FETCHED : { break; }
-       *case skill.WORKSHOP_FETCHED : { break; }
-       *case skill.WORKSHOPS_FETCHED : { break; }
-       */
-
-    /*
-      *case session.LOGIN_FULFILLED : { break; }
-      *case session.LOGOUT_FULFILLED : { break; }
-      *case session.USER_FETCHED : { break; }
-      */
-
-      case session.REGISTER_FULFILLED: {
-      blankState = {
-        ...blankState,
-        infos: [
-          { message: "Welcome to the portal" },
-          {
-            message:
-              "We have send you a verification email. Please verify your email before you proceed. If you don't see the email please check your spam folder."
-          }
+    case session.REGISTER_FULFILLED: {
+      nextState = {
+        ...nextState,
+        toasts: [
+          createToast(INFO, "info.welcome_to_portal"),
+          createToast(INFO, "info.email_verification")
         ]
       };
       break;
     }
+
     case skill.WORKSHOP_UPDATED: {
-      blankState = {
-        ...blankState,
-        successes: [{ message: "Workshop updated" }]
+      nextState = {
+        ...nextState,
+        toasts: [createToast(SUCCESS, "success.workshop_updated")]
       };
       break;
     }
+
     case skill.WORKSHOP_PUBLISHED: {
-      blankState = {
-        ...blankState,
-        successes: [{ message: "Workshop is published" }]
+      nextState = {
+        ...nextState,
+        toasts: [createToast(SUCCESS, "success.workshop_published")]
       };
       break;
     }
+
     case skill.CREATE_PARTICIPATION_SUCCESS: {
-      blankState = {
-        ...blankState,
-        successes: [{ message: "Ticket reservation completed" }]
+      nextState = {
+        ...nextState,
+        toasts: [createToast(SUCCESS, "success.create_participation")]
       };
       break;
     }
+
     case skill.WORKSHOP_SESSION_UPDATED: {
-      blankState = {
-        ...blankState,
-        successes: [{ message: "Session updated" }]
-      };
-      break;
-    }
-    case skill.WORKSHOP_IMG_UPLOAD_FULFILLED: {
-      blankState = {
-        ...blankState,
-        successes: [{ message: "Image uploaded successfully" }]
-      };
-      break;
-    }
-    case skill.WORKSHOP_SESSION_SAVED: {
-      blankState = {
-        ...blankState,
-        successes: [{ message: "Created new workshop session" }]
-      };
-      break;
-    }
-    case skill.WORKSHOP_SAVED: {
-      blankState = {
-        ...blankState,
-        successes: [{ message: "Workshop created" }],
-        infos: [
-          {
-            message:
-              "Your workshop has been submitted for approval. It might take couple of hours for us to process it. We will inform you once it has been published. Thank you.",
-            autoClose: false
-          }
+      nextState = {
+        ...nextState,
+        toasts: [
+          createToast(SUCCESS, "success.workshop_session_updated")
         ]
       };
       break;
     }
 
-    /*
-       *case skill.CATEGORIES_FETCHED_REJECTED : { break; }
-       *case skill.WORKSHOPS_FETCHED_REJECTED : { break; }
-       *case skill.USER_WORKSHOPS_FETCH_REJECTED : { break; }
-       *case skill.WORKSHOP_FETCHED_REJECTED : { break; }
-       *case skill.LEVELS_REJECTED : { break; }
-       */
+    case skill.WORKSHOP_IMG_UPLOAD_FULFILLED: {
+      nextState = {
+        ...nextState,
+        toasts: [createToast(SUCCESS, "success.workshop_img_uploaded")]
+      };
+      break;
+    }
+
+    case skill.WORKSHOP_SESSION_SAVED: {
+      nextState = {
+        ...nextState,
+        toasts: [createToast(SUCCESS, "success.workshop_session_added")]
+      };
+      break;
+    }
+
+    case skill.WORKSHOP_SAVED: {
+      nextState = {
+        ...nextState,
+        toasts: [
+          createToast(SUCCESS, "success.workshop_created"),
+          createToast(INFO, "success.workshop_created_msg"),
+          null,
+          false
+        ]
+      };
+      break;
+    }
 
     case skill.WORKSHOP_IMG_UPLOAD_REJECTED: {
-      blankState = {
-        ...blankState,
-        errors: utils.ErrorsToList(action.payload)
-      };
-      break;
-    }
-    case skill.WORKSHOP_PUBLISH_REJECTED: {
-      blankState = {
-        ...blankState,
-        errors: utils.ErrorsToList(action.payload)
-      };
-      break;
-    }
-    case skill.CREATE_PARTICIPATION_REJECTED: {
-      blankState = {
-        ...blankState,
-        errors: utils.ErrorsToList(action.payload)
-      };
-      break;
-    }
-    case skill.WORKSHOP_SAVE_REJECTED: {
-      blankState = {
-        ...blankState,
-        errors: utils.ErrorsToList(action.payload)
-      };
-      break;
-    }
-    case skill.WORKSHOP_SESSION_SAVE_REJECTED: {
-      blankState = {
-        ...blankState,
-        errors: utils.ErrorsToList(action.payload)
-      };
-      break;
-    }
-    case skill.WORKSHOP_SESSION_UPDATE_REJECTED: {
-      blankState = {
-        ...blankState,
-        errors: utils.ErrorsToList(action.payload)
-      };
-      break;
-    }
-    case skill.WORKSHOP_UPDATE_REJECTED: {
-      blankState = {
-        ...blankState,
-        errors: utils.ErrorsToList(action.payload)
+      nextState = {
+        ...nextState,
+        toasts: ErrorsToList(action.payload)
       };
       break;
     }
 
-    /*
-       *case session.USER_FETCH_REJECTED : { break; }
-       *case session.LOGOUT_REJECTED : { break; }
-       */
+    case skill.WORKSHOP_PUBLISH_REJECTED: {
+      nextState = {
+        ...nextState,
+        toasts: ErrorsToList(action.payload)
+      };
+      break;
+    }
+
+    case skill.CREATE_PARTICIPATION_REJECTED: {
+      nextState = {
+        ...nextState,
+        toasts: ErrorsToList(action.payload)
+      };
+      break;
+    }
+
+    case skill.WORKSHOP_SAVE_REJECTED: {
+      nextState = {
+        ...nextState,
+        toasts: ErrorsToList(action.payload)
+      };
+      break;
+    }
+
+    case skill.WORKSHOP_SESSION_SAVE_REJECTED: {
+      nextState = {
+        ...nextState,
+        toasts: ErrorsToList(action.payload)
+      };
+      break;
+    }
+
+    case skill.WORKSHOP_SESSION_UPDATE_REJECTED: {
+      nextState = {
+        ...nextState,
+        toasts: ErrorsToList(action.payload)
+      };
+      break;
+    }
+
+    case skill.WORKSHOP_UPDATE_REJECTED: {
+      nextState = {
+        ...nextState,
+        toasts: ErrorsToList(action.payload)
+      };
+      break;
+    }
 
     case session.LOGIN_REJECTED: {
-      blankState = {
-        ...blankState,
-        errors: utils.ErrorsToList(action.payload)
+      nextState = {
+        ...nextState,
+        toasts: ErrorsToList(action.payload)
       };
       break;
     }
 
     case session.REGISTER_REJECTED: {
-      blankState = {
-        ...blankState,
-        errors: utils.ErrorsToList(action.payload)
+      nextState = {
+        ...nextState,
+        toasts: ErrorsToList(action.payload)
       };
       break;
     }
-
-    /*
-       *case skill.CATEGORIES_FETCHED_PENDING : { break; }
-       *case skill.LEVELS_PENDING : { break; }
-       *case skill.UPLOAD_IMG_PENDING : { break; }
-       *case skill.USER_WORKSHOPS_FETCH_PENDING : { break; }
-       *case skill.WORKSHOP_FETCHED_PENDING : { break; }
-       *case skill.WORKSHOP_PUBLISH_PENDING : { break; }
-       *case skill.WORKSHOP_SESSION_SAVE_PENDING : { break; }
-       *case skill.WORKSHOP_SESSION_UPDATE_PENDING : { break; }
-       *case skill.WORKSHOPS_FETCHED_PENDING : { break; }
-       *case skill.WORKSHOP_UPDATE_PENDING : { break; }
-       */
-
-    /*
-       *case session.USER_FETCHED_PENDING : { break; }
-       *case session.LOGIN_PENDING : { break; }
-       *case session.REGISTER_PENDING : { break; }
-       *case session.LOGOUT_PENDING : { break; }
-       */
-
-    /*
-       *case profile.PROVIDER_FETCHED : { break; }
-       */
 
     case profile.UPLOAD_USER_PIC_FULFILLED: {
-      blankState = {
-        ...blankState,
-        successes: [{ message: "Image uploaded successfully" }]
+      nextState = {
+        ...nextState,
+        toasts: [createToast(SUCCESS, "success.user_img_uploaded")]
       };
       break;
     }
+
     case profile.UPDATE_USER_FULFILLED: {
-      blankState = {
-        ...blankState,
-        successes: [{ message: "Profile updated successfully" }]
+      nextState = {
+        ...nextState,
+        toasts: [createToast(SUCCESS, "success.user_profile_updated")]
       };
       break;
     }
 
     case profile.UPLOAD_USER_PIC_REJECTED: {
-      blankState = {
-        ...blankState,
-        errors: utils.ErrorsToList(action.payload)
+      nextState = {
+        ...nextState,
+        toasts: ErrorsToList(action.payload)
       };
       break;
     }
+
     case profile.PROVIDER_FETCH_REJECTED: {
-      blankState = {
-        ...blankState,
-        errors: utils.ErrorsToList(action.payload)
+      nextState = {
+        ...nextState,
+        toasts: ErrorsToList(action.payload)
       };
       break;
     }
+
     case profile.UPDATE_USER_REJECTED: {
-      blankState = {
-        ...blankState,
-        errors: utils.ErrorsToList(action.payload)
+      nextState = {
+        ...nextState,
+        toasts: ErrorsToList(action.payload)
       };
       break;
     }
 
     case "LOGIN_REQUIRED": {
-      blankState = {
-        ...blankState,
+      nextState = {
+        ...nextState,
         loginRequired: { onHide: action.onHide }
       };
       break;
     }
 
-    /*
-       *case profile.UPLOAD_USER_PIC_PENDING : { break; }
-       *case profile.PROVIDER_FETCH_PENDING : { break; }
-       *case profile.UPDATE_USER_PENDING : { break; }
-       */
-
     case http.STATUS_OK: {
       break;
     }
+
     case http.STATUS_CREATED: {
       break;
     }
+
     case http.STATUS_ACCEPTED: {
       break;
     }
+
     case http.STATUS_NOCONTENT: {
       break;
     }
+
     case http.STATUS_BADREQUEST: {
       break;
     }
+
     case http.STATUS_UNAUTHORIZED: {
-      blankState = {
-        ...blankState,
-        errors: [{ message: "You seem to be logged out, Try to login again?" }],
+      nextState = {
+        ...nextState,
+        toasts: [createToast(ERROR, "error.unauthorized")],
         loginRequired: true
       };
       break;
     }
+
     case http.STATUS_FORBIDDEN: {
-      blankState = {
-        ...blankState,
-        errors: [{ message: "You don't have the access to do that" }]
+      nextState = {
+        ...nextState,
+        toasts: [createToast(ERROR, "error.forbidden")]
       };
       break;
     }
+
     case http.STATUS_NOTFOUND: {
-      blankState = {
-        ...blankState,
-        errors: [{ message: "What you're looking for is missing" }]
+      nextState = {
+        ...nextState,
+        toasts: [createToast(ERROR, "error.not_found")]
       };
       break;
     }
+
     case http.STATUS_INTERNALSERVERERROR: {
-      blankState = {
-        ...blankState,
-        warnings: [{ message: "Oh, you've broken the server" }]
+      nextState = {
+        ...nextState,
+        toasts: [createToast(WARNING, "warning.internal_server_error")]
       };
       break;
     }
+
     case http.STATUS_BADGATEWAY: {
-      blankState = {
-        ...blankState,
-        warnings: [
-          { message: "The network is facing some problems. Try later?" }
-        ]
+      nextState = {
+        ...nextState,
+        toasts: [createToast(WARNING, "warning.bad_gateway")]
       };
       break;
     }
+
     case http.STATUS_SERVICEUNAVAILABLE: {
-      blankState = {
-        ...blankState,
-        warnings: [
-          { message: "The server seems to be momentarily down. Try later?" }
-        ]
+      nextState = {
+        ...nextState,
+        toasts: [createToast(WARNING, "warning.service_unavailable")]
       };
       break;
     }
+
     case http.STATUS_IHAVENOCLUE: {
-      blankState = {
-        ...blankState,
-        warnings: [{ message: "Something is acting weird. Try later?" }]
+      nextState = {
+        ...nextState,
+        toasts: [createToast(WARNING, "warning.unknown_problem")]
       };
       break;
     }
@@ -334,8 +327,5 @@ export default (state = initialState, action) => {
     }
   }
 
-  const { successes, warnings, errors, infos } = blankState;
-  utils.NotifyUser(errors, warnings, infos, successes);
-
-  return Object.assign({}, state, blankState);
+  return Object.assign({}, state, nextState);
 };
