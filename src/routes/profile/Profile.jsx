@@ -93,7 +93,9 @@ class Profile extends React.Component {
     const isEligible = this.isEligible(this.props.match.params.id);
     const isEditing = this.state.isEditing;
     const imgUrl = this.state.file ? this.state.file.preview : provider.image;
-
+    const dropzoneStyle = {
+      cursor: isEligible ? "pointer" : ""
+    };
     return (
       <div className="container container-profile">
         <div className="row">
@@ -114,6 +116,9 @@ class Profile extends React.Component {
                       className="btn btn-primary btn-margin"
                       type="button"
                       onClick={() => this.saveEdit()}
+                      disabled={
+                        !provider.first_name
+                      }
                     >
                       Save
                     </button>
@@ -143,7 +148,7 @@ class Profile extends React.Component {
               className="dropzone-style"
               onDrop={files => this.onDrop(files)}
               disableClick={!isEligible}
-              style={isEligible && { cursor: "pointer" }}
+              style={dropzoneStyle}
               multiple={false}
             >
               <div
@@ -202,7 +207,11 @@ const ProfileEditable = props => (
           defaultValue={props.provider.first_name}
           placeholder={props.t("profile.first_name_placeholder")}
           onChange={props.handleEdit}
-          hintless
+          demand={"Too short"}
+          hint={props.t("profile.first_name_hint_text")}
+          validate={c => {
+            return validateContentByLength(c, 4, 32);
+          }}
         />
       </div>
       <div className="col-xs-6">

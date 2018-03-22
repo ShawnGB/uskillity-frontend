@@ -611,6 +611,7 @@ class ShareSkill extends Component {
                         ))}
                         {images.map((img, index) => (
                           <img
+                            key={index}
                             alt={index}
                             src={img}
                             height={80}
