@@ -681,8 +681,8 @@ class ShareSkill extends Component {
                           onChange={this.handleChange}
                         />
                         <Trans i18nKey="share_skill.checkbox_agreement">
-                          I herby declare that I read the the terms and
-                          conditions as stated on this website and agrre with
+                          I herby declare that I am over 16 years old and I have read the the terms and
+                          conditions, privacy policy, and guidelines as stated on this website and agree with
                           them
                         </Trans>
                       </label>
