@@ -10,10 +10,12 @@ class WorkshopRating extends React.Component {
   render() {
     return (
       <Rating
+        className="glyphicon"
         emptySymbol="glyphicon glyphicon-star-empty"
         fullSymbol="glyphicon glyphicon-star"
         initialRating={this.props.workshop.rating}
-        onChange={this.onChange.bind(this)}
+        onChange={this.onChange.bind(this)
+        }
       />
     );
   }

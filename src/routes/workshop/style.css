@@ -102,3 +102,8 @@
   border-radius: 50%;
   min-height: 189px;
 }
+
+.glyphicon {
+    font-size: 25px;
+    color: #ff433a;
+}
