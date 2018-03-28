@@ -225,7 +225,7 @@ export const de = {
       placehodler_confirm_password: "Confirm Password",
       button_register: "Register",
       button_register_facebook: "Register with Facebook",
-      older_than_13: "I am older than 13 years of age",
+      older_than_16: "I am older than 16 years of age",
       button_login: "Do you already have an account? Login here."
     }
   },
