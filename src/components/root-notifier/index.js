@@ -7,12 +7,14 @@ import { toast } from "react-toastify";
 
 class RootNotifier extends React.Component {
   notifyUser(toasts) {
-    const { t } = this.props;
+    const { t, dispatch } = this.props;
     toasts &&
       toasts.forEach(({ type, stringKey, message, autoClose }) => {
         const msg = stringKey ? t(stringKey) : message;
         toast[type](msg, { autoClose });
       });
+
+    toasts && toasts.length && dispatch({type: "NO_SUCH_THING_EXCEPT_TO_CLEAR_UP_TOASTS"})
   }
 
   componentWillReceiveProps(nextProps) {
