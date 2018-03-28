@@ -15,7 +15,8 @@ class RegisterForm extends Component {
         first_name: "",
         password: "",
         password_confirmation: "",
-        is_above_16: false
+        is_above_16: false,
+        agrees_to_everything: false
       },
       error: {
         message: ""
@@ -116,6 +117,19 @@ class RegisterForm extends Component {
                 </p>
               </label>
             </div>
+            <div className="checkbox">
+              <label>
+                <input
+                  type="checkbox"
+                  value={this.state.user.agrees_to_everything}
+                  name="agrees_to_everything"
+                  onChange={this.onChange}
+                />
+                <p style={{ fontSize: "14px" }}>
+                    I accept the <Link to="/terms">terms & conditions,</Link> <Link to="/datenschutz">privacy policy</Link>, and the <Link to="/guidelines">guidelines</Link>
+                </p>
+              </label>
+            </div>
             <div className="form-group">
               <button
                 className="btn btn-lg btn-primary btn-block"
@@ -125,7 +139,8 @@ class RegisterForm extends Component {
                   !this.state.user.first_name ||
                   !this.state.user.password ||
                   !this.state.user.password_confirmation ||
-                  !this.state.user.is_above_16
+                  !this.state.user.is_above_16 ||
+                  !this.state.user.agrees_to_everything
                 }
               >
                 <Trans i18nKey="register.form.button_register">Register</Trans>
