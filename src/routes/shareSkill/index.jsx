@@ -355,13 +355,13 @@ class ShareSkill extends Component {
                       componentClass={"input"}
                       type={"number"}
                       name={"min_age"}
-                      placeholder={13}
+                      placeholder={16}
                       value={workshop.min_age}
                       onChange={this.handleChange}
                       demand={"☒"}
                       hint={""}
                       validate={c => {
-                        return validateContentByValue(c, 13, 119);
+                        return validateContentByValue(c, 16, 119);
                       }}
                       style={{ maxWidth: "70px", float: "left" }}
                     />
