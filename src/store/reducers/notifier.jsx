@@ -114,7 +114,7 @@ export default (state = initialState, action) => {
       nextState = {
         ...nextState,
         toasts: [
-          createToast(INFO, "success.workshop_created_msg"),
+          createToast(SUCCESS, "success.workshop_created"),
           createToast(INFO, "success.workshop_created_msg")
         ]
       };
