@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { translate, Trans } from "react-i18next";
 import { Link } from "react-router-dom";
 import CleverInputReader from "app:components/clever-input-reader";
-import { validateContentByLength } from "app:utils/utils";
 import "./style.css";
 
 class RegisterForm extends Component {
@@ -87,9 +86,6 @@ class RegisterForm extends Component {
                 onChange={this.onChange}
                 demand={"Too short"}
                 hint={""}
-                validate={c => {
-                  return validateContentByLength(c, 8, 999);
-                }}
               />
             </div>
             <div className="form-group">

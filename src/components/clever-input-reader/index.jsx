@@ -4,6 +4,7 @@ import { Row, Col, FormControl } from "react-bootstrap";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import "./style.css";
+var zxcvbn = require("zxcvbn");
 
 class CleverInputReader extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class CleverInputReader extends React.Component {
     };
     this.showHide = this.showHide.bind(this);
     this.onContentChange = this.onContentChange.bind(this);
-    //this.passwordStrength = this.passwordStrength.bind(this);
+    this.passwordStrength = this.passwordStrength.bind(this);
   }
 
   componentWillMount() {
@@ -32,30 +33,26 @@ class CleverInputReader extends React.Component {
     });
   }
 
-  //zxcvbn(dummy) {
-  //return { score: 100 };
-  //}
-
-  //passwordStrength(value) {
-  //if (value === "") {
-  //this.setState({
-  //score: "null"
-  //});
-  //} else {
-  //let pw = this.zxcvbn(value);
-  //this.setState({
-  //score: pw.score
-  //});
-  //}
-  //}
+  passwordStrength(value) {
+    if (!value) {
+      this.setState({
+        score: "null"
+      });
+    } else {
+      let pw = zxcvbn(value);
+      this.setState({
+        score: pw.score
+      });
+    }
+  }
 
   setDemandAndColor(value) {
     if (this.props.hintless) {
       return;
     }
-    //if (this.state.isPwd) {
-    //return this.passwordStrength(value);
-    //}
+    if (this.state.isPwd) {
+      return this.passwordStrength(value);
+    }
     let validations = this.props.validate(value);
     if (validations) {
       this.setState({
@@ -71,6 +68,24 @@ class CleverInputReader extends React.Component {
   }
 
   render() {
+    let inStyle = { borderRadius: "0px", borderColor: "#9b9b9b" };
+    let strStyle = { width: "1px", background: "red" };
+    if (this.state.isPwd) {
+      inStyle = {
+        borderRadius: "0px",
+        borderColor: "#9b9b9b",
+        display: "initial",
+        width: "90%"
+      };
+
+      if (this.state.score) {
+        const colors = ["red", "orange", "lightgreen", "green", "darkgreen"];
+        strStyle = {
+          width: `${this.state.score * 20}%`,
+          background: `${colors[this.state.score]}`
+        };
+      }
+    }
     return (
       <div style={{ ...this.props.style }}>
         <div>
@@ -83,7 +98,7 @@ class CleverInputReader extends React.Component {
             onChange={this.onContentChange}
             defaultValue={this.props.defaultValue}
             value={this.props.value}
-            style={{ borderRadius: "0px", borderColor: "#9b9b9b" }}
+            style={inStyle}
           />
           {this.state.isPwd ? (
             <span className="password__show" onClick={this.showHide}>
@@ -98,7 +113,11 @@ class CleverInputReader extends React.Component {
             </Col>
             <Col xs={6} style={{ color: `${this.state.demandColor}` }}>
               {this.state.isPwd ? (
-                <h5 className="validation">{this.state.demand}</h5>
+                <span
+                  className="password__strength"
+                  data-score={this.state.score}
+                  style={strStyle}
+                />
               ) : (
                 <h5 className="validation">{this.state.demand}</h5>
               )}

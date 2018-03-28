@@ -1,4 +1,30 @@
 .password__show {
-    font-size: 10px;
-    cursor: pointer;
+  cursor: pointer;
+  right: 0;
+  color: #0090d7;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.8em;
+  float: right;
+  width: 9%;
+  height: 34px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border: 1px solid #9b9b9b;
+  border-radius: 0px;
+}
+
+.password__strength {
+  position: absolute;
+  width: 0;
+  height: 4px;
+  margin: 6px auto;
+  right: 15px;
+  background: #0000;
+  transition: all .3s ease-in-out;
+  right: 0;
+  float: right;
+  padding: 1px;
+  margin-right: 15px;
 }
