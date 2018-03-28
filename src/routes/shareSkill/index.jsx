@@ -252,6 +252,14 @@ class ShareSkill extends Component {
     const isLoggedIn = session && session.isLoggedIn;
     const workshop = this.state.workshop;
 
+    let showWsDetails = { display: "none" };
+    //let showPhotos = {} // { display: "none" }; // not used yet. But can be used for showing the photo-section
+    if (editable) {
+      showWsDetails = {};
+      //if ((this.state.sessions && this.state.sessions.length && this.state.sessions[0].id) || (workshop.images && workshop.images.length && workshop.images[0].id)) {
+        //showPhotos = {};
+      //}
+    }
     const images = workshop.images || [];
 
     return (
@@ -547,7 +555,7 @@ class ShareSkill extends Component {
               </div>
             </div>
 
-            <div>
+            <div style={showWsDetails}>
               <div>
                 <div className="row share-skill-row">
                   <div className="col-xs-12 skills-form-label">
@@ -585,6 +593,10 @@ class ShareSkill extends Component {
                     />
                   ))}
                 </div>
+              </div>
+            </div>
+            <div style={showWsDetails}>
+              <div>
                 <div className="row share-skill-row">
                   <div className="col-xs-12 skills-form-label">
                     <span className="skills-form-title">Photo</span>
@@ -643,6 +655,10 @@ class ShareSkill extends Component {
                     )}
                   </div>
                 </div>
+              </div>
+            </div>
+            <div style={showWsDetails}>
+              <div>
                 {!this.state.isPublished && (
                   <div>
                     <div className="checkbox">
