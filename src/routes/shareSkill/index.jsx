@@ -4,6 +4,8 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import * as skillActions from "app:store/actions/skill";
+import { TimePicker } from "antd";
+import "antd/dist/antd.css";
 import {
   parseSessionDateTime,
   validateContentByLength,
@@ -131,7 +133,7 @@ class ShareSkill extends Component {
     return sessions;
   }
 
-  updateWorkshopSession(session, index) {
+  updateWorkshopSession = session => {
     // TODO: If nothing really changed why PUT??
     const { dispatch } = this.props;
     if (session.id && this.props.editable) {
@@ -139,7 +141,7 @@ class ShareSkill extends Component {
         skillActions.updateWorkshopSession(this.state.workshopId, session)
       );
     }
-  }
+  };
 
   isAddable(session) {
     let ret = true;
@@ -238,11 +240,18 @@ class ShareSkill extends Component {
     this.uploadWorkshopImg(acceptedFiles);
   }
 
-  onDateAndTimeChange(index, e) {
+  onDateAndTimeChange = (index, e, name) => {
+    console.log("index", index, "e", e, "name", name);
+    let timeStamp = parseSessionDateTime(e._d);
+    if (name === "dateAndTime") {
+      timeStamp = parseSessionDateTime(e._d, "DD-MM-YYYY");
+    }
     let sessions = this.state.sessions;
-    sessions[index]["dateAndTime"] = parseSessionDateTime(e._d, "DD-MM-YYYY");
+    console.log("timeStamp",timeStamp);
+    sessions[index][name] = timeStamp;
     this.setState({ sessions });
-  }
+    this.updateWorkshopSession(sessions[index]);
+  };
 
   render() {
     const { skills, session, t, editable } = this.props;
@@ -577,10 +586,6 @@ class ShareSkill extends Component {
                   </div>
                   {this.state.sessions.map((session, index) => (
                     <ScheduleWorkshop
-                      onDateAndTimeChange={this.onDateAndTimeChange.bind(
-                        this,
-                        index
-                      )}
                       onChange={this.onChangeWorkshopSession.bind(this, index)}
                       onBlur={this.updateWorkshopSession.bind(
                         this,
@@ -597,9 +602,12 @@ class ShareSkill extends Component {
                         session,
                         index
                       )}
+                      onDateAndTimeChange={this.onDateAndTimeChange}
                       key={index}
                       session={session}
                       disabled={!editable}
+                      fieldIndex={index}
+                      t={t}
                     />
                   ))}
                 </div>
@@ -681,8 +689,9 @@ class ShareSkill extends Component {
                           onChange={this.handleChange}
                         />
                         <Trans i18nKey="share_skill.checkbox_agreement">
-                          I herby declare that I am over 16 years old and I have read the the terms and
-                          conditions, privacy policy, and guidelines as stated on this website and agree with
+                          I herby declare that I am over 16 years old and I have
+                          read the the terms and conditions, privacy policy, and
+                          guidelines as stated on this website and agree with
                           them
                         </Trans>
                       </label>
@@ -723,6 +732,7 @@ const SkillInputSingle = props => (
 );
 
 const ScheduleWorkshop = props => {
+  console.log("props", props);
   return (
     <div className="col-xs-12">
       <div className="row share-skill-row">
@@ -740,14 +750,14 @@ const ScheduleWorkshop = props => {
           <span className="skills-form-title">From</span>
         </div>
         <div className="col-xs-3">
-          <SkillInputSingle
-            name={"starts_at"}
-            type="time"
-            onChange={props.onChange}
-            onBlur={props.onBlur}
+          <TimePicker
+            format={"HH:mm"}
+            onChange={e =>
+              props.onDateAndTimeChange(props.fieldIndex, e, "starts_at")
+            }
             disabled={props.disabled}
-            placeholder="Start Time"
-            value={props.session.starts_at}
+            placeholder={props.t("share_skill.starts_at_text_placeholder")}
+            defaultValue={moment()/*parse session start date to moment object*/}
           />
         </div>
         <div className="col-xs-1">
