@@ -749,6 +749,7 @@ const ScheduleWorkshop = props => {
           <span className="skills-form-title">From</span>
         </div>
         <div className="col-xs-3">
+          {/*//TODO:TimePicker is subtracting 2 hrs from date and 1 day from day.*/}
           <TimePicker
             format={"HH:mm"}
             onChange={e =>
