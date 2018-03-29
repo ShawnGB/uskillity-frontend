@@ -44,5 +44,5 @@ jobs:
       - run: aws configure set preview.cloudfront true
       - deploy:
           command: |
-            aws s3 sync ~/repo/build s3://uskillity-reactjs-staging/ --region eu-central-1 --acl public-read --delete;
-            aws cloudfront create-invalidation --distribution-id E1PP4JQQ9FXBKM --paths /index.html;
+            aws s3 sync ~/repo/build s3://uskillity-reactjs-production/ --region eu-central-1 --acl public-read --delete;
+            aws cloudfront create-invalidation --distribution-id E18XR0TWKTKYBZ --paths /index.html;
