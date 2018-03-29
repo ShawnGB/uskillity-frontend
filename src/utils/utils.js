@@ -13,7 +13,7 @@ export const parseSessionDateTime = (d, f) => {
   } else {
     return moment(d)
       .utc()
-      .format("hh:mm");
+      .format("HH:mm");
   }
 };
 

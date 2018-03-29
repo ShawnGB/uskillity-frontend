@@ -6,6 +6,7 @@ import { withRouter, Link } from "react-router-dom";
 import * as skillActions from "app:store/actions/skill";
 import { TimePicker } from "antd";
 import "antd/dist/antd.css";
+import { DatePicker } from 'antd';
 import {
   parseSessionDateTime,
   validateContentByLength,
@@ -16,7 +17,6 @@ import CleverInputReader from "app:components/clever-input-reader";
 import moment from "moment";
 import Dropzone from "react-dropzone";
 import LaddaButton, { S, ZOOM_OUT } from "react-ladda";
-import Datetime from "react-datetime";
 import "./style.css";
 import "./react-datetime.css";
 let dropzoneRef;
@@ -247,7 +247,7 @@ class ShareSkill extends Component {
       timeStamp = parseSessionDateTime(e._d, "DD-MM-YYYY");
     }
     let sessions = this.state.sessions;
-    console.log("timeStamp",timeStamp);
+    console.log("timeStamp", timeStamp);
     sessions[index][name] = timeStamp;
     this.setState({ sessions });
     this.updateWorkshopSession(sessions[index]);
@@ -737,14 +737,13 @@ const ScheduleWorkshop = props => {
     <div className="col-xs-12">
       <div className="row share-skill-row">
         <div className="col-xs-3">
-          <Datetime
-            timeFormat={false}
-            utc={true}
-            onChange={props.onDateAndTimeChange}
-            onBlur={props.onBlur}
+          <DatePicker
+            onChange={e =>
+              props.onDateAndTimeChange(props.fieldIndex, e, "dateAndTime")
+            }
             disabled={props.disabled}
-            value={props.session.dateAndTime}
-          />
+            defaultValue={moment(props.session.dateAndTime,"DD-MM-YYYY")}
+            />
         </div>
         <div className="col-xs-1">
           <span className="skills-form-title">From</span>
@@ -757,21 +756,21 @@ const ScheduleWorkshop = props => {
             }
             disabled={props.disabled}
             placeholder={props.t("share_skill.starts_at_text_placeholder")}
-            defaultValue={moment()/*parse session start date to moment object*/}
+            defaultValue={moment(props.session.starts_at, "HH:mm")}
           />
         </div>
         <div className="col-xs-1">
           <span className="skills-form-title">To</span>
         </div>
         <div className="col-xs-3">
-          <SkillInputSingle
-            name={"ends_at"}
-            type="time"
-            onChange={props.onChange}
-            onBlur={props.onBlur}
+          <TimePicker
+            format={"HH:mm"}
+            onChange={e =>
+              props.onDateAndTimeChange(props.fieldIndex, e, "ends_at")
+            }
             disabled={props.disabled}
-            placeholder="End Time"
-            value={props.session.ends_at}
+            placeholder={props.t("share_skill.ends_at_text_placeholder")}
+            defaultValue={moment(props.session.ends_at, "HH:mm")}
           />
         </div>
         <div className="col-xs-1">
