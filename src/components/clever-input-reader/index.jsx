@@ -99,6 +99,7 @@ class CleverInputReader extends React.Component {
             defaultValue={this.props.defaultValue}
             value={this.props.value}
             style={inStyle}
+            step={this.props.step || "any"}
           />
           {this.state.isPwd ? (
             <span className="password__show" onClick={this.showHide}>
