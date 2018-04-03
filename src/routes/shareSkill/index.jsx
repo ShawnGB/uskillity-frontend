@@ -257,7 +257,7 @@ class ShareSkill extends Component {
     if (editable) {
       showWsDetails = {};
       //if ((this.state.sessions && this.state.sessions.length && this.state.sessions[0].id) || (workshop.images && workshop.images.length && workshop.images[0].id)) {
-        //showPhotos = {};
+      //showPhotos = {};
       //}
     }
     const images = workshop.images || [];
@@ -516,6 +516,7 @@ class ShareSkill extends Component {
                     <CleverInputReader
                       componentClass={"input"}
                       type={"number"}
+                      step={"0.01"}
                       name={"fees"}
                       placeholder={0}
                       value={workshop.fees}
