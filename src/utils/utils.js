@@ -13,14 +13,14 @@ export const parseSessionDateTime = (d, f) => {
   } else {
     return moment(d)
       .utc()
-      .format("HH:mm");
+      .format("HH:mm Z");
   }
 };
 
 export const parseToLocalTime = (d, t, f) => {
   let timeStamp = d + "T" + t + "Z";
   if (f !== undefined) {
-    return moment(timeStamp).format(f);
+    return moment.utc(timeStamp).format(f);
   } else {
     return timeStamp;
   }
