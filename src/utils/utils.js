@@ -8,7 +8,6 @@ export const replacer = (key, value) => {
 export const parseSessionDateTime = (d, f) => {
   if (f !== undefined) {
     return moment(d)
-      .utc()
       .format(f);
   } else {
     return moment(d)

@@ -743,7 +743,7 @@ const ScheduleWorkshop = props => {
               props.onDateAndTimeChange(props.fieldIndex, e, "dateAndTime")
             }
             disabled={props.disabled}
-            defaultValue={moment(props.session.dateAndTime,"DD-MM-YYYY")}
+            defaultValue={moment.utc(props.session.dateAndTime,"DD-MM-YYYY")}
             />
         </div>
         <div className="col-xs-1">
