@@ -140,10 +140,10 @@ export const fetchWorkshop = id => {
   return dispatch => {
     dispatch({ type: WORKSHOP_FETCHED_PENDING });
     fetch(
-      service.getServerEndpoint(`/workshops/${id}`, {
+      service.getServerEndpoint(`/workshops/${id}`), {
         method: "GET",
-        headers: service.getRequestHeaders()
-      })
+        headers: service.getRequestHeaders(),
+      }
     )
       .then(resp => service.handleResponse(resp, dispatch))
       .then(
