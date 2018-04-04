@@ -67,6 +67,7 @@ export const fbLogin = data => {
       .then((resp) => service.handleAuthResponse(resp, dispatch))
       .then(
         response => {
+            console.log("response", response)
           dispatch({ type: LOGIN_FULFILLED, payload: response });
           dispatch(skillActions.fetchWorkshops());
           dispatch(skillActions.fetchCategories());
