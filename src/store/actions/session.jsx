@@ -54,7 +54,6 @@ export const login = (email, password) => {
 
 export const fbLogin = data => {
   return function(dispatch) {
-      console.log("dispatching fbLogin...")
     dispatch({ type: LOGIN_PENDING });
     fetch(service.getServerEndpoint("/authenticate_with_facebook"), {
       method: "POST",
@@ -68,7 +67,7 @@ export const fbLogin = data => {
       .then((resp) => service.handleAuthResponse(resp, dispatch))
       .then(
         response => {
-            console.log("response", response)
+          console.log("authenticate with facebook response", response)
           dispatch({ type: LOGIN_FULFILLED, payload: response });
           dispatch(skillActions.fetchWorkshops());
           dispatch(skillActions.fetchCategories());
