@@ -8,7 +8,9 @@ const FB_APP_ID = process.env.FB_APP_ID;
 
 class AuthModals extends React.Component {
   componentDidMount() {
+        console.log("AuthModals componentDidMount")
     window.fbAsyncInit = function() {
+        console.log("inside init stuff..")
       FB.init({
         appId: FB_APP_ID,
         cookie: true, // enable cookies to allow the server to access the session
@@ -61,13 +63,16 @@ class AuthModals extends React.Component {
     // Full docs on the response object can be found in the documentation
     // for FB.getLoginStatus().
     if (response.status === "connected") {
+        console.log("connected....")
       // Logged into your app and Facebook.
       this.testAPI();
       this.handleFacebookLogin(response);
     } else if (response.status === "not_authorized") {
+        console.log("not authorized....")
       // The person is logged into Facebook, but not your app.
       //document.getElementById('status').innerHTML = 'Please log into this app.';
     } else {
+        console.log("else....")
       // The person is not logged into Facebook, so we're not sure if
       // they are logged into this app or not.
       //document.getElementById('status').innerHTML = 'Please log into Facebook.';
