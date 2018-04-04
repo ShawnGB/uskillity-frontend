@@ -6,7 +6,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import rootReducer from "./reducers";
 
-const __DEV__ = process.env.NODE_ENV !== "production";
+//const __DEV__ = process.env.NODE_ENV !== "production";
 
 const persistConfig = {
   key: "root",
