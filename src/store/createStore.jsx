@@ -20,7 +20,7 @@ export const createReduxStore = (initialState = {}) => {
   // ***************** Middleware Configuration ***************** //
   const middleware = [
     thunk,
-    __DEV__ && createLogger(),
+    createLogger(),
     promiseMiddleware
   ].filter(Boolean);
 
