@@ -333,12 +333,12 @@ const ProfileEditable = props => {
         Course Provider - Connect your Stripe Account
       </Trans>
     </h3>
-    {props.provider.stripe_provider === "stripe" &&
+    {props.provider.stripe_provider &&
       <div>
         Stripe is connected
       </div>
     }
-    {(!props.provider.stripe_provider || props.provider.stripe_provider === "") &&
+    {(!props.provider.stripe_provider) &&
       <div>
         You won't be able to offer workshops until you connect your Stripe account.
         By clicking this button, you will be redirected to Stripe, to connect your stripe account.
