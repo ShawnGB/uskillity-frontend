@@ -53,6 +53,7 @@ class ParticipationForm extends React.Component {
   }
 
   render() {
+    const hasPaymentMethod = Object.keys(this.props.session.paymentMethod).length > 0
     const available =
     this.props.workshop.maximum_workshop_registration_count || 999;
     return(
@@ -87,7 +88,7 @@ class ParticipationForm extends React.Component {
                 </option>
               ))}
             </select>
-            {this.props.session.paymentMethod &&
+            {hasPaymentMethod &&
               <div>
                 <p>You will pay for the workshop using your {this.props.session.paymentMethod.brand} card, ending in {this.props.session.paymentMethod.last4} </p>
                 <p> To change your payment method, go to your profile page</p>
@@ -100,7 +101,7 @@ class ParticipationForm extends React.Component {
                   </button>
                 </div>
             }
-            {!this.props.session.paymentMethod &&
+            {!hasPaymentMethod &&
               <div>
                 <p>Please add a payment method in your profile first.</p>
               </div>
