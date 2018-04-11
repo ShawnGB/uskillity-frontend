@@ -199,10 +199,10 @@ class Profile extends React.Component {
               provider={provider}
               handleEdit={e => this.handleEdit(e)}
               t={t}
-              stripe_connect_url={this.props.profile.stripe_connect_url}
               deletePaymentMethod={this.deletePaymentMethod}
               paymentMethod={this.props.session.paymentMethod}
               connectStripe={() => this.connectStripe()}
+              hasStripe={this.props.session.user.stripe_provider}
             />
           ) : (
             <ProfileNormal provider={provider} />
@@ -353,12 +353,12 @@ const ProfileEditable = props => {
         Course Provider - Connect your Stripe Account
       </Trans>
     </h3>
-    {props.provider.stripe_provider &&
+    {props.hasStripe &&
       <div>
         Stripe is connected
       </div>
     }
-    {!props.provider.stripe_provider &&
+    {!props.hasStripe &&
       <div>
         You won't be able to offer workshops until you connect your Stripe account.
         By clicking this button, you will be redirected to Stripe, to connect your stripe account.

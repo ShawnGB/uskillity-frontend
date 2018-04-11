@@ -251,7 +251,7 @@ class ShareSkill extends Component {
     const loading = skills.loading;
     const isLoggedIn = session && session.isLoggedIn;
     const workshop = this.state.workshop;
-    const hasStripeConnected = session.user.stripe_provider && session.user.stripe_provider === "stripe";
+    const hasStripeConnected = session.user.stripe_provider;
 
     let showWsDetails = { display: "none" };
     //let showPhotos = {} // { display: "none" }; // not used yet. But can be used for showing the photo-section
