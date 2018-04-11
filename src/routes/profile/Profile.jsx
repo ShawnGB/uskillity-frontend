@@ -6,6 +6,7 @@ import ProfileCourses from "./ProfileCourses";
 import * as profileActions from "app:store/actions/profile";
 import * as skillActions from "app:store/actions/skill";
 import * as sessionActions from "app:store/actions/session";
+import * as service from "app:utils/service";
 import Dropzone from "react-dropzone";
 import { connect } from "react-redux";
 import CleverInputReader from "app:components/clever-input-reader";
@@ -73,9 +74,6 @@ class Profile extends React.Component {
     const { user } = session;
     this.props.dispatch(sessionActions.fetchUser(user.id));
     this.props.dispatch(sessionActions.fetchUserPaymentMethods(user.id));
-    if (!user.stripe_provider || user.stripe_provider != "stripe") {
-      this.props.dispatch(profileActions.connectStripe(user.id));
-    }
     this.setState({
       isEditing: !this.state.isEditing
     });
@@ -87,8 +85,24 @@ class Profile extends React.Component {
     this.setState({ profile });
   }
 
-  connectStripe(url) {
-    openInNewTab(url);
+  connectStripe() {
+    const { session } = this.props;
+    const { user } = session;
+    fetch(service.getServerEndpoint(`/users/${user.id}/stripe_account_connect`), {
+      method: "GET",
+      headers: service.getRequestHeaders()
+    })
+    .then((resp) => service.handleResponse(resp, this.props.dispatch))
+    .then(
+      response => {
+        openInNewTab(response.redirect_url);
+      },
+      error => {
+        error.json().then(e => {
+          console.error(e);
+        });
+      }
+    );
     this.toggleEdit();
   }
 
@@ -188,7 +202,7 @@ class Profile extends React.Component {
               stripe_connect_url={this.props.profile.stripe_connect_url}
               deletePaymentMethod={this.deletePaymentMethod}
               paymentMethod={this.props.session.paymentMethod}
-              connectStripe={(url) => this.connectStripe(url)}
+              connectStripe={() => this.connectStripe()}
             />
           ) : (
             <ProfileNormal provider={provider} />
@@ -339,12 +353,12 @@ const ProfileEditable = props => {
         Course Provider - Connect your Stripe Account
       </Trans>
     </h3>
-    {(props.provider.stripe_provider && props.provider.stripe_provider === "stripe") &&
+    {props.provider.stripe_provider &&
       <div>
         Stripe is connected
       </div>
     }
-    {(!props.provider.stripe_provider || props.provider.stripe_provider != "stripe") &&
+    {!props.provider.stripe_provider &&
       <div>
         You won't be able to offer workshops until you connect your Stripe account.
         By clicking this button, you will be redirected to Stripe, to connect your stripe account.
@@ -352,7 +366,7 @@ const ProfileEditable = props => {
         <button
           className="btn btn-default btn-margin"
           type="button"
-          onClick={() => props.connectStripe(props.stripe_connect_url)}
+          onClick={() => props.connectStripe()}
         >
           Connect Stripe
         </button>
