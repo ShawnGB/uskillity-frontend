@@ -73,7 +73,7 @@ class Profile extends React.Component {
     const { user } = session;
     this.props.dispatch(sessionActions.fetchUser(user.id));
     this.props.dispatch(sessionActions.fetchUserPaymentMethods(user.id));
-    if (!user.stripe_provider || user.stripe_provider === "") {
+    if (!user.stripe_provider || user.stripe_provider != "stripe") {
       this.props.dispatch(profileActions.connectStripe(user.id));
     }
     this.setState({
@@ -85,6 +85,11 @@ class Profile extends React.Component {
     let profile = this.state.profile;
     profile[e.target.name] = e.target.value;
     this.setState({ profile });
+  }
+
+  connectStripe(url) {
+    openInNewTab(url);
+    this.toggleEdit();
   }
 
   saveEdit() {
@@ -183,6 +188,7 @@ class Profile extends React.Component {
               stripe_connect_url={this.props.profile.stripe_connect_url}
               deletePaymentMethod={this.deletePaymentMethod}
               paymentMethod={this.props.session.paymentMethod}
+              connectStripe={(url) => this.connectStripe(url)}
             />
           ) : (
             <ProfileNormal provider={provider} />
@@ -333,12 +339,12 @@ const ProfileEditable = props => {
         Course Provider - Connect your Stripe Account
       </Trans>
     </h3>
-    {props.provider.stripe_provider &&
+    {(props.provider.stripe_provider && props.provider.stripe_provider === "stripe") &&
       <div>
         Stripe is connected
       </div>
     }
-    {(!props.provider.stripe_provider) &&
+    {(!props.provider.stripe_provider || props.provider.stripe_provider != "stripe") &&
       <div>
         You won't be able to offer workshops until you connect your Stripe account.
         By clicking this button, you will be redirected to Stripe, to connect your stripe account.
@@ -346,7 +352,7 @@ const ProfileEditable = props => {
         <button
           className="btn btn-default btn-margin"
           type="button"
-          onClick={() => openInNewTab(props.stripe_connect_url)}
+          onClick={() => props.connectStripe(props.stripe_connect_url)}
         >
           Connect Stripe
         </button>

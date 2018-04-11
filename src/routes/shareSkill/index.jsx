@@ -251,6 +251,7 @@ class ShareSkill extends Component {
     const loading = skills.loading;
     const isLoggedIn = session && session.isLoggedIn;
     const workshop = this.state.workshop;
+    const hasStripeConnected = session.user.stripe_provider && session.user.stripe_provider === "stripe";
 
     let showWsDetails = { display: "none" };
     //let showPhotos = {} // { display: "none" }; // not used yet. But can be used for showing the photo-section
@@ -284,6 +285,14 @@ class ShareSkill extends Component {
               can have more success conducting it.{" "}
             </Trans>
           </p>
+          {(!hasStripeConnected) &&
+            <div>
+              <p className="skills-text-content">
+                Please connect a stripe account in your profile first.
+              </p>
+            </div>
+          }
+          {hasStripeConnected &&
           <div className="form-group">
             <div className="row share-skill-row">
               <div className="col-xs-12 skills-form-label">
@@ -691,6 +700,7 @@ class ShareSkill extends Component {
               </div>
             </div>
           </div>
+        }
           <div>{this.state.error.message}</div>
         </div>
       </div>
