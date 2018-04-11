@@ -2,6 +2,7 @@ import React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { translate, Trans } from "react-i18next";
+import { Link } from "react-router-dom";
 import * as util from "app:utils/utils";
 import "./style.css";
 import { toast } from "react-toastify";
@@ -53,7 +54,7 @@ class ParticipationForm extends React.Component {
   }
 
   render() {
-    const hasPaymentMethod = Object.keys(this.props.session.paymentMethod).length > 0
+    const hasPaymentMethod = this.props.session.paymentMethod && Object.keys(this.props.session.paymentMethod).length > 0
     const available =
     this.props.workshop.maximum_workshop_registration_count || 999;
     return(
@@ -91,7 +92,7 @@ class ParticipationForm extends React.Component {
             {hasPaymentMethod &&
               <div>
                 <p>You will pay for the workshop using your {this.props.session.paymentMethod.brand} card, ending in {this.props.session.paymentMethod.last4} </p>
-                <p> To change your payment method, go to your profile page</p>
+                <p> To change your payment method, go to your <Link to={`/profile/${this.props.session.user.id}`}>profile</Link> page</p>
                 <button style={{margin: "8px auto", width: "100%"}}
                   className="btn btn-primary uski-button-style"
                   type="button"
@@ -103,7 +104,7 @@ class ParticipationForm extends React.Component {
             }
             {!hasPaymentMethod &&
               <div>
-                <p>Please add a payment method in your profile first.</p>
+                <p>Please add a payment method in your <Link to={`/profile/${this.props.session.user.id}`}>profile</Link> first.</p>
               </div>
             }
             </div>

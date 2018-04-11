@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import * as skillActions from "app:store/actions/skill";
 import {
   parseSessionDateTime,
@@ -288,7 +288,7 @@ class ShareSkill extends Component {
           {(!hasStripeConnected) &&
             <div>
               <p className="skills-text-content">
-                Please connect a stripe account in your profile first.
+                Please connect a stripe account in your <Link to={`/profile/${session.user.id}`}>profile</Link> first.
               </p>
             </div>
           }
