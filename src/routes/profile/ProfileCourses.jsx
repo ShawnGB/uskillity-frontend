@@ -14,18 +14,18 @@ class ProfileCourses extends React.Component {
     });
 
     return (
-      <div className="row">
+      <div className="row" style={{ marginTop: "12px" }}>
         <div className="col">
           {workshops.length > 0 ? (
             <h2 style={{ marginLeft: "15px" }}>
               <Trans i18nKey="profile.courses.header">My Shared Skills</Trans>
             </h2>
           ) : (
-            <p>
+            <h3>
               <Trans i18nKey="profile.courses.no_skill_found">
-                You don't share any of your skills yet.Why don't you?
+                You are not sharing any of your skills.
               </Trans>
-            </p>
+            </h3>
           )}
         </div>
         {workshops.map((workshop, i) => (
