@@ -14,6 +14,13 @@ export const REGISTER_REJECTED = "session/REGISTER_REJECTED";
 export const USER_FETCHED_PENDING = "session/USER_FETCHED_PENDING";
 export const USER_FETCHED = "session/USER_FETCHED";
 export const USER_FETCH_REJECTED = "session/USER_FETCH_REJECTED";
+export const USER_PAYMENT_METHOD_FETCHED_PENDING = "session/USER_PAYMENT_METHOD_FETCHED_PENDING";
+export const USER_PAYMENT_METHOD_FETCHED = "session/USER_PAYMENT_METHOD_FETCHED";
+export const USER_PAYMENT_METHOD_FETCH_REJECTED = "session/USER_PAYMENT_METHOD_FETCH_REJECTED";
+export const USER_PAYMENT_METHOD_DELETED_PENDING = "session/USER_PAYMENT_METHOD_DELETED_PENDING";
+export const USER_PAYMENT_METHOD_DELETED = "session/USER_PAYMENT_METHOD_DELETED";
+export const USER_PAYMENT_METHOD_DELETED_REJECTED = "session/USER_PAYMENT_METHOD_DELETED_REJECTED";
+
 
 export const login = (email, password) => {
   return function(dispatch) {
@@ -113,10 +120,54 @@ export const fetchUser = userId => {
       .then(
         response => {
           dispatch({ type: USER_FETCHED, payload: response });
+          dispatch(fetchUserPaymentMethods(userId));
         },
         error => {
           error.json().then(e => {
             dispatch({ type: USER_FETCH_REJECTED, payload: e });
+          });
+        }
+      );
+  };
+};
+
+export const fetchUserPaymentMethods = userId => {
+  return function(dispatch) {
+    dispatch({ type: USER_PAYMENT_METHOD_FETCHED_PENDING });
+    fetch(service.getServerEndpoint(`/users/${userId}/payment_methods`), {
+      method: "GET",
+      headers: service.getRequestHeaders()
+    })
+      .then((resp) => service.handleResponse(resp, dispatch))
+      .then(
+        response => {
+          dispatch({ type: USER_PAYMENT_METHOD_FETCHED, payload: response });
+        },
+        error => {
+          error.json().then(e => {
+            dispatch({ type: USER_PAYMENT_METHOD_FETCH_REJECTED, payload: e });
+          });
+        }
+      );
+  };
+};
+
+export const deletePaymentMethod = userId => {
+  return function(dispatch) {
+    dispatch({ type: USER_PAYMENT_METHOD_DELETED_PENDING });
+    fetch(service.getServerEndpoint(`/users/${userId}/payment_methods/1`), {
+      method: "DELETE",
+      headers: service.getRequestHeaders()
+    })
+      .then((resp) => service.handleResponse(resp, dispatch))
+      .then(
+        response => {
+          dispatch({ type: USER_PAYMENT_METHOD_DELETED, payload: response });
+          dispatch(fetchUser(userId));
+        },
+        error => {
+          error.json().then(e => {
+            dispatch({ type: USER_PAYMENT_METHOD_DELETED_REJECTED, payload: e });
           });
         }
       );

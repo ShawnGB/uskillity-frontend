@@ -14,6 +14,7 @@ jobs:
       - REACT_APP_SERVER: https://bluecarbuncle-staging.herokuapp.com
       - FB_APP_ID: "618914508265405"
       - GA_TRACKING_ID: GA_TRACKING_ID_PLACEHOLDER
+      - STRIPE_API_KEY: "pk_test_ODYN77TcYpawv8oWmxfMHk0r"
 
     steps:
       - checkout

@@ -15,4 +15,3 @@ class Version extends Component {
 }
 
 export default Version;
-

@@ -11,6 +11,10 @@ export const UPDATE_USER_REJECTED = "profile/UPDATE_USER_REJECTED";
 export const PROVIDER_FETCH_PENDING = "profile/PROVIDER_FETCH_PENDING";
 export const PROVIDER_FETCHED = "profile/PROVIDER_FETCHED";
 export const PROVIDER_FETCH_REJECTED = "profile/PROVIDER_FETCH_REJECTED";
+export const CONNECT_STRIPE = "profile/CONNECT_STRIPE";
+export const CONNECT_STRIPE_PENDING = "profile/CONNECT_STRIPE_PENDING";
+export const CONNECT_STRIPE_FETCHED= "profile/CONNECT_STRIPE_FETCHED";
+export const CONNECT_STRIPE_REJECTED= "profile/CONNECT_STRIPE_REJECTED";
 
 export const saveUserPic = (file, userId) => {
   return function(dispatch) {
@@ -78,3 +82,24 @@ export const fetchProvider = pId => {
       );
   };
 };
+
+export const connectStripe = userId => {
+  return function(dispatch) {
+    dispatch({ type: CONNECT_STRIPE_PENDING });
+    fetch(service.getServerEndpoint(`/users/${userId}/stripe_account_connect`), {
+      method: "GET",
+      headers: service.getRequestHeaders()
+    })
+      .then((resp) => service.handleResponse(resp, dispatch))
+      .then(
+        response => {
+          dispatch({ type: CONNECT_STRIPE_FETCHED, payload: response});
+        },
+        error => {
+          error.json().then(e => {
+            dispatch({ type: CONNECT_STRIPE_REJECTED, payload: e });
+          });
+        }
+      );
+  }
+}

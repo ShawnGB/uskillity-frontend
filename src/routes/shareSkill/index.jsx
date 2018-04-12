@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import * as skillActions from "app:store/actions/skill";
 import {
   parseSessionDateTime,
@@ -251,6 +251,7 @@ class ShareSkill extends Component {
     const loading = skills.loading;
     const isLoggedIn = session && session.isLoggedIn;
     const workshop = this.state.workshop;
+    const hasStripeConnected = session.user.stripe_provider;
 
     let showWsDetails = { display: "none" };
     //let showPhotos = {} // { display: "none" }; // not used yet. But can be used for showing the photo-section
@@ -284,6 +285,14 @@ class ShareSkill extends Component {
               can have more success conducting it.{" "}
             </Trans>
           </p>
+          {(!hasStripeConnected) &&
+            <div>
+              <p className="skills-text-content">
+                Please connect a stripe account in your <Link to={`/profile/${session.user.id}`}>profile</Link> first.
+              </p>
+            </div>
+          }
+          {hasStripeConnected &&
           <div className="form-group">
             <div className="row share-skill-row">
               <div className="col-xs-12 skills-form-label">
@@ -343,7 +352,7 @@ class ShareSkill extends Component {
                   demand={"Too short"}
                   hint={""}
                   validate={c => {
-                    return validateContentByLength(c, 20, 300);
+                    return validateContentByLength(c, 32, 300);
                   }}
                 />
               </div>
@@ -691,6 +700,7 @@ class ShareSkill extends Component {
               </div>
             </div>
           </div>
+        }
           <div>{this.state.error.message}</div>
         </div>
       </div>
