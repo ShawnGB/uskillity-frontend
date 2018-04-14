@@ -117,6 +117,7 @@ const CategoryRow = props => {
     slidesToScroll: 1,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
+    rtl: props.workshops.length < 3,
     responsive: [
       {
         breakpoint: 4000,
