@@ -73,7 +73,10 @@ export default (state = initialState, action) => {
     case skill.WORKSHOP_PUBLISHED: {
       nextState = {
         ...nextState,
-        toasts: [createToast(SUCCESS, "success.workshop_published")]
+        toasts: [
+          createToast(SUCCESS, "success.workshop_published"),
+          createToast(INFO, "success.workshop_created_msg")
+        ]
       };
       break;
     }
@@ -113,10 +116,7 @@ export default (state = initialState, action) => {
     case skill.WORKSHOP_SAVED: {
       nextState = {
         ...nextState,
-        toasts: [
-          createToast(SUCCESS, "success.workshop_created"),
-          createToast(INFO, "success.workshop_created_msg")
-        ]
+        toasts: [ createToast(SUCCESS, "success.workshop_created") ]
       };
       break;
     }
