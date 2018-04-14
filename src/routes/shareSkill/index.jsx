@@ -220,7 +220,7 @@ class ShareSkill extends Component {
     if (!this.state.workshop.terms_accepted) {
       return;
     }
-    this.props.dispatch(skillActions.publishWorkshop(this.state.workshopId));
+    this.props.dispatch(skillActions.publishWorkshop(this.state.workshopId, this.props.history));
   }
 
   uploadWorkshopImg(files) {
