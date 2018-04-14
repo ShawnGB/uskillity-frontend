@@ -69,38 +69,41 @@ class LearnSkill extends Component {
   }
 }
 
-const PrevArrow = props => {
-  const { style, onClick } = props;
-  return (
-    <div
-      className="slick-arrow"
-      style={{ ...style, display: "block", float: "right", marginTop: "130px", marginRight: "-30px" }}
-      onClick={onClick}
-    >
-      <img
-        src={rightArrow}
-        alt="<"
-        className="arrow-class"
-        onClick={onClick}
-      />
-    </div>
-  );
-};
-
 const NextArrow = props => {
   const { style, onClick } = props;
   return (
     <div
       className="slick-arrow"
-      style={{ ...style, display: "block", marginTop: "-230px", marginLeft: "-30px", height: "230px"}}
+      style={{
+        ...style,
+        display: "block",
+        float: "right",
+        marginTop: "-200px",
+        marginRight: "-30px"
+      }}
       onClick={onClick}
     >
-      <img
-        src={leftArrow}
-        alt=">"
-        className="arrow-class"
-        onClick={onClick}
-      />
+      <img src={rightArrow} alt="<" className="arrow-class" onClick={onClick} />
+    </div>
+  );
+};
+
+const PrevArrow = props => {
+  const { style, onClick } = props;
+  return (
+    <div
+      className="slick-arrow"
+      style={{
+        ...style,
+        display: "block",
+        marginTop: "0px",
+        marginLeft: "-30px",
+        float: "left",
+        paddingTop: "180px"
+      }}
+      onClick={onClick}
+    >
+      <img src={leftArrow} alt=">" className="arrow-class" onClick={onClick} />
     </div>
   );
 };
@@ -108,12 +111,12 @@ const NextArrow = props => {
 const CategoryRow = props => {
   var settings = {
     dots: false,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-    nextArrow: <NextArrow/>,
-    prevArrow: <PrevArrow/>,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     responsive: [
       {
         breakpoint: 4000,
@@ -143,16 +146,22 @@ const CategoryRow = props => {
   };
   return (
     <div id={props.categoryId} className="row row-margin">
-      <h2>{props.name}</h2>
-    <div style={{margin: "0px 40px 0 30px"}} >
-      <Slider {...settings}>
-        {props.workshops.map((workshop, i) => (
-          <div key={i}>
-            <WorkshopPreviewDiv i={i} workshop={workshop} />
+      <div className="col-xs-12">
+        <h2>{props.name}</h2>
+      </div>
+      <div className="row">
+        <div className="col-xs-12">
+          <div style={{ margin: "0px auto" }}>
+            <Slider {...settings}>
+              {props.workshops.map((workshop, i) => (
+                <div key={i}>
+                  <WorkshopPreviewDiv i={i} workshop={workshop} />
+                </div>
+              ))}
+            </Slider>
           </div>
-        ))}
-      </Slider>
-    </div>
+        </div>
+      </div>
     </div>
   );
 };
