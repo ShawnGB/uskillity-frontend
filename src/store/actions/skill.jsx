@@ -323,7 +323,7 @@ export const updateWorkshop = (workshop, id) => {
   };
 };
 
-export const publishWorkshop = id => {
+export const publishWorkshop = (id, router) => {
   return dispatch => {
     dispatch({ type: WORKSHOP_PUBLISH_PENDING });
     fetch(service.getServerEndpoint(`/workshops/${id}.json`), {
@@ -337,6 +337,7 @@ export const publishWorkshop = id => {
       .then(
         response => {
           dispatch({ type: WORKSHOP_PUBLISHED, id: id });
+          router.push(`/workshop/${id}`);
         },
         error => {
           error.json().then(e => {
