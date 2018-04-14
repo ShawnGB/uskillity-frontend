@@ -337,7 +337,7 @@ export const publishWorkshop = (id, router) => {
       .then(
         response => {
           dispatch({ type: WORKSHOP_PUBLISHED, id: id });
-          router.push(`/workshops/${id}`);
+          router.push(`/workshop/${id}`);
         },
         error => {
           error.json().then(e => {
