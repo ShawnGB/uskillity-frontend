@@ -1,7 +1,7 @@
 import React from "react";
 import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
-import {Elements} from 'react-stripe-elements';
+import { Elements } from "react-stripe-elements";
 import ProfileCourses from "./ProfileCourses";
 import * as profileActions from "app:store/actions/profile";
 import * as skillActions from "app:store/actions/skill";
@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import CleverInputReader from "app:components/clever-input-reader";
 import PaymentMethodForm from "app:components/payment-method-form";
 import { validateContentByLength } from "app:utils/utils";
+import { withRouter } from "react-router-dom";
 import "./style.css";
 
 class Profile extends React.Component {
@@ -29,10 +30,34 @@ class Profile extends React.Component {
   }
 
   componentWillMount() {
-    this.setProvider(this.props.match.params.id);
+    if (this.shouldShowLoginModal()) {
+      this.showLoginModal();
+    } else {
+      this.setProvider(this.props.match.params.id);
+    }
+  }
+
+  showLoginModal() {
+    const { dispatch, history } = this.props;
+    dispatch({
+      type: "LOGIN_REQUIRED",
+      onHide: () => {
+        history.goBack();
+      }
+    });
+  }
+
+  shouldShowLoginModal() {
+    const { match: { params: { id } }, session: { isLoggedIn } } = this.props;
+    return (!id || id === "undefined" || id === "null") && !isLoggedIn;
   }
 
   componentWillReceiveProps(nextProps) {
+    // if we were in the state where we should show the modal but
+    // we are now logged in go the user's profile page
+    if (this.shouldShowLoginModal() && nextProps.session.isLoggedIn) {
+      this.props.history.push(`${nextProps.session.user.id}`);
+    }
     if (this.props.match.params.id !== nextProps.match.params.id) {
       this.setProvider(nextProps.match.params.id);
     }
@@ -88,21 +113,24 @@ class Profile extends React.Component {
   connectStripe() {
     const { session } = this.props;
     const { user } = session;
-    fetch(service.getServerEndpoint(`/users/${user.id}/stripe_account_connect`), {
-      method: "GET",
-      headers: service.getRequestHeaders()
-    })
-    .then((resp) => service.handleResponse(resp, this.props.dispatch))
-    .then(
-      response => {
-        openInNewTab(response.redirect_url);
-      },
-      error => {
-        error.json().then(e => {
-          console.error(e);
-        });
+    fetch(
+      service.getServerEndpoint(`/users/${user.id}/stripe_account_connect`),
+      {
+        method: "GET",
+        headers: service.getRequestHeaders()
       }
-    );
+    )
+      .then(resp => service.handleResponse(resp, this.props.dispatch))
+      .then(
+        response => {
+          openInNewTab(response.redirect_url);
+        },
+        error => {
+          error.json().then(e => {
+            console.error(e);
+          });
+        }
+      );
     this.toggleEdit();
   }
 
@@ -153,9 +181,7 @@ class Profile extends React.Component {
                       className="btn btn-primary btn-margin"
                       type="button"
                       onClick={() => this.saveEdit()}
-                      disabled={
-                        !provider.first_name
-                      }
+                      disabled={!provider.first_name}
                     >
                       Save
                     </button>
@@ -239,152 +265,156 @@ const ProfileNormal = props => (
 
 const ProfileEditable = props => {
   return (
-  <div className="col-sm-8 col-md-9" style={{ marginTop: "16px" }}>
-    <div className="row">
-      <div className="col-xs-6">
-        <CleverInputReader
-          componentClass={"input"}
-          type={"input"}
-          name={"first_name"}
-          defaultValue={props.provider.first_name}
-          placeholder={props.t("profile.first_name_placeholder")}
-          onChange={props.handleEdit}
-          demand={"Too short"}
-          hint={props.t("profile.first_name_hint_text")}
-          validate={c => {
-            return validateContentByLength(c, 4, 32);
-          }}
-        />
+    <div className="col-sm-8 col-md-9" style={{ marginTop: "16px" }}>
+      <div className="row">
+        <div className="col-xs-6">
+          <CleverInputReader
+            componentClass={"input"}
+            type={"input"}
+            name={"first_name"}
+            defaultValue={props.provider.first_name}
+            placeholder={props.t("profile.first_name_placeholder")}
+            onChange={props.handleEdit}
+            demand={"Too short"}
+            hint={props.t("profile.first_name_hint_text")}
+            validate={c => {
+              return validateContentByLength(c, 4, 32);
+            }}
+          />
+        </div>
+        <div className="col-xs-6">
+          <CleverInputReader
+            componentClass={"input"}
+            type={"input"}
+            name={"name"}
+            defaultValue={props.provider.name}
+            onChange={props.handleEdit}
+            placeholder={props.t("profile.name_placeholder")}
+            hintless
+          />
+        </div>
       </div>
-      <div className="col-xs-6">
-        <CleverInputReader
-          componentClass={"input"}
-          type={"input"}
-          name={"name"}
-          defaultValue={props.provider.name}
-          onChange={props.handleEdit}
-          placeholder={props.t("profile.name_placeholder")}
-          hintless
-        />
+      <div className="row" style={{ marginTop: "10px" }}>
+        <div className="col-xs-4">
+          <CleverInputReader
+            componentClass={"input"}
+            type={"input"}
+            name={"profession"}
+            defaultValue={props.provider.profession}
+            onChange={props.handleEdit}
+            placeholder={props.t("profile.profession_placeholder")}
+            hintless
+          />
+        </div>
+        <div className="col-xs-4">
+          <CleverInputReader
+            componentClass={"input"}
+            type={"input"}
+            name={"location"}
+            placeholder={props.t("profile.location_placeholder")}
+            defaultValue={props.provider.location}
+            onChange={props.handleEdit}
+            hintless
+          />
+        </div>
       </div>
-    </div>
-    <div className="row" style={{ marginTop: "10px" }}>
-      <div className="col-xs-4">
-        <CleverInputReader
-          componentClass={"input"}
-          type={"input"}
-          name={"profession"}
-          defaultValue={props.provider.profession}
-          onChange={props.handleEdit}
-          placeholder={props.t("profile.profession_placeholder")}
-          hintless
-        />
-      </div>
-      <div className="col-xs-4">
-        <CleverInputReader
-          componentClass={"input"}
-          type={"input"}
-          name={"location"}
-          placeholder={props.t("profile.location_placeholder")}
-          defaultValue={props.provider.location}
-          onChange={props.handleEdit}
-          hintless
-        />
-      </div>
-    </div>
-    <h3>
-      <Trans i18nKey="profile.header_about_me">About Me</Trans>
-    </h3>
-    <CleverInputReader
-      componentClass={"textarea"}
-      type={"input"}
-      name={"about"}
-      placeholder={props.t("profile.about_placeholder")}
-      defaultValue={props.provider.about}
-      onChange={props.handleEdit}
-      demand={"Too short"}
-      hint={""}
-      validate={c => {
-        return validateContentByLength(c, 0, 1000);
-      }}
-    />
-    <h3>
-      <Trans i18nKey="profile.header_educational_background">
-        Educational Background
-      </Trans>
-    </h3>
-    <CleverInputReader
-      componentClass={"textarea"}
-      type={"input"}
-      name={"edu_bg"}
-      placeholder={props.t("profile.edu_bg_placeholder")}
-      defaultValue={props.provider.edu_bg}
-      onChange={props.handleEdit}
-      demand={"Too short"}
-      hint={""}
-      validate={c => {
-        return validateContentByLength(c, 0, 1000);
-      }}
-    />
-    <h3>
-      <Trans>
-        Payment Details
-      </Trans>
-    </h3>
-    {props.paymentMethod && props.paymentMethod.brand &&
-      <div>
-        <p>You have registered a {props.paymentMethod.brand} card, ending with {props.paymentMethod.last4}</p>
-        <button style={{margin: "8px auto"}}
-          className="btn btn-default uski-button-style"
-          type="button"
-          onClick={() => props.deletePaymentMethod()}
+      <h3>
+        <Trans i18nKey="profile.header_about_me">About Me</Trans>
+      </h3>
+      <CleverInputReader
+        componentClass={"textarea"}
+        type={"input"}
+        name={"about"}
+        placeholder={props.t("profile.about_placeholder")}
+        defaultValue={props.provider.about}
+        onChange={props.handleEdit}
+        demand={"Too short"}
+        hint={""}
+        validate={c => {
+          return validateContentByLength(c, 0, 1000);
+        }}
+      />
+      <h3>
+        <Trans i18nKey="profile.header_educational_background">
+          Educational Background
+        </Trans>
+      </h3>
+      <CleverInputReader
+        componentClass={"textarea"}
+        type={"input"}
+        name={"edu_bg"}
+        placeholder={props.t("profile.edu_bg_placeholder")}
+        defaultValue={props.provider.edu_bg}
+        onChange={props.handleEdit}
+        demand={"Too short"}
+        hint={""}
+        validate={c => {
+          return validateContentByLength(c, 0, 1000);
+        }}
+      />
+      <h3>
+        <Trans>Payment Details</Trans>
+      </h3>
+      {props.paymentMethod &&
+        props.paymentMethod.brand && (
+          <div>
+            <p>
+              You have registered a {props.paymentMethod.brand} card, ending
+              with {props.paymentMethod.last4}
+            </p>
+            <button
+              style={{ margin: "8px auto" }}
+              className="btn btn-default uski-button-style"
+              type="button"
+              onClick={() => props.deletePaymentMethod()}
+            >
+              <Trans>Delete Payment Method</Trans>
+            </button>
+          </div>
+        )}
+      {(!props.paymentMethod || !props.paymentMethod.brand) && (
+        <Elements>
+          <PaymentMethodForm
+            cardholder={props.provider.first_name + " " + props.provider.name}
+            dispatch={props.dispatch}
+          />
+        </Elements>
+      )}
+      <h3>
+        <Trans>Course Provider - Connect your Stripe Account</Trans>
+      </h3>
+      {props.hasStripe && <div>Stripe is connected</div>}
+      {!props.hasStripe && (
+        <div>
+          You won't be able to offer workshops until you connect your Stripe
+          account. By clicking this button, you will be redirected to Stripe, to
+          connect your stripe account. In case you do not have a stripe account
+          yet, please create a stripe account.
+          <button
+            className="btn btn-default btn-margin"
+            type="button"
+            onClick={() => props.connectStripe()}
           >
-            <Trans>Delete Payment Method</Trans>
+            Connect Stripe
           </button>
-      </div>
-    }
-    {(!props.paymentMethod || !props.paymentMethod.brand) &&
-      <Elements>
-        <PaymentMethodForm cardholder={props.provider.first_name + ' ' + props.provider.name} dispatch={props.dispatch}/>
-      </Elements>
-    }
-    <h3>
-      <Trans>
-        Course Provider - Connect your Stripe Account
-      </Trans>
-    </h3>
-    {props.hasStripe &&
-      <div>
-        Stripe is connected
-      </div>
-    }
-    {!props.hasStripe &&
-      <div>
-        You won't be able to offer workshops until you connect your Stripe account.
-        By clicking this button, you will be redirected to Stripe, to connect your stripe account.
-        In case you do not have a stripe account yet, please create a stripe account.
-        <button
-          className="btn btn-default btn-margin"
-          type="button"
-          onClick={() => props.connectStripe()}
-        >
-          Connect Stripe
-        </button>
-      </div>
-    }
-  </div>
-)};
+        </div>
+      )}
+    </div>
+  );
+};
 
-const openInNewTab = (url) => {
-  var win = window.open(url, '_blank');
+const openInNewTab = url => {
+  var win = window.open(url, "_blank");
   win.focus();
-}
+};
 
 const mapStateToProps = state => ({
   session: state.session,
   profile: state.profile
 });
 
-export default compose(translate("translations"), connect(mapStateToProps))(
-  Profile
-);
+export default compose(
+  withRouter,
+  translate("translations"),
+  connect(mapStateToProps)
+)(Profile);
