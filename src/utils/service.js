@@ -1,4 +1,5 @@
 import * as localStorageManager from "./localStorageManager";
+import * as sessionActions from "app:store/actions/session";
 
 const ACCESS_TOKEN_KEY = "Access-Token";
 const CLIENT = "Client";
@@ -32,6 +33,11 @@ export const getAuthHeaders = () => {
 export const handleResponse = (response, dispatch) => {
   if (response.status > 399) {
     dispatch({ type: "HTTP_" + response.status, payload: {} });
+  }
+
+  if (response.status === 401) {
+    dispatch({ type: sessionActions.LOGOUT_PENDING });
+    dispatch({ type: "LOGIN_REQUIRED" });
   }
 
   if (!response.ok) {
