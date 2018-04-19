@@ -162,7 +162,10 @@ export const fetchWorkshop = id => {
 export const fetchUserWorkshops = userId => {
   return dispatch => {
     dispatch({ type: USER_WORKSHOPS_FETCH_PENDING });
-    fetch(service.getServerEndpoint(`/users/${userId}/workshops`))
+    fetch(service.getServerEndpoint(`/users/${userId}/workshops`), {
+      method: "GET",
+      headers: service.getRequestHeaders()
+    })
       .then(resp => service.handleResponse(resp, dispatch))
       .then(
         data => {

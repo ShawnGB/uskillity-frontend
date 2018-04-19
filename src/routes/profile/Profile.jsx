@@ -153,8 +153,8 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { profile, t } = this.props;
-    const provider = this.state.profile || profile.provider;
+    const { profile, session, t } = this.props;
+    const provider = this.state.profile || session.user.id;
     const isEligible = this.isEligible(this.props.match.params.id);
     const isEditing = this.state.isEditing;
     const imgUrl = this.state.file ? this.state.file.preview : provider.image;
