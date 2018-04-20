@@ -52,6 +52,11 @@ export const CREATE_PARTICIPATION_SUCCESS =
   "skill/CREATE_PARTICIPATION_SUCCESS ";
 export const CREATE_PARTICIPATION_REJECTED =
   "skill/CREATE_PARTICIPATION_REJECTED ";
+export const WORKSHOP_RATING_SUBMIT_PENDING =
+  "skill/WORKSHOP_RATING_SUBMIT_PENDING ";
+export const WORKSHOP_RATING_SUBMITTED = "skill/WORKSHOP_RATING_SUBMITTED ";
+export const WORKSHOP_RATING_SUBMIT_REJECTED =
+  "skill/WORKSHOP_RATING_SUBMIT_REJECTED ";
 
 export const fetchLevels = () => {
   return function(dispatch) {
@@ -378,6 +383,28 @@ export const reserveTickets = (wid, sid, count) => {
           error.json().then(e => {
             dispatch({ type: CREATE_PARTICIPATION_REJECTED, payload: e });
           });
+        }
+      );
+  };
+};
+
+export const submitRating = (value, wid) => {
+  return dispatch => {
+    dispatch({ type: WORKSHOP_RATING_SUBMIT_PENDING });
+    fetch(service.getServerEndpoint(`/workshops/${wid}/ratings`), {
+      method: "POST",
+      headers: service.getRequestHeaders(),
+      body: JSON.stringify({ rating: value })
+    })
+      .then(resp => service.handleResponse(resp, dispatch))
+      .then(
+        response => {
+          dispatch({
+            type: WORKSHOP_RATING_SUBMITTED
+          });
+        },
+        error => {
+          dispatch({ type: WORKSHOP_RATING_SUBMIT_REJECTED, payload: error });
         }
       );
   };
