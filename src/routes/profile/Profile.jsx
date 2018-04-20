@@ -399,6 +399,9 @@ const ProfileEditable = props => {
           >
             Connect Stripe
           </button>
+          <div>
+            NOTE: please allow pop-ups in your browser. Stripe will open in a new tab/window.
+          </div>
         </div>
       )}
     </div>
