@@ -124,6 +124,8 @@ class Profile extends React.Component {
       .then(
         response => {
           openInNewTab(response.redirect_url);
+          this.toggleEdit();
+          return;
         },
         error => {
           error.json().then(e => {
@@ -404,8 +406,7 @@ const ProfileEditable = props => {
 };
 
 const openInNewTab = url => {
-  var win = window.open(url, "_blank");
-  win.focus();
+  window.open(url, "_blank");
 };
 
 const mapStateToProps = state => ({
