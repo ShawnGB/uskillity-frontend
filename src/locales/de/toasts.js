@@ -2,7 +2,7 @@ export const toastsDE = {
     info: {
       email_verification:
         "We have send you a verification email. Please verify your email before you proceed. If you don't see the email please check your spam folder.",
-      welcome_to_u/skillity: "Welcome to the u/skillity"
+      welcome_to_uskillity: "Welcome to the u/skillity"
     },
     success: {
       workshop_updated: "Workshop updated",
