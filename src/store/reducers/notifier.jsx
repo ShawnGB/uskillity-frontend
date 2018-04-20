@@ -55,7 +55,7 @@ export default (state = initialState, action) => {
       nextState = {
         ...nextState,
         toasts: [
-          createToast(INFO, "info.welcome_to_portal"),
+          createToast(INFO, "info.welcome_to_u/skillity"),
           createToast(INFO, "info.email_verification")
         ]
       };
