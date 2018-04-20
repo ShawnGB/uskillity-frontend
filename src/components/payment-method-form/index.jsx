@@ -31,6 +31,8 @@ class PaymentMethodForm extends React.Component {
     //   return;
     // }
     this.props.stripe.createToken({name: this.state.cardholder}).then(({token}) => {
+        if(token === undefined)
+            return
       console.log('Received Stripe token:', token);
       const { dispatch, session } = this.props;
       dispatch(profileActions.updateUser(
