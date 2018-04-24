@@ -9,6 +9,7 @@ import * as sessionActions from "app:store/actions/session";
 import * as service from "app:utils/service";
 import Dropzone from "react-dropzone";
 import { connect } from "react-redux";
+import { detect } from "detect-browser";
 import CleverInputReader from "app:components/clever-input-reader";
 import PaymentMethodForm from "app:components/payment-method-form";
 import { validateContentByLength } from "app:utils/utils";
@@ -111,6 +112,12 @@ class Profile extends React.Component {
   }
 
   connectStripe() {
+    const browser = detect();
+    console.log("Browser", browser);
+    let windowReference;
+    if (browser && browser.name === "safari"){
+      windowReference = window.open();
+    }
     const { session } = this.props;
     const { user } = session;
     fetch(
@@ -123,7 +130,13 @@ class Profile extends React.Component {
       .then(resp => service.handleResponse(resp, this.props.dispatch))
       .then(
         response => {
-          openInNewTab(response.redirect_url);
+          console.log("redirecting to stripe: ", response.redirect_url)
+          if (browser && browser.name === "safari"){
+            windowReference.location = response.redirect_url;
+          }
+          else {
+            openInNewTab(response.redirect_url);
+          }
           this.toggleEdit();
           return;
         },
