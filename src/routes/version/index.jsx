@@ -5,9 +5,9 @@ class Version extends Component {
   render() {
     return (
       <div>
-        <h4>Revision: e7a8bcd2c54408524e8c6718c4662f9001669e3c</h4>
-        <h4>Version count: 610</h4>
-        <h4>Built on: 2018-04-25 (13:45:50), @ birdOfPrey.local</h4>
+        <h4>Revision: ccfdc6e2848c09a1aa272fb75dcdc19f41c788ca</h4>
+        <h4>Version count: 602</h4>
+        <h4>Built on: 2018-04-24 (14:29:30), @ birdOfPrey.local</h4>
         <h4>Running against: </h4>
       </div>
     );
@@ -15,4 +15,3 @@ class Version extends Component {
 }
 
 export default Version;
-
