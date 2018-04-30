@@ -325,7 +325,7 @@ class ShareSkill extends Component {
                     demand={'Too short'}
                     hint={''}
                     validate={c => {
-                      return validateContentByLength(c, 4, 32);
+                      return validateContentByLength(c, 4, 64);
                     }}
                   />
                 </div>
@@ -363,7 +363,7 @@ class ShareSkill extends Component {
                     demand={'Too short'}
                     hint={''}
                     validate={c => {
-                      return validateContentByLength(c, 32, 300);
+                      return validateContentByLength(c, 32, 1200);
                     }}
                   />
                 </div>
