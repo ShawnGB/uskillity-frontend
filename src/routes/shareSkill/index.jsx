@@ -244,7 +244,7 @@ class ShareSkill extends Component {
 
   onDateAndTimeChange = (index, e, name) => {
     if (e) {
-      let timeStamp = parseSessionDateTime(e._d);
+      let timeStamp = e._d
       if (name === 'dateAndTime') {
         timeStamp = parseSessionDateTime(e._d, 'DD-MM-YYYY');
       }
@@ -757,7 +757,7 @@ const ScheduleWorkshop = props => {
             }
             disabled={props.disabled}
             placeholder={props.t('share_skill.starts_at_text_placeholder')}
-            defaultValue={moment(props.session.starts_at, 'HH:mm Z')}
+            defaultValue={moment(props.session.starts_at, 'HH:mm')}
           />
         </div>
         <div className="col-xs-1">
@@ -771,7 +771,7 @@ const ScheduleWorkshop = props => {
             }
             disabled={props.disabled}
             placeholder={props.t('share_skill.ends_at_text_placeholder')}
-            defaultValue={moment(props.session.ends_at, 'HH:mm Z')}
+            defaultValue={moment(props.session.ends_at, 'HH:mm')}
           />
         </div>
         <div className="col-xs-1">

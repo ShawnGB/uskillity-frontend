@@ -6,14 +6,11 @@ export const replacer = (key, value) => {
 };
 
 export const parseSessionDateTime = (d, f) => {
-  if (f !== undefined) {
-    return moment(d)
-      .format(f);
-  } else {
-    return moment(d)
-      .utc()
-      .format("HH:mm Z");
+  if (!f) {
+    f = "HH:mm"
   }
+  return moment(d)
+    .format(f);
 };
 
 export const parseToLocalTime = (d, t, f) => {
