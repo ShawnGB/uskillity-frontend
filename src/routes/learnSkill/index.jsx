@@ -124,7 +124,6 @@ const CategoryRow = props => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          infinite: false,
           dots: true
         }
       },
@@ -133,7 +132,7 @@ const CategoryRow = props => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          initialSlide: 2
+          dots: true
         }
       },
       {
