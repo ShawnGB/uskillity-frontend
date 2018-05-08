@@ -22,7 +22,6 @@ class Home extends React.Component {
     fetch(service.getServerEndpoint("/workshops/random.json"))
       .then(resp => resp.json())
       .then(data => {
-        console.log("workshops", data);
         let workshops = [];
         data.map(ws => {
           return workshops.push(
@@ -52,7 +51,6 @@ class Home extends React.Component {
     fetch(service.getServerEndpoint("/categories.json"))
       .then(resp => resp.json())
       .then(data => {
-        console.log("categories", data);
         let categories = [];
         data.map((category, i) => {
           return categories.push(

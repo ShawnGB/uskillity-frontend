@@ -6,7 +6,6 @@ import "./style.css";
 class Instructor extends React.Component {
   render() {
     const provider = this.props.workshop.provider || {};
-    console.log("provider", provider);
     return (
       <div className="Instructior-Box">
         <h4>
