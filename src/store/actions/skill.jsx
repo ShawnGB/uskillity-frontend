@@ -1,5 +1,4 @@
 import * as service from "app:utils/service";
-import * as util from "app:utils/utils";
 
 export const LEVELS_PENDING = "skill/LEVELS_PENDING";
 export const LEVELS_FETCHED = "skill/LEVELS_FETCHED";
@@ -144,12 +143,10 @@ export const fetchWorkshops = () => {
 export const fetchWorkshop = id => {
   return dispatch => {
     dispatch({ type: WORKSHOP_FETCHED_PENDING });
-    fetch(
-      service.getServerEndpoint(`/workshops/${id}`), {
-        method: "GET",
-        headers: service.getRequestHeaders(),
-      }
-    )
+    fetch(service.getServerEndpoint(`/workshops/${id}`), {
+      method: "GET",
+      headers: service.getRequestHeaders()
+    })
       .then(resp => service.handleResponse(resp, dispatch))
       .then(
         data => {
@@ -218,11 +215,8 @@ export const saveWorkshopSession = (workshopId, session) => {
         method: "POST",
         headers: service.getRequestHeaders(),
         body: JSON.stringify({
-          starts_at: util.parseToLocalTime(
-            session.dateAndTime,
-            session.starts_at
-          ),
-          ends_at: util.parseToLocalTime(session.dateAndTime, session.ends_at)
+          starts_at: session.starts_at,
+          ends_at: session.ends_at
         })
       }
     )
@@ -285,11 +279,8 @@ export const updateWorkshopSession = (workshopId, session) => {
         method: "PUT",
         headers: service.getRequestHeaders(),
         body: JSON.stringify({
-          starts_at: util.parseToLocalTime(
-            session.dateAndTime,
-            session.starts_at
-          ),
-          ends_at: util.parseToLocalTime(session.dateAndTime, session.ends_at)
+          starts_at: session.starts_at,
+          ends_at: session.ends_at
         })
       }
     )

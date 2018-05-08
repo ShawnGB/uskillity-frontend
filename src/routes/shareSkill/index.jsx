@@ -1,24 +1,24 @@
-import React, {Component} from 'react';
-import {translate, Trans} from 'react-i18next';
-import {compose} from 'redux';
-import {connect} from 'react-redux';
-import {withRouter, Link} from 'react-router-dom';
-import * as skillActions from 'app:store/actions/skill';
-import {TimePicker} from 'antd';
-import 'antd/dist/antd.css';
-import {DatePicker} from 'antd';
+import React, { Component } from "react";
+import { translate, Trans } from "react-i18next";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { withRouter, Link } from "react-router-dom";
+import * as skillActions from "app:store/actions/skill";
+import { TimePicker } from "antd";
+import "antd/dist/antd.css";
+import { DatePicker } from "antd";
 import {
   parseSessionDateTime,
   validateContentByLength,
   validateContentByValue,
-  validateFeesLimit,
-} from 'app:utils/utils';
-import CleverInputReader from 'app:components/clever-input-reader';
-import moment from 'moment';
-import Dropzone from 'react-dropzone';
-import LaddaButton, {S, ZOOM_OUT} from 'react-ladda';
-import './style.css';
-import './react-datetime.css';
+  validateFeesLimit
+} from "app:utils/utils";
+import CleverInputReader from "app:components/clever-input-reader";
+import moment from "moment";
+import Dropzone from "react-dropzone";
+import LaddaButton, { S, ZOOM_OUT } from "react-ladda";
+import "./style.css";
+import "./react-datetime.css";
 let dropzoneRef;
 
 class ShareSkill extends Component {
@@ -30,31 +30,32 @@ class ShareSkill extends Component {
       isPublished: false,
       sessions: [],
       error: {
-        message: '',
+        message: ""
       },
-      level_id: '',
+      level_id: "",
       file: {},
-      imagePreviewUrl: '',
+      imagePreviewUrl: "",
       loading: false,
-      files: [],
+      files: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePublish = this.handlePublish.bind(this);
     this.addEmptySession = this.addEmptySession.bind(this);
+    this.onDateAndTimeChange = this.onDateAndTimeChange.bind(this);
   }
 
   componentWillMount() {
-    const {dispatch, session, history} = this.props;
+    const { dispatch, session, history } = this.props;
     if (!session.isLoggedIn) {
       setTimeout(() => {
         dispatch({
-          type: 'LOGIN_REQUIRED',
+          type: "LOGIN_REQUIRED",
           onHide: () => {
             setTimeout(() => {
               history.goBack();
             }, 1000);
-          },
+          }
         });
       }, 2000);
     }
@@ -72,7 +73,7 @@ class ShareSkill extends Component {
     }
 
     const workshop = nextProps.skills.workshops.find(
-      w => w.id === this.state.workshopId,
+      w => w.id === this.state.workshopId
     );
 
     if (workshop && workshop !== this.state.workshop) {
@@ -88,43 +89,39 @@ class ShareSkill extends Component {
     if (fetchedWorkshop) {
       wrkShop = fetchedWorkshop;
     } else {
-      const {workshops} = this.props.skills;
+      const { workshops } = this.props.skills;
       wrkShop = workshops.find(w => w.id === +this.state.workshopId) || {};
     }
     let sessions = [];
     wrkShop.sessions.forEach(session =>
       sessions.push({
-        dateAndTime: parseSessionDateTime(session.starts_at, 'DD-MM-YYYY'),
+        dateAndTime: parseSessionDateTime(session.starts_at, "DD-MM-YYYY"),
         starts_at: parseSessionDateTime(session.starts_at),
         ends_at: parseSessionDateTime(session.ends_at),
-        id: session.id,
-      }),
+        id: session.id
+      })
     );
 
     sessions = this.addEmptySession(sessions);
 
-    let workshop = {...wrkShop};
+    let workshop = { ...wrkShop };
     this.setState({
       sessions,
       workshop,
-      isPublished: wrkShop.terms_accepted || false,
+      isPublished: wrkShop.terms_accepted || false
     });
   }
 
   dummySession() {
     return {
-      dateAndTime: parseSessionDateTime(moment(), 'DD-MM-YYYY'),
-      starts_at: parseSessionDateTime(
-        moment()
-          .startOf('day')
-          .add(10, 'hours'),
-      ),
-      ends_at: parseSessionDateTime(
-        moment()
-          .startOf('day')
-          .add(12, 'hours'),
-      ),
-      id: null,
+      dateAndTime: parseSessionDateTime(moment(), "DD-MM-YYYY"),
+      starts_at: moment()
+        .startOf("day")
+        .add(10, "hours"),
+      ends_at: moment()
+        .startOf("day")
+        .add(12, "hours"),
+      id: null
     };
   }
 
@@ -135,42 +132,35 @@ class ShareSkill extends Component {
 
   updateWorkshopSession = session => {
     // TODO: If nothing really changed why PUT??
-    const {dispatch} = this.props;
+    const { dispatch } = this.props;
     if (session.id && this.props.editable) {
       dispatch(
-        skillActions.updateWorkshopSession(this.state.workshopId, session),
+        skillActions.updateWorkshopSession(this.state.workshopId, session)
       );
     }
   };
 
   isAddable(session) {
     let ret = true;
-    ret &= session['starts_at'] !== null;
-    ret &= session['ends_at'] !== null;
-    ret &= session['dateAndTime'] !== null;
-    ret &= session['id'] === null;
+    ret &= session["starts_at"] !== null;
+    ret &= session["ends_at"] !== null;
+    ret &= session["dateAndTime"] !== null;
+    ret &= session["id"] === null;
     return ret === 1;
   }
 
-  onChangeWorkshopSession(index, e) {
-    let sessions = this.state.sessions;
-    const input = e.target.name;
-    sessions[index][input] = e.target.value;
-    this.setState({sessions});
-  }
-
   onReallySaveSession(session, index) {
-    const {dispatch} = this.props;
+    const { dispatch } = this.props;
     if (this.isAddable(session)) {
       dispatch(
-        skillActions.saveWorkshopSession(this.state.workshopId, session),
+        skillActions.saveWorkshopSession(this.state.workshopId, session)
       );
     }
   }
 
   onDeleteWorkshopSession(session, index) {
     this.props.dispatch(
-      skillActions.deleteWorkshopSession(this.state.workshopId, session.id),
+      skillActions.deleteWorkshopSession(this.state.workshopId, session.id)
     );
   }
 
@@ -178,12 +168,12 @@ class ShareSkill extends Component {
     const input = e.target.name;
     const workshop = this.state.workshop;
     let value = e.target.value;
-    if (input === 'terms_accepted') {
+    if (input === "terms_accepted") {
       value = e.target.checked;
     }
     workshop[input] = value;
-    this.setState({workshop});
-    this.setState({level_id: input === 'level_id' ? e.target.value : ''}); // TODO: why is it ouside workshop object
+    this.setState({ workshop });
+    this.setState({ level_id: input === "level_id" ? e.target.value : "" }); // TODO: why is it ouside workshop object
   }
 
   handleImageChange(e) {
@@ -199,20 +189,20 @@ class ShareSkill extends Component {
     reader.onloadend = () => {
       this.setState({
         file: file,
-        imagePreviewUrl: reader.result,
+        imagePreviewUrl: reader.result
       });
     };
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const {dispatch} = this.props;
+    const { dispatch } = this.props;
     if (this.props.editable) {
-      const workshop = {...this.state.workshop, terms_accepted: null};
+      const workshop = { ...this.state.workshop, terms_accepted: null };
       dispatch(skillActions.updateWorkshop(workshop, this.state.workshopId));
     } else {
       dispatch(
-        skillActions.saveWorkshop(this.state.workshop, this.props.history),
+        skillActions.saveWorkshop(this.state.workshop, this.props.history)
       );
     }
   }
@@ -223,40 +213,54 @@ class ShareSkill extends Component {
       return;
     }
     this.props.dispatch(
-      skillActions.publishWorkshop(this.state.workshopId, this.props.history),
+      skillActions.publishWorkshop(this.state.workshopId, this.props.history)
     );
   }
 
   uploadWorkshopImg(files) {
     files.forEach(file => {
       this.props.dispatch(
-        skillActions.uploadWorkshopImg(file, this.state.workshopId),
+        skillActions.uploadWorkshopImg(file, this.state.workshopId)
       );
     });
   }
 
   onDrop(acceptedFiles, rejectedFiles) {
     this.setState({
-      files: acceptedFiles,
+      files: acceptedFiles
     });
     this.uploadWorkshopImg(acceptedFiles);
   }
 
-  onDateAndTimeChange = (index, e, name) => {
+  onDateAndTimeChange(index, e, name) {
     if (e) {
-      let timeStamp = e._d
-      if (name === 'dateAndTime') {
-        timeStamp = parseSessionDateTime(e._d, 'DD-MM-YYYY');
-      }
       let sessions = this.state.sessions;
+      let timeStamp = e._d;
+      if (name === "dateAndTime") {
+        const date = timeStamp.getDate();
+        const month = timeStamp.getMonth();
+        const year = timeStamp.getFullYear();
+        let startsAt =
+          sessions[index].starts_at._d || sessions[index].starts_at;
+        startsAt.setDate(date);
+        startsAt.setMonth(month);
+        startsAt.setFullYear(year);
+
+        let endAt = sessions[index].ends_at._d || sessions[index].ends_at;
+        endAt.setDate(date);
+        endAt.setMonth(month);
+        endAt.setFullYear(year);
+
+        timeStamp = parseSessionDateTime(e._d, "DD-MM-YYYY");
+      }
       sessions[index][name] = timeStamp;
-      this.setState({sessions});
+      this.setState({ sessions });
       this.updateWorkshopSession(sessions[index]);
     }
-  };
+  }
 
   render() {
-    const {skills, session, t, editable} = this.props;
+    const { skills, session, t, editable } = this.props;
     const levels = skills.levels;
     const categories = skills.categories;
     const loading = skills.loading;
@@ -264,7 +268,7 @@ class ShareSkill extends Component {
     const workshop = this.state.workshop;
     const hasStripeConnected = session.user.stripe_provider;
 
-    let showWsDetails = {display: 'none'};
+    let showWsDetails = { display: "none" };
     //let showPhotos = {} // { display: "none" }; // not used yet. But can be used for showing the photo-section
     if (editable) {
       showWsDetails = {};
@@ -293,13 +297,13 @@ class ShareSkill extends Component {
               It might take up to two days for us to process your application.
               We do this only to escape vulgarities and inappropriate posts. We
               also give feedback towards the presentation of your skill, so you
-              can have more success conducting it.{' '}
+              can have more success conducting it.{" "}
             </Trans>
           </p>
           {!hasStripeConnected && (
             <div>
               <p className="skills-text-content">
-                Please connect a stripe account in your{' '}
+                Please connect a stripe account in your{" "}
                 <Link to={`/profile/${session.user.id}`}>profile</Link> first.
               </p>
             </div>
@@ -316,14 +320,14 @@ class ShareSkill extends Component {
                 </div>
                 <div className="col-xs-12 col-sm-8">
                   <CleverInputReader
-                    componentClass={'input'}
-                    type={'input'}
-                    name={'title'}
-                    placeholder={t('share_skill.title_placeholder')}
-                    value={workshop.title || ''}
+                    componentClass={"input"}
+                    type={"input"}
+                    name={"title"}
+                    placeholder={t("share_skill.title_placeholder")}
+                    value={workshop.title || ""}
                     onChange={this.handleChange}
-                    demand={'Too short'}
-                    hint={''}
+                    demand={"Too short"}
+                    hint={""}
                     validate={c => {
                       return validateContentByLength(c, 4, 64);
                     }}
@@ -334,7 +338,8 @@ class ShareSkill extends Component {
                     name="category_id"
                     onChange={this.handleChange}
                     className="skills-select-box"
-                    value={workshop.category_id}>
+                    value={workshop.category_id}
+                  >
                     <option>Choose a category</option>
                     {categories.map(c => (
                       <option key={c.id} value={c.id}>
@@ -354,14 +359,14 @@ class ShareSkill extends Component {
                 </div>
                 <div className="col-xs-12">
                   <CleverInputReader
-                    componentClass={'textarea'}
-                    type={'input'}
-                    name={'description'}
-                    placeholder={t('share_skill.description_placeholder')}
-                    value={workshop.description || ''}
+                    componentClass={"textarea"}
+                    type={"input"}
+                    name={"description"}
+                    placeholder={t("share_skill.description_placeholder")}
+                    value={workshop.description || ""}
                     onChange={this.handleChange}
-                    demand={'Too short'}
-                    hint={''}
+                    demand={"Too short"}
+                    hint={""}
                     validate={c => {
                       return validateContentByLength(c, 32, 1200);
                     }}
@@ -380,18 +385,18 @@ class ShareSkill extends Component {
                     </div>
                     <div className="col-xs-3">
                       <CleverInputReader
-                        componentClass={'input'}
-                        type={'number'}
-                        name={'min_age'}
+                        componentClass={"input"}
+                        type={"number"}
+                        name={"min_age"}
                         placeholder={16}
                         value={workshop.min_age}
                         onChange={this.handleChange}
-                        demand={'☒'}
-                        hint={''}
+                        demand={"☒"}
+                        hint={""}
                         validate={c => {
                           return validateContentByValue(c, 16, 119);
                         }}
-                        style={{maxWidth: '70px', float: 'left'}}
+                        style={{ maxWidth: "70px", float: "left" }}
                       />
                     </div>
                     <div className="col-xs-3 skills-form-label">
@@ -401,18 +406,18 @@ class ShareSkill extends Component {
                     </div>
                     <div className="col-xs-3">
                       <CleverInputReader
-                        componentClass={'input'}
-                        type={'number'}
-                        name={'max_age'}
+                        componentClass={"input"}
+                        type={"number"}
+                        name={"max_age"}
                         placeholder={120}
                         value={workshop.max_age}
                         onChange={this.handleChange}
-                        demand={'☒'}
-                        hint={''}
+                        demand={"☒"}
+                        hint={""}
                         validate={c => {
                           return validateContentByValue(c, 14, 120);
                         }}
-                        style={{maxWidth: '70px', float: 'left'}}
+                        style={{ maxWidth: "70px", float: "left" }}
                       />
                     </div>
                   </div>
@@ -432,13 +437,15 @@ class ShareSkill extends Component {
                         name="level_id"
                         value={this.state.level}
                         onChange={this.handleChange}
-                        className="skills-select-box">
+                        className="skills-select-box"
+                      >
                         <option>Choose Level</option>
                         {levels.map(i => (
                           <option
                             selected={i.id === workshop.level_id ? true : null}
                             key={i.id}
-                            value={i.id}>
+                            value={i.id}
+                          >
                             {i.name}
                           </option>
                         ))};
@@ -452,21 +459,21 @@ class ShareSkill extends Component {
                   <span className="skills-form-title">
                     <Trans i18nKey="share_skill.additional_requirements_label">
                       Additional Requirements
-                    </Trans>{' '}
+                    </Trans>{" "}
                   </span>
                 </div>
                 <div className="col-xs-12">
                   <CleverInputReader
-                    componentClass={'textarea'}
-                    type={'input'}
-                    name={'additional_requirements'}
+                    componentClass={"textarea"}
+                    type={"input"}
+                    name={"additional_requirements"}
                     placeholder={t(
-                      'share_skill.additional_requirements_placeholder',
+                      "share_skill.additional_requirements_placeholder"
                     )}
-                    value={workshop.additional_requirements || ''}
+                    value={workshop.additional_requirements || ""}
                     onChange={this.handleChange}
-                    demand={'Too short'}
-                    hint={''}
+                    demand={"Too short"}
+                    hint={""}
                     validate={c => {
                       return validateContentByLength(c, 20, 300);
                     }}
@@ -481,9 +488,9 @@ class ShareSkill extends Component {
                 </div>
                 <div className="col-xs-12">
                   <SkillInputSingle
-                    name={'full_address'}
+                    name={"full_address"}
                     onChange={this.handleChange}
-                    placeholder={t('share_skill.location_placeholder')}
+                    placeholder={t("share_skill.location_placeholder")}
                     value={workshop.full_address}
                   />
                 </div>
@@ -500,18 +507,18 @@ class ShareSkill extends Component {
                     </div>
                     <div className="col-xs-3">
                       <CleverInputReader
-                        componentClass={'input'}
-                        type={'number'}
-                        name={'maximum_workshop_registration_count'}
+                        componentClass={"input"}
+                        type={"number"}
+                        name={"maximum_workshop_registration_count"}
                         placeholder={0}
                         value={workshop.maximum_workshop_registration_count}
                         onChange={this.handleChange}
-                        demand={'☒'}
-                        hint={''}
+                        demand={"☒"}
+                        hint={""}
                         validate={c => {
                           return validateContentByValue(c, 1, 100);
                         }}
-                        style={{maxWidth: '100px', float: 'right'}}
+                        style={{ maxWidth: "100px", float: "right" }}
                       />
                     </div>
                   </div>
@@ -522,34 +529,36 @@ class ShareSkill extends Component {
                       <span
                         className="skills-form-title"
                         style={{
-                          float: 'right',
-                          width: '100%',
-                          textAlign: 'right',
-                        }}>
+                          float: "right",
+                          width: "100%",
+                          textAlign: "right"
+                        }}
+                      >
                         <Trans i18nKey="share_skill.price_title">Price</Trans>
                       </span>
                     </div>
                     <div className="col-xs-4">
                       <CleverInputReader
-                        componentClass={'input'}
-                        type={'number'}
-                        step={'0.01'}
-                        name={'fees'}
+                        componentClass={"input"}
+                        type={"number"}
+                        step={"0.01"}
+                        name={"fees"}
                         placeholder={0}
                         value={workshop.fees}
                         onChange={this.handleChange}
-                        demand={'Low'}
-                        hint={''}
+                        demand={"Low"}
+                        hint={""}
                         validate={c => {
                           return validateFeesLimit(c, 1, 250);
                         }}
-                        style={{maxWidth: '100px', float: 'right'}}
+                        style={{ maxWidth: "100px", float: "right" }}
                       />
                     </div>
                     <div className="col-xs-4 skills-form-label">
                       <span
                         className="skills-form-title"
-                        style={{float: 'left'}}>
+                        style={{ float: "left" }}
+                      >
                         Per person
                       </span>
                     </div>
@@ -563,7 +572,8 @@ class ShareSkill extends Component {
                     type="button"
                     onClick={this.handleSubmit}
                     disabled={!isLoggedIn}
-                    style={{float: 'right'}}>
+                    style={{ float: "right" }}
+                  >
                     <Trans i18nKey="share_skill.button_save_workshop">
                       Save Workshop
                     </Trans>
@@ -583,24 +593,20 @@ class ShareSkill extends Component {
                     </div>
                     {this.state.sessions.map((session, index) => (
                       <ScheduleWorkshop
-                        onChange={this.onChangeWorkshopSession.bind(
-                          this,
-                          index,
-                        )}
                         onBlur={this.updateWorkshopSession.bind(
                           this,
                           session,
-                          index,
+                          index
                         )}
                         onDeleteWorkshopSession={this.onDeleteWorkshopSession.bind(
                           this,
                           session,
-                          index,
+                          index
                         )}
                         onReallySaveSession={this.onReallySaveSession.bind(
                           this,
                           session,
-                          index,
+                          index
                         )}
                         onDateAndTimeChange={this.onDateAndTimeChange}
                         key={index}
@@ -636,7 +642,7 @@ class ShareSkill extends Component {
                               key={f.name}
                               src={f.preview}
                               height={80}
-                              style={{paddingRight: '10px'}}
+                              style={{ paddingRight: "10px" }}
                             />
                           ))}
                           {images.map((img, index) => (
@@ -645,7 +651,7 @@ class ShareSkill extends Component {
                               alt={index}
                               src={img}
                               height={80}
-                              style={{paddingRight: '10px'}}
+                              style={{ paddingRight: "10px" }}
                             />
                           ))}
                         </aside>
@@ -662,10 +668,11 @@ class ShareSkill extends Component {
                             data-style={ZOOM_OUT}
                             data-spinner-size={20}
                             data-spinner-color="#ddd"
-                            data-spinner-lines={12}>
+                            data-spinner-lines={12}
+                          >
                             <span
                               className="my-glyphicon glyphicon-plus"
-                              style={{color: '#9b9b9b'}}
+                              style={{ color: "#9b9b9b" }}
                             />
                           </LaddaButton>
                         </div>
@@ -699,7 +706,8 @@ class ShareSkill extends Component {
                         disabled={!editable}
                         className="btn btn-primary"
                         type="button"
-                        onClick={this.handlePublish}>
+                        onClick={this.handlePublish}
+                      >
                         <Trans i18nKey="share_skill.button_sumbit">
                           Submit
                         </Trans>
@@ -720,29 +728,27 @@ class ShareSkill extends Component {
 const SkillInputSingle = props => (
   <input
     className="form-control"
-    type={props.type || 'text'}
+    type={props.type || "text"}
     name={props.name}
     placeholder={props.placeholder}
     onBlur={props.onBlur}
     onChange={props.onChange}
-    value={props.value || ''}
-    style={{borderRadius: '0px', borderColor: '#9b9b9b'}}
+    value={props.value || ""}
+    style={{ borderRadius: "0px", borderColor: "#9b9b9b" }}
     disabled={props.disabled}
   />
 );
 
 const ScheduleWorkshop = props => {
-  console.log('props', props);
   return (
     <div className="col-xs-12">
       <div className="row share-skill-row">
         <div className="col-xs-3">
           <DatePicker
             onChange={e =>
-              props.onDateAndTimeChange(props.fieldIndex, e, 'dateAndTime')
-            }
+              props.onDateAndTimeChange(props.fieldIndex, e, "dateAndTime")}
             disabled={props.disabled}
-            defaultValue={moment.utc(props.session.dateAndTime, 'DD-MM-YYYY')}
+            defaultValue={moment.utc(props.session.dateAndTime, "DD-MM-YYYY")}
           />
         </div>
         <div className="col-xs-1">
@@ -751,13 +757,12 @@ const ScheduleWorkshop = props => {
         <div className="col-xs-3">
           {/*//TODO:TimePicker is subtracting 2 hrs from date and 1 day from day.*/}
           <TimePicker
-            format={'HH:mm'}
+            format={"HH:mm"}
             onChange={e =>
-              props.onDateAndTimeChange(props.fieldIndex, e, 'starts_at')
-            }
+              props.onDateAndTimeChange(props.fieldIndex, e, "starts_at")}
             disabled={props.disabled}
-            placeholder={props.t('share_skill.starts_at_text_placeholder')}
-            defaultValue={moment(props.session.starts_at, 'HH:mm')}
+            placeholder={props.t("share_skill.starts_at_text_placeholder")}
+            defaultValue={moment(props.session.starts_at, "HH:mm")}
           />
         </div>
         <div className="col-xs-1">
@@ -765,13 +770,12 @@ const ScheduleWorkshop = props => {
         </div>
         <div className="col-xs-3">
           <TimePicker
-            format={'HH:mm'}
+            format={"HH:mm"}
             onChange={e =>
-              props.onDateAndTimeChange(props.fieldIndex, e, 'ends_at')
-            }
+              props.onDateAndTimeChange(props.fieldIndex, e, "ends_at")}
             disabled={props.disabled}
-            placeholder={props.t('share_skill.ends_at_text_placeholder')}
-            defaultValue={moment(props.session.ends_at, 'HH:mm')}
+            placeholder={props.t("share_skill.ends_at_text_placeholder")}
+            defaultValue={moment(props.session.ends_at, "HH:mm")}
           />
         </div>
         <div className="col-xs-1">
@@ -781,7 +785,8 @@ const ScheduleWorkshop = props => {
               className="btn btn-default btn-sm add-session-button"
               onClick={props.onDeleteWorkshopSession}
               disabled={props.disabled}
-              style={{borderRadius: '17px'}}>
+              style={{ borderRadius: "17px" }}
+            >
               <span className="my-glyphicon glyphicon-minus" />
             </button>
           ) : (
@@ -789,10 +794,11 @@ const ScheduleWorkshop = props => {
               type="button"
               className="btn btn-default btn-sm skills-select-box add-session-button"
               onClick={props.onReallySaveSession}
-              style={{borderRadius: '17px'}}>
+              style={{ borderRadius: "17px" }}
+            >
               <span
                 className="my-glyphicon glyphicon-plus"
-                style={{color: 'green'}}
+                style={{ color: "green" }}
               />
             </button>
           )}
@@ -804,11 +810,11 @@ const ScheduleWorkshop = props => {
 
 const mapStateToProps = state => ({
   skills: state.skills,
-  session: state.session,
+  session: state.session
 });
 
 export default compose(
   withRouter,
-  translate('translations'),
-  connect(mapStateToProps),
+  translate("translations"),
+  connect(mapStateToProps)
 )(ShareSkill);

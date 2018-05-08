@@ -13,15 +13,6 @@ export const parseSessionDateTime = (d, f) => {
     .format(f);
 };
 
-export const parseToLocalTime = (d, t, f) => {
-  let timeStamp = d + "T" + t + "Z";
-  if (f !== undefined) {
-    return moment.utc(timeStamp).format(f);
-  } else {
-    return timeStamp;
-  }
-};
-
 // Let's only go with German for now
 export const isGermanNavigator = () => {
   return navigator.language.includes("de");
