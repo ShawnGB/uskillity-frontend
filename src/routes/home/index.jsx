@@ -61,7 +61,11 @@ class Home extends React.Component {
                 key={category.id}
                 style={{ backgroundImage: `url(${category.image})` }}
               >
-                <h2>{category.name.toUpperCase()}</h2>
+              <div className="overlay">
+                  <div id="up">Your new</div>
+                  <div id="down">Skills</div>
+                </div>
+                <h3 className="catDesc">{category.name}</h3>
               </div>
             </div>
           );
