@@ -114,6 +114,12 @@ class ParticipationForm extends React.Component {
               <p> To pay via Creditcard, go to your <Link to={`/profile/${this.props.session.user.id}`}>profile</Link> page and add the card details.</p>
             </div>
           }
+          {this.state.payment_method == "giropay" &&
+            <div>
+              <p> If you pay via giropay, you will receive an email, to confirm the payment.</p>
+              <p> You will only receive your tickets after confirming the payment, so please check your email inbox.</p>
+            </div>
+        }
 
           <button style={{margin: "8px auto", width: "100%"}}
             className="btn btn-primary uski-button-style"
