@@ -38,7 +38,8 @@ class ParticipationForm extends React.Component {
       skillActions.reserveTickets(
         this.props.workshop.id,
         this.state.session_id,
-        this.state.ticket_count
+        this.state.ticket_count,
+        this.state.payment_method
       )
     )
   }
@@ -88,25 +89,39 @@ class ParticipationForm extends React.Component {
                   {i + 1}
                 </option>
               ))}
-            </select>
-            {hasPaymentMethod &&
-              <div>
-                <p>You will pay for the workshop using your {this.props.session.paymentMethod.brand} card, ending in {this.props.session.paymentMethod.last4} </p>
-                <p> To change your payment method, go to your <Link to={`/profile/${this.props.session.user.id}`}>profile</Link> page</p>
-                <button style={{margin: "8px auto", width: "100%"}}
-                  className="btn btn-primary uski-button-style"
-                  type="button"
-                  onClick={this.handleSubmit}
-                  >
-                    <Trans>Reserve</Trans>
-                  </button>
-                </div>
-            }
-            {!hasPaymentMethod &&
-              <div>
-                <p>Please add a payment method in your <Link to={`/profile/${this.props.session.user.id}`}>profile</Link> first.</p>
-              </div>
-            }
+          </select>
+          <select style={{margin: "8px auto"}}
+            name="payment_method"
+            onChange={this.handleChange}
+            className="skills-select-box"
+            value={this.state.payment_method}
+            >
+              <option>Payment Method</option>
+              {hasPaymentMethod &&
+                <option key="creditcard" value="creditcard">
+                  Creditcard
+                </option>
+              }
+
+              <option key="giropay" value="giropay">
+                GiroPay
+              </option>
+
+          </select>
+
+          {!hasPaymentMethod &&
+            <div>
+              <p> To pay via Creditcard, go to your <Link to={`/profile/${this.props.session.user.id}`}>profile</Link> page and add the card details.</p>
+            </div>
+          }
+
+          <button style={{margin: "8px auto", width: "100%"}}
+            className="btn btn-primary uski-button-style"
+            type="button"
+            onClick={this.handleSubmit}
+            >
+              <Trans>Reserve</Trans>
+          </button>
             </div>
           );
   }

@@ -347,7 +347,7 @@ export const publishWorkshop = (id, router) => {
   };
 };
 
-export const reserveTickets = (wid, sid, count) => {
+export const reserveTickets = (wid, sid, count, paymentMethod) => {
   return dispatch => {
     dispatch({ type: CREATE_PARTICIPATION_PENDING });
     fetch(
@@ -357,7 +357,10 @@ export const reserveTickets = (wid, sid, count) => {
       {
         method: "POST",
         headers: service.getRequestHeaders(),
-        body: JSON.stringify({ requested_participation_count: count })
+        body: JSON.stringify({
+          requested_participation_count: count,
+          payment_method: paymentMethod
+         })
       }
     )
       .then(resp => service.handleResponse(resp, dispatch))
