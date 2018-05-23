@@ -2,7 +2,7 @@ import React from "react";
 import { CustomCarousel } from "app:components/carousel";
 import { withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
-import { translate } from "react-i18next";
+import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
 import * as service from "app:utils/service";
@@ -94,7 +94,9 @@ class Home extends React.Component {
         <CustomCarousel items={this.state.workshops}/>
 
         <div className="row">
-          <p id="banner">Love what you learn, share what you love</p>
+            <p id="banner">
+                <Trans i18nKey="home.slogan">Love what you learn, share what you love</Trans>
+            </p>
         </div>
 
         <div className="row row-home category-collection">
