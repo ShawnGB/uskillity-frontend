@@ -32,6 +32,8 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: sh -x ./scripts/version.sh
+      - run: ./scripts/locales.sh en
+      - run: ./scripts/locales.sh de
       - run: yarn test
       - run: yarn build
       - run:
