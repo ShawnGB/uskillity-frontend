@@ -71,7 +71,7 @@ class PaymentMethodForm extends React.Component {
           type="button"
           onClick={this.handleSubmit}
           >
-            <Trans>Add Payment Method</Trans>
+            <Trans i18nKey="payment_method_form.add_method">Add Payment Method</Trans>
           </button>
         </div>
           );

@@ -134,7 +134,8 @@
     "guidelines": "Guidelines",
     "help": "Help",
     "impressum": "Impressum",
-    "termsandconditions": "Terms and Conditions"
+    "termsandconditions": "Terms and Conditions",
+    "datenschutz": "Datenschutz"
   },
   "login": {
     "modal": {
@@ -183,7 +184,8 @@
     "header_about_me": "About Me",
     "header_educational_background": "Background",
     "courses": {
-      "header": "My Shared Skills"
+      "header": "My Shared Skills",
+      "no_skill_found": "You are not sharing any of your skills."
     },
     "edit": {
       "first_name_placeholder": "First name",
@@ -200,7 +202,13 @@
       },
       "name": "Name",
       "button_save": "Save"
-    }
+    },
+    "payment_details": "Payment Details",
+    "delete_payment_method": "Delete Payment Method",
+    "connect_your_stripe_account": "Course Provider - Connect your Stripe Account",
+    "payment_method_limitations": "You won't be able to offer workshops until you connect your Stripe account. By clicking this button, you will be redirected to Stripe, to connect your stripe account. In case you do not have a stripe account yet, please create a stripe account.",
+    "connect_stripe_btn": "Connect Stripe",
+    "please_allow_popups": "NOTE: please allow pop-ups in your browser. Stripe will open in a new tab/window."
   },
   "share_skill": {
     "title_placeholder": "Be creative, but precise...",
@@ -228,7 +236,9 @@
     "button_add_another_date": "Add another day to the same course",
     "button_upload_picture": "Upload a cover photo",
     "checkbox_agreement": "I herby declare that I read the terms and conditions as stated on this website and agree with them",
-    "button_sumbit": "Submit"
+    "button_sumbit": "Submit",
+    "starts_at_text_placeholder": "__STRING_NOT_TRANSLATED__",
+    "ends_at_text_placeholder": "__STRING_NOT_TRANSLATED__"
   },
   "workshop": {
     "description_label": "Description",
@@ -237,7 +247,15 @@
     "about_the_instructor_label": "About the instructor",
     "instructor": {
       "header": "Instructor",
-      "button_see_profile": "See Profile"
-    }
+      "button_see_profile": "See Profile",
+      "button_edit_workshop": "Edit"
+    },
+    "recommended_label": "Recommended"
+  },
+  "participation": {
+    "reserve": "Buy Ticket"
+  },
+  "payment_method_form": {
+    "add_method": "Add Payment Method"
   }
 }

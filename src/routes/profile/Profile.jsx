@@ -367,7 +367,7 @@ const ProfileEditable = props => {
         }}
       />
       <h3>
-        <Trans>Payment Details</Trans>
+        <Trans i18nKey="profile.payment_details">Payment Details</Trans>
       </h3>
       {props.paymentMethod &&
         props.paymentMethod.brand && (
@@ -382,7 +382,9 @@ const ProfileEditable = props => {
               type="button"
               onClick={() => props.deletePaymentMethod()}
             >
-              <Trans>Delete Payment Method</Trans>
+              <Trans i18nKey="profile.delete_payment_method">
+                Delete Payment Method
+              </Trans>
             </button>
           </div>
         )}
@@ -395,24 +397,31 @@ const ProfileEditable = props => {
         </Elements>
       )}
       <h3>
-        <Trans>Course Provider - Connect your Stripe Account</Trans>
+        <Trans i18nKey="profile.connect_your_stripe_account">
+          Course Provider - Connect your Stripe Account
+        </Trans>
       </h3>
       {props.hasStripe && <div>Stripe is connected</div>}
       {!props.hasStripe && (
         <div>
-          You won't be able to offer workshops until you connect your Stripe
-          account. By clicking this button, you will be redirected to Stripe, to
-          connect your stripe account. In case you do not have a stripe account
-          yet, please create a stripe account.
+          <Trans i18nKey="profile.payment_method_limitations">
+            You won't be able to offer workshops until you connect your Stripe
+            account. By clicking this button, you will be redirected to Stripe,
+            to connect your stripe account. In case you do not have a stripe
+            account yet, please create a stripe account.
+          </Trans>
           <button
             className="btn btn-default btn-margin"
             type="button"
             onClick={() => props.connectStripe()}
           >
-            Connect Stripe
+            <Trans i18nKey="profile.connect_stripe_btn">Connect Stripe</Trans>
           </button>
           <div>
-            NOTE: please allow pop-ups in your browser. Stripe will open in a new tab/window.
+            <Trans i18nKey="profile.please_allow_popups">
+              NOTE: please allow pop-ups in your browser. Stripe will open in a
+              new tab/window.
+            </Trans>
           </div>
         </div>
       )}
