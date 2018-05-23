@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "acorn": "^5.5.3",
     "antd": "^3.3.3",
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",
@@ -72,7 +73,7 @@
     "zxcvbn": "^4.4.2"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "scripts/locales.sh en && scripts/locales.sh de && node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "extractLocales": "node_modules/.bin/i18next-scanner  --config scripts/i18next-scanner.config.js 'src/**/*.{js,jsx}'"
