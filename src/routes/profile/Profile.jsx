@@ -115,7 +115,7 @@ class Profile extends React.Component {
     const browser = detect();
     console.log("Browser", browser);
     let windowReference;
-    if (browser && browser.name === "safari"){
+    if (browser && browser.name === "safari") {
       windowReference = window.open();
     }
     const { session } = this.props;
@@ -130,11 +130,10 @@ class Profile extends React.Component {
       .then(resp => service.handleResponse(resp, this.props.dispatch))
       .then(
         response => {
-          console.log("redirecting to stripe: ", response.redirect_url)
-          if (browser && browser.name === "safari"){
+          console.log("redirecting to stripe: ", response.redirect_url);
+          if (browser && browser.name === "safari") {
             windowReference.location = response.redirect_url;
-          }
-          else {
+          } else {
             openInNewTab(response.redirect_url);
           }
           this.toggleEdit();
@@ -288,10 +287,10 @@ const ProfileEditable = props => {
             type={"input"}
             name={"first_name"}
             defaultValue={props.provider.first_name}
-            placeholder={props.t("profile.first_name_placeholder")}
+            placeholder={props.t("profile.edit.first_name_placeholder")}
             onChange={props.handleEdit}
             demand={"Too short"}
-            hint={props.t("profile.first_name_hint_text")}
+            hint={props.t("profile.edit.first_name_hint_text")}
             validate={c => {
               return validateContentByLength(c, 4, 32);
             }}
@@ -304,7 +303,7 @@ const ProfileEditable = props => {
             name={"name"}
             defaultValue={props.provider.name}
             onChange={props.handleEdit}
-            placeholder={props.t("profile.name_placeholder")}
+            placeholder={props.t("profile.edit.last_name_placeholder")}
             hintless
           />
         </div>
@@ -317,7 +316,7 @@ const ProfileEditable = props => {
             name={"profession"}
             defaultValue={props.provider.profession}
             onChange={props.handleEdit}
-            placeholder={props.t("profile.profession_placeholder")}
+            placeholder={props.t("profile.edit.profession_placeholder")}
             hintless
           />
         </div>
@@ -326,7 +325,7 @@ const ProfileEditable = props => {
             componentClass={"input"}
             type={"input"}
             name={"location"}
-            placeholder={props.t("profile.location_placeholder")}
+            placeholder={props.t("profile.edit.location_placeholder")}
             defaultValue={props.provider.location}
             onChange={props.handleEdit}
             hintless
@@ -340,7 +339,7 @@ const ProfileEditable = props => {
         componentClass={"textarea"}
         type={"input"}
         name={"about"}
-        placeholder={props.t("profile.about_placeholder")}
+        placeholder={props.t("profile.edit.about_placeholder")}
         defaultValue={props.provider.about}
         onChange={props.handleEdit}
         demand={"Too short"}
@@ -358,7 +357,7 @@ const ProfileEditable = props => {
         componentClass={"textarea"}
         type={"input"}
         name={"edu_bg"}
-        placeholder={props.t("profile.edu_bg_placeholder")}
+        placeholder={props.t("profile.edit.edu_bg_placeholder")}
         defaultValue={props.provider.edu_bg}
         onChange={props.handleEdit}
         demand={"Too short"}
