@@ -1,4 +1,6 @@
 import React from "react";
+import CookieConsent from "react-cookie-consent";
+
 import { CustomCarousel } from "app:components/carousel";
 import { withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
@@ -102,6 +104,26 @@ class Home extends React.Component {
         <div className="row row-home category-collection">
           {this.state.categories}
         </div>
+
+        <CookieConsent
+          onAccept={() => {alert("You Have Accepted our Cokkie Poli")}}
+          location="bottom"
+          buttonText="Accept"
+          cookieName="u/skillityCookie"
+          style={{  background: "#9B9B9B",
+                    fontSize: "16px"
+                  }}
+          buttonStyle={{  color: "white",
+                          fontSize: "16px",
+                          background: "#ff433a",
+                          padding: "0 20px 0 20px"
+                        }}>
+          <Trans i18nKey="home.cookie_text">This  website uses cookies to enhance the user experience.</Trans>{" "}
+
+          <span style={{ fontSize: "14px" }}>
+            <Trans i18nKey="home.cookie_subtext">By pressing the "Accept" you are agreeing to our Cookie Policiy as stated in our Terms and Conditions.</Trans>
+          </span>
+        </CookieConsent>
       </div>
     );
   }
