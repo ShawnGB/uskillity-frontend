@@ -1,0 +1,265 @@
+export const de = {
+  "about": {
+    "header": "Vision:",
+    "body_0": "The world is influenced and shaped by how much information, knowledge and skills people have. Having a broader skill-set leads to innovation and improvement of daily life. It contributes to the achievement of personal fulfilment and the discovery of inner passions. It helps us to comprehend challenges and be more critical.",
+    "body_1": "Schools and traditional educational institutions do not always teach us the necessary practical skills, and also neglect to modernise what is being thought. Furthermore, the decline of vocational opportunities due to technological advances can only be hindered if skills are being thought that are of importance to the future, and reflect our human emotions which cannot be automated.",
+    "body_2": "We envision a world where learning and teaching are much more accessible, people-centred and inspiring. We are determined to create a community that motivates, inspires and enables people to easily and efficiently learn new skills and share their talents to help others grow.",
+    "body_3": "We truly believe in people and their abilities to inspire others. We know that for any change in the world to happen, it is up to all of us to make a difference.",
+    "body_4": "We are creating u/skillity to give people a platform through which we can influence the world for the better.",
+    "contact": {
+      "header": "Contact",
+      "body_0": "We would love to hear from you!",
+      "body_1": "Do you have any questions for us? Suggestions perhaps? Or do you maybe want to collaborate? Send us an email with you query on: office@uskillity.de",
+      "body_2": "If you have general questions look at our help section on the left or check our posts on Facebook or Instagram."
+    },
+    "guidelines": {
+      "header": "Guidelines",
+      "body_0": "BE RESPECTFUL TO OTHERS",
+      "body_1": "As a community of people from different backgrounds, races and genders it’s important that we are patient, empathetic, respectful of one another and that we accept everyones differences.",
+      "body_2": "BE KIND TO OTHERS",
+      "body_3": "Treat fellow community members the same way you would like them to treat you. Don’t swear, be vulgar, or aggressive towards others. Show people that you are welcoming and ready to make new friends.",
+      "body_4": "NO VULGAR OR INAPPROPRIATE COMMENTS",
+      "body_5": "At u/skillity we do not appreciate or accept vulgar or inappropriate comments. If for any reason you have a problem with any community member either try to resolve the issue by being kind and respectful or contact the u/skillity office.",
+      "body_6": "NO DISCRIMINATION, RACISM OR SEXISM",
+      "body_7": "In no case whatsoever is discrimination, racism or sexism acceptable. At u/skillity we respect and accept everybody equally regardless of their background, race or gender. It is not acceptable to create workshops that are excluding people or are representing a racist or sexist topic.",
+      "body_8": "NO ADVERTISING OR OTHER COMMERCIAL CONTENT",
+      "body_9": "We do support instructors, teachers as well as their institutions, but u/skillity is first and foremost for it’s community and therefore prohibits any advertising or other commercial content.",
+      "body_10": "NO SPAM",
+      "body_11": "No unwanted messages or content posted on u/skillity.",
+      "body_12": "NO ILLEGAL OR HARMFUL CONTENT OR ACTIVITY",
+      "body_13": "No content that promotes illegal or harmful activity or is threatening, harassing, vulgar, obscene or profane.",
+      "body_14": "NO FAKE ACCOUNTS",
+      "body_15": "Fake accounts or the act of impersonating other people is prohibited.",
+      "body_16": "NO ILLEGAL CONTENT",
+      "body_17": "Illegal content or copyrighted content, meaning content whose legal rights belong to somebody else, is prohibited.",
+      "body_18": "FEEDBACK IS APPRECIATED",
+      "body_19": "Feedback in the form of reviews and ratings is very much appreciated, that is how we at u/skillity and our Skill-Sharers will know how to improve and reach your expectations and needs.",
+      "body_20": "NO REVIEWS THAT DO NOT REPRESENT PERSONAL EXPERIENCES",
+      "body_21": "If you have not attended a workshop, or have experienced u/skillity first hand, you may not state your opinion and publish a review or rating.",
+      "body_22": "NO REVIEWS THAT WERE PROMISED IN EXCHANGE FOR PAYMENT OR OTHER SERVICES",
+      "body_23": "Paying users, or any individual or service, or offering your own services, to post a review or rank on a workshop or instructor is highly prohibited.",
+      "body_24": " NO CONTENT THAT IS OFF-TOPIC",
+      "body_25": "Content that is of no relation to the workshop, or topic in hand, is prohibited from the platform.",
+      "body_26": "NO TROLLING OR TARGETING COMMUNITY MEMBERS",
+      "body_27": "Offensive or provocative trolling or targeting of community members is highly prohibited.",
+      "body_28": "UNDERAGE USERS",
+      "body_29": "Users that are under the age of 18 are only allowed to use the platform with the consent of their parents. When you register your profile you will be asked to confirm that you are over the age of 18. Abusing this rule can result in legal consequences.",
+      "body_30": "DELETE PROFILE",
+      "body_31": "Oh noooo, it makes us very sad that you are thinking about not being part of our community. But if you really wish to delete your profile please e-mail us on office@uskillity.de with your inquiry."
+    },
+    "help": {
+      "header": "Help",
+      "body_0": "For Instructors",
+      "body_1": "1. What should my qualifications be?",
+      "body_2": "Sometimes we master an ability just by mere life-experience. Therefore u/skillity is open to any qualifications as long as you feel like you can contribute to the learning community by sharing your skill. We are confident in peoples qualities but urge Instructors to be transparent and communicate their background to the learners.",
+      "body_3": "2. For some reason I have to cancel my workshop/tutoring? What do I do?",
+      "body_4": "You can cancel your workshop/tutoring up to 72h before the due date. If you comply with the adequate conditions money will be sent back to the learners and we will cover the fee for the payment provider. If by any chance you do not comply with the adequate conditions or cancel shortly before the workshop/tutoring-or after the 72h, then you have to cover the fee for the payment provider.",
+      "body_5": "3. What do I do if a student behaves inappropriately?",
+      "body_6": "If by any chance you encounter a student who is being vulgar, inappropriate, discriminatory or breaks any of u/skillity’s guidelines, please report that individual to us and we will take appropriate measures.",
+      "body_7": "4. When do I receive my payment?",
+      "body_8": "The payment is going to be send to you right after the conclusion of your workshop.",
+      "body_9": "5. I want to conduct a workshop only if its fully booked. What do I do?",
+      "body_10": "You have to state in the description that you only plan to conduct the workshop if it’s fully booked. In this case you have to make your decision 72h before the workshop is to take place otherwise, you have to cover the cost for the payment provider.",
+      "body_11": "6. Can I announce a workshop without stating the location yet?",
+      "body_12": "If you are still searching for a location, but you want to announce your workshop so people can plan their attendance, you can state in the description that the exact address will be announced in a later time. However, you do have to name the city the workshop is taking place.",
+      "body_13": "Tip from us: It is always better to have the location as early as possible because for some learners the decision to book a workshop might lie in the location itself.",
+      "body_14": "For Learners",
+      "body_15": "1. I bought a ticket but I cannot attend. What do I do?",
+      "body_16": "You have a chance to give the ticket back a week before the Workshop due date. Then you get your money back, but unfortunately without the fees for the payment provider. If you have to cancel the workshop after the due date you unfortunately will not be eligible for a refund, but you can always give your ticket to your best friend.",
+      "body_17": "2. How can I ask the Instructor something?",
+      "body_18": "If you have any question about the workshop/tutoring or instructor you can contact us on office@uskillity.de and we will inform you of everything that you need to know.",
+      "body_19": "3. I wasn’t satisfied by a workshop or instructor, what shall I do?",
+      "body_20": "We are very sorry you weren’t satisfied by a workshop or Instructor. You can write a review and also give the Instructor a rating. If you feel that the workshop or Instructor was inappropriate or he/she was breaking any u/skillity guidelines, please report the individual to us and we will take appropriate measures.",
+      "body_21": "4. What methods of payment does u/skillity accept?",
+      "body_22": "The payment methods we offer at the moment are Credit Card, Sofort Überweisung and Giro Pay.",
+      "body_23": "5. How is the price determined for the workshops?",
+      "body_24": "The price is determined by the workshop Instructors themselves. u/skillity does not give any limitations or guidelines of how much a workshop or tutoring should cost.",
+      "body_25": "6. What happens if a workshop is canceled?",
+      "body_26": "We are very sorry that the workshop/tutoring got canceled. If a workshop is canceled you get your money back and will be informed if the workshop will take place on another date.",
+      "body_27": "If you have any further questions please e-mail us on office@uskillity.de"
+    },
+    "press": {
+      "header": "Press",
+      "body_0": "Do you want to do a story on us? Have you already written about us and what to share?",
+      "body_1": "For any press related inquiries please e-mail us on press@uskillity.de "
+    },
+    "sidebar": {
+      "team": "Vision",
+      "contact": "Contact",
+      "press": "Press",
+      "help": "Help",
+      "guidelines": "Guidelines"
+    },
+    "team": {
+      "header": "Team",
+      "body_0": "For both Shawn and Irina, sitting for hours behind a desk in a classroom was one of the most tedious endeavours. They both found inspiration from activities they got to do away from the educational institutions, in environments that let them express their individuality and amplify their creativity.",
+      "body_1": "Shawn’s motivation was triggered by his difficulty resonating with the traditional school system. Rebelling against classical learning, he impelled into the professional world without a fancy diploma in his pocket and experienced obstacles finding ways to learn practical skills away from educational institutions. Moreover, he struggled to find personal fulfilment and passion in the current overly-structured and conservative educational environment.",
+      "body_2": "Irina followed a more conventional road and completed her master studies in Berlin. Dealing with the bureaucratic and institutional educational system, she comprehended the meaning of background privilege as well as the setbacks of the traditional model of teaching. Even more so, she was disheartened by the lack of soft as well as contemporary skills one could learn in the current educational system.",
+      "body_3": "Shawn and Irina’s different experiences and backgrounds brought a common thread in light. They both share a love for learning but they do not resonate with the way knowledge is stimulated and passed on. They both believe that knowledge shouldn’t be a privilege, people should be able to experience many different skills in order to find their passion. Learning should be tailored to the individual’s habits and affinities.",
+      "body_4": "Taking that notion in hand and combining it with a burning entrepreneurial sensation, Shawn and Irina decided to embark on a journey and build an environment where learning and teaching a skill is open for everyone, where learning and teaching is individualised, where a strong community of people willing to learn and share what they know strive.",
+      "body_5": "Sandeep & Andreas are not only responsible for the programming and technical side of u/skillity, but have also been a great support to the development of the overall project. Sandeep’s expertise on complex algorithms and data analysis, and Andreas’ proficiency in turning an idea into a business model with code infrastructure and agile culture brought u/skillity from a mere vision to a structured realisation.",
+      "body_6": "Coming from more open education in the creative field, Marija has had the opportunity to learn in an environment where experimentation and exploration of individual skills were encouraged. Having the opportunity to explore a variety of mediums of visual communication helped her to gain better understanding of her strengths and weaknesses. To her, having the opportunity to learn in a community of people who are passionate about what they do is an indispensable experience and inspiration in life.",
+      "body_7": "Eugene wishes someone has taught him how to successfully chase and capture flies. Growing up as a single kitty has deprived him from the opportunity to learn from other cats, so he behaves like a human. He wishes that one day he will have the opportunity to learn how to become a hunter so he can feel more comfortable in his cat skin."
+    },
+    "termsandconditions": {
+      "header": "Terms & Conditions",
+      "body_0": "Please read these Terms of Service carefully as they contain important information about your legal rights, remedies and obligations. By accessing or using the u/skillity Platform, you agree to comply with and be bound by these Terms of Service."
+    },
+    "vision": {
+      "header": "Vision:",
+      "body_0": "The world is influenced and shaped by how much information, knowledge and skills people have. Having a broader skill-set leads to innovation and improvement of daily life. It contributes to the achievement of personal fulfilment and the discovery of inner passions. It helps us to comprehend challenges and be more critical.",
+      "body_1": "Schools and traditional educational institutions do not always teach us the necessary practical skills, and also neglect to modernise what is being thought. Furthermore, the decline of vocational opportunities due to technological advances can only be hindered if skills are being thought that are of importance to the future, and reflect our human emotions which cannot be automated.",
+      "body_2": "We envision a world where learning and teaching are much more accessible, people-centred and inspiring. We are determined to create a community that motivates, inspires and enables people to easily and efficiently learn new skills and share their talents to help others grow.",
+      "body_3": "We truly believe in people and their abilities to inspire others. We know that for any change in the world to happen, it is up to all of us to make a difference.",
+      "body_4": "We are creating u/skillity to give people a platform through which we can influence the world for the better."
+    },
+    "nav": {
+      "vision": "Vision",
+      "team": "Team",
+      "contact": "Contact",
+      "press": "Press",
+      "help": "Help",
+      "guidelines": "Guidelines",
+      "termsandconditions": "Terms and Conditions"
+    }
+  },
+  "footer": {
+    "copyright": "© 2017 Nikolovska Becker UG - u/skillity",
+    "connect": "Connect",
+    "email": "office@uskillity.de",
+    "name": "u/Skillity",
+    "vision": "Vision",
+    "team": "Team",
+    "press": "Press",
+    "guidelines": "Guidelines",
+    "help": "Help",
+    "impressum": "Impressum",
+    "termsandconditions": "Terms and Conditions",
+    "datenschutz": "Datenschutz"
+  },
+  "login": {
+    "modal": {
+      "title": "uSkillity"
+    },
+    "form": {
+      "email_placeholder": "Email",
+      "password_placeholder": "Password",
+      "button_login_facebook": "Log in with Facebook",
+      "button_login": "Log in",
+      "button_register": "Not a user? Sign up."
+    }
+  },
+  "navbar": {
+    "button_register": "Register now",
+    "button_my_account": "My Account",
+    "button_login": "Log in",
+    "button_logout": "Log out",
+    "button_share_skill": "Share your skill",
+    "button_learn_skill": "Learn a skill",
+    "button_about": "about"
+  },
+  "register": {
+    "modal": {
+      "title": "uSkillity"
+    },
+    "form": {
+      "placehodler_email": "Email",
+      "placehodler_name": "Name",
+      "placehodler_first_name": "Last Name",
+      "placehodler_password": "Password",
+      "placehodler_confirm_password": "Confirm Password",
+      "button_register": "Register",
+      "button_register_facebook": "Register with Facebook",
+      "older_than_16": "I am older than 16 years of age",
+      "button_login": "Do you already have an account? Login here.",
+      "newsletter": "I wish to receive subscribe to the u/skillity newsletter"
+    }
+  },
+  "home": {
+    "header": "WELCOME TO u/skillity",
+    "body_0": "u/skillity is a community of learners and instructors who envision a world where learning and teaching are much more accessible, people-centred and inspiring.",
+    "body_1": "Our mission is to empower people to more efficiently share and learn skills, so that together we can influence the world for the better.",
+    "slogan": "Love what you learn, share what you love",
+    "cookie_text": "This website uses cookies to enhance the user experience.",
+    "cookie_subtext": "By pressing the \"Accept\" you are agreeing to our Cookie Policiy as stated in our Terms and Conditions."
+  },
+  "profile": {
+    "header_skill": "Profile Skill",
+    "header_about_me": "About Me",
+    "header_educational_background": "Background",
+    "courses": {
+      "header": "My Shared Skills",
+      "no_skill_found": "You are not sharing any of your skills."
+    },
+    "edit": {
+      "first_name_placeholder": "First name",
+      "first_name_hint_text": "hint",
+      "last_name_placeholder": "Last name",
+      "profession_placeholder": "Profession",
+      "location_placeholder": "Location",
+      "about_placeholder": "About",
+      "edu_bg_placeholder": "Education and background",
+      "placeholder_profandpassion": "Profession or Passion",
+      "placeholder_residence": "Residence",
+      "upload_profile": {
+        "image": "Upload a profile picture"
+      },
+      "name": "Name",
+      "button_save": "Save"
+    },
+    "payment_details": "Payment Details",
+    "delete_payment_method": "Delete Payment Method",
+    "connect_your_stripe_account": "Course Provider - Connect your Stripe Account",
+    "payment_method_limitations": "You won't be able to offer workshops until you connect your Stripe account. By clicking this button, you will be redirected to Stripe, to connect your stripe account. In case you do not have a stripe account yet, please create a stripe account.",
+    "connect_stripe_btn": "Connect Stripe",
+    "please_allow_popups": "NOTE: please allow pop-ups in your browser. Stripe will open in a new tab/window."
+  },
+  "share_skill": {
+    "title_placeholder": "Be creative, but precise...",
+    "description_placeholder": "Explain more in detail what people can learn from your skill",
+    "additional_requirements_placeholder": "Ex. basic knowledge of ... only participants that can bring/have ...",
+    "location_placeholder": "Where you will be teaching your skill",
+    "participant_number_placeholder": "Number of participants",
+    "price_placeholder": "How much will it cost?",
+    "header_0": "Share your skill with us",
+    "header_1": "We are so glad you want to share your skill with us",
+    "header_2": "It might take up to two days for us to process your application. We do this only to avoid vulgarities and inappropriate posts. We also give feedback towards the presentation of your skill so you can have more success conducting it.<1>{\" \"}</1>",
+    "title_label": "Title of skill",
+    "category_label": "Category",
+    "description_label": "Description",
+    "requriements_label": "Requriements",
+    "age_from_label": "Age From",
+    "age_to_label": "Age To",
+    "recommended_label": "Recommended level",
+    "additional_requirements_label": "Additional Requirements",
+    "location_label": "Location",
+    "participant_number_label": "Number of participants",
+    "price_title": "Price",
+    "button_save_workshop": "Save Workshop",
+    "date_and_time_label": "Date and time",
+    "button_add_another_date": "Add another day to the same course",
+    "button_upload_picture": "Upload a cover photo",
+    "checkbox_agreement": "I herby declare that I read the terms and conditions as stated on this website and agree with them",
+    "button_sumbit": "Submit",
+    "starts_at_text_placeholder": "__STRING_NOT_TRANSLATED__",
+    "ends_at_text_placeholder": "__STRING_NOT_TRANSLATED__"
+  },
+  "workshop": {
+    "description_label": "Description",
+    "requirements_label": "Requirements",
+    "who_can_attend_label": "Who can attend",
+    "about_the_instructor_label": "About the instructor",
+    "instructor": {
+      "header": "Instructor",
+      "button_see_profile": "See Profile",
+      "button_edit_workshop": "Edit"
+    },
+    "recommended_label": "Recommended"
+  },
+  "participation": {
+    "reserve": "Buy Ticket"
+  },
+  "payment_method_form": {
+    "add_method": "Add Payment Method"
+  }
+}
