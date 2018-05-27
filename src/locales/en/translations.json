@@ -156,11 +156,11 @@
     "button_logout": "Log out",
     "button_share_skill": "Share your skill",
     "button_learn_skill": "Learn a Skill",
-    "button_about": "u/about"
+    "button_about": "about"
   },
   "register": {
     "modal": {
-      "title": "uSkillity"
+      "title": "u/skillity"
     },
     "form": {
       "placehodler_email": "Email",
@@ -171,14 +171,17 @@
       "button_register": "Register",
       "button_register_facebook": "Register with Facebook",
       "older_than_16": "I am older than 16 years of age",
-      "button_login": "Do you already have an account? Login here."
+      "button_login": "Do you already have an account? Login here.",
+      "newsletter": "I wish to receive subscribe to the u/skillity newsletter"
     }
   },
   "home": {
-    "header": "WELCOME TO u/skillity",
+    "header": "Welcome to u/skillity",
     "body_0": "u/skillity is a community of learners and instructors who envision a world where learning and teaching are much more accessible, people-centred and inspiring.",
     "body_1": "Our mission is to empower people to more efficiently share and learn skills, so that together we can influence the world for the better.",
-    "slogan": "Love what you learn, share what you love"
+    "slogan": "Love what you learn, share what you love",
+    "cookie_text": "This website uses cookies to enhance the user experience.",
+    "cookie_subtext": "By pressing the \"Accept\" you are agreeing to our Cookie Policiy as stated in our Terms and Conditions."
   },
   "profile": {
     "header_skill": "Profile Skill",
