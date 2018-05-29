@@ -126,7 +126,7 @@ class ParticipationForm extends React.Component {
             type="button"
             onClick={this.handleSubmit}
             >
-              <Trans>Reserve</Trans>
+                    <Trans i18nKey="participation.reserve">Buy Ticket</Trans>
           </button>
             </div>
           );

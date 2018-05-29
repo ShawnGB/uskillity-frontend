@@ -1,8 +1,10 @@
 import React from "react";
+import CookieConsent from "react-cookie-consent";
+
 import { CustomCarousel } from "app:components/carousel";
 import { withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
-import { translate } from "react-i18next";
+import { translate, Trans } from "react-i18next";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
 import * as service from "app:utils/service";
@@ -61,7 +63,11 @@ class Home extends React.Component {
                 key={category.id}
                 style={{ backgroundImage: `url(${category.image})` }}
               >
-                <h2>{category.name.toUpperCase()}</h2>
+              <div className="overlay">
+                  <div id="up">Your new</div>
+                  <div id="down">Skills</div>
+                </div>
+                <h3 className="catDesc">{category.name}</h3>
               </div>
             </div>
           );
@@ -90,12 +96,34 @@ class Home extends React.Component {
         <CustomCarousel items={this.state.workshops}/>
 
         <div className="row">
-          <p id="banner">Love what you learn, share what you love</p>
+            <p id="banner">
+                <Trans i18nKey="home.slogan">Love what you learn, share what you love</Trans>
+            </p>
         </div>
 
         <div className="row row-home category-collection">
           {this.state.categories}
         </div>
+
+        <CookieConsent
+          onAccept={() => {alert("You Have Accepted our Cokkie Poli")}}
+          location="bottom"
+          buttonText="Accept"
+          cookieName="u/skillityCookie"
+          style={{  background: "#9B9B9B",
+                    fontSize: "16px"
+                  }}
+          buttonStyle={{  color: "white",
+                          fontSize: "16px",
+                          background: "#ff433a",
+                          padding: "0 20px 0 20px"
+                        }}>
+          <Trans i18nKey="home.cookie_text">This  website uses cookies to enhance the user experience.</Trans>{" "}
+
+          <span style={{ fontSize: "14px" }}>
+            <Trans i18nKey="home.cookie_subtext">By pressing the "Accept" you are agreeing to our Cookie Policiy as stated in our Terms and Conditions.</Trans>
+          </span>
+        </CookieConsent>
       </div>
     );
   }

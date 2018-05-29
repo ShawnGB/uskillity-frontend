@@ -1,5 +1,5 @@
 h1 {
-  font-size: 30px !important;
+  font-size: 48px !important;
   font-weight: bold !important;
   max-width: 400px;
 }
@@ -9,6 +9,10 @@ h2 {
   color: #ff433a !important;
 }
 
+h3 {
+  font-size: 28px !important;
+  font-weight:normal !important;
+}
 .home-heading {
 	font-size: 36px;
 	font-weight: 500;
@@ -27,18 +31,21 @@ h2 {
 }
 
 #banner {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding: 40px;
   width: 100%;
   font-size: 32px;
   letter-spacing: 2.5;
   color: #717171;
   text-align: center;
 }
-
-.home-category-wrapper {
-	margin-top: 16px;
+.category-collection {
+  width: 100%;
+  display:inline-flex;;
+	align-items: center;
+	justify-content: center;
+  padding: 20px;
 }
+
 
 .home-category {
 	background-image: url(https://s3.amazonaws.com/uskillity-assets-staging/static/images/categories/robot-507811_1920.png);
@@ -55,6 +62,51 @@ h2 {
 	justify-content: center;
 	color: white;
 	cursor: pointer;
+}
+
+.home-category:hover .overlay {
+  opacity: 1;
+}
+.overlay {
+  width: inherit;
+  height: inherit;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #f9423a;
+  box-shadow: 2px 2px 4px 0px #9B9B9B;
+  position: absolute;
+  top: 0;
+  left:0;
+  display: block;
+}
+
+#down {
+  color: white;
+  font-family: serif;
+  font-size: 20;
+  letter-spacing: 2;
+
+  position: absolute;
+  top: 70%;
+  left:50%;
+  transform: translate(-50%);
+}
+#up {
+  color: white;
+  font-family: serif;
+  font-size: 20;
+  letter-spacing: 2;
+
+  position: absolute;
+  top: 25%;
+  left:50%;
+  transform: translate(-50%);
+}
+
+.catDesc {
+  text-align: center;
+  position: absolute;
+  transform: translateY(-50%);
 }
 
 .row-home {
@@ -81,31 +133,32 @@ h2 {
 	background-position-x: center;
 	background-position-y: center;
 	min-height: 240px;
-	padding-top: 60%;
-	/*height: 100%;*/
-
+	height:480px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	color: white;
 	cursor: pointer;
+  filter: brightness(0.6);
+  filter: sepia(0.25);
 }
 
 .home-workshop-info {
-	height: 33%;
-	width: 75%;
-	top: 33%;
-	position: absolute;
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  color:white;
+  transform:translateY(-50%);
+	width:100%;
 }
 
-.home-random-workshop-img {
-	max-height: 400px;
-	width: 100%;
+.carousel-indicators {
+  border: solid 0px #ff433a !important;
 }
 
 .carousel-indicators .active {
 	background-color: rgba(0, 0, 0, 0) !important;
-	border: solid 2px #ff433a !important;
+	border: solid 0px #ff433a !important;
 }
 
 .about-provider {
@@ -115,9 +168,15 @@ h2 {
 .about-provider-p {
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  overflow-wrap: break-word;
-  margin: 2px auto;
+  width: 400px;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  font-size: 20px;
+  /* background-color: rgba(255, 67, 58, 0.5); */
+  display: border-box;
+  margin: 16px 0 16px 0;
+  padding: 20px;
+
 }
 
 .see-more {
@@ -127,9 +186,6 @@ h2 {
 }
 
 @media (max-width: 768px) {
-	.home-category-wrapper {
-		height: 240px;
-	}
 
   .about-provider-p {
     max-width: 240px;
@@ -149,36 +205,79 @@ h2 {
   	position: absolute;
   }
 
-  .home-workshop-info > h1{
+  .category-collection {
+    width: 100%;
+    display:inline;
+  	align-items: center;
+  	justify-content: center;
+  }
+
+  .home-category-wrapper2 {
+  height: 240px;
+  display: inline-flex;
+  margin-left: 6%;
+  }
+
+  .home-category2 {
+  	background-image: url(https://s3.amazonaws.com/uskillity-assets-staging/static/images/categories/robot-507811_1920.png);
+  	background-repeat-x: no-repeat;
+  	background-size: cover;
+  	background-repeat-y: no-repeat;
+  	background-position-x: center;
+  	background-position-y: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  	display: flex;
+  	align-items: center;
+  	justify-content: center;
+  	color: white;
+  	cursor: pointer;
+  }
+
+  .home-category-wrapper {
+    height: 240px;
+  }
+
+  h3 {
     font-size: 20px !important;
+    font-weight:normal !important;
   }
 
-  .see-more {
-    margin-top: 3%;
-    width: 75px;
-    border: 1px solid white;
-  }
-
-  .see-more > h3 {
-    font-size: 10px !important ;
-    margin: 6px;
-  }
 }
 
 @media (min-width: 769px) {
 	.home-category-wrapper {
 		height: 240px;
 	}
+
+  .home-category-wrapper2 {
+    max-width:180px;
+    height: 380px;
+  }
+
 }
 
 @media (min-width: 993px) {
 	.home-category-wrapper {
 		height: 240px;
 	}
+  .home-category-wrapper2 {
+    max-width:180px;
+    height: 380px;
+  }
+
 }
 
 @media (min-width: 1201px) {
 	.home-category-wrapper {
 		height: 240px;
 	}
+
+  .home-category-wrapper2 {
+    max-width:180px;
+    height: 380px;
+  }
+
+
 }
