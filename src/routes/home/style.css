@@ -63,10 +63,10 @@ h3 {
 	color: white;
 	cursor: pointer;
 }
-
+/* unComment when design is fixed
 .home-category:hover .overlay {
   opacity: 1;
-}
+} */
 .overlay {
   width: inherit;
   height: inherit;
