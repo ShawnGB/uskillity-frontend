@@ -15,7 +15,8 @@ class RegisterForm extends Component {
         password: "",
         password_confirmation: "",
         is_above_16: false,
-        agrees_to_everything: false
+        agrees_to_everything: false,
+        newsletter: false
       },
       error: {
         message: ""
@@ -39,6 +40,7 @@ class RegisterForm extends Component {
       this.props.handleSubmit(user);
     }
   }
+
 
   render() {
     const { t } = this.props;
@@ -123,6 +125,19 @@ class RegisterForm extends Component {
                 />
                 <p style={{ fontSize: "14px" }}>
                     I accept the <Link to="/terms">terms & conditions,</Link> <Link to="/datenschutz">privacy policy</Link>, and the <Link to="/guidelines">guidelines</Link>
+                </p>
+              </label>
+            </div>
+            <div className="checkbox">
+              <label>
+                <input
+                  type="checkbox"
+                  value={this.state.user.newsletter}
+                  name="newsletter"
+                  onChange={this.onChange}
+                />
+                <p style={{ fontSize: "14px" }}>
+                    I wish to receive the u/skillity newsletter.
                 </p>
               </label>
             </div>
