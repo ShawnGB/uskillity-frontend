@@ -1,6 +1,7 @@
 import React from "react";
 import { translate } from "react-i18next";
 import "./style.css";
+import pdf from '../../images/Muster - Wiederrufsformuar.pdf'
 
 class TermsConditions extends React.Component {
   render() {
@@ -159,16 +160,31 @@ class TermsConditions extends React.Component {
         Widerrufsbelehrung
       </h2>
       <p className="about-content">
-        <p>Wenn Sie uskillity als Verbraucher nutzen, gilt für Sie das folgende
-          Widerrufsrecht:</p>
-          <p>Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.
+        <h2>Wenn Sie uskillity als Verbraucher nutzen, gilt für Sie das folgende
+          Widerrufsrecht:</h2>
+          <p>Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.</p>
+          <p>
             Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses.
-            Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (NIKOLOVSKA BECKER UG, Glasbläserallee 10, 10245 Berlin, Tel.+4915129197391, E-Mail office@uskillity.de) mittels einer ein-deutigen Erklärung (z.B. ein mit der Post versandter Brief, Telefax oder E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das beigefügte Mu-ster-Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist.
-            Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.
-            Folgen des Widerrufs</p>
-            <p>
-              Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhal-ten haben, einschließlich der Lieferkosten (mit Ausnahme der zusätzlichen Kosten, die sich daraus ergeben, dass Sie eine andere Art der Lieferung als die von uns angebotene, günstig-ste Standardlieferung gewählt haben), unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei uns eingegangen ist. Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, dass Sie bei der ursprünglichen Transaktion eingesetzt haben, es sei denn, mit Ihnen wurde aus-drücklich etwas anderes vereinbart; in keinem Fall werden Ihnen wegen dieser Rückzahlung Entgelte berechnet. Haben Sie verlangt, dass die Dienstleistungen während der Widerrufsfrist beginnen sollen, so haben Sie uns einen angemessenen Betrag zu zahlen, der dem Anteil der bis zu dem Zeitpunkt, zu dem Sie uns von der Ausübung des Widerrufsrechts hinsichtlich dieses Vertrags unterrichten, bereits erbrachten Dienstleistungen im Vergleich zum Gesamt-umfang der im Vertrag vorgesehenen Dienstleistungen entspricht.</p>
-            </p>
+            Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (NIKOLOVSKA BECKER UG, Glasbläserallee 10, 10245 Berlin, Tel.+4915129197391, E-Mail office@uskillity.de) mittels einer ein-deutigen Erklärung (z.B. ein mit der Post versandter Brief, Telefax oder E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren.
+          </p>
+          <p>
+            Sie können dafür das beigefügte Mu-ster-Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist.
+          </p>
+          <p>
+              Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.
+          </p>
+          <h2>
+            Folgen des Widerrufs
+          </h2>
+          <p>
+            Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhal-ten haben, einschließlich der Lieferkosten (mit Ausnahme der zusätzlichen Kosten, die sich daraus ergeben, dass Sie eine andere Art der Lieferung als die von uns angebotene, günstig-ste Standardlieferung gewählt haben), unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei uns eingegangen ist.
+          </p>
+          <p>Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, dass Sie bei der ursprünglichen Transaktion eingesetzt haben, es sei denn, mit Ihnen wurde aus-drücklich etwas anderes vereinbart; in keinem Fall werden Ihnen wegen dieser Rückzahlung Entgelte berechnet. Haben Sie verlangt, dass die Dienstleistungen während der Widerrufsfrist beginnen sollen, so haben Sie uns einen angemessenen Betrag zu zahlen, der dem Anteil der bis zu dem Zeitpunkt, zu dem Sie uns von der Ausübung des Widerrufsrechts hinsichtlich dieses Vertrags unterrichten, bereits erbrachten Dienstleistungen im Vergleich zum Gesamt-umfang der im Vertrag vorgesehenen Dienstleistungen entspricht.</p>
+
+      </p>
+
+       <a href={pdf}>Muster Wiederrufsformular</a>
+
           </div>
     );
   }
