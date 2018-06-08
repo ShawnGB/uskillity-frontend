@@ -26,7 +26,7 @@ class Footer extends Component {
               <div className="col-sm-6 col-xs-6 center">
                 <div>
                   <p className="footer-item" style={{ marginLeft: "20px" }}>
-                    <Trans i18nKey="footer.email">office@uskillity.de</Trans>
+                    <a href='mailto:info@uskillity.de'>Contact us</a>
                   </p>
                   <div className="opacity">
                     <Facebook
