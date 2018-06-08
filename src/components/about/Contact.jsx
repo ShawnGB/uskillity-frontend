@@ -3,6 +3,10 @@ import { translate, Trans } from "react-i18next";
 import "./style.css";
 
 class Contact extends React.Component {
+  componentDidMount() {
+    window.scrollTo(0,0);
+}
+
   render() {
     return (
       <div>

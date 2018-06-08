@@ -4,6 +4,9 @@ import "./style.css";
 import pdf from '../../images/Muster - Wiederrufsformuar.pdf'
 
 class TermsConditions extends React.Component {
+  componentDidMount() {
+    window.scrollTo(0,0);
+  }
   render() {
     return (
       <div>
