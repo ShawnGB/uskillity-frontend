@@ -106,7 +106,7 @@ class Home extends React.Component {
         </div>
 
         <CookieConsent
-          onAccept={() => {alert("You Have Accepted our Cokkie Poli")}}
+          onAccept={() => {alert("You Have Accepted our Cookie Policy")}}
           location="bottom"
           buttonText="Accept"
           cookieName="u/skillityCookie"
