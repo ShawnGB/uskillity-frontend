@@ -10,3 +10,25 @@
   padding-left: 12.5%;
   padding-right: 12.5%;
 }
+
+@media (max-width: 768px) {
+  .verAlling {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+}
+
+@media (min-width: 769px) {
+
+}
+
+@media (min-width: 993px) {
+
+
+}
+
+@media (min-width: 1201px) {
+
+
+}
