@@ -156,7 +156,7 @@ export const en = {
     "button_logout": "Log out",
     "button_share_skill": "Share your skill",
     "button_learn_skill": "Learn a Skill",
-    "button_about": "about"
+    "button_about": "About"
   },
   "register": {
     "modal": {

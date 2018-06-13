@@ -62,6 +62,7 @@ h3 {
 	justify-content: center;
 	color: white;
 	cursor: pointer;
+  margin: 20px 0 20px 0;
 }
 /* unComment when design is fixed
 .home-category:hover .overlay {
@@ -193,7 +194,7 @@ h3 {
     overflow:hidden;
     text-overflow: ellipsis;
     font-size: 16px;
-    background-color: rgba(255, 67, 58, 0.5);
+    /* background-color: rgba(255, 67, 58, 0.5); */
     display: border-box;
     margin: 16px 0 16px 0;
     padding: 10px;
