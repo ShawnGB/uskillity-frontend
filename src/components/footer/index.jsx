@@ -11,6 +11,8 @@ class Footer extends Component {
   render() {
     return (
       <div className="containerFooter">
+      <div className="container">
+
         <div className="row">
           <div className="col-sm-6 footer-block">
             <div className="row">
@@ -97,6 +99,7 @@ class Footer extends Component {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     );
