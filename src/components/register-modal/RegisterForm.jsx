@@ -16,7 +16,7 @@ class RegisterForm extends Component {
         password_confirmation: "",
         is_above_16: false,
         agrees_to_everything: false,
-        // newsletter: false
+        newsletter: false
       },
       error: {
         message: ""
@@ -131,7 +131,7 @@ class RegisterForm extends Component {
                 During u/skillity’s workshops, videos or photos will be taken, which may or may not include your recognisable image. Please be advised, by participating in the workshops, you agree to allow u/skillity use the images in any reproductions or adaptations for publicity or other purposes such as print, digital or web formats including social media, newsletters, blogs and PR. If you do not wish to be photographed please inform u/skillity or the workshop instructor.
               </Trans>
             </p>
-            {/*<label>
+            <label>
               <input
                 type="checkbox"
                 value={this.state.user.newsletter}
@@ -143,7 +143,7 @@ class RegisterForm extends Component {
                   I wush to receive the u/skillity newsletter
                 </Trans>
               </p>
-            </label>*/}
+            </label>
             </div>
             <div className="form-group">
               <button
