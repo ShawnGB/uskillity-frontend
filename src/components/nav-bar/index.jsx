@@ -11,10 +11,17 @@ import AuthModals from "app:components/auth-modals";
 import { Navbar, Nav, NavItem } from "react-bootstrap";
 
 class MenuBar extends React.Component {
+
+  openExternalURL() {
+  window.open("https://www.facebook.com/groups/835973433271160/?source_id=1019044938179452")
+}
+
+
   render() {
     const { session, history } = this.props;
     const { user } = session;
     const isLoggedIn = session && session.isLoggedIn;
+
     return (
       <div>
         <Navbar collapseOnSelect>
@@ -22,10 +29,15 @@ class MenuBar extends React.Component {
             <Link to="/">
               <img src={logo} className="logo" alt="" />
             </Link>
+
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
+
+
+
             <Nav pullRight className="collapse-nav menubar-menu-collection">
+
               <NavItem onClick={e => history.push("/shareyourskill")}>
                 <Trans i18nKey="navbar.button_share_skill">Share a skill</Trans>
               </NavItem>
@@ -52,6 +64,9 @@ class MenuBar extends React.Component {
                   <Trans i18nKey="navbar.button_my_account">My Account</Trans>
                 </NavItem>
               )}
+              <NavItem onClick={this.openExternalURL}>
+                <Trans i18nKey="navbar.button_community">Connect to the Community</Trans>
+                </NavItem>
               {!isLoggedIn ? (
                 <NavItem
                   onClick={() =>
@@ -66,6 +81,7 @@ class MenuBar extends React.Component {
                   <Trans i18nKey="navbar.button_logout">Log out</Trans>
                 </NavItem>
               )}
+
             </Nav>
           </Navbar.Collapse>
         </Navbar>
