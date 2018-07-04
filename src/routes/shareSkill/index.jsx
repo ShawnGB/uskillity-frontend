@@ -617,6 +617,13 @@ class ShareSkill extends Component {
                       />
                     ))}
                   </div>
+                  <span>
+                  <Trans i18nKey="share_skill.add_session_describtion">
+                  To SAVE the date please press on the green PLUS.
+                  To ADD  dates press the PLUS sign again. To DELETE a date press the red MINUS.
+                  The dates with the MINUS NEXT to them ARE ADDED to the workshop.
+                  </Trans>
+                  </span>
                 </div>
               </div>
               <div style={showWsDetails}>
