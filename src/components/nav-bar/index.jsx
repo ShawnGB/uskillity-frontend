@@ -38,12 +38,12 @@ class MenuBar extends React.Component {
 
             <Nav pullRight className="collapse-nav menubar-menu-collection">
 
-              <NavItem onClick={e => history.push("/shareyourskill")}>
-                <Trans i18nKey="navbar.button_share_skill">Share a skill</Trans>
-              </NavItem>
-
               <NavItem onClick={e => history.push("/learnskill")}>
                 <Trans i18nKey="navbar.button_learn_skill">Learn a Skill</Trans>
+              </NavItem>
+
+              <NavItem onClick={e => history.push("/shareyourskill")}>
+                <Trans i18nKey="navbar.button_share_skill">Share a skill</Trans>
               </NavItem>
 
               <NavItem onClick={e => history.push("/about")}>
@@ -65,7 +65,7 @@ class MenuBar extends React.Component {
                 </NavItem>
               )}
               <NavItem onClick={this.openExternalURL}>
-                <Trans i18nKey="navbar.button_community">Connect to the Community</Trans>
+                <Trans i18nKey="navbar.button_community">Community</Trans>
                 </NavItem>
               {!isLoggedIn ? (
                 <NavItem

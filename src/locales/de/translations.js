@@ -150,12 +150,12 @@ export const de = {
     }
   },
   "navbar": {
-    "button_register": "Register now",
+    "button_register": "Register",
     "button_my_account": "My Account",
     "button_login": "Log in",
     "button_logout": "Log out",
-    "button_share_skill": "Share your skill",
-    "button_learn_skill": "Learn a skill",
+    "button_share_skill": "Share your Skill",
+    "button_learn_skill": "Workshops",
     "button_about": "About"
   },
   "register": {
