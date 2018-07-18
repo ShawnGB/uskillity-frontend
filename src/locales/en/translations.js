@@ -81,7 +81,7 @@ export const en = {
     "press": {
       "header": "Press",
       "body_0": "Do you want to do a story on us? Have you already written about us and what to share?",
-      "body_1": "For any press related inquiries please e-mail us on press@uskillity.de "
+      "body_1": "For any press related inquiries please e-mail us on office@uskillity.de "
     },
     "sidebar": {
       "team": "Vision",
