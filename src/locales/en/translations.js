@@ -179,7 +179,7 @@ export const en = {
     "header": "Welcome to u/skillity",
     "body_0": "u/skillity is a community of learners and instructors who envision a world where learning and teaching are much more accessible, people-centred and inspiring.",
     "body_1": "Our mission is to empower people to more efficiently share and learn skills, so that together we can influence the world for the better.",
-    "slogan": "Love what you learn, share what you love",
+    "slogan": "COMMUNITY",
     "cookie_text": "We use cookies to ensure that we give you the best experience on our website. You can change or turn of cookies in the settings in your browser, however, some features on this site might not work as well without them.",
     "cookie_subtext": "By pressing the \"Accept\" you are agreeing to our Cookie Policiy as stated in our Terms and Conditions."
   },
