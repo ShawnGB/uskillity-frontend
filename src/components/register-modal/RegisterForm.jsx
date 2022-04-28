@@ -41,6 +41,7 @@ class RegisterForm extends Component {
     }
   }
 
+
   render() {
     const { t } = this.props;
     return (
@@ -144,6 +145,19 @@ class RegisterForm extends Component {
                 </Trans>
               </p>
             </label>
+            </div>
+            <div className="checkbox">
+              <label>
+                <input
+                  type="checkbox"
+                  value={this.state.user.newsletter}
+                  name="newsletter"
+                  onChange={this.onChange}
+                />
+                <p style={{ fontSize: "14px" }}>
+                    I wish to receive the u/skillity newsletter.
+                </p>
+              </label>
             </div>
             <div className="form-group">
               <button
